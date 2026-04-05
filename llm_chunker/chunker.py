@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import json
 import re
+from typing import Optional
 
 from .llm_client import QwenClient
 from .prompts import ChunkingPrompt
@@ -15,19 +18,19 @@ class LLMChunker:
 
     def __init__(
         self,
-        client: QwenClient | None = None,
-        prompt: ChunkingPrompt | None = None,
+        client: Optional[QwenClient] = None,
+        prompt: Optional[ChunkingPrompt] = None,
     ) -> None:
         self.client = client or QwenClient()
         self.prompt = prompt or ChunkingPrompt()
 
-    def chunk(self, text: str) -> list[str]:
+    def chunk(self, text: str) -> list:
         """Return a list of semantic chunks for the given text."""
         messages = self.prompt.as_messages(text)
         raw = self.client.chat(messages)
         return self._parse_response(raw)
 
-    def _parse_response(self, raw: str) -> list[str]:
+    def _parse_response(self, raw: str) -> list:
         """Extract a JSON string array from the model response."""
         # Strip markdown code fences if present
         cleaned = re.sub(r"```(?:json)?\s*|\s*```", "", raw).strip()

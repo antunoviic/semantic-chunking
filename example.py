@@ -1,4 +1,4 @@
-from llm_chunker import LLMChunker
+from llm_chunker import LLMChunker, QwenClient
 
 
 class SampleText:
@@ -20,7 +20,7 @@ class SampleText:
 
 
 if __name__ == "__main__":
-    chunker = LLMChunker()
+    chunker = LLMChunker(client=QwenClient(thinking=False))
     chunks = chunker.chunk(SampleText.MIXED_TOPICS)
 
     print(f"\n{len(chunks)} Chunks gefunden:\n")
