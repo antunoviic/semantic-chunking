@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import re
 from typing import Optional
 
@@ -31,23 +30,7 @@ class LLMChunker:
         return self._parse_response(raw)
 
     def _parse_response(self, raw: str) -> list:
-        """Extract a JSON string array from the model response."""
-        # Strip markdown code fences if present
-        cleaned = re.sub(r"```(?:json)?\s*|\s*```", "", raw).strip()
-
-        try:
-            chunks = json.loads(cleaned)
-        except json.JSONDecodeError:
-            # Fallback: try to find the first JSON array in the response
-            match = re.search(r"\[.*\]", cleaned, re.DOTALL)
-            if match:
-                chunks = json.loads(match.group())
-            else:
-                raise ValueError(
-                    f"Could not parse LLM response as JSON array.\nRaw response:\n{raw}"
-                )
-
-        if not isinstance(chunks, list) or not all(isinstance(c, str) for c in chunks):
-            raise TypeError("Expected a JSON array of strings from the LLM.")
-
+        """Split the model response on the delimiter defined in the prompt."""
+        delimiter = self.prompt.delimiter
+        chunks = raw.split(delimiter)
         return [c.strip() for c in chunks if c.strip()]

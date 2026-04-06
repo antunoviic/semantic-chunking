@@ -6,23 +6,29 @@ class ChunkingPrompt:
     """Builds the prompt sent to the LLM for semantic chunking decisions."""
 
     system_message: str = field(default=(
-        "You are a text segmentation expert for RAG pipelines. "
-        "Your task is to group text into semantically coherent chunks. "
-        "Each chunk must cover ONE topic or concept and contain MULTIPLE related sentences — never split a single sentence into its own chunk. "
-        "Merge sentences that belong to the same topic into one chunk. "
-        "Do not summarize, rephrase, or alter the text in any way."
+        "You are a text segmentation tool for RAG pipelines. "
+        "You split text at topic boundaries. You never alter, summarize, or rephrase the text."
     ))
 
     instruction_template: str = field(default=(
-        "Split the following text into semantically coherent chunks for a RAG system.\n"
+        "Split this text into semantically coherent chunks.\n\n"
         "Rules:\n"
-        "- Each chunk covers exactly ONE topic and contains multiple related sentences.\n"
-        "- NEVER make a single sentence its own chunk — always group related sentences together.\n"
-        "- Do not split headings from the paragraph they introduce.\n"
-        "- Return ONLY a valid JSON array of strings (no objects, no keys, no markdown).\n"
-        "Example: [\"Heading and its full paragraph text...\", \"Next topic with all its sentences...\"]\n\n"
+        "1. A chunk = all consecutive sentences about the SAME topic, entity, or concept.\n"
+        "2. Start a new chunk ONLY when the subject clearly changes.\n"
+        "3. Never put a single sentence alone — merge it with its neighbours.\n"
+        "4. Keep headings attached to the paragraph they introduce.\n"
+        "5. Preserve the original text exactly — no rewriting.\n\n"
+        "Output format:\n"
+        "Return chunks separated by the delimiter |||. No JSON, no markdown, no numbering.\n\n"
+        "GOOD example:\n"
+        "Machine learning is a subset of AI. It allows systems to learn from data.|||"
+        "The Eiffel Tower was built in 1889. It stands 330 meters tall.\n\n"
+        "BAD example (single-sentence chunks — NEVER do this):\n"
+        "Machine learning is a subset of AI.|||It allows systems to learn from data.\n\n"
         "Text:\n{text}"
     ))
+
+    delimiter: str = "|||"
 
     def build_user_message(self, text: str) -> str:
         return self.instruction_template.format(text=text)
