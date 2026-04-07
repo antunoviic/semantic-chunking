@@ -7,21 +7,61 @@ from .llm_client import QwenClient
 from .prompts import BoundaryPrompt, LowInfoPrompt
 
 
-def _sentence_split(text: str) -> list[str]:
-    """Split text into sentences. Handles common abbreviations."""
-    # Split on sentence-ending punctuation followed by whitespace + uppercase
-    parts = re.split(r'(?<=[.!?])\s+(?=[A-ZÄÖÜ])', text)
+def _paragraph_split(text: str) -> list[str]:
+    """
+    Split text into natural segments using paragraph boundaries.
+    PDF text typically has meaningful line/paragraph breaks.
+    """
+    # Normalize: replace multiple newlines with a marker
+    # Split on: double newlines, section markers (· · ·), page dividers (— N —)
+    normalized = re.sub(r'\n{2,}', '\n\n', text)
+
+    # Split on paragraph breaks, section markers, and page markers
+    parts = re.split(
+        r'\n\n'                         # double newline (paragraph break)
+        r'|(?=· · · .+? · · ·)'        # section markers like · · · ABSCHNITT 1 · · ·
+        r'|(?=— \d+ —)',               # page markers like — 1 —
+        normalized
+    )
     return [p.strip() for p in parts if p.strip()]
 
 
+def _sentence_split(text: str) -> list[str]:
+    """Split a paragraph into sentences. Handles German conventions."""
+    # Protect common non-sentence dots (1.000, Abb., Nr., etc.)
+    protected = text
+    protected = re.sub(r'(\d)\.(\d)', r'\1<DOT>\2', protected)
+    protected = re.sub(r'(Abb|Nr|Dr|Prof|bzw|etc|ca|vgl|z\.B|d\.h|u\.a|Dipl|Ing)\.',
+                       r'\1<DOT>', protected, flags=re.IGNORECASE)
+
+    # Split on sentence-ending punctuation
+    parts = re.split(r'(?<=[.!?])\s+(?=[A-ZÄÖÜA-Z])', protected)
+
+    # Restore dots
+    return [p.replace('<DOT>', '.').strip() for p in parts if p.strip()]
+
+
 def _make_mini_chunks(text: str, sentences_per_chunk: int = 3) -> list[str]:
-    """Group sentences into mini-chunks of N sentences each."""
-    sentences = _sentence_split(text)
-    chunks = []
-    for i in range(0, len(sentences), sentences_per_chunk):
-        group = sentences[i:i + sentences_per_chunk]
-        chunks.append(" ".join(group))
-    return chunks
+    """
+    Create mini-chunks by first splitting on paragraphs,
+    then splitting long paragraphs into sentence groups.
+    Short paragraphs become their own mini-chunk.
+    """
+    paragraphs = _paragraph_split(text)
+    mini_chunks = []
+
+    for para in paragraphs:
+        sentences = _sentence_split(para)
+        if len(sentences) <= sentences_per_chunk:
+            # Short paragraph → keep as one mini-chunk
+            mini_chunks.append(para)
+        else:
+            # Long paragraph → group sentences
+            for i in range(0, len(sentences), sentences_per_chunk):
+                group = sentences[i:i + sentences_per_chunk]
+                mini_chunks.append(" ".join(group))
+
+    return mini_chunks
 
 
 class LLMChunker:
@@ -45,6 +85,7 @@ class LLMChunker:
         window_size: int = 10,        # mini-chunks per LLM call
         step_size: int = 5,           # how far to advance if no boundary found
         sentences_per_mini_chunk: int = 3,
+        verbose: bool = False,
     ) -> None:
         self.client = client or QwenClient()
         self.boundary_prompt = boundary_prompt or BoundaryPrompt()
@@ -53,20 +94,34 @@ class LLMChunker:
         self.window_size = window_size
         self.step_size = step_size
         self.sentences_per_mini_chunk = sentences_per_mini_chunk
+        self.verbose = verbose
+
+    def _log(self, msg: str) -> None:
+        if self.verbose:
+            print(f"[chunker] {msg}")
 
     def chunk(self, text: str) -> list[str]:
         """Return a list of semantic chunks for the given text."""
         mini_chunks = _make_mini_chunks(text, self.sentences_per_mini_chunk)
+        self._log(f"Pre-split into {len(mini_chunks)} mini-chunks")
+
+        if self.verbose:
+            for i, mc in enumerate(mini_chunks):
+                self._log(f"  mini[{i}]: {mc[:80]}...")
 
         if len(mini_chunks) <= 2:
-            # Text too short for windowing — return as single chunk
             return [text.strip()] if text.strip() else []
 
         boundaries = self._find_boundaries(mini_chunks)
+        self._log(f"Boundaries found at indices: {boundaries}")
+
         chunks = self._merge_at_boundaries(mini_chunks, boundaries)
+        self._log(f"Merged into {len(chunks)} chunks")
 
         if self.filter_low_info:
+            before = len(chunks)
             chunks = self._remove_low_info(chunks)
+            self._log(f"Filter removed {before - len(chunks)} low-info chunks")
 
         return chunks
 
@@ -87,6 +142,7 @@ class LLMChunker:
             tagged = self._tag_window(window, offset=pos)
             messages = self.boundary_prompt.as_messages(tagged)
             raw = self.client.chat(messages)
+            self._log(f"Window [{pos}:{pos+len(window)}] LLM response: {raw!r}")
             local_bounds = self._parse_boundaries(raw, offset=pos,
                                                    max_idx=pos + len(window) - 1)
 

@@ -1,18 +1,18 @@
 from dataclasses import dataclass, field
-
-
+ 
+ 
 @dataclass
 class BoundaryPrompt:
     """
     Prompt for the sliding-window boundary detection.
     The LLM sees tagged mini-chunks and returns indices where topics change.
     """
-
+ 
     system_message: str = field(default=(
         "You are a text segmentation tool for RAG pipelines. "
         "You identify topic boundaries in text. You never alter the text itself."
     ))
-
+ 
     instruction_template: str = field(default=(
         "Below are numbered text segments from a document. "
         "Your job: identify where the TOPIC changes.\n\n"
@@ -27,24 +27,24 @@ class BoundaryPrompt:
         "This means: chunk_3 starts a new topic, chunk_7 starts another.\n\n"
         "Segments:\n{tagged_text}"
     ))
-
+ 
     def as_messages(self, tagged_text: str) -> list:
         return [
             {"role": "system", "content": self.system_message},
             {"role": "user", "content": self.instruction_template.format(tagged_text=tagged_text)},
         ]
-
-
+ 
+ 
 @dataclass
 class LowInfoPrompt:
     """Prompt to decide whether a chunk contains useful information for RAG."""
-
+ 
     system_message: str = field(default=(
         "You are a content quality filter for a RAG system. "
         "Decide whether a text chunk contains useful, substantive information. "
         "Answer YES or NO only."
     ))
-
+ 
     instruction_template: str = field(default=(
         "Does this chunk contain useful information for answering questions?\n\n"
         "Answer NO if it is only:\n"
@@ -55,9 +55,10 @@ class LowInfoPrompt:
         "Chunk:\n{chunk}\n\n"
         "Answer:"
     ))
-
+ 
     def as_messages(self, chunk: str) -> list:
         return [
             {"role": "system", "content": self.system_message},
             {"role": "user", "content": self.instruction_template.format(chunk=chunk.strip())},
         ]
+ 
