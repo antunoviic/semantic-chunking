@@ -1,5 +1,5 @@
 from .chunker import LLMChunker
 from .llm_client import QwenClient
-from .prompts import ChunkingPrompt
+from .prompts import ChunkingPrompt, LowInfoPrompt
 
-__all__ = ["LLMChunker", "QwenClient", "ChunkingPrompt"]
+__all__ = ["LLMChunker", "QwenClient", "ChunkingPrompt", "LowInfoPrompt"]

@@ -38,3 +38,33 @@ class ChunkingPrompt:
             {"role": "system", "content": self.system_message},
             {"role": "user", "content": self.build_user_message(text)},
         ]
+
+
+@dataclass
+class LowInfoPrompt:
+    """Prompt to decide whether a chunk contains useful information for RAG."""
+
+    system_message: str = field(default=(
+        "You are a content quality filter for a RAG system. "
+        "Your job is to decide whether a text chunk contains useful, substantive information "
+        "that would help answer questions. "
+        "Answer with YES if the chunk is informative, or NO if it should be removed."
+    ))
+
+    instruction_template: str = field(default=(
+        "Does this text chunk contain useful, substantive information for a RAG system?\n\n"
+        "Remove it (answer NO) if it is:\n"
+        "- A title, heading, or document metadata with no content\n"
+        "- A table of contents or index entry\n"
+        "- A page number, header, or footer\n"
+        "- Pure boilerplate (e.g. 'All rights reserved', 'Page 1 of 10')\n\n"
+        "Keep it (answer YES) if it contains actual facts, arguments, explanations, or data.\n\n"
+        "Chunk:\n{chunk}\n\n"
+        "Answer YES or NO only."
+    ))
+
+    def as_messages(self, chunk: str) -> list:
+        return [
+            {"role": "system", "content": self.system_message},
+            {"role": "user", "content": self.instruction_template.format(chunk=chunk.strip())},
+        ]
