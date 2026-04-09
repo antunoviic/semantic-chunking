@@ -8,34 +8,32 @@ from .prompts import BoundaryPrompt, LowInfoPrompt
 
 
 def _paragraph_split(text: str) -> list[str]:
-    """
-    Split text into natural segments using paragraph boundaries.
-    PDF text typically has meaningful line/paragraph breaks.
-    """
-    # Normalize: replace multiple newlines with a marker
-    # Split on: double newlines, section markers (· · ·), page dividers (— N —)
+    """Split text on paragraph boundaries (double newlines)."""
     normalized = re.sub(r'\n{2,}', '\n\n', text)
-
-    # Split on paragraph breaks, section markers, and page markers
-    parts = re.split(
-        r'\n\n'                         # double newline (paragraph break)
-        r'|(?=· · · .+? · · ·)'        # section markers like · · · ABSCHNITT 1 · · ·
-        r'|(?=— \d+ —)',               # page markers like — 1 —
-        normalized
-    )
+    parts = re.split(r'\n\n', normalized)
     return [p.strip() for p in parts if p.strip()]
 
 
 def _sentence_split(text: str) -> list[str]:
-    """Split a paragraph into sentences. Handles German conventions."""
-    # Protect common non-sentence dots (1.000, Abb., Nr., etc.)
+    """Split a paragraph into sentences. Handles English conventions."""
     protected = text
+
+    # Protect decimal numbers (1.5, 33.7, 0.72)
     protected = re.sub(r'(\d)\.(\d)', r'\1<DOT>\2', protected)
-    protected = re.sub(r'(Abb|Nr|Dr|Prof|bzw|etc|ca|vgl|z\.B|d\.h|u\.a|Dipl|Ing)\.',
+
+    # Protect common English abbreviations
+    protected = re.sub(
+        r'\b(Mr|Mrs|Ms|Dr|Prof|Sr|Jr|Inc|Corp|Ltd|Co|vs|etc|approx|est|Fig|No|Vol|Rev|Gen|Gov)\.',
+        r'\1<DOT>', protected, flags=re.IGNORECASE
+    )
+
+    # Protect initials and Latin abbreviations (U.S., e.g., i.e.)
+    protected = re.sub(r'\b([A-Za-z])\.([A-Za-z])\.', r'\1<DOT>\2<DOT>', protected)
+    protected = re.sub(r'\b(e\.g|i\.e|a\.m|p\.m)\.',
                        r'\1<DOT>', protected, flags=re.IGNORECASE)
 
-    # Split on sentence-ending punctuation
-    parts = re.split(r'(?<=[.!?])\s+(?=[A-ZÄÖÜA-Z])', protected)
+    # Split on sentence-ending punctuation followed by space + uppercase
+    parts = re.split(r'(?<=[.!?])\s+(?=[A-Z])', protected)
 
     # Restore dots
     return [p.replace('<DOT>', '.').strip() for p in parts if p.strip()]
@@ -43,9 +41,8 @@ def _sentence_split(text: str) -> list[str]:
 
 def _make_mini_chunks(text: str, sentences_per_chunk: int = 3) -> list[str]:
     """
-    Create mini-chunks by first splitting on paragraphs,
-    then splitting long paragraphs into sentence groups.
-    Short paragraphs become their own mini-chunk.
+    Split on paragraphs first, then group long paragraphs
+    into sentence groups of N. Short paragraphs stay whole.
     """
     paragraphs = _paragraph_split(text)
     mini_chunks = []
@@ -53,10 +50,8 @@ def _make_mini_chunks(text: str, sentences_per_chunk: int = 3) -> list[str]:
     for para in paragraphs:
         sentences = _sentence_split(para)
         if len(sentences) <= sentences_per_chunk:
-            # Short paragraph → keep as one mini-chunk
             mini_chunks.append(para)
         else:
-            # Long paragraph → group sentences
             for i in range(0, len(sentences), sentences_per_chunk):
                 group = sentences[i:i + sentences_per_chunk]
                 mini_chunks.append(" ".join(group))
@@ -71,8 +66,8 @@ class LLMChunker:
 
     Pipeline:
       1. Pre-split text into mini-chunks (sentence groups)
-      2. Slide a window over mini-chunks, asking the LLM for boundaries
-      3. Merge mini-chunks between boundaries into final chunks
+      2. Slide a window over mini-chunks, ask LLM for boundaries
+      3. Assemble final chunks from mini-chunks between boundaries
       4. (Optional) Filter out low-information chunks
     """
 
@@ -82,8 +77,8 @@ class LLMChunker:
         boundary_prompt: Optional[BoundaryPrompt] = None,
         low_info_prompt: Optional[LowInfoPrompt] = None,
         filter_low_info: bool = True,
-        window_size: int = 10,        # mini-chunks per LLM call
-        step_size: int = 5,           # how far to advance if no boundary found
+        window_size: int = 10,
+        step_size: int = 5,
         sentences_per_mini_chunk: int = 3,
         verbose: bool = False,
     ) -> None:
@@ -101,7 +96,7 @@ class LLMChunker:
             print(f"[chunker] {msg}")
 
     def chunk(self, text: str) -> list[str]:
-        """Return a list of semantic chunks for the given text."""
+        """Run the full chunking pipeline."""
         mini_chunks = _make_mini_chunks(text, self.sentences_per_mini_chunk)
         self._log(f"Pre-split into {len(mini_chunks)} mini-chunks")
 
@@ -115,8 +110,8 @@ class LLMChunker:
         boundaries = self._find_boundaries(mini_chunks)
         self._log(f"Boundaries found at indices: {boundaries}")
 
-        chunks = self._merge_at_boundaries(mini_chunks, boundaries)
-        self._log(f"Merged into {len(chunks)} chunks")
+        chunks = self._assemble_chunks(mini_chunks, boundaries)
+        self._log(f"Assembled {len(chunks)} chunks")
 
         if self.filter_low_info:
             before = len(chunks)
@@ -126,10 +121,7 @@ class LLMChunker:
         return chunks
 
     def _find_boundaries(self, mini_chunks: list[str]) -> list[int]:
-        """
-        Slide a window over tagged mini-chunks and ask the LLM
-        where semantic boundaries are. Returns sorted boundary indices.
-        """
+        """Slide a window over mini-chunks, ask LLM where topics change."""
         all_boundaries: set[int] = set()
         pos = 0
 
@@ -138,17 +130,15 @@ class LLMChunker:
             if len(window) <= 1:
                 break
 
-            # Build tagged text for this window
             tagged = self._tag_window(window, offset=pos)
             messages = self.boundary_prompt.as_messages(tagged)
             raw = self.client.chat(messages)
             self._log(f"Window [{pos}:{pos+len(window)}] LLM response: {raw!r}")
+
             local_bounds = self._parse_boundaries(raw, offset=pos,
                                                    max_idx=pos + len(window) - 1)
-
             all_boundaries.update(local_bounds)
 
-            # Advance to last boundary in this window, or step forward
             if local_bounds:
                 pos = max(local_bounds)
             else:
@@ -165,19 +155,17 @@ class LLMChunker:
         return "\n\n".join(parts)
 
     def _parse_boundaries(self, raw: str, offset: int, max_idx: int) -> list[int]:
-        """Extract boundary indices from the LLM response."""
-        # Find all numbers in the response
+        """Extract valid boundary indices from the LLM response."""
         numbers = re.findall(r'\d+', raw)
         bounds = []
         for n in numbers:
             idx = int(n)
-            # Only accept valid indices within the current window
             if offset < idx <= max_idx:
                 bounds.append(idx)
         return bounds
 
-    def _merge_at_boundaries(self, mini_chunks: list[str], boundaries: list[int]) -> list[str]:
-        """Merge mini-chunks between boundary points into final chunks."""
+    def _assemble_chunks(self, mini_chunks: list[str], boundaries: list[int]) -> list[str]:
+        """Join mini-chunks between boundary points into final chunks."""
         if not boundaries:
             return [" ".join(mini_chunks)]
 
@@ -188,7 +176,7 @@ class LLMChunker:
             if segment:
                 chunks.append(" ".join(segment))
             prev = b
-        # Last segment
+
         remaining = mini_chunks[prev:]
         if remaining:
             chunks.append(" ".join(remaining))
