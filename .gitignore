@@ -1,0 +1,14 @@
+# ChromaDB — wird lokal neu gebaut
+chroma_db/
+
+# Chunk-Cache — wird lokal neu generiert
+chunks_cache/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+*.egg-info/
+dist/
+build/

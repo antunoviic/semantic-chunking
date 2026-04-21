@@ -126,7 +126,7 @@ class LLMChunker:
         pos = 0
 
         while pos < len(mini_chunks):
-            window = mini_chunks[pos:pos + self.window_size]
+            window = mini_chunks[pos:pos + self.window_size]  # Fenster ausschneiden
             if len(window) <= 1:
                 break
 
@@ -140,9 +140,9 @@ class LLMChunker:
             all_boundaries.update(local_bounds)
 
             if local_bounds:
-                pos = max(local_bounds)
+                pos = max(local_bounds) # → zur letzten Boundary springen
             else:
-                pos += self.step_size
+                pos += self.step_size # X Chunks vorrücken
 
         return sorted(all_boundaries)
 
