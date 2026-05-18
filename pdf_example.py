@@ -28,12 +28,13 @@ def extract_text_from_pdf(pdf_path: str) -> str:
     return "\n\n".join(p.strip() for p in pages if p.strip())
 
 
-def cache_path(pdf_path: str) -> Path:
-    return CACHE_DIR / (Path(pdf_path).stem + ".json")
+def cache_path(pdf_path: str, enriched: bool = False) -> Path:
+    suffix = "_enriched" if enriched else ""
+    return CACHE_DIR / (Path(pdf_path).stem + suffix + ".json")
 
 
-def load_chunks(pdf_path: str) -> Optional[list[str]]:
-    path = cache_path(pdf_path)
+def load_chunks(pdf_path: str, enriched: bool = False) -> Optional[list[str]]:
+    path = cache_path(pdf_path, enriched)
     if path.exists():
         data = json.loads(path.read_text(encoding="utf-8"))
         print(f"[cache] Loaded {len(data['chunks'])} chunks from {path}")
@@ -42,9 +43,9 @@ def load_chunks(pdf_path: str) -> Optional[list[str]]:
     return None
 
 
-def save_chunks(pdf_path: str, chunks: list[str]) -> None:
+def save_chunks(pdf_path: str, chunks: list[str], enriched: bool = False) -> None:
     CACHE_DIR.mkdir(exist_ok=True)
-    path = cache_path(pdf_path)
+    path = cache_path(pdf_path, enriched)
 
     # Back up existing cache before overwriting
     if path.exists():
@@ -65,11 +66,12 @@ def save_chunks(pdf_path: str, chunks: list[str]) -> None:
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python pdf_example.py <path/to/file.pdf> [--rechunk]")
+        print("Usage: python pdf_example.py <path/to/file.pdf> [--rechunk] [--enrich]")
         sys.exit(1)
 
-    pdf_path = sys.argv[1]
+    pdf_path      = sys.argv[1]
     force_rechunk = "--rechunk" in sys.argv
+    use_enrich    = "--enrich" in sys.argv
 
     if not Path(pdf_path).exists():
         print(f"File not found: {pdf_path}")
@@ -81,7 +83,7 @@ if __name__ == "__main__":
     print(f"Extracted {len(text)} chars from {len(PdfReader(pdf_path).pages)} pages\n")
 
     # --- Step 2: Chunk (or load from cache) ---
-    chunks = None if force_rechunk else load_chunks(pdf_path)
+    chunks = None if force_rechunk else load_chunks(pdf_path, enriched=use_enrich)
 
     if chunks is None:
         chunker = LLMChunker(
@@ -89,10 +91,11 @@ if __name__ == "__main__":
             window_size=10,
             sentences_per_mini_chunk=3,
             filter_low_info=True,
+            enrich=use_enrich,
             verbose=True,
         )
         chunks = chunker.chunk(text)
-        save_chunks(pdf_path, chunks)
+        save_chunks(pdf_path, chunks, enriched=use_enrich)
 
     print(f"\n{'='*60}")
     print(f"{len(chunks)} semantic chunks found:\n")

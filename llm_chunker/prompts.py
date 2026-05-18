@@ -1,18 +1,22 @@
+from __future__ import annotations
+
 from dataclasses import dataclass, field
- 
- 
+
+from .interfaces import BasePrompt
+
+
 @dataclass
-class BoundaryPrompt:
+class BoundaryPrompt(BasePrompt):
     """
     Prompt for the sliding-window boundary detection.
     The LLM sees tagged mini-chunks and returns indices where topics change.
     """
- 
+
     system_message: str = field(default=(
         "You are a text segmentation tool for RAG pipelines. "
         "You identify topic boundaries in text. You never alter the text itself."
     ))
- 
+
     instruction_template: str = field(default=(
         "Below are numbered text segments from a document. "
         "Your job: identify where the TOPIC changes.\n\n"
@@ -27,24 +31,52 @@ class BoundaryPrompt:
         "This means: chunk_3 starts a new topic, chunk_7 starts another.\n\n"
         "Segments:\n{tagged_text}"
     ))
- 
-    def as_messages(self, tagged_text: str) -> list:
+
+    def as_messages(self, text: str) -> list:
         return [
             {"role": "system", "content": self.system_message},
-            {"role": "user", "content": self.instruction_template.format(tagged_text=tagged_text)},
+            {"role": "user", "content": self.instruction_template.format(tagged_text=text)},
         ]
- 
- 
+
+
 @dataclass
-class LowInfoPrompt:
+class EnrichmentPrompt(BasePrompt):
+    """
+    Prompt to generate a topic title and one-sentence summary for a chunk.
+    The enriched prefix is prepended to the chunk before embedding,
+    so the vector better represents the chunk's meaning.
+    """
+
+    system_message: str = field(default=(
+        "You are a text annotation tool for RAG pipelines. "
+        "Given a text chunk, you output a short topic label and a one-sentence summary. "
+        "Be concise and factual. Never add information that is not in the text."
+    ))
+
+    instruction_template: str = field(default=(
+        "Analyze the following text chunk and respond in exactly this format:\n"
+        "Topic: <3-6 word topic label>\n"
+        "Summary: <one sentence summary>\n\n"
+        "Chunk:\n{chunk}"
+    ))
+
+    def as_messages(self, text: str) -> list:
+        return [
+            {"role": "system", "content": self.system_message},
+            {"role": "user", "content": self.instruction_template.format(chunk=text.strip())},
+        ]
+
+
+@dataclass
+class LowInfoPrompt(BasePrompt):
     """Prompt to decide whether a chunk contains useful information for RAG."""
- 
+
     system_message: str = field(default=(
         "You are a content quality filter for a RAG system. "
         "Decide whether a text chunk contains useful, substantive information. "
         "Answer YES or NO only."
     ))
- 
+
     instruction_template: str = field(default=(
         "Does this chunk contain useful information for answering questions?\n\n"
         "Answer NO if it is only:\n"
@@ -55,10 +87,9 @@ class LowInfoPrompt:
         "Chunk:\n{chunk}\n\n"
         "Answer:"
     ))
- 
-    def as_messages(self, chunk: str) -> list:
+
+    def as_messages(self, text: str) -> list:
         return [
             {"role": "system", "content": self.system_message},
-            {"role": "user", "content": self.instruction_template.format(chunk=chunk.strip())},
+            {"role": "user", "content": self.instruction_template.format(chunk=text.strip())},
         ]
- 
