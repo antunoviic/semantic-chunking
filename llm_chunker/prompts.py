@@ -26,9 +26,10 @@ class BoundaryPrompt(BasePrompt):
         "3. Headings belong to the paragraph they introduce — do NOT split them.\n"
         "4. If there is no clear topic change, respond with: NONE\n\n"
         "Output format:\n"
-        "Return ONLY the chunk numbers where a new topic STARTS, "
-        "separated by commas. Example: 3, 7\n"
-        "This means: chunk_3 starts a new topic, chunk_7 starts another.\n\n"
+        "Return ONLY a comma-separated list of chunk numbers where a new topic STARTS.\n"
+        "Example: 3, 7\n"
+        "If there is no topic change, respond with exactly: NONE\n"
+        "Do NOT explain your answer. Do NOT use any other words.\n\n"
         "Segments:\n{tagged_text}"
     ))
 

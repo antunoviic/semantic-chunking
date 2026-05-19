@@ -11,7 +11,7 @@ class LLMClient(Protocol):
 
 
 class BasePrompt(ABC):
-    #all prompt-classes need as_messages
+    #all prompt-classes need as_messages and are only giving out lists
     @abstractmethod
     def as_messages(self, text: str) -> list: ... #empty method head
 

@@ -1,19 +1,19 @@
 """
 Semantic Chunking — single entry point.
 
-Usage:
-    python main.py <path/to/file.pdf>                    # chunk + evaluate + store
-    python main.py <path/to/file.pdf> --rechunk           # force re-chunking
-    python main.py <path/to/file.pdf> --enrich            # with topic/summary enrichment
-    python main.py <path/to/file.pdf> --query             # open interactive query after eval
-    python main.py <path/to/file.pdf> --regen-questions   # regenerate QA test set
-    python main.py <path/to/file.pdf> --top-k 5           # evaluate Hit Rate@5 (default: 3)
+Usage (run from project root):
+    python -m app.main <path/to/file.pdf>                    # chunk + evaluate + store
+    python -m app.main <path/to/file.pdf> --rechunk           # force re-chunking
+    python -m app.main <path/to/file.pdf> --enrich            # with topic/summary enrichment
+    python -m app.main <path/to/file.pdf> --query             # open interactive query after eval
+    python -m app.main <path/to/file.pdf> --regen-questions   # regenerate QA test set
+    python -m app.main <path/to/file.pdf> --top-k 5           # evaluate Hit Rate@5 (default: 3)
 """
 
 import sys
 from pathlib import Path
 
-from pipeline import ChunkingPipeline
+from .chunking_pipeline import ChunkingPipeline
 
 
 def _parse_args() -> dict:

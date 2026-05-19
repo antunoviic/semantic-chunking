@@ -63,7 +63,11 @@ class BoundaryDetector:
 
     @staticmethod
     def _parse_boundaries(raw: str, offset: int, max_idx: int) -> list[int]:
-        numbers = re.findall(r'\d+', raw)
+        # Only treat as NONE if the entire response is "NONE" (not if NONE appears in an explanation)
+        if re.fullmatch(r'\s*NONE\s*', raw, re.IGNORECASE):
+            return []
+        # Extract standalone numbers not embedded in words
+        numbers = re.findall(r'(?<!\w)(\d+)(?!\w)', raw)
         return [int(n) for n in numbers if offset < int(n) <= max_idx]
 
     @staticmethod
