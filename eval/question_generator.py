@@ -27,6 +27,7 @@ class QuestionGenerator:
         if qa_path.exists() and not regen:
             data = json.loads(qa_path.read_text(encoding="utf-8"))
             if data:
+                data = data[:max_questions]
                 print(f"[questions] Loaded {len(data)} questions from cache")
                 return data
             print("[questions] Cache is empty — regenerating...")

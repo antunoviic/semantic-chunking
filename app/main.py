@@ -30,12 +30,17 @@ def _parse_args() -> dict:
     if "--top-k" in sys.argv:
         top_k = int(sys.argv[sys.argv.index("--top-k") + 1])
 
+    max_questions = 50
+    if "--max-questions" in sys.argv:
+        max_questions = int(sys.argv[sys.argv.index("--max-questions") + 1])
+
     return {
         "pdf_path":        pdf_path,
         "rechunk":         "--rechunk" in sys.argv,
         "enrich":          "--enrich" in sys.argv,
         "regen_questions": "--regen-questions" in sys.argv,
         "top_k":           top_k,
+        "max_questions":   max_questions,
         "query_mode":      "--query" in sys.argv,
     }
 
@@ -47,6 +52,7 @@ if __name__ == "__main__":
         rechunk=args["rechunk"],
         enrich=args["enrich"],
         top_k=args["top_k"],
+        max_questions=args["max_questions"],
         regen_questions=args["regen_questions"],
     )
     pipeline.run(query_mode=args["query_mode"])

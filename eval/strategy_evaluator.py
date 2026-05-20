@@ -1,12 +1,9 @@
 from __future__ import annotations
 
-try:
-    from langchain_huggingface import HuggingFaceEmbeddings
-except ImportError:
-    from langchain_community.embeddings import HuggingFaceEmbeddings
+import re
 
+import numpy as np
 from langchain_text_splitters import CharacterTextSplitter, RecursiveCharacterTextSplitter
-from langchain_experimental.text_splitter import SemanticChunker
 
 from llm_chunker.vectorstore import VectorStore
 
@@ -26,18 +23,35 @@ def build_strategies(text: str) -> dict[str, list[str]]:
     }
 
 
-def build_semantic_lc(text: str) -> list[str]:
+def build_semantic_lc(text: str, embedding_fn) -> list[str]:
     """
-    Build LangChain semantic chunks (loads HuggingFace model).
-    Called separately so the model is released before VectorStore loads its own instance.
+    Semantic chunking using the already-loaded VectorStore embedding function.
+    Splits text into sentences, embeds them, then breaks at high cosine-distance
+    positions (75th percentile threshold). No second model load needed.
     """
-    import gc
-    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-    chunks = SemanticChunker(embeddings).split_text(text)
-    del embeddings
-    gc.collect()  # force release before VectorStore loads the same model
-    print("  [semantic_lc] Model released from memory.", flush=True)
-    return chunks
+    sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', text) if len(s.strip()) > 20]
+    if len(sentences) < 2:
+        return [text]
+
+    embeddings = np.array(embedding_fn(sentences))
+    norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
+    normed = embeddings / np.maximum(norms, 1e-9)
+    distances = 1 - (normed[:-1] * normed[1:]).sum(axis=1)
+
+    threshold = np.percentile(distances, 75)
+    breakpoints = [i for i, d in enumerate(distances) if d > threshold]
+
+    chunks, start = [], 0
+    for bp in breakpoints:
+        chunk = " ".join(sentences[start:bp + 1])
+        if chunk:
+            chunks.append(chunk)
+        start = bp + 1
+    tail = " ".join(sentences[start:])
+    if tail:
+        chunks.append(tail)
+
+    return chunks or [text]
 
 
 class StrategyEvaluator:

@@ -1,7 +1,8 @@
 """
 VectorStore — ChromaDB wrapper for chunking evaluation.
 
-Stores chunks as vectors and retrieves the most similar ones for a query.
+Embeddings are computed via Ollama (nomic-embed-text) so no PyTorch/ONNX
+is loaded inside the Python process.
 
 Usage:
     store = VectorStore()
@@ -11,18 +12,41 @@ Usage:
 
 from __future__ import annotations
 
-import chromadb
-from chromadb.utils import embedding_functions
+import os
 from dataclasses import dataclass
+
+import chromadb
+import httpx
+from chromadb import EmbeddingFunction, Embeddings, Documents
 
 
 @dataclass
 class RetrievalResult:
-    """A single retrieval result."""
     chunk_text: str
     distance: float        # lower = more similar (cosine distance)
     chunk_index: int
     metadata: dict
+
+
+class OllamaEmbeddingFunction(EmbeddingFunction[Documents]):
+    """Calls Ollama's /api/embed endpoint — no native ML in this process."""
+
+    def __init__(
+        self,
+        model: str = "nomic-embed-text",
+        base_url: str = "",
+    ) -> None:
+        self._model = model
+        self._base_url = (base_url or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")).rstrip("/")
+        self._client = httpx.Client(timeout=httpx.Timeout(connect=10.0, read=120.0, write=10.0, pool=10.0))
+
+    def __call__(self, input: Documents) -> Embeddings:
+        response = self._client.post(
+            f"{self._base_url}/api/embed",
+            json={"model": self._model, "input": list(input)},
+        )
+        response.raise_for_status()
+        return response.json()["embeddings"]
 
 
 class VectorStore:
@@ -34,13 +58,10 @@ class VectorStore:
     def __init__(
         self,
         persist_dir: str = "./chroma_db",
-        embedding_model: str = "nomic-ai/nomic-embed-text-v1.5",
+        embedding_model: str = "nomic-embed-text",
     ):
         self._client = chromadb.PersistentClient(path=persist_dir)
-        self._embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name=embedding_model,
-            trust_remote_code=True,
-        )
+        self._embedding_fn = OllamaEmbeddingFunction(model=embedding_model)
 
     def add_chunks(
         self,
@@ -48,14 +69,12 @@ class VectorStore:
         chunks: list[str],
         source: str = "",
     ) -> None:
-        """Embed and store chunks in a named collection."""
         collection = self._client.get_or_create_collection(
             name=collection_name,
             embedding_function=self._embedding_fn,
             metadata={"hnsw:space": "cosine"},
         )
 
-        # Clear existing data
         existing = collection.count()
         if existing > 0:
             collection.delete(ids=[f"chunk_{i}" for i in range(existing)])
@@ -65,9 +84,16 @@ class VectorStore:
             {"source": source, "chunk_index": i, "char_count": len(c), "original_text": c}
             for i, c in enumerate(chunks)
         ]
-        prefixed_chunks = [f"search_document: {c}" for c in chunks]
+        prefixed = [f"search_document: {c}" for c in chunks]
 
-        collection.add(documents=prefixed_chunks, ids=ids, metadatas=metadatas)
+        batch_size = 50
+        for start in range(0, len(chunks), batch_size):
+            end = start + batch_size
+            collection.add(
+                documents=prefixed[start:end],
+                ids=ids[start:end],
+                metadatas=metadatas[start:end],
+            )
         print(f"[vectorstore] '{collection_name}': {len(chunks)} chunks stored")
 
     def query(
@@ -76,7 +102,6 @@ class VectorStore:
         query_text: str,
         k: int = 3,
     ) -> list[RetrievalResult]:
-        """Find the k most similar chunks to the query."""
         collection = self._client.get_collection(
             name=collection_name,
             embedding_function=self._embedding_fn,
