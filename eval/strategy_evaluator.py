@@ -106,11 +106,19 @@ class StrategyEvaluator:
         }
 
     @staticmethod
-    def _is_hit(source: str, retrieved: str, threshold: float = 0.3) -> bool:
-        if not source:
+    def _is_hit(source: str, retrieved: str, window: int = 40) -> bool:
+        """Check if the retrieved chunk contains content from the source.
+
+        Slides a window over the *retrieved* chunk and checks how many windows
+        appear in the source. This is fair regardless of chunk size: a small
+        fixed_256 chunk that covers the relevant passage scores just as well as
+        a large LLM chunk that covers it.
+        """
+        if not source or not retrieved:
             return False
-        window = 60
         a = " ".join(source.split())
         b = " ".join(retrieved.split())
-        matches = sum(1 for i in range(0, len(a) - window + 1, window) if a[i:i + window] in b)
-        return (matches / max(1, len(a) // window)) >= threshold
+        if len(b) < window:
+            return b in a
+        matches = sum(1 for i in range(0, len(b) - window + 1, window) if b[i:i + window] in a)
+        return matches >= 1

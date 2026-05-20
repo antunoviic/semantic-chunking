@@ -1,0 +1,42 @@
+[
+  {
+    "strategy": "fixed_256",
+    "chunk_count": 153,
+    "avg_chunk_len": 250,
+    "hit_rate@3": 80.0,
+    "mrr": 0.692,
+    "avg_dist_top1": 0.23
+  },
+  {
+    "strategy": "fixed_512",
+    "chunk_count": 78,
+    "avg_chunk_len": 504,
+    "hit_rate@3": 90.0,
+    "mrr": 0.817,
+    "avg_dist_top1": 0.245
+  },
+  {
+    "strategy": "recursive",
+    "chunk_count": 81,
+    "avg_chunk_len": 446,
+    "hit_rate@3": 85.0,
+    "mrr": 0.792,
+    "avg_dist_top1": 0.248
+  },
+  {
+    "strategy": "semantic_lc",
+    "chunk_count": 80,
+    "avg_chunk_len": 441,
+    "hit_rate@3": 65.0,
+    "mrr": 0.492,
+    "avg_dist_top1": 0.262
+  },
+  {
+    "strategy": "llm",
+    "chunk_count": 32,
+    "avg_chunk_len": 1004,
+    "hit_rate@3": 80.0,
+    "mrr": 0.725,
+    "avg_dist_top1": 0.273
+  }
+]

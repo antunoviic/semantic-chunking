@@ -1,0 +1,82 @@
+[
+  {
+    "question": "What three things does the paper say Stoic ethical analysis of A.I. should be based on or include, beyond consequentialism?",
+    "source_text": "Stoic ethical analysis of A.I. should be based on analysis of an agent's internal states."
+  },
+  {
+    "question": "What are the three major ethical perspectives that Virtue Ethics now stands alongside?",
+    "source_text": "Virtue Ethics is now one of the three major ethical perspectives, alongside Utilitarianism and Deontological Ethics [2]."
+  },
+  {
+    "question": "What is the most famous example of ethical A.I., and where did it come from?",
+    "source_text": "The most famous example of ethical A.I. has come from fiction rather than A.I. research, in the form of Asimov's Laws of Robotics [13]."
+  },
+  {
+    "question": "What does Bostrom call immoral internal states of a superintelligent agent?",
+    "source_text": "The prospect of such superintelligent systems leads to what Bostrom calls mind crimes, i.e. immoral internal states."
+  },
+  {
+    "question": "What is the central notion of Stoicism regarding what we can and cannot influence?",
+    "source_text": "A central notion of Stoicism is the dichotomy of control, or recognizing that some things are in our control and some things are not."
+  },
+  {
+    "question": "According to Stoicism, what is the only thing that is good, and is it within a person's control?",
+    "source_text": "Only virtue is good, and being virtuous is always within a person's control."
+  },
+  {
+    "question": "What third category did modern Stoic thinkers introduce with the trichotomy of control?",
+    "source_text": "Modern Stoic thinkers have used the idea of a trichotomy of control [16], introducing a third category of things we partly control"
+  },
+  {
+    "question": "What problem afflicting consequentialist ethics does Virtue Ethics avoid, according to the paper?",
+    "source_text": "This distinguishes Virtue Ethics from Act Utilitarianism, with the latter being susceptible to the problem of moral luck."
+  },
+  {
+    "question": "What term do Christian and Griffiths use to refer to the peace of mind from using optimal algorithms in everyday life?",
+    "source_text": "Christian and Griffiths [17] introduce the notion of Computational Stoicism to refer to the peace of mind that comes with using optimal algorithms in our everyday lives."
+  },
+  {
+    "question": "What are the four cardinal Stoic virtues named in the paper?",
+    "source_text": "We now turn to the four cardinal Stoic virtues of wisdom, justice, courage, and temperance, and how they relate to characteristics of A.I. agents."
+  },
+  {
+    "question": "Which specific virtues are categorized under wisdom?",
+    "source_text": "good sense, good calculation, quick-wittedness, discretion, and resourcefulness [1,18]."
+  },
+  {
+    "question": "What were the three main areas of study for the Stoics?",
+    "source_text": "The Stoics had three main areas of study: ethics, physics, and logic."
+  },
+  {
+    "question": "Which Twitter chatbot does the paper cite as demonstrating a lack of the virtue of seemliness?",
+    "source_text": "The lack of the virtue of seemliness has been demonstrated by a simple A.I. known as Tay, a Twitter chatbot launched by Microsoft that began tweeting racist and graphic content [19, 20]."
+  },
+  {
+    "question": "What two historical figures did ancient Stoics use as examples when looking for guidance from the Ideal Sage?",
+    "source_text": "ancient Stoics used Socrates and Cato the Younger as two figures to consider when looking for guidance [22]."
+  },
+  {
+    "question": "What does Christiano propose as an alternative to goal-directed agents?",
+    "source_text": "That second notion leads us towards Christiano's proposal for \"approvaldirected agents,\" instead of goal-directed agents [9, 23]."
+  },
+  {
+    "question": "What does Yudkowsky's coherent extrapolated volition (CEV) essentially represent?",
+    "source_text": "The CEV essentially represents what humans would do if we were more intelligent and capable, and the A.I. agent determines its values by learning and analyzing the CEV."
+  },
+  {
+    "question": "What is the first Stoic practice discussed, and how is it roughly translated?",
+    "source_text": "The first practice is the premeditatio malorum, roughly translated as an anticipation of bad things to come [22]."
+  },
+  {
+    "question": "What phrase do Stoics append to all plans and aspirations, and what does it recognize?",
+    "source_text": "Another Stoic practice is to append the phrase \"fate permitting\" to all plans and aspirations, which represents a recognition that the person controls their own actions but not the consequences."
+  },
+  {
+    "question": "What is Bostrom's extreme example of the difference between creativity and moral progress?",
+    "source_text": "such as Bostrom's extreme example of a superintelligent agent getting rid of cancer in humans by killing all humans [7]."
+  },
+  {
+    "question": "Whose paramedic ethics for Computer Science professionals does the paper build on to derive a syncretic algorithm?",
+    "source_text": "Collins and Miller [25] provide a \"paramedic ethics\" for Computer Science professionals who may need to take action in a variety of scenarios where time and information are limited"
+  }
+]

@@ -2,12 +2,14 @@
 Semantic Chunking — single entry point.
 
 Usage (run from project root):
-    python -m app.main <path/to/file.pdf>                    # chunk + evaluate + store
-    python -m app.main <path/to/file.pdf> --rechunk           # force re-chunking
-    python -m app.main <path/to/file.pdf> --enrich            # with topic/summary enrichment
-    python -m app.main <path/to/file.pdf> --query             # open interactive query after eval
-    python -m app.main <path/to/file.pdf> --regen-questions   # regenerate QA test set
-    python -m app.main <path/to/file.pdf> --top-k 5           # evaluate Hit Rate@5 (default: 3)
+    python -m app.main <path/to/file.pdf>                        # chunk + evaluate + store
+    python -m app.main <path/to/file.pdf> --rechunk              # force re-chunking
+    python -m app.main <path/to/file.pdf> --enrich               # with topic/summary enrichment
+    python -m app.main <path/to/file.pdf> --query                # open interactive query after eval
+    python -m app.main <path/to/file.pdf> --regen-questions      # regenerate QA test set
+    python -m app.main <path/to/file.pdf> --top-k 5              # evaluate Hit Rate@5 (default: 3)
+    python -m app.main <path/to/file.pdf> --max-questions 20     # limit questions for faster eval
+    python -m app.main <path/to/file.pdf> --rag-eval             # end-to-end RAG eval (upload .md to Claude for scoring)
 """
 
 import sys
@@ -42,6 +44,7 @@ def _parse_args() -> dict:
         "top_k":           top_k,
         "max_questions":   max_questions,
         "query_mode":      "--query" in sys.argv,
+        "rag_eval":        "--rag-eval" in sys.argv,
     }
 
 
@@ -54,5 +57,6 @@ if __name__ == "__main__":
         top_k=args["top_k"],
         max_questions=args["max_questions"],
         regen_questions=args["regen_questions"],
+        rag_eval=args["rag_eval"],
     )
     pipeline.run(query_mode=args["query_mode"])

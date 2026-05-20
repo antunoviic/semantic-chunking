@@ -40,10 +40,14 @@ class OllamaEmbeddingFunction(EmbeddingFunction[Documents]):
         self._base_url = (base_url or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")).rstrip("/")
         self._client = httpx.Client(timeout=httpx.Timeout(connect=10.0, read=120.0, write=10.0, pool=10.0))
 
+    # nomic-embed-text context window is ~8192 tokens; truncate to ~6000 chars to stay safe
+    _MAX_CHARS = 5000
+
     def __call__(self, input: Documents) -> Embeddings:
+        truncated = [t[:self._MAX_CHARS] for t in input]
         response = self._client.post(
             f"{self._base_url}/api/embed",
-            json={"model": self._model, "input": list(input)},
+            json={"model": self._model, "input": truncated},
         )
         response.raise_for_status()
         return response.json()["embeddings"]
