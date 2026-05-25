@@ -1,8 +1,13 @@
 # ChromaDB — wird lokal neu gebaut
 chroma_db/
+chroma_db_eval/
 
 # Chunk-Cache — wird lokal neu generiert
 chunks_cache/
+
+# Eval-Ergebnisse (lokal generiert)
+eval_results/
+eval_cache/
 
 # Python
 __pycache__/
