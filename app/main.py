@@ -2,14 +2,18 @@
 Semantic Chunking — single entry point.
 
 Usage (run from project root):
-    python -m app.main <path/to/file.pdf>                        # chunk + evaluate + store
-    python -m app.main <path/to/file.pdf> --rechunk              # force re-chunking
-    python -m app.main <path/to/file.pdf> --enrich               # with topic/summary enrichment
-    python -m app.main <path/to/file.pdf> --query                # open interactive query after eval
-    python -m app.main <path/to/file.pdf> --regen-questions      # regenerate QA test set
-    python -m app.main <path/to/file.pdf> --top-k 5              # evaluate Hit Rate@5 (default: 3)
-    python -m app.main <path/to/file.pdf> --max-questions 20     # limit questions for faster eval
-    python -m app.main <path/to/file.pdf> --rag-eval             # end-to-end RAG eval (upload .md to Claude for scoring)
+    python -m app.main <path/to/file.pdf or .txt>                # chunk + evaluate
+    python -m app.main <path/to/file.pdf or .txt> --rechunk      # force re-chunking
+    python -m app.main <path/to/file.pdf or .txt> --enrich       # with topic enrichment
+    python -m app.main <path/to/file.pdf or .txt>                # incremental LLM chunking (sentence-level) — DEFAULT
+    python -m app.main <path/to/file.pdf or .txt> --window       # ablation: sliding-window chunking instead
+    python -m app.main <path/to/file.pdf or .txt> --step-sentences 2 --max-chunk-sentences 12
+                                                                 # finer incremental boundaries / smaller chunks
+    python -m app.main <path/to/file.pdf or .txt> --rechunk --max-chunk-chars 700
+                                                                 # cap chunk size in CHARS (consistent across docs; needs --rechunk)
+    python -m app.main <path/to/file.pdf or .txt> --questions-file eval_cache/foo_questions.json
+                                                                 # evaluate against a specific question set (bypasses <stem>_questions.json)
+    python -m app.main <path/to/file.pdf or .txt> --max-questions 20 # limit questions for faster eval
 """
 
 import sys
@@ -23,40 +27,58 @@ def _parse_args() -> dict:
         print(__doc__)
         sys.exit(0)
 
-    pdf_path = sys.argv[1]
-    if not Path(pdf_path).exists():
-        print(f"File not found: {pdf_path}")
+    file_path = sys.argv[1]
+    if not Path(file_path).exists():
+        print(f"File not found: {file_path}")
         sys.exit(1)
-
-    top_k = 3
-    if "--top-k" in sys.argv:
-        top_k = int(sys.argv[sys.argv.index("--top-k") + 1])
 
     max_questions = 50
     if "--max-questions" in sys.argv:
         max_questions = int(sys.argv[sys.argv.index("--max-questions") + 1])
 
+    step_sentences = 3
+    if "--step-sentences" in sys.argv:
+        step_sentences = int(sys.argv[sys.argv.index("--step-sentences") + 1])
+
+    max_chunk_sentences = 20
+    if "--max-chunk-sentences" in sys.argv:
+        max_chunk_sentences = int(sys.argv[sys.argv.index("--max-chunk-sentences") + 1])
+
+    max_chunk_chars = None
+    if "--max-chunk-chars" in sys.argv:
+        max_chunk_chars = int(sys.argv[sys.argv.index("--max-chunk-chars") + 1])
+
+    questions_file = None
+    if "--questions-file" in sys.argv:
+        questions_file = sys.argv[sys.argv.index("--questions-file") + 1]
+        if not Path(questions_file).exists():
+            print(f"Questions file not found: {questions_file}")
+            sys.exit(1)
+
     return {
-        "pdf_path":        pdf_path,
+        "file_path":       file_path,
         "rechunk":         "--rechunk" in sys.argv,
         "enrich":          "--enrich" in sys.argv,
-        "regen_questions": "--regen-questions" in sys.argv,
-        "top_k":           top_k,
+        "incremental":     "--window" not in sys.argv,   # incremental is the default; --window is the ablation
+        "step_sentences":  step_sentences,
+        "max_chunk_sentences": max_chunk_sentences,
+        "max_chunk_chars": max_chunk_chars,
+        "questions_file":  questions_file,
         "max_questions":   max_questions,
-        "query_mode":      "--query" in sys.argv,
-        "rag_eval":        "--rag-eval" in sys.argv,
     }
 
 
 if __name__ == "__main__":
     args = _parse_args()
     pipeline = ChunkingPipeline(
-        pdf_path=args["pdf_path"],
+        file_path=args["file_path"],
         rechunk=args["rechunk"],
         enrich=args["enrich"],
-        top_k=args["top_k"],
+        incremental=args["incremental"],
+        step_sentences=args["step_sentences"],
+        max_chunk_sentences=args["max_chunk_sentences"],
+        max_chunk_chars=args["max_chunk_chars"],
         max_questions=args["max_questions"],
-        regen_questions=args["regen_questions"],
-        rag_eval=args["rag_eval"],
+        questions_file=args["questions_file"],
     )
-    pipeline.run(query_mode=args["query_mode"])
+    pipeline.run()

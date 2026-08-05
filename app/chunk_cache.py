@@ -12,12 +12,12 @@ class ChunkCache:
     def __init__(self, cache_dir: Path = Path("./chunks_cache")) -> None:
         self._dir = cache_dir
 
-    def _path(self, pdf_path: str, enriched: bool) -> Path:
-        suffix = "_enriched" if enriched else ""
-        return self._dir / (Path(pdf_path).stem + suffix + ".json")
+    def _path(self, source_path: str, enriched: bool, variant: str = "") -> Path:
+        suffix = (f"_{variant}" if variant else "") + ("_enriched" if enriched else "")
+        return self._dir / (Path(source_path).stem + suffix + ".json")
 
-    def load(self, pdf_path: str, enriched: bool = False) -> Optional[list[str]]:
-        path = self._path(pdf_path, enriched)
+    def load(self, source_path: str, enriched: bool = False, variant: str = "") -> Optional[list[str]]:
+        path = self._path(source_path, enriched, variant)
         if not path.exists():
             return None
         data = json.loads(path.read_text(encoding="utf-8"))
@@ -25,16 +25,16 @@ class ChunkCache:
         print(f"        Chunked on: {data['chunked_at']}")
         return data["chunks"]
 
-    def save(self, pdf_path: str, chunks: list[str], enriched: bool = False) -> None:
+    def save(self, source_path: str, chunks: list[str], enriched: bool = False, variant: str = "") -> None:
         self._dir.mkdir(exist_ok=True)
-        path = self._path(pdf_path, enriched)
+        path = self._path(source_path, enriched, variant)
         if path.exists():
             ts = datetime.now().strftime("%Y%m%d_%H%M%S")
             backup = path.with_suffix(f".{ts}.json")
             path.rename(backup)
             print(f"[cache] Old chunks backed up to {backup.name}")
         data = {
-            "source":      Path(pdf_path).name,
+            "source":      Path(source_path).name,
             "chunked_at":  datetime.now().isoformat(),
             "chunk_count": len(chunks),
             "chunks":      chunks,
