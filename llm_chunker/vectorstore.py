@@ -1,7 +1,7 @@
 """
 VectorStore — ChromaDB wrapper for chunking evaluation.
 
-Embeddings are computed via Ollama (nomic-embed-text) so no PyTorch/ONNX
+Embeddings are computed via Ollama (default: bge-m3) so no PyTorch/ONNX
 is loaded inside the Python process.
 
 Usage:
@@ -33,24 +33,34 @@ class OllamaEmbeddingFunction(EmbeddingFunction[Documents]):
 
     def __init__(
         self,
-        model: str = "nomic-embed-text",
+        model: str = "bge-m3",
         base_url: str = "",
     ) -> None:
         self._model = model
         self._base_url = (base_url or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")).rstrip("/")
         self._client = httpx.Client(timeout=httpx.Timeout(connect=10.0, read=120.0, write=10.0, pool=10.0))
 
-    # nomic-embed-text context window is ~8192 tokens; truncate to ~6000 chars to stay safe
+    # bge-m3 context window is ~8192 tokens; truncate to ~5000 chars to stay safe
     _MAX_CHARS = 5000
+    # Ollama's /api/embed crashes on large input lists (~300+) — always batch
+    _BATCH_SIZE = 50
 
     def __call__(self, input: Documents) -> Embeddings:
-        truncated = [t[:self._MAX_CHARS] for t in input]
-        response = self._client.post(
-            f"{self._base_url}/api/embed",
-            json={"model": self._model, "input": truncated},
-        )
-        response.raise_for_status()
-        return response.json()["embeddings"]
+        truncated = [t[:self._MAX_CHARS] or " " for t in input]
+        embeddings: Embeddings = []
+        for start in range(0, len(truncated), self._BATCH_SIZE):
+            batch = truncated[start:start + self._BATCH_SIZE]
+            response = self._client.post(
+                f"{self._base_url}/api/embed",
+                json={"model": self._model, "input": batch},
+            )
+            if response.status_code != 200:
+                raise RuntimeError(
+                    f"Ollama embed failed ({response.status_code}) for batch "
+                    f"[{start}:{start + len(batch)}]: {response.text[:300]}"
+                )
+            embeddings.extend(response.json()["embeddings"])
+        return embeddings
 
 
 class VectorStore:
@@ -62,7 +72,7 @@ class VectorStore:
     def __init__(
         self,
         persist_dir: str = "./chroma_db",
-        embedding_model: str = "nomic-embed-text",
+        embedding_model: str = "bge-m3",
     ):
         self._client = chromadb.PersistentClient(path=persist_dir)
         self._embedding_fn = OllamaEmbeddingFunction(model=embedding_model)
@@ -88,13 +98,11 @@ class VectorStore:
             {"source": source, "chunk_index": i, "char_count": len(c), "original_text": c}
             for i, c in enumerate(chunks)
         ]
-        prefixed = [f"search_document: {c}" for c in chunks]
-
         batch_size = 50
         for start in range(0, len(chunks), batch_size):
             end = start + batch_size
             collection.add(
-                documents=prefixed[start:end],
+                documents=chunks[start:end],
                 ids=ids[start:end],
                 metadatas=metadatas[start:end],
             )
@@ -112,7 +120,7 @@ class VectorStore:
         )
 
         results = collection.query(
-            query_texts=[f"search_query: {query_text}"],
+            query_texts=[query_text],
             n_results=min(k, collection.count()),
         )
 
