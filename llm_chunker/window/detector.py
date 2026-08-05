@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 
-from .interfaces import BasePrompt, LLMClient
+from ..interfaces import BasePrompt, LLMClient
 
 
 class BoundaryDetector:

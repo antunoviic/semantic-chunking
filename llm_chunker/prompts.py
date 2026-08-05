@@ -4,60 +4,34 @@ from dataclasses import dataclass, field
 
 from .interfaces import BasePrompt
 
-
-@dataclass
-class BoundaryPrompt(BasePrompt):
-    """
-    Prompt for the sliding-window boundary detection.
-    The LLM sees tagged mini-chunks and returns indices where topics change.
-    """
-
-    system_message: str = field(default=(
-        "You are a text segmentation tool for RAG pipelines. "
-        "You identify topic boundaries in text. You never alter the text itself."
-    ))
-
-    instruction_template: str = field(default=(
-        "Below are numbered text segments from a document. "
-        "Your job: identify where the TOPIC changes.\n\n"
-        "Rules:\n"
-        "1. A topic boundary = the subject, entity, or theme clearly shifts.\n"
-        "2. Minor transitions (e.g. an example within the same topic) are NOT boundaries.\n"
-        "3. Headings belong to the paragraph they introduce — do NOT split them.\n"
-        "4. If there is no clear topic change, respond with: NONE\n\n"
-        "Output format:\n"
-        "Return ONLY a comma-separated list of chunk numbers where a new topic STARTS.\n"
-        "Example: 3, 7\n"
-        "If there is no topic change, respond with exactly: NONE\n"
-        "Do NOT explain your answer. Do NOT use any other words.\n\n"
-        "Segments:\n{tagged_text}"
-    ))
-
-    def as_messages(self, text: str) -> list:
-        return [
-            {"role": "system", "content": self.system_message},
-            {"role": "user", "content": self.instruction_template.format(tagged_text=text)},
-        ]
+# Strategy-specific prompts live with their detector:
+#   window/prompt.py       -> BoundaryPrompt
+#   incremental/prompt.py  -> IncrementalBoundaryPrompt
+# The prompts below are shared by the post-processing steps (post_processors.py).
 
 
 @dataclass
 class EnrichmentPrompt(BasePrompt):
     """
-    Prompt to generate a topic title and one-sentence summary for a chunk.
-    The enriched prefix is prepended to the chunk before embedding,
-    so the vector better represents the chunk's meaning.
+    Prompt to label a chunk with its structural position in the document
+    (chapter/section heading, hierarchical if identifiable).
+    The [Topic: ...] prefix is prepended to the chunk before embedding,
+    so the vector better represents the chunk's place in the document.
     """
 
     system_message: str = field(default=(
         "You are a text annotation tool for RAG pipelines. "
-        "Given a text chunk, you output a short topic label and a one-sentence summary. "
+        "Given a text chunk, you output the chapter or section heading it belongs to. "
         "Be concise and factual. Never add information that is not in the text."
     ))
 
     instruction_template: str = field(default=(
-        "Analyze the following text chunk and respond in exactly this format:\n"
-        "Topic: <3-6 word topic label>\n"
-        "Summary: <one sentence summary>\n\n"
+        "Analyze this text chunk. Identify which chapter or section it belongs to.\n"
+        "Use the document's own heading if visible in the text (e.g. \"3. Stoic Virtues\").\n"
+        "If a sub-section is identifiable, use the format: \"Parent Chapter > Sub-section\".\n"
+        "If no heading is visible, create a concise 3-6 word label that describes the topic.\n"
+        "Output only:\n"
+        "Topic: <heading or label>\n\n"
         "Chunk:\n{chunk}"
     ))
 

@@ -47,6 +47,14 @@ class TextSplitter:
         self._language = language
         _ensure_nltk_data()
 
+    def split_sentences(self, text: str) -> list[str]:
+        """Returns individual sentences (used by incremental chunking)."""
+        language = self._language or _detect_language(text)
+        sentences = []
+        for para in self._paragraph_split(text):
+            sentences.extend(sent_tokenize(para, language=language))
+        return sentences
+
     def make_mini_chunks(self, text: str) -> list[str]:
         language = self._language or _detect_language(text)
         paragraphs = self._paragraph_split(text)

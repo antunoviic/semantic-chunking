@@ -27,11 +27,12 @@ class LowInfoFilter(ChunkPostProcessor):
 
 class ChunkEnricher(ChunkPostProcessor):
     """
-    Prepends a Topic + Summary prefix to each chunk before embedding.
+    Prepends a Topic prefix to each chunk before embedding.
+    The topic reflects the chunk's structural position in the document
+    (chapter/section heading, hierarchical if identifiable).
 
     Format:
-        [Topic: Naval on Happiness]
-        [Summary: Happiness is achieved by removing desire, not fulfilling it.]
+        [Topic: 3. Stoic Virtues > 3.2 Justice]
 
         <original chunk text>
     """
@@ -46,17 +47,9 @@ class ChunkEnricher(ChunkPostProcessor):
         for i, chunk in enumerate(chunks):
             messages = self.prompt.as_messages(chunk)
             response = self.client.chat(messages).strip()
-            topic, summary = self._parse_response(response)
+            topic = self._parse_response(response)
 
-            if topic or summary:
-                prefix_parts = []
-                if topic:
-                    prefix_parts.append(f"[Topic: {topic}]")
-                if summary:
-                    prefix_parts.append(f"[Summary: {summary}]")
-                enriched_chunk = " ".join(prefix_parts) + "\n\n" + chunk
-            else:
-                enriched_chunk = chunk
+            enriched_chunk = f"[Topic: {topic}]\n\n{chunk}" if topic else chunk
 
             if self.verbose:
                 print(f"[ChunkEnricher] [{i+1}/{len(chunks)}] Topic: {topic}")
@@ -64,13 +57,9 @@ class ChunkEnricher(ChunkPostProcessor):
         return enriched
 
     @staticmethod
-    def _parse_response(response: str) -> tuple[str, str]:
-        topic = ""
-        summary = ""
+    def _parse_response(response: str) -> str:
         for line in response.splitlines():
             line = line.strip()
             if line.lower().startswith("topic:"):
-                topic = line[len("topic:"):].strip()
-            elif line.lower().startswith("summary:"):
-                summary = line[len("summary:"):].strip()
-        return topic, summary
+                return line[len("topic:"):].strip()
+        return ""
