@@ -2,7 +2,11 @@ from __future__ import annotations
 
 from typing import Optional
 
-from .incremental import IncrementalBoundaryDetector, IncrementalBoundaryPrompt
+from .incremental import (
+    HeadingAwareBoundaryDetector,
+    IncrementalBoundaryDetector,
+    IncrementalBoundaryPrompt,
+)
 from .interfaces import ChunkPostProcessor, LLMClient
 from .llm_client import QwenClient
 from .post_processors import ChunkEnricher, LowInfoFilter
@@ -36,6 +40,8 @@ class LLMChunker:
         step_sentences: int = 3,
         max_chunk_sentences: int = 20,
         max_chunk_chars: Optional[int] = None,
+        respect_headings: bool = True,
+        smart_split: bool = True,
         language: Optional[str] = None,
         verbose: bool = False,
     ) -> None:
@@ -45,16 +51,23 @@ class LLMChunker:
         self._mode = mode
         self._max_chunk_chars = max_chunk_chars
         self._verbose = verbose
+        self.boundary_stats: dict[str, int] = {}
 
         self._splitter = TextSplitter(sentences_per_chunk=sentences_per_mini_chunk, language=language)
 
         if mode == "incremental":
-            self._detector = IncrementalBoundaryDetector(
+            # Heading-aware variant adds hard boundaries at headings; the plain
+            # detector (respect_headings=False) is the ablation.
+            detector_cls = (
+                HeadingAwareBoundaryDetector if respect_headings else IncrementalBoundaryDetector
+            )
+            self._detector = detector_cls(
                 client=self._client,
                 prompt=incremental_prompt or IncrementalBoundaryPrompt(),
                 step_sentences=step_sentences,
                 max_chunk_sentences=max_chunk_sentences,
                 max_chunk_chars=max_chunk_chars,
+                smart_split=smart_split,
                 verbose=verbose,
             )
         else:
@@ -96,8 +109,14 @@ class LLMChunker:
                 print(f"[chunker] Pre-split into {len(units)} mini-chunks")
 
         chunks = self._detector.detect_and_assemble(units)
+        self.boundary_stats = dict(getattr(self._detector, "boundary_stats", {}))
         if self._verbose:
             print(f"[chunker] Assembled {len(chunks)} chunks")
+            if self.boundary_stats:
+                total = sum(self.boundary_stats.values()) or 1
+                parts = "  ".join(f"{k}={v} ({v*100//total} %)"
+                                  for k, v in self.boundary_stats.items() if v)
+                print(f"[chunker] Grenzen-Herkunft: {parts}")
 
         if self._max_chunk_chars:
             before = len(chunks)

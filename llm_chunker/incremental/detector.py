@@ -7,17 +7,6 @@ from .prompt import IncrementalBoundaryPrompt, SplitPointPrompt
 
 
 class IncrementalBoundaryDetector:
-    """
-    Reads the text sequentially: accumulates sentences into the current
-    chunk and asks the LLM for each candidate group whether it continues
-    the same topic or starts a new one. Boundaries are drawn by the LLM
-    itself, at sentence granularity — no pre-grouped mini-chunks.
-
-    When a chunk reaches the size cap, it is NOT hard-cut at the end: the LLM
-    is asked for the most sensible split point within the accumulated sentences
-    (SplitPointPrompt). Only the part before that boundary becomes a chunk; the
-    remainder is carried forward. This prevents mid-topic cuts on similar content.
-    """
 
     def __init__(
         self,
@@ -27,6 +16,7 @@ class IncrementalBoundaryDetector:
         step_sentences: int = 3,
         max_chunk_sentences: int = 20,
         max_chunk_chars: int | None = None,
+        smart_split: bool = True,
         verbose: bool = False,
     ) -> None:
         self.client = client
@@ -35,18 +25,38 @@ class IncrementalBoundaryDetector:
         self.step_sentences = step_sentences
         self.max_chunk_sentences = max_chunk_sentences
         self.max_chunk_chars = max_chunk_chars
+        # Ablation: False = am Limit einfach in der Mitte trennen, ohne das LLM
+        # nach der besten Stelle zu fragen. Trennt den Effekt des Groessendeckels
+        # vom Effekt der LLM-Trennstellenwahl.
+        self.smart_split = smart_split
         self.verbose = verbose
+        self.boundary_stats: dict[str, int] = {}
+        self.reset_stats()
 
     def _over_limit(self, current: list[str]) -> bool:
-        """True once the chunk hits the sentence cap or the char cap."""
         if len(current) >= self.max_chunk_sentences:
             return True
         if self.max_chunk_chars and len(" ".join(current)) >= self.max_chunk_chars:
             return True
         return False
 
+    def reset_stats(self) -> None:
+        """Zaehlt, WOHER die Chunk-Grenzen stammen.
+
+        Zentrale Kennzahl fuer die Arbeit: Kommt der Grossteil der Grenzen vom
+        Groessenlimit statt von der semantischen Entscheidung, ist das Verfahren
+        im Kern ein Fixed-Size-Chunker mit LLM-Overhead.
+        """
+        self.boundary_stats = {"semantic": 0, "size_cap": 0, "heading": 0, "end": 0}
+
     def detect_and_assemble(self, sentences: list[str]) -> list[str]:
-        """Input: individual sentences (not pre-grouped). Output: semantic chunks."""
+        self.reset_stats()
+        return self._run(sentences)
+
+    def _run(self, sentences: list[str]) -> list[str]:
+        """Eigentliche Schleife. Getrennt von detect_and_assemble, damit die
+        Heading-Variante sie je Abschnitt aufrufen kann, ohne die Zaehler zu
+        ueberschreiben."""
         chunks: list[str] = []
         current: list[str] = []
         pos = 0
@@ -64,6 +74,7 @@ class IncrementalBoundaryDetector:
             else:
                 # Natural topic boundary -> close the chunk here.
                 chunks.append(" ".join(current))
+                self.boundary_stats["semantic"] += 1
                 current = list(candidate)
                 continue
 
@@ -72,10 +83,12 @@ class IncrementalBoundaryDetector:
             while self._over_limit(current):
                 idx = self._best_split(current)
                 chunks.append(" ".join(current[:idx]))
+                self.boundary_stats["size_cap"] += 1
                 current = current[idx:]
 
         if current:
             chunks.append(" ".join(current))
+            self.boundary_stats["end"] += 1
         return [c.strip() for c in chunks if c.strip()]
 
     def _same_topic(self, current: list[str], candidate: list[str]) -> bool:
@@ -87,15 +100,16 @@ class IncrementalBoundaryDetector:
         return not raw.startswith("NO")
 
     def _best_split(self, current: list[str]) -> int:
-        """Ask the LLM for the most sensible split point in an oversized chunk.
+        #Ask the LLM for the most sensible split point in an oversized chunk.
 
-        Returns a 0-based index in [1, len-1] where the SECOND part begins, so
-        current[:idx] is saved as a chunk and current[idx:] is carried forward.
-        A single unsplittable sentence returns 1 (it becomes its own chunk).
-        """
         n = len(current)
         if n <= 1:
             return 1
+        if not self.smart_split:
+            idx = max(1, n // 2)          # Ablation: naiver Mittel-Split, kein LLM
+            if self.verbose:
+                print(f"[incremental] size cap hit ({n} sents) -> midpoint split at {idx}")
+            return idx
         raw = self.client.chat(self.split_prompt.as_messages(current)).strip()
         if self.verbose:
             print(f"[incremental] size cap hit ({n} sents) -> best split at {raw!r}")
