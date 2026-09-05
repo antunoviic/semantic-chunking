@@ -1,6 +1,8 @@
 # ChromaDB — wird lokal neu gebaut
+# Muster statt Einzelnamen: chroma_db_ask/ entsteht durch tools/ask.py,
+# weitere Stores kommen bei jedem neuen Auswertungslauf dazu.
+chroma_db_*/
 chroma_db/
-chroma_db_eval/
 
 # Chunk-Cache — wird lokal neu generiert
 chunks_cache/
@@ -8,6 +10,9 @@ chunks_cache/
 # Eval-Ergebnisse (lokal generiert)
 eval_results/
 eval_cache/
+
+# Logs der Chunking- und Ablationslaeufe (mehrere MB je Lauf)
+run_logs/
 
 # Python
 __pycache__/
@@ -17,3 +22,9 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+
+# Experimentelle Module, nicht Teil der Pipeline
+experiments/
+
+# macOS
+.DS_Store
