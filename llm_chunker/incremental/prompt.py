@@ -34,10 +34,8 @@ class IncrementalBoundaryPrompt:
 @dataclass
 class SplitPointPrompt:
     """
-    Used when a chunk reaches the size cap: instead of a hard cut at the end,
-    the LLM picks the single most sensible boundary WITHIN the accumulated
-    sentences. Only the part before that boundary becomes a chunk; the rest is
-    carried forward. This avoids splitting mid-topic on similar content.
+    instead of a hard cut at the end, the LLM picks the single most sensible boundary WITHIN the accumulated
+    sentences.
     """
 
     system_message: str = field(default=(

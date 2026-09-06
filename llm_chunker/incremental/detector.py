@@ -25,9 +25,7 @@ class IncrementalBoundaryDetector:
         self.step_sentences = step_sentences
         self.max_chunk_sentences = max_chunk_sentences
         self.max_chunk_chars = max_chunk_chars
-        # Ablation: False = am Limit einfach in der Mitte trennen, ohne das LLM
-        # nach der besten Stelle zu fragen. Trennt den Effekt des Groessendeckels
-        # vom Effekt der LLM-Trennstellenwahl.
+        # naive split: False = at limit just cut in the middle
         self.smart_split = smart_split
         self.verbose = verbose
         self.boundary_stats: dict[str, int] = {}
@@ -41,27 +39,24 @@ class IncrementalBoundaryDetector:
         return False
 
     def reset_stats(self) -> None:
-        """Zaehlt, WOHER die Chunk-Grenzen stammen.
-
-        Zentrale Kennzahl fuer die Arbeit: Kommt der Grossteil der Grenzen vom
-        Groessenlimit statt von der semantischen Entscheidung, ist das Verfahren
-        im Kern ein Fixed-Size-Chunker mit LLM-Overhead.
-        """
+        #counts what comes from llm and what from splitting itself
+        # how much differentiates itself from normal fixed-size chunking
         self.boundary_stats = {"semantic": 0, "size_cap": 0, "heading": 0, "end": 0}
 
-    def detect_and_assemble(self, sentences: list[str]) -> list[str]:
+    def detect_and_assemble(self, sentences: list[str], raw_text: str | None = None) -> list[str]:
+        """`raw_text` wird von der Basisklasse ignoriert — Parameter existiert nur,
+        damit chunker.py alle Detektor-Typen einheitlich aufrufen kann (die
+        Hybrid-Variante braucht ihn fuer die Heading-Erkennung auf Rohzeilen)."""
         self.reset_stats()
         return self._run(sentences)
 
     def _run(self, sentences: list[str]) -> list[str]:
-        """Eigentliche Schleife. Getrennt von detect_and_assemble, damit die
-        Heading-Variante sie je Abschnitt aufrufen kann, ohne die Zaehler zu
-        ueberschreiben."""
         chunks: list[str] = []
         current: list[str] = []
         pos = 0
 
         while pos < len(sentences):
+            start_idx = pos
             candidate = sentences[pos:pos + self.step_sentences]
             pos += self.step_sentences
 
@@ -69,17 +64,16 @@ class IncrementalBoundaryDetector:
                 current = list(candidate)
                 continue
 
-            if self._same_topic(current, candidate):
+            if self._same_topic(current, candidate, start_idx):
                 current.extend(candidate)
             else:
-                # Natural topic boundary -> close the chunk here.
+                # Natural topic boundary, close the chunk here.
                 chunks.append(" ".join(current))
-                self.boundary_stats["semantic"] += 1
                 current = list(candidate)
                 continue
 
-            # Size cap reached: split at the best boundary (not a hard cut),
-            # keep the remainder for the next chunk. Loop in case still oversized.
+            # size cap reached: split at the best boundary
+            # keep the remainder for the next chunk, loop in case still oversized
             while self._over_limit(current):
                 idx = self._best_split(current)
                 chunks.append(" ".join(current[:idx]))
@@ -91,22 +85,29 @@ class IncrementalBoundaryDetector:
             self.boundary_stats["end"] += 1
         return [c.strip() for c in chunks if c.strip()]
 
-    def _same_topic(self, current: list[str], candidate: list[str]) -> bool:
+    def _same_topic(self, current: list[str], candidate: list[str],
+                    start_idx: int | None = None) -> bool:
+        """`start_idx` wird von der Basisklasse ignoriert (kein Positionswissen
+        noetig) — Subklassen wie der Hybrid-Detektor nutzen ihn, um vorab
+        berechnete Heading-Positionen nachzuschlagen."""
         messages = self.prompt.as_messages(" ".join(current), " ".join(candidate))
         raw = self.client.chat(messages).strip().upper()
         if self.verbose:
             print(f"[incremental] chunk={len(current)} sents, candidate={len(candidate)} sents -> {raw!r}")
-        # Only an explicit NO starts a new chunk; unclear answers keep merging
-        return not raw.startswith("NO")
+        # only an explicit NO starts a new chunk; unclear answers keep merging
+        same = not raw.startswith("NO")
+        if not same:
+            self.boundary_stats["semantic"] += 1
+        return same
 
     def _best_split(self, current: list[str]) -> int:
-        #Ask the LLM for the most sensible split point in an oversized chunk.
+        #ask the LLM for split point in an oversized chunk
 
         n = len(current)
         if n <= 1:
             return 1
         if not self.smart_split:
-            idx = max(1, n // 2)          # Ablation: naiver Mittel-Split, kein LLM
+            idx = max(1, n // 2)          # naive split, no LLM
             if self.verbose:
                 print(f"[incremental] size cap hit ({n} sents) -> midpoint split at {idx}")
             return idx

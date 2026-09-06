@@ -4,6 +4,7 @@ from typing import Optional
 
 from .incremental import (
     HeadingAwareBoundaryDetector,
+    HybridHeadingBoundaryDetector,
     IncrementalBoundaryDetector,
     IncrementalBoundaryPrompt,
 )
@@ -17,11 +18,10 @@ from .window import BoundaryDetector, BoundaryPrompt
 
 class LLMChunker:
     """
-    Orchestrates the full semantic chunking pipeline:
       1. TextSplitter      — split text into mini-chunks (window mode) or sentences (incremental mode)
       2. Boundary detection — mode="window": sliding window over pre-grouped mini-chunks
                               mode="incremental": LLM reads sequentially and draws its own boundaries
-      3. post_processors   — optional filter and enrichment steps (OCP: extend without modifying)
+      3. post_processors   — optional filter and enrichment steps, extends withour modifying
     """
 
     def __init__(
@@ -41,14 +41,18 @@ class LLMChunker:
         max_chunk_sentences: int = 20,
         max_chunk_chars: Optional[int] = None,
         respect_headings: bool = True,
+        heading_mode: str = "regex",
         smart_split: bool = True,
         language: Optional[str] = None,
         verbose: bool = False,
     ) -> None:
         if mode not in ("window", "incremental"):
             raise ValueError(f"Unknown mode: {mode!r}. Use 'window' or 'incremental'.")
+        if heading_mode not in ("regex", "hybrid"):
+            raise ValueError(f"Unknown heading_mode: {heading_mode!r}. Use 'regex' or 'hybrid'.")
         self._client: LLMClient = client or QwenClient()
         self._mode = mode
+        self._heading_mode = heading_mode
         self._max_chunk_chars = max_chunk_chars
         self._verbose = verbose
         self.boundary_stats: dict[str, int] = {}
@@ -56,11 +60,12 @@ class LLMChunker:
         self._splitter = TextSplitter(sentences_per_chunk=sentences_per_mini_chunk, language=language)
 
         if mode == "incremental":
-            # Heading-aware variant adds hard boundaries at headings; the plain
-            # detector (respect_headings=False) is the ablation.
-            detector_cls = (
-                HeadingAwareBoundaryDetector if respect_headings else IncrementalBoundaryDetector
-            )
+            if not respect_headings:
+                detector_cls = IncrementalBoundaryDetector
+            elif heading_mode == "hybrid":
+                detector_cls = HybridHeadingBoundaryDetector
+            else:
+                detector_cls = HeadingAwareBoundaryDetector
             self._detector = detector_cls(
                 client=self._client,
                 prompt=incremental_prompt or IncrementalBoundaryPrompt(),
@@ -98,7 +103,6 @@ class LLMChunker:
             )
 
     def chunk(self, text: str) -> list[str]:
-        """Run the full chunking pipeline."""
         if self._mode == "incremental":
             units = self._splitter.split_sentences(text)
             if self._verbose:
@@ -108,7 +112,9 @@ class LLMChunker:
             if self._verbose:
                 print(f"[chunker] Pre-split into {len(units)} mini-chunks")
 
-        chunks = self._detector.detect_and_assemble(units)
+        # raw_text for hybrid in incremental
+        raw_text = text if self._mode == "incremental" else None
+        chunks = self._detector.detect_and_assemble(units, raw_text=raw_text)
         self.boundary_stats = dict(getattr(self._detector, "boundary_stats", {}))
         if self._verbose:
             print(f"[chunker] Assembled {len(chunks)} chunks")
@@ -133,12 +139,8 @@ class LLMChunker:
         return chunks
 
     def _cap_sizes(self, chunks: list[str]) -> list[str]:
-        """Split any chunk longer than max_chunk_chars at sentence boundaries.
+        #Split any chunk longer than max_chunk_chars at sentence boundaries
 
-        Applies to both modes; for window mode this is the only size safeguard
-        (the sliding-window detector has no size limit of its own). A single
-        sentence longer than the cap is kept whole rather than split mid-sentence.
-        """
         cap = self._max_chunk_chars
         capped: list[str] = []
         for chunk in chunks:

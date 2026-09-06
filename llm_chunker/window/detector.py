@@ -25,7 +25,7 @@ class BoundaryDetector:
         self.step_size = step_size
         self.verbose = verbose
 
-    def detect_and_assemble(self, mini_chunks: list[str]) -> list[str]:
+    def detect_and_assemble(self, mini_chunks: list[str], raw_text: str | None = None) -> list[str]:
         """Detect boundaries and assemble final chunks from mini-chunks."""
         if len(mini_chunks) <= 2:
             return [" ".join(mini_chunks)] if mini_chunks else []
