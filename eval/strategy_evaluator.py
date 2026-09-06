@@ -28,13 +28,7 @@ def _avg_len(chunks: list[str]) -> int:
 
 
 def build_strategies(text: str, match_len: int | None = None) -> dict[str, list[str]]:
-    """Baselines. `match_len` erzeugt zusaetzlich laengengematchte Varianten.
 
-    Ohne sie vergleicht man z.B. 686 Zeichen (LLM) gegen 252 (fixed_256) — jeder
-    Unterschied kann ein reiner Laengeneffekt sein. Die gematchten Baselines
-    haben dieselbe mittlere Chunk-Laenge wie der LLM-Chunker; uebrig bleibt als
-    Unterschied nur, WO die Grenzen liegen.
-    """
     def fixed(size: int, overlap: int) -> list[str]:
         return CharacterTextSplitter(chunk_size=size, chunk_overlap=overlap, separator=" ").split_text(text)
 
@@ -46,9 +40,8 @@ def build_strategies(text: str, match_len: int | None = None) -> dict[str, list[
         "fixed_512": fixed(512, 50),
         "recursive": recursive(),
     }
-    if match_len:
+    if match_len: #matches length of llm-chunker to show difference in chunkking not length
         out[f"fixed_matched_{match_len}"] = fixed(match_len, 50)
-        # RecursiveSplitter bleibt deutlich unter seinem chunk_size -> nachjustieren
         size, best = match_len, None
         for _ in range(6):
             cand = recursive(size, 50)
@@ -72,21 +65,14 @@ def build_semantic_lc(text: str, embedding_fn) -> list[str]:
     chunks = chunker.split_text(text)
     return chunks or [text]
 
-
+#splits parents into children for search
+#search through children, retireving parent
 def build_parent_child(
     parents: list[str],
     child_chars: int = 250,
     child_overlap: int = 30,
 ) -> tuple[list[str], list[str]]:
-    """Zerlegt jeden Parent in kleine Children fuer die Suche.
 
-    Idee: Gesucht wird ueber die Children (feine Granularitaet, praezise Treffer
-    wie fixed_256), zurueckgegeben wird aber der Parent (kohaerenter Kontext aus
-    der LLM-Grenzziehung). Kostet KEINEN LLM-Aufruf — die Parents sind die
-    bereits gecachten incremental-Chunks.
-
-    Rueckgabe: (children, parent_je_child) — 1:1 ausgerichtet.
-    """
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=child_chars, chunk_overlap=child_overlap
     )
@@ -115,12 +101,9 @@ class StrategyEvaluator:
         qa_pairs: list[dict],
         display_texts: list[str] | None = None,
     ) -> dict:
-        """display_texts: was statt der eingebetteten Chunks zurueckgegeben wird
-        (Parent-Child). Ist es gesetzt, werden Mehrfachtreffer auf denselben
-        Rueckgabetext zusammengefasst."""
         collection = f"eval_{name}"
         dedupe = display_texts is not None
-        # Immer bis 10 abrufen, damit Hit@1/3/5/10 aus EINEM Lauf kommen.
+        # until hit@10
         fetch_k = max(self._k, max(self.REPORT_KS))
         print(f"    Adding {len(chunks)} chunks to vector store...", flush=True)
         self._store.add_chunks(collection, chunks, source=name, display_texts=display_texts)
@@ -136,7 +119,7 @@ class StrategyEvaluator:
             results = self._store.query(collection, qa["question"], k=fetch_k,
                                         dedupe_by_text=dedupe)
             top1_distances.append(results[0].distance if results else 1.0)
-            # Kontextkosten am Betriebspunkt k, nicht ueber alle 10 Treffer
+            # context costs 
             retrieved_chars.append(sum(len(r.chunk_text) for r in results[:self._k]))
 
             rank = next(
@@ -172,8 +155,6 @@ class StrategyEvaluator:
         return {
             "strategy":            name,
             "chunk_count":         len(chunks),
-            # Bei Parent-Child ist die Rueckgabe-Einheit der Parent, nicht das
-            # eingebettete Child -> Laenge ueber die eindeutigen Parents messen.
             "avg_chunk_len":       round(
                 sum(len(c) for c in (set(display_texts) if display_texts else chunks))
                 / max(1, len(set(display_texts)) if display_texts else len(chunks))
@@ -181,8 +162,8 @@ class StrategyEvaluator:
             **{f"hit_rate@{kk}": round(hits_at[kk] / n * 100, 1) for kk in self.REPORT_KS},
             "mrr":                 round(sum(reciprocal_ranks) / n, 3),
             "avg_dist_top1":       round(sum(top1_distances) / n, 3),
-            # Context cost: how many characters land in the LLM prompt per query.
-            # High hit rates achieved with huge chunks are cheaper to fake.
+            # Context cost: how many characters land in the LLM prompt per query
+            # High hit rates achieved with huge chunks are easier to get becasuse right chunk will be in it
             "avg_retrieved_chars": round(sum(retrieved_chars) / n),
             # Failed questions with what was wrongly retrieved — for error analysis
             "missed_questions":    missed_questions,
@@ -193,37 +174,26 @@ class StrategyEvaluator:
 
     @classmethod
     def coverage(cls, source: str, retrieved: str) -> float:
-        """Anteil des Ankers, den der Chunk am Stueck abdeckt (0..1).
-
-        Laengster gemeinsamer Teilstring geteilt durch die Ankerlaenge. Ersetzt
-        das fruehere Kriterium (vollstaendige Enthaltung ODER ein 40-Zeichen-
-        Fenster), das die Metrik laengenabhaengig machte:
-          * Enthaltung belohnte grosse Chunks — ein Ein-Chunk-Dokument haette
-            100 % Trefferquote erreicht.
-          * Das 40-Zeichen-Fenster liess kleine Chunks gewinnen, die den Anker
-            nur am Rand streiften (40 von ~174 Zeichen genuegten).
-        Die Deckungsquote ist laengenneutral: Sie misst, wie viel der ANTWORT
-        tatsaechlich geliefert wurde.
-        """
+        #what portion of substring is in the chunk 0.1
         if not source or not retrieved:
             return 0.0
         a = " ".join(source.split())
         b = " ".join(cls._TOPIC_PREFIX.sub("", retrieved.strip()).split())
         if not a:
             return 0.0
-        if a in b:                       # haeufigster Fall, Abkuerzung
+        if a in b:                     
             return 1.0
         match = SequenceMatcher(None, a, b, autojunk=False).find_longest_match(0, len(a), 0, len(b))
         return match.size / len(a)
 
     @classmethod
     def _is_hit(cls, source: str, retrieved: str) -> bool:
-        """Treffer, wenn der Chunk mindestens COVERAGE_THRESHOLD des Ankers abdeckt."""
+        #hit when threshold met
         return cls.coverage(source, retrieved) >= cls.COVERAGE_THRESHOLD
 
     @classmethod
     def _is_hit_legacy(cls, source: str, retrieved: str, window: int = 40) -> bool:
-        """Frueheres Kriterium — nur noch fuer den Vergleich alter und neuer Zahlen."""
+        #old criteria, hit if length containment is met
         if not source or not retrieved:
             return False
         retrieved = cls._TOPIC_PREFIX.sub("", retrieved.strip())
