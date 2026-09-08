@@ -112,6 +112,7 @@ class StrategyEvaluator:
         hits_at = {kk: 0 for kk in self.REPORT_KS}
         reciprocal_ranks, top1_distances, retrieved_chars = [], [], []
         missed_questions = []
+        question_ranks: list[dict] = []
 
         for i, qa in enumerate(qa_pairs, 1):
             if i % 10 == 0 or i == 1:
@@ -126,6 +127,7 @@ class StrategyEvaluator:
                 (j for j, r in enumerate(results, 1) if self._is_hit(qa["source_text"], r.chunk_text)),
                 None,
             )
+            question_ranks.append({"question": qa["question"], "rank": rank})
             if rank is not None:
                 for kk in self.REPORT_KS:
                     if rank <= kk:
@@ -167,6 +169,8 @@ class StrategyEvaluator:
             "avg_retrieved_chars": round(sum(retrieved_chars) / n),
             # Failed questions with what was wrongly retrieved — for error analysis
             "missed_questions":    missed_questions,
+            #average so that isn't just dependant whether its in top10 but also if it wins for top 1/3 etc.
+            "question_ranks":      question_ranks,
         }
 
     _TOPIC_PREFIX = re.compile(r"^\[Topic:[^\]]*\]\s*")
