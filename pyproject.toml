@@ -4,10 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llm-semantic-chunker"
-# 0.2.0 statt 0.1.0: QwenClient heisst jetzt OllamaClient (ohne Alias) und
-# die Einstellungen liegen in ChunkerConfig — eine Bruchaenderung. Ausserdem
-# ist 0.1.0 auf TestPyPI bereits durch eine aeltere Fassung belegt.
-version = "0.2.1"
+# 0.2.x: QwenClient became OllamaClient (no alias) and the settings moved into
+# ChunkerConfig, a breaking change against the 0.1.0 on TestPyPI. Patch releases
+# since then change documentation, packaging metadata and the pipeline only;
+# a version that is on an index is never rebuilt with different content.
+version = "0.2.2"
 requires-python = ">=3.9"
 description = "LLM-based semantic chunking library for RAG pipelines"
 readme = "README.md"
@@ -55,16 +56,15 @@ pdf = ["pypdf>=4.0"]
 # Vector store used by llm_semantic_chunker/vectorstore.py and the evaluation harness
 vectorstore = ["chromadb>=0.5"]
 
-# Everything the thesis evaluation harness needs on top: baseline chunkers,
-# embeddings and plots. Not needed to use the library.
+# Everything the thesis evaluation harness needs on top: the rule-based
+# baselines, LangChain's SemanticChunker and the plots. Embeddings come from
+# Ollama (bge-m3), so no torch. Not needed to use the library.
 eval = [
     "chromadb>=0.5",
     "pypdf>=4.0",
-    "sentence-transformers>=3.0",
+    "langchain-core>=0.3",
     "langchain-text-splitters>=0.3",
     "langchain-experimental>=0.3",
-    "langchain-huggingface>=0.1",
-    "langchain-community>=0.3",
     "matplotlib>=3.8",
 ]
 dev = ["pytest>=8"]

@@ -12,7 +12,7 @@ The library runs entirely against a **local Ollama model** — no API keys, no d
 pip install llm-semantic-chunker
 ```
 
-That is the whole install — `httpx`, `nltk` and `langdetect`. No vector store, no `torch`.
+That is the whole install — `httpx`, `nltk` and `langdetect`. No vector store, no `torch`. On first use the sentence splitter downloads NLTK's `punkt` data once.
 
 Requires [Ollama](https://ollama.com) running locally with a compatible model, here:
 
@@ -127,16 +127,16 @@ The LLM reads the document sentence by sentence and decides, for each new group 
 
 Four settings shape the result on top of that:
 
-- **Heading awareness** — `heading_mode` picks how section headings are found, and a detected heading forces a hard boundary:
+- **Heading awareness** — `heading_mode` picks how section headings are found, and a detected heading forces a boundary. In `"regex"` mode the boundary sits exactly at the heading sentence; in `"lines"` and `"hybrid"` mode it sits in front of the sentence group (`step_sentences`) that contains the heading, so with `step_sentences=2` the group's first sentence may precede the heading:
   - `"regex"` (default) — a sentence-level pattern, applied after sentence splitting
   - `"lines"` — a stronger line-based pattern applied to the raw text *before* sentence splitting, so numbered headings like "3.2. Error Handling" survive tokenisation
-  - `"hybrid"` — the line-based pattern, plus an LLM check for candidates it missed; useful for documents whose headings aren't reliably formatted
+  - `"hybrid"` — the line-based pattern, plus an LLM check for short sentence groups (at most 90 characters and 12 words) the pattern did not flag. A heading that shares its group with a full sentence is not checked, so on well-formatted documents the LLM adds little over `"lines"`
 - **Size cap** — `max_chunk_sentences` / `max_chunk_chars` force a split once a chunk outgrows the limit, even if the topic continues. The cut never falls inside a sentence: the LLM picks the best sentence boundary, and the chunker walks it back until the piece fits. A single sentence longer than the cap therefore stays whole — the cap is a target, not a guarantee.
 - **Low-info filter** — a post-processing pass removes chunks that turned out to be near-empty boilerplate rather than actual content.
 - **Topic enrichment** — `enrich=True` prefixes every chunk with an LLM-generated `[Topic: ...]` line, so the embedding also carries where the chunk sits in the document. Off by default: it costs one extra LLM call per chunk.
 
 ### `mode="window"` (legacy)
-ok
+
 An earlier, two-pass approach: the text is pre-split into fixed-size mini-chunks, a sliding window over them proposes coarse boundaries. Only kept for comparison — without a size cap it degenerates into a few very large chunks.
 
 ---
@@ -159,7 +159,7 @@ chunker.config.max_chunk_chars      # 1200
 ```
 
 `ChunkerConfig` is frozen and validates itself, so a bad value fails before the run. Passing a config *and* individual
-settings at the same time is not possible to prevent ambigious behaviour
+settings at the same time is refused, because it would be ambiguous which one wins.
 
 ```python
 ChunkerConfig(
@@ -211,4 +211,4 @@ OllamaClient(
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](https://github.com/antunoviic/semantic-chunking/blob/main/LICENSE).
