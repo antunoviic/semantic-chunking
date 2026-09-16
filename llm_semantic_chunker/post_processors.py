@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-import re
-
 from .interfaces import BasePrompt, ChunkPostProcessor, LLMClient
+from .prompts import is_explicit_no
 from ._logging import get_logger
 
 logger = get_logger(__name__)
@@ -11,20 +10,16 @@ logger = get_logger(__name__)
 class LowInfoFilter(ChunkPostProcessor):
     """Removes chunks the LLM judges as low-information."""
 
-    def __init__(self, client: LLMClient, prompt: BasePrompt, verbose: bool = False) -> None:
+    def __init__(self, client: LLMClient, prompt: BasePrompt) -> None:
         self.client = client
         self.prompt = prompt
-        self.verbose = verbose
-
-    # No/Nein as filter
-    _EXPLICIT_NO = re.compile(r"^\W*(NO|NEIN)\b", re.IGNORECASE)
 
     def process(self, chunks: list[str]) -> list[str]:
         result = []
         for chunk in chunks:
             messages = self.prompt.as_messages(chunk)
             raw = self.client.chat(messages).strip()
-            drop = bool(self._EXPLICIT_NO.match(raw))
+            drop = is_explicit_no(raw)
             logger.debug(f"[filter] {'removed' if drop else 'kept':<7} raw={raw[:40]!r} "
                   f"-> {chunk[:60]}...")
             if not drop:
@@ -34,11 +29,11 @@ class LowInfoFilter(ChunkPostProcessor):
 
 
 class ChunkEnricher(ChunkPostProcessor):
+    """Prefixes every chunk with an LLM-generated `[Topic: ...]` line."""
 
-    def __init__(self, client: LLMClient, prompt: BasePrompt, verbose: bool = False) -> None:
+    def __init__(self, client: LLMClient, prompt: BasePrompt) -> None:
         self.client = client
         self.prompt = prompt
-        self.verbose = verbose
 
     def process(self, chunks: list[str]) -> list[str]:
         enriched = []

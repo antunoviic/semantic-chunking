@@ -28,7 +28,7 @@ def _ensure_nltk_data() -> None:
             nltk.download(pkg, quiet=True)
 
 
-def _detect_language(text: str, verbose: bool = False) -> str:
+def _detect_language(text: str) -> str:
     try:
         import langdetect
         # langdetect fixed seed to be deterministic
@@ -46,11 +46,9 @@ class TextSplitter:
     #Language is auto-detected unless explicitly provided.
 
 
-    def __init__(self, sentences_per_chunk: int = 3, language: Optional[str] = None,
-                 verbose: bool = False) -> None:
+    def __init__(self, sentences_per_chunk: int = 3, language: Optional[str] = None) -> None:
         self._sentences_per_chunk = sentences_per_chunk
         self._language = _LANG_MAP.get(language, language) if language else None
-        self._verbose = verbose
         self._detected: Optional[str] = None
         _ensure_nltk_data()
 
@@ -58,7 +56,7 @@ class TextSplitter:
         if self._language:
             return self._language
         if self._detected is None:
-            self._detected = _detect_language(text, self._verbose)
+            self._detected = _detect_language(text)
         return self._detected
 
     def split_sentences(self, text: str) -> list[str]:

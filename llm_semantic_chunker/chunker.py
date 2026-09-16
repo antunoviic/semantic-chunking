@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import warnings
 from typing import Optional
 
 from .incremental import (
@@ -48,6 +47,8 @@ class LLMChunker:
         self._config.warn_about_ignored()
 
         if self._config.verbose:
+            # the only thing `verbose` does: a DEBUG console handler on the
+            # package logger; every module logs unconditionally through `logging`
             enable_console_logging(logging.DEBUG)
 
         self._client: LLMClient = client or OllamaClient()
@@ -76,7 +77,6 @@ class LLMChunker:
                 prompt=boundary_prompt or BoundaryPrompt(),
                 window_size=cfg.window_size,
                 step_size=cfg.step_size,
-                verbose=cfg.verbose,
             )
 
         extra: dict = {}
@@ -94,7 +94,6 @@ class LLMChunker:
             max_chunk_sentences=cfg.max_chunk_sentences,
             max_chunk_chars=cfg.max_chunk_chars,
             smart_split=cfg.smart_split,
-            verbose=cfg.verbose,
             **extra,
         )
 
@@ -104,12 +103,10 @@ class LLMChunker:
         out: list[ChunkPostProcessor] = []
         if cfg.filter_low_info:
             out.append(LowInfoFilter(client=self._client,
-                                     prompt=low_info_prompt or LowInfoPrompt(),
-                                     verbose=cfg.verbose))
+                                     prompt=low_info_prompt or LowInfoPrompt()))
         if cfg.enrich:
             out.append(ChunkEnricher(client=self._client,
-                                     prompt=enrichment_prompt or EnrichmentPrompt(),
-                                     verbose=cfg.verbose))
+                                     prompt=enrichment_prompt or EnrichmentPrompt()))
         return out
 
     def chunk(self, text: str) -> list[str]:

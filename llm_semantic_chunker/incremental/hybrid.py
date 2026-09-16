@@ -7,7 +7,10 @@ from .._logging import get_logger
 
 logger = get_logger(__name__)
 
-#how much of text the llm sees
+# Upper bound on the candidate text handed to the pre-filter. The pre-filter
+# itself accepts at most _MAX_HEADING_LEN (90) characters and 12 words, so the
+# LLM is only ever asked about a short sentence group; a heading that shares its
+# group with a full sentence is not checked at all.
 _PROBE_CHARS = 120
 
 
@@ -40,7 +43,7 @@ class HybridHeadingBoundaryDetector(IncrementalBoundaryDetector):
 
     def _same_topic(self, current: list[str], candidate: list[str],
                     start_idx: int | None = None) -> bool:
-        #regex-hit
+        # regex hit: boundary in front of the group that contains the heading
         if start_idx is not None and self._heading_indices:
             hit = next((i for i in range(start_idx, start_idx + len(candidate))
                         if i in self._heading_indices), None)
@@ -50,7 +53,7 @@ class HybridHeadingBoundaryDetector(IncrementalBoundaryDetector):
                 self.boundary_stats["heading_regex"] += 1
                 return False
 
-        #llm search
+        # LLM check, only for short groups that pass the pre-filter
         if not self.use_llm_fallback:
             return super()._same_topic(current, candidate, start_idx)
 

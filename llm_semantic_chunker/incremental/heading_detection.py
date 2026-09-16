@@ -14,9 +14,9 @@ _NAMED = re.compile(
 _MAX_HEADING_LEN = 90
 _MIN_HEADING_LEN = 3
 
-#checks whether prosa, table etc.
+# line-level filter: rejects prose, table rows, table-of-contents lines
 def _is_heading_line(line: str) -> bool:
-    if line[:1] in (" ", "\t"):          # list points/headings are indented
+    if line[:1] in (" ", "\t"):          # indented lines are list items or table cells, never headings
         return False
     s = line.strip()
     if not (_MIN_HEADING_LEN <= len(s) <= _MAX_HEADING_LEN):

@@ -20,13 +20,11 @@ class BoundaryDetector:
         prompt: BasePrompt,
         window_size: int = 10,
         step_size: int = 5,
-        verbose: bool = False,
     ) -> None:
         self.client = client
         self.prompt = prompt
         self.window_size = window_size
         self.step_size = step_size
-        self.verbose = verbose
 
     def detect_and_assemble(self, mini_chunks: list[str], raw_text: str | None = None) -> list[str]:
         #Detect boundaries and assemble final chunks from mini-chunks

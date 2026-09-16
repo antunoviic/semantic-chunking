@@ -15,15 +15,16 @@ class OllamaClient:
     DEFAULT_MODEL   = "qwen3.5:4b"
     DEFAULT_BASE_URL = "http://localhost:11434"
     DEFAULT_NUM_CTX  = 4096
-    MAX_RETRIES      = 4       
-    RETRY_BACKOFF    = 3.0   
+    MAX_RETRIES      = 4       # attempts on 5xx / transport errors before giving up
+    RETRY_BACKOFF    = 3.0     # seconds, doubled per attempt
 
     def __init__(
         self,
         model: str = DEFAULT_MODEL,
         base_url: str = "",
-        temperature: float = 0.0, #temperature of 0.0 for deterministic answers
-        seed: int = 42,           # bit accurate
+        temperature: float = 0.0, # greedy decoding
+        seed: int = 42,           # temperature=0 alone is not bit-exact on Ollama; the
+                                  # fixed seed made three full runs identical (measured)
         timeout: float = 600.0,
         thinking: bool = False,
         num_ctx: int = DEFAULT_NUM_CTX,

@@ -4,7 +4,7 @@ import warnings
 from dataclasses import dataclass, fields
 from typing import Optional
 
-#borders
+# lower bounds for the integer settings; anything below is rejected
 _MINIMUMS = {
     "step_sentences": 1,
     "max_chunk_sentences": 1,
@@ -24,31 +24,36 @@ class ChunkerConfig:
 
     mode: str = "incremental"
 
-    # incremental
+    # --- incremental mode ---
+    # sentences per boundary decision
     step_sentences: int = 3
-    #sentences per border decision
+    # hard cap in sentences, regardless of topic continuity
     max_chunk_sentences: int = 20
-    #maximum
+    # cap in characters, applied at sentence boundaries; None = no cap
     max_chunk_chars: Optional[int] = None
+    # force a boundary at detected section headings
     respect_headings: bool = True
-    #border on each heading
+    # "regex" (sentence-based), "lines" (line-based), "hybrid" (line-based + LLM check)
     heading_mode: str = "regex"
-    """ "regex" (sentence-based), "lines" (line-based),
-    "hybrid" (line-based and llm-call)."""
+    # at the size cap, ask the LLM for the best split point instead of cutting in the middle
     smart_split: bool = True
 
-    # --- window ---
+    # --- window mode ---
+    # mini-chunks visible to the LLM per boundary decision
     window_size: int = 10
-    #what llm sees
+    # how far the window advances per iteration
     step_size: int = 5
-    #steps per window
+    # sentences per mini-chunk
     sentences_per_mini_chunk: int = 3
 
-    # shared for bothn modes
+    # --- shared by both modes ---
+    # drop near-empty chunks after assembly (one LLM call per chunk)
     filter_low_info: bool = True
+    # prefix each chunk with an LLM-generated [Topic: ...] line (one LLM call per chunk)
     enrich: bool = False
+    # sentence-splitter language; auto-detected if None
     language: Optional[str] = None
-    #language for chunks, automatic
+    # attach a DEBUG console handler to the package logger (see _logging.py)
     verbose: bool = False
 
     def __post_init__(self) -> None:

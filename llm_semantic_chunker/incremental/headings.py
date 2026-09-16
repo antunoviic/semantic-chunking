@@ -35,7 +35,6 @@ def is_heading_sentence(sentence: str, heading_re: re.Pattern[str] = HEADING_RE)
 def split_at_headings(
     sentences: list[str],
     heading_re: re.Pattern[str] = HEADING_RE,
-    verbose: bool = False,
 ) -> list[list[str]]:
     #Group sentences into sections, heading-like sentence starts new one
     segments: list[list[str]] = []
@@ -59,11 +58,12 @@ class HeadingAwareBoundaryDetector(IncrementalBoundaryDetector):
         self.heading_re = heading_re
 
     def detect_and_assemble(self, sentences: list[str], raw_text: str | None = None) -> list[str]:
-        """`raw_text` wird ignoriert — diese Klasse matcht auf Saetzen, siehe
-        Modul-Docstring in heading_detection.py fuer die staerkere Alternative."""
+        """`raw_text` is ignored: this detector matches on sentences and splits
+        exactly at the heading sentence. The line-based detection on the raw text
+        lives in heading_detection.py and is used by HybridHeadingBoundaryDetector."""
         self.reset_stats()
         chunks: list[str] = []
-        segments = split_at_headings(sentences, self.heading_re, self.verbose)
+        segments = split_at_headings(sentences, self.heading_re)
         for segment in segments:
             chunks.extend(self._run(segment))
         heading_boundaries = max(0, len(segments) - 1)

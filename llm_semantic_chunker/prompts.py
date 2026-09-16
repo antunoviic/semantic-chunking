@@ -1,11 +1,20 @@
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 
 from .interfaces import BasePrompt
 
 
 # prompts shared by window and incremental
+
+# Parser for the YES/NO answers these prompts ask for. Only an explicit NO (or
+# NEIN) counts; an unclear reply never drops a chunk or opens a boundary.
+EXPLICIT_NO = re.compile(r"^\W*(NO|NEIN)\b", re.IGNORECASE)
+
+
+def is_explicit_no(raw: str) -> bool:
+    return bool(EXPLICIT_NO.match(raw.strip()))
 
 
 @dataclass

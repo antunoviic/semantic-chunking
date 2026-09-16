@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 
 from ..interfaces import LLMClient
+from ..prompts import is_explicit_no
 from .prompt import IncrementalBoundaryPrompt, SplitPointPrompt
 from .._logging import get_logger
 
@@ -10,8 +11,6 @@ logger = get_logger(__name__)
 
 
 class IncrementalBoundaryDetector:
-
-    _EXPLICIT_NO = re.compile(r"^\W*(NO|NEIN)\b", re.IGNORECASE)
 
     def __init__(
         self,
@@ -22,7 +21,6 @@ class IncrementalBoundaryDetector:
         max_chunk_sentences: int = 20,
         max_chunk_chars: int | None = None,
         smart_split: bool = True,
-        verbose: bool = False,
     ) -> None:
         self.client = client
         self.prompt = prompt or IncrementalBoundaryPrompt()
@@ -32,7 +30,6 @@ class IncrementalBoundaryDetector:
         self.max_chunk_chars = max_chunk_chars
         # naive split: False = at limit just cut in the middle
         self.smart_split = smart_split
-        self.verbose = verbose
         self.boundary_stats: dict[str, int] = {}
         self.reset_stats()
 
@@ -92,7 +89,7 @@ class IncrementalBoundaryDetector:
         raw = self.client.chat(messages).strip().upper()
         logger.debug(f"[incremental] chunk={len(current)} sents, candidate={len(candidate)} sents -> {raw!r}")
         # only an explicit NO starts a new chunk; unclear answers keep merging
-        same = not self._EXPLICIT_NO.match(raw)
+        same = not is_explicit_no(raw)
         if not same:
             self.boundary_stats["semantic"] += 1
         return same
