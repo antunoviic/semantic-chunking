@@ -1,12 +1,38 @@
 [build-system]
 requires = ["setuptools>=68"]
-build-backend = "setuptools.backends.legacy:build"
+build-backend = "setuptools.build_meta"
 
 [project]
-name = "llm-chunker"
-version = "0.1.0"
+name = "llm-semantic-chunker"
+# 0.2.0 statt 0.1.0: QwenClient heisst jetzt OllamaClient (ohne Alias) und
+# die Einstellungen liegen in ChunkerConfig — eine Bruchaenderung. Ausserdem
+# ist 0.1.0 auf TestPyPI bereits durch eine aeltere Fassung belegt.
+version = "0.2.0"
 requires-python = ">=3.9"
 description = "LLM-based semantic chunking library for RAG pipelines"
+readme = "README.md"
+authors = [{ name = "Ivan Antunovic" }]
+# PEP 639: SPDX-Ausdruck statt Classifier. Der alte
+# "License :: OSI Approved :: MIT License" ist damit unzulaessig.
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["chunking", "rag", "retrieval", "llm", "ollama", "nlp"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+]
+
+# Chunking a string needs exactly these three. Everything else a user might
+# want — a vector store, PDF reading, a framework adapter — is an extra, so
+# `pip install llm-semantic-chunker` stays small.
 dependencies = [
     # HTTP client for Ollama
     "httpx>=0.27",
@@ -14,23 +40,42 @@ dependencies = [
     "nltk>=3.8",
     # Language auto-detection
     "langdetect>=1.0.9",
-    # Vector store
-    "chromadb>=0.5",
-    # Embeddings
-    "sentence-transformers>=3.0",
-    # PDF reading
-    "pypdf>=4.0",
 ]
 
 [project.optional-dependencies]
-# Baseline chunking strategies for evaluation
+# Framework adapters. The imports are visible in the example code, but nobody
+# who only wants to chunk text has to download either framework.
+langchain = ["langchain-text-splitters>=0.3"]
+# llama-index-core pulls in `banks`, which uses PEP 604 syntax and therefore
+# needs Python 3.10 — the library itself still runs on 3.9.
+llamaindex = ["llama-index-core>=0.11"]
+
+# PDF input via app/document_reader.py
+pdf = ["pypdf>=4.0"]
+# Vector store used by llm_semantic_chunker/vectorstore.py and the evaluation harness
+vectorstore = ["chromadb>=0.5"]
+
+# Everything the thesis evaluation harness needs on top: baseline chunkers,
+# embeddings and plots. Not needed to use the library.
 eval = [
+    "chromadb>=0.5",
+    "pypdf>=4.0",
+    "sentence-transformers>=3.0",
     "langchain-text-splitters>=0.3",
     "langchain-experimental>=0.3",
     "langchain-huggingface>=0.1",
     "langchain-community>=0.3",
     "matplotlib>=3.8",
 ]
-dev = [
-    "pytest>=8",
-]
+dev = ["pytest>=8"]
+
+[project.urls]
+Repository = "https://github.com/antunoviic/semantic-chunking"
+Issues = "https://github.com/antunoviic/semantic-chunking/issues"
+
+[tool.setuptools.packages.find]
+# Only the library ships. app/, eval/, tools/ and thesis/ are the evaluation
+# harness behind the bachelor thesis — they stay in the repository but are not
+# part of the distribution, so installing this package cannot put top-level
+# modules named `app` or `eval` on a user's import path.
+include = ["llm_semantic_chunker*"]

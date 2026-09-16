@@ -1,4 +1,4 @@
-# semantic-chunking
+# llm-semantic-chunker
 
 A Python library for **LLM-based semantic chunking**, designed for Retrieval-Augmented Generation (RAG) pipelines. Instead of splitting text at a fixed character count, it uses a local LLM to decide where a topic actually changes and groups sentences accordingly.
 
@@ -9,83 +9,171 @@ The library runs entirely against a **local Ollama model** — no API keys, no d
 ## Installation
 
 ```bash
-pip install httpx nltk langdetect chromadb sentence-transformers pypdf
+pip install llm-semantic-chunker
 ```
 
-Requires [Ollama](https://ollama.com) running locally with a compatible model:
+That is the whole install — `httpx`, `nltk` and `langdetect`. No vector store, no `torch`.
+
+Requires [Ollama](https://ollama.com) running locally with a compatible model, here:
 
 ```bash
-ollama pull qwen3.5:4b  
+ollama pull qwen3.5:4b
 ```
 
-On an 8 GB machine, prefer a smaller model (`llama3.2:3b`) and a reduced context window (see [Configuration](#configuration) below).
+Optional extras, only if you want them:
 
-`sentence-transformers` pulls in `torch`, and `chromadb` pulls in `grpcio` — both are substantial, and on some platform/Python combinations `pip` builds `grpcio` from source rather than using a prebuilt wheel, which can take several minutes on top of the download, but only happens at first install.
+```bash
+pip install "llm-semantic-chunker[langchain]"    # LangChain adapter
+pip install "llm-semantic-chunker[llamaindex]"   # LlamaIndex adapter (needs Python 3.10+)
+pip install "llm-semantic-chunker[pdf]"          # read .pdf input
+```
 
 ---
 
 ## Quick Start
 
 ```python
-from llm_chunker import LLMChunker, QwenClient
+from llm_semantic_chunker import LLMChunker, OllamaClient
 
-chunker = LLMChunker(client=QwenClient(), mode="incremental")
-chunks = chunker.chunk("Your text here...")
+TEXT = (
+    "The sun is a star at the center of the solar system. It is a nearly "
+    "perfect sphere of hot plasma, heated to incandescence by nuclear fusion "
+    "in its core. Its diameter is about 1.39 million kilometres, roughly 109 "
+    "times that of Earth. "
+    "Dolphins are highly intelligent marine mammals. They live in social "
+    "groups called pods and use echolocation to navigate and hunt. Some "
+    "species have been observed teaching their young to use tools."
+)
 
-for i, chunk in enumerate(chunks, 1):
+chunker = LLMChunker(client=OllamaClient(), mode="incremental", max_chunk_chars=1200)
+
+for i, chunk in enumerate(chunker.chunk(TEXT), 1):
     print(f"--- Chunk {i} ---")
     print(chunk)
 ```
 
-### Chunking a PDF or text file
+The LLM splits between the two topics rather than at a character count:
 
-```python
-from app.document_reader import DocumentReader
-from llm_chunker import LLMChunker, QwenClient
-
-text = DocumentReader("document.pdf").extract_text()
-chunks = LLMChunker(client=QwenClient(), mode="incremental").chunk(text)
+```
+--- Chunk 1 ---
+The sun is a star at the center of the solar system. It is a nearly perfect
+sphere of hot plasma, heated to incandescence by nuclear fusion in its core.
+Its diameter is about 1.39 million kilometres, roughly 109 times that of Earth.
+--- Chunk 2 ---
+Dolphins are highly intelligent marine mammals. They live in social groups
+called pods and use echolocation to navigate and hunt. Some species have been
+observed teaching their young to use tools.
 ```
 
-`DocumentReader` handles both `.pdf` and `.txt`.
+---
+
+## Use it inside LangChain
+
+`pip install "llm-semantic-chunker[langchain]"`
+
+The adapter implements LangChain's `TextSplitter`, so it goes wherever `RecursiveCharacterTextSplitter` goes — only the splitting step changes, the rest of the pipeline is untouched.
+
+```python
+from langchain_core.documents import Document
+from llm_semantic_chunker.integrations.langchain import LLMSemanticSplitter
+
+TEXT = ("The sun is a star at the center of the solar system. It is a nearly "
+        "perfect sphere of hot plasma. Dolphins are highly intelligent marine "
+        "mammals. They live in social groups called pods.")
+
+
+splitter = LLMSemanticSplitter(max_chunk_chars=1200)
+
+docs: list[Document] = splitter.create_documents([TEXT])
+for d in docs:
+    print(d.page_content)
+```
+
+`split_text()`, `split_documents()` and `transform_documents()` work as well.
+
+---
+
+## Use it inside LlamaIndex
+
+`pip install "llm-semantic-chunker[llamaindex]"` — **requires Python 3.10 or newer** ; the rest of this library still runs on Python 3.9.
+
+```python
+from llama_index.core import Document
+from llm_semantic_chunker.integrations.llamaindex import LLMSemanticNodeParser
+
+TEXT = ("The sun is a star at the center of the solar system. It is a nearly "
+        "perfect sphere of hot plasma. Dolphins are highly intelligent marine "
+        "mammals. They live in social groups called pods.")
+
+
+parser = LLMSemanticNodeParser(max_chunk_chars=1200)
+
+nodes = parser.get_nodes_from_documents([Document(text=TEXT)])
+for n in nodes:
+    print(n.text)
+```
+
+All three routes return the same chunks — only the object type differs.
 
 ---
 
 ## How it works
 
-The library ships two chunking strategies, selected via `mode` and different types of ablations like metadata and size caps:
+The library ships two chunking strategies, selected via `mode`.
 
 ### `mode="incremental"` (standard)
 
-The LLM reads the document sentence by sentence and decides, for each new group of sentences, whether it still belongs to the chunk being built or starts a new one:
+The LLM reads the document sentence by sentence and decides, for each new group of sentences, whether it still belongs to the chunk being built or starts a new one.
 
+Four settings shape the result on top of that:
 
-Three things shape the boundaries on top of that:
-
-- **Heading awareness** — a line-based regex detects section headings in the raw text (before sentence splitting, so numbered headings like "3.2. Error Handling" are still recognized) and forces a hard boundary there. With `heading_mode="hybrid"`, sentences that look like a heading but weren't caught by the regex are additionally checked by the LLM — useful for documents whose headings aren't reliably formatted.
-- **Size cap** — `max_chunk_sentences` / `max_chunk_chars` force a split once a chunk grows past a limit, regardless of topic continuity, so a single "still on topic" run can't produce an unusably large chunk.
-- **Low-info filter** — a post-processing pass removes chunks that turned out to be near-empty (bare headings, page numbers, boilerplate) rather than actual content.
+- **Heading awareness** — `heading_mode` picks how section headings are found, and a detected heading forces a hard boundary:
+  - `"regex"` (default) — a sentence-level pattern, applied after sentence splitting
+  - `"lines"` — a stronger line-based pattern applied to the raw text *before* sentence splitting, so numbered headings like "3.2. Error Handling" survive tokenisation
+  - `"hybrid"` — the line-based pattern, plus an LLM check for candidates it missed; useful for documents whose headings aren't reliably formatted
+- **Size cap** — `max_chunk_sentences` / `max_chunk_chars` force a split once a chunk outgrows the limit, even if the topic continues. The cut never falls inside a sentence: the LLM picks the best sentence boundary, and the chunker walks it back until the piece fits. A single sentence longer than the cap therefore stays whole — the cap is a target, not a guarantee.
+- **Low-info filter** — a post-processing pass removes chunks that turned out to be near-empty boilerplate rather than actual content.
+- **Topic enrichment** — `enrich=True` prefixes every chunk with an LLM-generated `[Topic: ...]` line, so the embedding also carries where the chunk sits in the document. Off by default: it costs one extra LLM call per chunk.
 
 ### `mode="window"` (legacy)
-
-An earlier, two-pass approach: the text is pre-split into fixed-size mini-chunks, a sliding window over them proposes coarse boundaries, and a second pass then re-evaluates each pair of adjacent chunks and merges them back if they turn out to share a topic. Only kept for comparison.
+ok
+An earlier, two-pass approach: the text is pre-split into fixed-size mini-chunks, a sliding window over them proposes coarse boundaries. Only kept for comparison — without a size cap it degenerates into a few very large chunks.
 
 ---
 
 ## Configuration
 
+Settings live in `ChunkerConfig`. Pass one explicitly, or give the individual
+settings to `LLMChunker` and one is built for you — both are equivalent:
+
 ```python
-LLMChunker(
-    client=QwenClient(),           # LLM backend
-    mode="incremental",            # "incremental" (recommended) or "window" (legacy)
+from llm_semantic_chunker import ChunkerConfig, LLMChunker, OllamaClient
+
+# short form
+LLMChunker(client=OllamaClient(), max_chunk_chars=1200)
+
+# explicit — useful when you want to reuse, compare or log the settings
+config = ChunkerConfig(max_chunk_chars=1200)
+chunker = LLMChunker(client=OllamaClient(), config=config)
+chunker.config.max_chunk_chars      # 1200
+```
+
+`ChunkerConfig` is frozen and validates itself, so a bad value fails before the run. Passing a config *and* individual
+settings at the same time is not possible to prevent ambigious behaviour
+
+```python
+ChunkerConfig(
+    mode="incremental",            # "incremental" (recommended) or "window" 
 
     # --- incremental mode ---
     step_sentences=3,              # sentences considered per boundary decision
     max_chunk_sentences=20,        # hard cap regardless of topic continuity
-    max_chunk_chars=None,          # optional character cap, enforced at sentence boundaries
+    max_chunk_chars=None,          # character cap, applied at sentence boundaries;
+                                  
     respect_headings=True,         # force a boundary at detected section headings
-    heading_mode="regex",          # "regex" or "hybrid" (regex + LLM fallback)
-    smart_split=True,              # let the LLM choose where to split an over-long chunk
+    heading_mode="regex",          # "regex", "lines" or "hybrid"
+
+    smart_split=True,              # let the LLM choose where to split an 
                                     # instead of cutting at the midpoint
 
     # --- window mode ---
@@ -93,33 +181,34 @@ LLMChunker(
     step_size=5,                   # how far the window advances each iteration
 
     # --- shared ---
-    filter_low_info=True,          # drop near-empty chunks after assembly
+    filter_low_info=True,          # drop low-info chunks after assembly
     enrich=False,                  # prefix each chunk with an LLM-generated topic line
     language=None,                 # sentence-splitter language; auto-detected if None
-    verbose=False,                 # print each boundary decision as it's made
+    verbose=False,                 # log every boundary decision to the console;
+                                
+                                    
 )
 ```
 
-### `QwenClient`
+### `OllamaClient`
 
 ```python
-QwenClient(
+OllamaClient(
     model="qwen3.5:4b",
     base_url="http://localhost:11434",   # or set OLLAMA_BASE_URL
     temperature=0.0,                     # near-deterministic decoding
-    seed=42,                             # temperature=0 alone is not bit-exact on Ollama —
-                                          # this closes the gap. Verified: 3 full chunking
-                                          # runs of the same document produced identical output.
-    timeout=600.0,                       # read timeout; local inference can be slow
-    num_ctx=4096,                        # context window — lower to save RAM
-)
+    seed=42,                             # temperature=0 
+                                        # and seed to be bit accurate
+                                          
+    timeout=600.0,                       # read timeout;
+    num_ctx=4096,                        # context window; lower saves RAM, but can
+)                                        #be expanded
 ```
 
-Transient Ollama errors (5xx, timeouts) are retried automatically with exponential backoff.
 
-If you only want to chunk text, `llm_chunker/` and `app/document_reader.py` are all you need — everything else supports evaluating and comparing chunking strategies, which is a separate concern from producing chunks.
-
+---
 
 
+## License
 
-
+MIT — see [LICENSE](LICENSE).

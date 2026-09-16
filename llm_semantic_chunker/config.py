@@ -36,8 +36,6 @@ class ChunkerConfig:
     """ "regex" (sentence-based), "lines" (line-based),
     "hybrid" (line-based and llm-call)."""
     smart_split: bool = True
-    """Am Deckel das LLM nach der besten Trennstelle fragen statt in der Mitte zu
-    schneiden."""
 
     # --- window ---
     window_size: int = 10

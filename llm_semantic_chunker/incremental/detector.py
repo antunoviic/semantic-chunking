@@ -11,6 +11,8 @@ logger = get_logger(__name__)
 
 class IncrementalBoundaryDetector:
 
+    _EXPLICIT_NO = re.compile(r"^\W*(NO|NEIN)\b", re.IGNORECASE)
+
     def __init__(
         self,
         client: LLMClient,
@@ -90,7 +92,7 @@ class IncrementalBoundaryDetector:
         raw = self.client.chat(messages).strip().upper()
         logger.debug(f"[incremental] chunk={len(current)} sents, candidate={len(candidate)} sents -> {raw!r}")
         # only an explicit NO starts a new chunk; unclear answers keep merging
-        same = not raw.startswith("NO")
+        same = not self._EXPLICIT_NO.match(raw)
         if not same:
             self.boundary_stats["semantic"] += 1
         return same
