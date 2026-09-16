@@ -4,6 +4,9 @@ import re
 
 from ..interfaces import LLMClient
 from .prompt import IncrementalBoundaryPrompt, SplitPointPrompt
+from .._logging import get_logger
+
+logger = get_logger(__name__)
 
 
 class IncrementalBoundaryDetector:
@@ -44,9 +47,8 @@ class IncrementalBoundaryDetector:
         self.boundary_stats = {"semantic": 0, "size_cap": 0, "heading": 0, "end": 0}
 
     def detect_and_assemble(self, sentences: list[str], raw_text: str | None = None) -> list[str]:
-        """`raw_text` wird von der Basisklasse ignoriert — Parameter existiert nur,
-        damit chunker.py alle Detektor-Typen einheitlich aufrufen kann (die
-        Hybrid-Variante braucht ihn fuer die Heading-Erkennung auf Rohzeilen)."""
+        #`raw_text` for hybrid-heading recognition
+
         self.reset_stats()
         return self._run(sentences)
 
@@ -62,20 +64,15 @@ class IncrementalBoundaryDetector:
 
             if not current:
                 current = list(candidate)
-                continue
-
-            if self._same_topic(current, candidate, start_idx):
+            elif self._same_topic(current, candidate, start_idx):
                 current.extend(candidate)
             else:
                 # Natural topic boundary, close the chunk here.
                 chunks.append(" ".join(current))
                 current = list(candidate)
-                continue
 
-            # size cap reached: split at the best boundary
-            # keep the remainder for the next chunk, loop in case still oversized
             while self._over_limit(current):
-                idx = self._best_split(current)
+                idx = self._fit_split(current)
                 chunks.append(" ".join(current[:idx]))
                 self.boundary_stats["size_cap"] += 1
                 current = current[idx:]
@@ -87,18 +84,24 @@ class IncrementalBoundaryDetector:
 
     def _same_topic(self, current: list[str], candidate: list[str],
                     start_idx: int | None = None) -> bool:
-        """`start_idx` wird von der Basisklasse ignoriert (kein Positionswissen
-        noetig) — Subklassen wie der Hybrid-Detektor nutzen ihn, um vorab
-        berechnete Heading-Positionen nachzuschlagen."""
+        #`start_idx`, for subclasses like hybrid detector
+
         messages = self.prompt.as_messages(" ".join(current), " ".join(candidate))
         raw = self.client.chat(messages).strip().upper()
-        if self.verbose:
-            print(f"[incremental] chunk={len(current)} sents, candidate={len(candidate)} sents -> {raw!r}")
+        logger.debug(f"[incremental] chunk={len(current)} sents, candidate={len(candidate)} sents -> {raw!r}")
         # only an explicit NO starts a new chunk; unclear answers keep merging
         same = not raw.startswith("NO")
         if not same:
             self.boundary_stats["semantic"] += 1
         return same
+
+    def _fit_split(self, current: list[str]) -> int:
+        idx = self._best_split(current)
+        if not self.max_chunk_chars:
+            return idx
+        while idx > 1 and len(" ".join(current[:idx])) > self.max_chunk_chars:
+            idx -= 1
+        return idx
 
     def _best_split(self, current: list[str]) -> int:
         #ask the LLM for split point in an oversized chunk
@@ -108,12 +111,10 @@ class IncrementalBoundaryDetector:
             return 1
         if not self.smart_split:
             idx = max(1, n // 2)          # naive split, no LLM
-            if self.verbose:
-                print(f"[incremental] size cap hit ({n} sents) -> midpoint split at {idx}")
+            logger.debug(f"[incremental] size cap hit ({n} sents) -> midpoint split at {idx}")
             return idx
         raw = self.client.chat(self.split_prompt.as_messages(current)).strip()
-        if self.verbose:
-            print(f"[incremental] size cap hit ({n} sents) -> best split at {raw!r}")
+        logger.debug(f"[incremental] size cap hit ({n} sents) -> best split at {raw!r}")
         m = re.search(r"\d+", raw)
         if m:
             idx = int(m.group()) - 1          # 1-based sentence -> 0-based split index

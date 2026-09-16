@@ -14,7 +14,7 @@ _NAMED = re.compile(
 _MAX_HEADING_LEN = 90
 _MIN_HEADING_LEN = 3
 
-
+#checks whether prosa, table etc.
 def _is_heading_line(line: str) -> bool:
     if line[:1] in (" ", "\t"):          # list points/headings are indented
         return False
@@ -25,11 +25,13 @@ def _is_heading_line(line: str) -> bool:
         return False
     if s.endswith((".", ":", ",", ";")) and not _NUMBERED.match(s):
         return False
-    toks = s.split()
+
+    m = _NUMBERED.match(s)
+    toks = (m.group(2) if m else s).split()
     numeric = sum(1 for t in toks if re.fullmatch(r"[\d.,()%–-]+", t))
     if toks and numeric > len(toks) * 0.4:   # tabelle row
         return False
-    m = _NUMBERED.match(s)
+
     if m:
         return bool(re.match(r"^[A-Z(]", m.group(2)))
     return bool(_NAMED.match(s))
@@ -64,6 +66,7 @@ def heading_sentence_indices(raw_text: str, sentences: list[str]) -> set[int]:
     result: set[int] = set()
     cursor = 0
     h_ptr = 0
+    tolerance = 2
     for idx, sent in enumerate(sentences):
         probe, _ = _skeleton(sent[:60])
         if not probe:
@@ -73,7 +76,13 @@ def heading_sentence_indices(raw_text: str, sentences: list[str]) -> set[int]:
             continue
         cursor = found
         char_pos = text_pos[found]
-        if h_ptr < len(heading_positions) and char_pos >= heading_positions[h_ptr] - 2:
+
+        while (h_ptr < len(heading_positions)
+               and heading_positions[h_ptr] < char_pos - tolerance):
+            h_ptr += 1
+
+        if (h_ptr < len(heading_positions)
+                and abs(char_pos - heading_positions[h_ptr]) <= tolerance):
             result.add(idx)
             h_ptr += 1
     return result
@@ -125,6 +134,7 @@ class HeadingOnlyPrompt:
 
     @staticmethod
     def parse(raw: str) -> bool:
-        """True = Ueberschrift. Unklare Antworten gelten als PROSE (konservativ:
-        im Zweifel keine zusaetzliche Grenze setzen)."""
-        return bool(re.search(r"\bHEADING\b", raw, re.IGNORECASE))
+        first = raw.strip().upper().lstrip("*_`\"' ")
+        if first.startswith("PROSE"):
+            return False
+        return first.startswith("HEADING")

@@ -3,6 +3,9 @@ from __future__ import annotations
 import re
 
 from ..interfaces import BasePrompt, LLMClient
+from .._logging import get_logger
+
+logger = get_logger(__name__)
 
 
 class BoundaryDetector:
@@ -26,13 +29,12 @@ class BoundaryDetector:
         self.verbose = verbose
 
     def detect_and_assemble(self, mini_chunks: list[str], raw_text: str | None = None) -> list[str]:
-        """Detect boundaries and assemble final chunks from mini-chunks."""
+        #Detect boundaries and assemble final chunks from mini-chunks
         if len(mini_chunks) <= 2:
             return [" ".join(mini_chunks)] if mini_chunks else []
 
         boundaries = self._find_boundaries(mini_chunks)
-        if self.verbose:
-            print(f"[boundary_detector] Boundaries at: {boundaries}")
+        logger.debug(f"[boundary_detector] Boundaries at: {boundaries}")
 
         return self._assemble_chunks(mini_chunks, boundaries)
 
@@ -46,8 +48,7 @@ class BoundaryDetector:
             tagged = self._tag_window(window, offset=pos)
             messages = self.prompt.as_messages(tagged)
             raw = self.client.chat(messages)
-            if self.verbose:
-                print(f"[boundary_detector] Window [{pos}:{pos+len(window)}] -> {raw!r}")
+            logger.debug(f"[boundary_detector] Window [{pos}:{pos+len(window)}] -> {raw!r}")
             local_bounds = self._parse_boundaries(raw, offset=pos, max_idx=pos + len(window) - 1)
             all_boundaries.update(local_bounds)
             if local_bounds:

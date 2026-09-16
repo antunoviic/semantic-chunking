@@ -1,6 +1,11 @@
 from __future__ import annotations
 
+import re
+
 from .interfaces import BasePrompt, ChunkPostProcessor, LLMClient
+from ._logging import get_logger
+
+logger = get_logger(__name__)
 
 
 class LowInfoFilter(ChunkPostProcessor):
@@ -11,31 +16,24 @@ class LowInfoFilter(ChunkPostProcessor):
         self.prompt = prompt
         self.verbose = verbose
 
+    # No/Nein as filter
+    _EXPLICIT_NO = re.compile(r"^\W*(NO|NEIN)\b", re.IGNORECASE)
+
     def process(self, chunks: list[str]) -> list[str]:
         result = []
         for chunk in chunks:
             messages = self.prompt.as_messages(chunk)
-            response = self.client.chat(messages).strip().upper()
-            if response.startswith("YES"):
+            raw = self.client.chat(messages).strip()
+            drop = bool(self._EXPLICIT_NO.match(raw))
+            logger.debug(f"[filter] {'removed' if drop else 'kept':<7} raw={raw[:40]!r} "
+                  f"-> {chunk[:60]}...")
+            if not drop:
                 result.append(chunk)
-            else:
-                print(f"[filter] removed: {chunk[:60]}...")
-        if self.verbose:
-            print(f"[LowInfoFilter] {len(chunks)} -> {len(result)} chunks")
+        logger.debug(f"[LowInfoFilter] {len(chunks)} -> {len(result)} chunks")
         return result
 
 
 class ChunkEnricher(ChunkPostProcessor):
-    """
-    Prepends a Topic prefix to each chunk before embedding.
-    The topic reflects the chunk's structural position in the document
-    (chapter/section heading, hierarchical if identifiable).
-
-    Format:
-        [Topic: 3. Stoic Virtues > 3.2 Justice]
-
-        <original chunk text>
-    """
 
     def __init__(self, client: LLMClient, prompt: BasePrompt, verbose: bool = False) -> None:
         self.client = client
@@ -51,8 +49,7 @@ class ChunkEnricher(ChunkPostProcessor):
 
             enriched_chunk = f"[Topic: {topic}]\n\n{chunk}" if topic else chunk
 
-            if self.verbose:
-                print(f"[ChunkEnricher] [{i+1}/{len(chunks)}] Topic: {topic}")
+            logger.debug(f"[ChunkEnricher] [{i+1}/{len(chunks)}] Topic: {topic}")
             enriched.append(enriched_chunk)
         return enriched
 

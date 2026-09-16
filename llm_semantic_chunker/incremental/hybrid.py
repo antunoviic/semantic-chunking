@@ -3,17 +3,21 @@ from __future__ import annotations
 from .detector import IncrementalBoundaryDetector
 from .heading_detection import (HeadingOnlyPrompt, heading_sentence_indices,
                                 looks_like_heading_candidate)
+from .._logging import get_logger
 
-#how much of text the llm gets to see full heading without text
+logger = get_logger(__name__)
+
+#how much of text the llm sees
 _PROBE_CHARS = 120
 
 
 class HybridHeadingBoundaryDetector(IncrementalBoundaryDetector):
 
     def __init__(self, *args, heading_prompt: HeadingOnlyPrompt | None = None,
-                 **kwargs) -> None:
+                 use_llm_fallback: bool = True, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.heading_prompt = heading_prompt or HeadingOnlyPrompt()
+        self.use_llm_fallback = use_llm_fallback
         self._heading_indices: set[int] = set()
 
     def reset_stats(self) -> None:
@@ -26,33 +30,39 @@ class HybridHeadingBoundaryDetector(IncrementalBoundaryDetector):
     def detect_and_assemble(self, sentences: list[str], raw_text: str | None = None) -> list[str]:
         if not raw_text:
             raise ValueError(
-                "HybridHeadingBoundaryDetector braucht raw_text (Rohtext vor der "
-                "Satztokenisierung) — die Regex-Baseline arbeitet zeilenbasiert."
+                "HybridHeadingBoundaryDetector needs raw_text (the text before "
+                "sentence tokenisation): the regex baseline works line by line."
             )
         self._heading_indices = heading_sentence_indices(raw_text, sentences)
-        if self.verbose:
-            print(f"[hybrid-heading] Regex-Baseline: {len(self._heading_indices)} "
-                  f"Satz-Indizes als Ueberschrift erkannt")
+        logger.debug(f"[hybrid-heading] Regex-Baseline: {len(self._heading_indices)} "
+              f"Satz-Indizes als Ueberschrift erkannt")
         return super().detect_and_assemble(sentences)
 
     def _same_topic(self, current: list[str], candidate: list[str],
                     start_idx: int | None = None) -> bool:
-        # 1. Regex-Treffer -> harte Grenze, kostenlos
-        if start_idx is not None and start_idx in self._heading_indices:
-            if self.verbose:
-                print(f"[hybrid-heading] Regex-Grenze bei Satz {start_idx}: "
-                      f"{candidate[0][:80]!r}")
-            self.boundary_stats["heading_regex"] += 1
-            return False
+        #regex-hit
+        if start_idx is not None and self._heading_indices:
+            hit = next((i for i in range(start_idx, start_idx + len(candidate))
+                        if i in self._heading_indices), None)
+            if hit is not None:
+                logger.debug(f"[hybrid-heading] Regex-Grenze bei Satz {hit}: "
+                      f"{candidate[hit - start_idx][:80]!r}")
+                self.boundary_stats["heading_regex"] += 1
+                return False
+
+        #llm search
+        if not self.use_llm_fallback:
+            return super()._same_topic(current, candidate, start_idx)
 
         probe = " ".join(candidate)[:_PROBE_CHARS].strip()
         if probe and looks_like_heading_candidate(probe):
             self.boundary_stats["heading_llm_checks"] += 1
             raw = self.client.chat(self.heading_prompt.as_messages(probe)).strip()
-            if self.heading_prompt.parse(raw):
+            is_heading = self.heading_prompt.parse(raw)
+            logger.debug(f"[hybrid-heading] Satz {start_idx} raw={raw[:40]!r} "
+                  f"-> {'HEADING' if is_heading else 'PROSE'}: {probe[:60]!r}")
+            if is_heading:
                 self.boundary_stats["heading_llm"] += 1
-                if self.verbose:
-                    print(f"[hybrid-heading] LLM-Grenze bei Satz {start_idx}: {probe[:80]!r}")
                 return False
 
         return super()._same_topic(current, candidate, start_idx)

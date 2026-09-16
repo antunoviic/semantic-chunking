@@ -3,9 +3,19 @@ from __future__ import annotations
 import os
 from dataclasses import dataclass
 
-import chromadb
+try:
+    import chromadb
+except ModuleNotFoundError as exc:                  # pragma: no cover
+    raise ModuleNotFoundError(
+        "llm_semantic_chunker.vectorstore needs ChromaDB, an optional extra: "
+        'pip install "llm-semantic-chunker[vectorstore]". '
+        "Chunking itself does not require it."
+    ) from exc
 import httpx
 from chromadb import EmbeddingFunction, Embeddings, Documents
+from ._logging import get_logger
+
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -70,17 +80,10 @@ class VectorStore:
         source: str = "",
         display_texts: list[str] | None = None,
     ) -> None:
-        """Speichert `chunks` (das, was EINGEBETTET wird).
+    #embed children
+    #retrieve parents
 
-        `display_texts` entkoppelt davon, was beim Retrieval ZURUECKGEGEBEN wird —
-        die Grundlage fuer Parent-Child: eingebettet werden die kleinen Children,
-        zurueckgegeben wird der zugehoerige grosse Parent.
-        """
-        # Collection komplett verwerfen statt Eintraege per ID zu loeschen.
-        # Grund: Beim Wiederbefuellen mit deutlich WENIGER Chunks (z.B. 3447 NASA
-        # -> 152 stoic) blieb der HNSW-Index degradiert zurueck und lieferte
-        # unbrauchbare Nachbarn (stoic/fixed_256: 14 % statt 78 % Hit@1).
-        # Ein frisch angelegter Index ist die einzige verlaessliche Variante.
+        # delete collection after each run to ensure consistency
         try:
             self._client.delete_collection(name=collection_name)
         except Exception:
@@ -108,9 +111,9 @@ class VectorStore:
                 ids=ids[start:end],
                 metadatas=metadatas[start:end],
             )
-        print(f"[vectorstore] '{collection_name}': {len(chunks)} chunks stored")
+        logger.info(f"[vectorstore] '{collection_name}': {len(chunks)} chunks stored")
 
-    _DEDUPE_OVERFETCH = 6      # wie viele Kandidaten je gewuenschtem Treffer geholt werden
+    _DEDUPE_OVERFETCH = 6      # candidates for each hit
 
     def query(
         self,
@@ -119,13 +122,6 @@ class VectorStore:
         k: int = 3,
         dedupe_by_text: bool = False,
     ) -> list[RetrievalResult]:
-        """Sucht die k aehnlichsten Eintraege.
-
-        dedupe_by_text: Treffer, die denselben Text zurueckgeben, zaehlen nur
-        einmal. Noetig fuer Parent-Child — dort zeigen oft mehrere Children auf
-        denselben Parent, der sonst k Plaetze belegen wuerde. Es wird ueberholt
-        und anschliessend auf k reduziert.
-        """
         collection = self._client.get_collection(
             name=collection_name,
             embedding_function=self._embedding_fn,

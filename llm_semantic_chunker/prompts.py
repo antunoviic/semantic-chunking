@@ -4,10 +4,8 @@ from dataclasses import dataclass, field
 
 from .interfaces import BasePrompt
 
-# Strategy-specific prompts live with their detector:
-#   window/prompt.py       -> BoundaryPrompt
-#   incremental/prompt.py  -> IncrementalBoundaryPrompt
-# The prompts below are shared by the post-processing steps (post_processors.py).
+
+# prompts shared by window and incremental
 
 
 @dataclass

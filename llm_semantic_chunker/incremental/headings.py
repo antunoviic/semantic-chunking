@@ -3,6 +3,9 @@ from __future__ import annotations
 import re
 
 from .detector import IncrementalBoundaryDetector
+from .._logging import get_logger
+
+logger = get_logger(__name__)
 
 HEADING_RE = re.compile(
     r"^\s*(?:"
@@ -15,6 +18,20 @@ HEADING_RE = re.compile(
 )
 
 
+_MAX_HEADING_LEN = 90
+
+
+def is_heading_sentence(sentence: str, heading_re: re.Pattern[str] = HEADING_RE) -> bool:
+    s = sentence.strip()
+    if not s or len(s) > _MAX_HEADING_LEN:
+        return False
+    if not heading_re.match(s):
+        return False
+    if s.endswith((".", "!", "?", ":", ";", ",")) and not re.match(r"^\s*\d", s):
+        return False
+    return True
+
+
 def split_at_headings(
     sentences: list[str],
     heading_re: re.Pattern[str] = HEADING_RE,
@@ -24,9 +41,8 @@ def split_at_headings(
     segments: list[list[str]] = []
     current: list[str] = []
     for sentence in sentences:
-        if current and heading_re.match(sentence):
-            if verbose:
-                print(f"[headings] boundary -> {sentence[:60]!r}")
+        if current and is_heading_sentence(sentence, heading_re):
+            logger.debug(f"[headings] boundary -> {sentence[:60]!r}")
             segments.append(current)
             current = [sentence]
         else:
@@ -50,5 +66,7 @@ class HeadingAwareBoundaryDetector(IncrementalBoundaryDetector):
         segments = split_at_headings(sentences, self.heading_re, self.verbose)
         for segment in segments:
             chunks.extend(self._run(segment))
-        self.boundary_stats["heading"] = max(0, len(segments) - 1)
+        heading_boundaries = max(0, len(segments) - 1)
+        self.boundary_stats["heading"] = heading_boundaries
+        self.boundary_stats["end"] = max(0, self.boundary_stats["end"] - heading_boundaries)
         return chunks
