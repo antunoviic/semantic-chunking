@@ -1,0 +1,349 @@
+Du hilfst beim Aufbau eines Evaluationsdatensatzes fuer ein RAG-System.
+
+Unten steht Abschnitt 11 von 12 eines Dokuments. Erzeuge daraus
+GENAU 8 Frage-Antwort-Paare.
+
+REGELN — die zweite ist die wichtigste:
+1. Jede Frage muss aus diesem Abschnitt eindeutig beantwortbar sein.
+2. "source_text" muss ZEICHENGENAU aus dem Abschnitt kopiert sein — buchstaeblich
+   ein Substring. Nichts umformulieren, kuerzen, korrigieren oder Zeichen
+   ersetzen (auch keine Anfuehrungszeichen oder Bindestriche anpassen).
+   Ein einziges geaendertes Zeichen macht das Paar unbrauchbar.
+3. "source_text" ist 60-300 Zeichen lang und enthaelt die Antwort vollstaendig.
+4. Frage nach konkreten Fakten (Zahlen, Definitionen, Bedingungen, Verfahren),
+   nicht nach Meinungen oder Zusammenfassungen.
+5. Die Antwort darf NICHT an mehreren Stellen des Dokuments stehen — sonst zaehlt
+   ein inhaltlich richtiger Treffer als Fehler. Waehle eindeutige Textstellen.
+6. Keine Fragen zu Ueberschriften, Inhaltsverzeichnis, Literaturverzeichnis,
+   Autorenlisten, Tabellenkoepfen oder Seitenzahlen.
+7. Formuliere die Frage NAH am Wortlaut des Textes (hohe lexikalische Ueberlappung). Nutze die Fachbegriffe des Dokuments.
+8. Verteile die Fragen ueber den GANZEN Abschnitt, nicht nur den Anfang.
+
+Antworte AUSSCHLIESSLICH mit einem JSON-Array, ohne Kommentar davor oder danach:
+[{"question": "...", "source_text": "..."}]
+
+BEREITS VERWENDET — waehle ANDERE Textstellen (Auszug):
+  - HTTP has been the primary information transfer protocol for the World Wide Web s...
+  - HTTP/3 ([HTTP/3]) provides greater independence for concurrent messages by using...
+  - It is RECOMMENDED that all senders and recipients support, at a minimum, URIs wi...
+  - If the port subcomponent is empty or not given, TCP port 80 (the reserved port f...
+  - If the port subcomponent is empty or not given, TCP port 443 (the reserved port ...
+  - Field names are case-insensitive and ought to be registered within the "Hypertex...
+  - The "Content-Length" header field indicates the associated representation's data...
+  - The "Max-Forwards" header field provides a mechanism with the TRACE (Section 9.3...
+  - A recipient that parses a timestamp value in an HTTP field MUST accept all three...
+  - The method token is case-sensitive because it might be used as a gateway to obje...
+  - All general-purpose servers MUST support the methods GET and HEAD....
+  - Of the request methods defined by this specification, the GET, HEAD, OPTIONS, an...
+  - Of the request methods defined by this specification, PUT, DELETE, and safe requ...
+  - This specification defines caching semantics for GET, HEAD, and POST, although t...
+  - The GET method requests transfer of a current selected representation for the ta...
+  - The PUT method requests that the state of the target resource be created or repl...
+  - The DELETE method requests that the origin server remove the association between...
+  - The CONNECT method requests that the recipient establish a tunnel to the destina...
+  - The TRACE method requests a remote, application-level loop-back of the request m...
+  - The only expectation defined by this specification is "100-continue" (with no de...
+  - The "Referer" [sic] header field allows the user agent to specify a URI referenc...
+  - All valid status codes are within the range of 100 to 599, inclusive....
+  - The 201 (Created) status code indicates that the request has been fulfilled and ...
+  - The 206 (Partial Content) status code indicates that the server is successfully ...
+  - the 410 (Gone) status code is preferred over 404 if the origin server knows, pre...
+  - The origin server MUST generate an Allow header field in a 405 response containi...
+  - The 411 (Length Required) status code indicates that the server refuses to accep...
+  - The 421 (Misdirected Request) status code indicates that the request was directe...
+  - The 503 (Service Unavailable) status code indicates that the server is currently...
+  - [RFC2324] was an April 1 RFC that lampooned the various ways HTTP was abused...
+  - The "compress" coding is an adaptive Lempel-Ziv-Welch (LZW) coding [Welch] that ...
+  - The "gzip" coding is an LZ77 coding with a 32-bit Cyclic Redundancy Check (CRC) ...
+  - The weight is normalized to a real number in the range 0 through 1, where 0.001 ...
+  - the "basic" and "digest" authentication schemes are defined by [RFC7617] and [RF...
+
+--- ABSCHNITT 11/12 ---
+Info       | permanent  | 11.6.3  |            |
+   +---------------------------+------------+---------+------------+
+   | Authorization             | permanent  | 11.6.2  |            |
+   +---------------------------+------------+---------+------------+
+   | Connection                | permanent  | 7.6.1   |            |
+   +---------------------------+------------+---------+------------+
+   | Content-Encoding          | permanent  | 8.4     |            |
+   +---------------------------+------------+---------+------------+
+   | Content-Language          | permanent  | 8.5     |            |
+   +---------------------------+------------+---------+------------+
+   | Content-Length            | permanent  | 8.6     |            |
+   +---------------------------+------------+---------+------------+
+   | Content-Location          | permanent  | 8.7     |            |
+   +---------------------------+------------+---------+------------+
+   | Content-Range             | permanent  | 14.4    |            |
+   +---------------------------+------------+---------+------------+
+   | Content-Type              | permanent  | 8.3     |            |
+   +---------------------------+------------+---------+------------+
+   | Date                      | permanent  | 6.6.1   |            |
+   +---------------------------+------------+---------+------------+
+   | ETag                      | permanent  | 8.8.3   |            |
+   +---------------------------+------------+---------+------------+
+   | Expect                    | permanent  | 10.1.1  |            |
+   +---------------------------+------------+---------+------------+
+   | From                      | permanent  | 10.1.2  |            |
+   +---------------------------+------------+---------+------------+
+   | Host                      | permanent  | 7.2     |            |
+   +---------------------------+------------+---------+------------+
+   | If-Match                  | permanent  | 13.1.1  |            |
+   +---------------------------+------------+---------+------------+
+   | If-Modified-Since         | permanent  | 13.1.3  |            |
+   +---------------------------+------------+---------+------------+
+   | If-None-Match             | permanent  | 13.1.2  |            |
+   +---------------------------+------------+---------+------------+
+   | If-Range                  | permanent  | 13.1.5  |            |
+   +---------------------------+------------+---------+------------+
+   | If-Unmodified-Since       | permanent  | 13.1.4  |            |
+   +---------------------------+------------+---------+------------+
+   | Last-Modified             | permanent  | 8.8.2   |            |
+   +---------------------------+------------+---------+------------+
+   | Location                  | permanent  | 10.2.2  |            |
+   +---------------------------+------------+---------+------------+
+   | Max-Forwards              | permanent  | 7.6.2   |            |
+   +---------------------------+------------+---------+------------+
+   | Proxy-Authenticate        | permanent  | 11.7.1  |            |
+   +---------------------------+------------+---------+------------+
+   | Proxy-Authentication-Info | permanent  | 11.7.3  |            |
+   +---------------------------+------------+---------+------------+
+   | Proxy-Authorization       | permanent  | 11.7.2  |            |
+   +---------------------------+------------+---------+------------+
+   | Range                     | permanent  | 14.2    |            |
+   +---------------------------+------------+---------+------------+
+   | Referer                   | permanent  | 10.1.3  |            |
+   +---------------------------+------------+---------+------------+
+   | Retry-After               | permanent  | 10.2.3  |            |
+   +---------------------------+------------+---------+------------+
+   | Server                    | permanent  | 10.2.4  |            |
+   +---------------------------+------------+---------+------------+
+   | TE                        | permanent  | 10.1.4  |            |
+   +---------------------------+------------+---------+------------+
+   | Trailer                   | permanent  | 6.6.2   |            |
+   +---------------------------+------------+---------+------------+
+   | Upgrade                   | permanent  | 7.8     |            |
+   +---------------------------+------------+---------+------------+
+   | User-Agent                | permanent  | 10.1.5  |            |
+   +---------------------------+------------+---------+------------+
+   | Vary                      | permanent  | 12.5.5  |            |
+   +---------------------------+------------+---------+------------+
+   | Via                       | permanent  | 7.6.3   |            |
+   +---------------------------+------------+---------+------------+
+   | WWW-Authenticate          | permanent  | 11.6.1  |            |
+   +---------------------------+------------+---------+------------+
+   | *                         | permanent  | 12.5.5  | (reserved) |
+   +---------------------------+------------+---------+------------+
+
+                                Table 9
+
+   The field name "*" is reserved because using that name as an HTTP
+   header field might conflict with its special semantics in the Vary
+   header field (Section 12.5.5).
+
+   IANA has updated the "Content-MD5" entry in the new registry to have
+   a status of 'obsoleted' with references to Section 14.15 of [RFC2616]
+   (for the definition of the header field) and Appendix B of [RFC7231]
+   (which removed the field definition from the updated specification).
+
+18.5.  Authentication Scheme Registration
+
+   IANA has updated the "Hypertext Transfer Protocol (HTTP)
+   Authentication Scheme Registry" at <https://www.iana.org/assignments/
+   http-authschemes> with the registration procedure of Section 16.4.1.
+   No authentication schemes are defined in this document.
+
+18.6.  Content Coding Registration
+
+   IANA has updated the "HTTP Content Coding Registry" at
+   <https://www.iana.org/assignments/http-parameters/> with the
+   registration procedure of Section 16.6.1 and the content coding names
+   summarized in the table below.
+
+   +============+===========================================+=========+
+   | Name       | Description                               | Section |
+   +============+===========================================+=========+
+   | compress   | UNIX "compress" data format [Welch]       | 8.4.1.1 |
+   +------------+-------------------------------------------+---------+
+   | deflate    | "deflate" compressed data ([RFC1951])     | 8.4.1.2 |
+   |            | inside the "zlib" data format ([RFC1950]) |         |
+   +------------+-------------------------------------------+---------+
+   | gzip       | GZIP file format [RFC1952]                | 8.4.1.3 |
+   +------------+-------------------------------------------+---------+
+   | identity   | Reserved                                  | 12.5.3  |
+   +------------+-------------------------------------------+---------+
+   | x-compress | Deprecated (alias for compress)           | 8.4.1.1 |
+   +------------+-------------------------------------------+---------+
+   | x-gzip     | Deprecated (alias for gzip)               | 8.4.1.3 |
+   +------------+-------------------------------------------+---------+
+
+                                 Table 10
+
+18.7.  Range Unit Registration
+
+   IANA has updated the "HTTP Range Unit Registry" at
+   <https://www.iana.org/assignments/http-parameters/> with the
+   registration procedure of Section 16.5.1 and the range unit names
+   summarized in the table below.
+
+   +=================+==================================+=========+
+   | Range Unit Name | Description                      | Section |
+   +=================+==================================+=========+
+   | bytes           | a range of octets                | 14.1.2  |
+   +-----------------+----------------------------------+---------+
+   | none            | reserved as keyword to indicate  | 14.3    |
+   |                 | range requests are not supported |         |
+   +-----------------+----------------------------------+---------+
+
+                               Table 11
+
+18.8.  Media Type Registration
+
+   IANA has updated the "Media Types" registry at
+   <https://www.iana.org/assignments/media-types> with the registration
+   information in Section 14.6 for the media type "multipart/
+   byteranges".
+
+   IANA has updated the registry note about "q" parameters with a link
+   to Section 12.5.1 of this document.
+
+18.9.  Port Registration
+
+   IANA has updated the "Service Name and Transport Protocol Port Number
+   Registry" at <https://www.iana.org/assignments/service-names-port-
+   numbers/> for the services on ports 80 and 443 that use UDP or TCP
+   to:
+
+   1.  use this document as "Reference", and
+
+   2.  when currently unspecified, set "Assignee" to "IESG" and
+       "Contact" to "IETF_Chair".
+
+18.10.  Upgrade Token Registration
+
+   IANA has updated the "Hypertext Transfer Protocol (HTTP) Upgrade
+   Token Registry" at <https://www.iana.org/assignments/http-upgrade-
+   tokens> with the registration procedure described in Section 16.7 and
+   the upgrade token names summarized in the following table.
+
+   +======+===================+=========================+=========+
+   | Name | Description       | Expected Version Tokens | Section |
+   +======+===================+=========================+=========+
+   | HTTP | Hypertext         | any DIGIT.DIGIT (e.g.,  | 2.5     |
+   |      | Transfer Protocol | "2.0")                  |         |
+   +------+-------------------+-------------------------+---------+
+
+                               Table 12
+
+19.  References
+
+19.1.  Normative References
+
+   [CACHING]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
+              Ed., "HTTP Caching", STD 98, RFC 9111,
+              DOI 10.17487/RFC9111, June 2022,
+              <https://www.rfc-editor.org/info/rfc9111>.
+
+   [RFC1950]  Deutsch, P. and J-L. Gailly, "ZLIB Compressed Data Format
+              Specification version 3.3", RFC 1950,
+              DOI 10.17487/RFC1950, May 1996,
+              <https://www.rfc-editor.org/info/rfc1950>.
+
+   [RFC1951]  Deutsch, P., "DEFLATE Compressed Data Format Specification
+              version 1.3", RFC 1951, DOI 10.17487/RFC1951, May 1996,
+              <https://www.rfc-editor.org/info/rfc1951>.
+
+   [RFC1952]  Deutsch, P., "GZIP file format specification version 4.3",
+              RFC 1952, DOI 10.17487/RFC1952, May 1996,
+              <https://www.rfc-editor.org/info/rfc1952>.
+
+   [RFC2046]  Freed, N. and N. Borenstein, "Multipurpose Internet Mail
+              Extensions (MIME) Part Two: Media Types", RFC 2046,
+              DOI 10.17487/RFC2046, November 1996,
+              <https://www.rfc-editor.org/info/rfc2046>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC4647]  Phillips, A., Ed. and M. Davis, Ed., "Matching of Language
+              Tags", BCP 47, RFC 4647, DOI 10.17487/RFC4647, September
+              2006, <https://www.rfc-editor.org/info/rfc4647>.
+
+   [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
+              Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
+              <https://www.rfc-editor.org/info/rfc4648>.
+
+   [RFC5234]  Crocker, D., Ed. and P. Overell, "Augmented BNF for Syntax
+              Specifications: ABNF", STD 68, RFC 5234,
+              DOI 10.17487/RFC5234, January 2008,
+              <https://www.rfc-editor.org/info/rfc5234>.
+
+   [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
+              Housley, R., and W. Polk, "Internet X.509 Public Key
+              Infrastructure Certificate and Certificate Revocation List
+              (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
+              <https://www.rfc-editor.org/info/rfc5280>.
+
+   [RFC5322]  Resnick, P., Ed., "Internet Message Format", RFC 5322,
+              DOI 10.17487/RFC5322, October 2008,
+              <https://www.rfc-editor.org/info/rfc5322>.
+
+   [RFC5646]  Phillips, A., Ed. and M. Davis, Ed., "Tags for Identifying
+              Languages", BCP 47, RFC 5646, DOI 10.17487/RFC5646,
+              September 2009, <https://www.rfc-editor.org/info/rfc5646>.
+
+   [RFC6125]  Saint-Andre, P. and J. Hodges, "Representation and
+              Verification of Domain-Based Application Service Identity
+              within Internet Public Key Infrastructure Using X.509
+              (PKIX) Certificates in the Context of Transport Layer
+              Security (TLS)", RFC 6125, DOI 10.17487/RFC6125, March
+              2011, <https://www.rfc-editor.org/info/rfc6125>.
+
+   [RFC6365]  Hoffman, P. and J. Klensin, "Terminology Used in
+              Internationalization in the IETF", BCP 166, RFC 6365,
+              DOI 10.17487/RFC6365, September 2011,
+              <https://www.rfc-editor.org/info/rfc6365>.
+
+   [RFC7405]  Kyzivat, P., "Case-Sensitive String Support in ABNF",
+              RFC 7405, DOI 10.17487/RFC7405, December 2014,
+              <https://www.rfc-editor.org/info/rfc7405>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+   [TCP]      Postel, J., "Transmission Control Protocol", STD 7,
+              RFC 793, DOI 10.17487/RFC0793, September 1981,
+              <https://www.rfc-editor.org/info/rfc793>.
+
+   [TLS13]    Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/info/rfc8446>.
+
+   [URI]      Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <https://www.rfc-editor.org/info/rfc3986>.
+
+   [USASCII]  American National Standards Institute, "Coded Character
+              Set -- 7-bit American Standard Code for Information
+              Interchange", ANSI X3.4, 1986.
+
+   [Welch]    Welch, T., "A Technique for High-Performance Data
+              Compression", IEEE Computer 17(6),
+              DOI 10.1109/MC.1984.1659158, June 1984,
+              <https://ieeexplore.ieee.org/document/1659158/>.
+
+19.2.  Informative References
+
+   [ALTSVC]   Nottingham, M., McManus, P., and J. Reschke, "HTTP
+              Alternative Services", RFC 7838, DOI 10.17487/RFC7838,
+              April 2016, <https://www.rfc-editor.org/info/rfc7838>.
+
+   [BCP13]    Freed, N. and J. Klensin, "Multipurpose Internet Mail
+              Extensions (MIME) Part Four: Registration Procedures",
+              BCP 13, RFC 4289, December 2005.
+
+              Freed, N., Klensin, J., and T. Hansen, "Med
+--- ENDE ABSCHNITT ---

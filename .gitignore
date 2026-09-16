@@ -28,3 +28,10 @@ experiments/
 
 # macOS
 .DS_Store
+
+# Werkzeug-Zustand und Arbeitsanweisungen an Sprachmodelle
+.pytest_cache/
+.claude/
+PROJECT_CONTEXT.md
+IMPLEMENTATION_PROMPT.md
+critique_prompts/

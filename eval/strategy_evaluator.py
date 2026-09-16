@@ -7,7 +7,7 @@ from langchain_core.embeddings import Embeddings
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_text_splitters import CharacterTextSplitter, RecursiveCharacterTextSplitter
 
-from llm_chunker.vectorstore import VectorStore
+from llm_semantic_chunker.vectorstore import VectorStore
 
 
 class _OllamaLCEmbeddings(Embeddings):
@@ -40,7 +40,7 @@ def build_strategies(text: str, match_len: int | None = None) -> dict[str, list[
         "fixed_512": fixed(512, 50),
         "recursive": recursive(),
     }
-    if match_len: #matches length of llm-chunker to show difference in chunkking not length
+    if match_len: #matches length of llm-semantic-chunker to show difference in chunkking not length
         out[f"fixed_matched_{match_len}"] = fixed(match_len, 50)
         size, best = match_len, None
         for _ in range(6):
@@ -154,13 +154,21 @@ class StrategyEvaluator:
                 "avg_dist_top1":       0.0,
                 "avg_retrieved_chars": 0,
             }
+        # Der durchsuchte Textbestand je Arm. Die laengengematchten Baselines
+        # gleichen nur die MITTLERE Chunklaenge an, nicht die Gesamtmasse: der
+        # LLM-Arm durchsucht auf nasa rund 17 % weniger Zeichen als
+        # recursive_matched, weil Low-Info-Filter und Whitespace-Normalisierung
+        # nur dort laufen. Weniger Text heisst weniger Distraktoren — ohne diese
+        # Spalte laesst sich der Grenzqualitaets-Effekt nicht davon trennen.
+        unique_texts = set(display_texts) if display_texts else chunks
+        corpus_chars = sum(len(c) for c in unique_texts)
+        n_units = max(1, len(set(display_texts)) if display_texts else len(chunks))
+
         return {
             "strategy":            name,
             "chunk_count":         len(chunks),
-            "avg_chunk_len":       round(
-                sum(len(c) for c in (set(display_texts) if display_texts else chunks))
-                / max(1, len(set(display_texts)) if display_texts else len(chunks))
-            ),
+            "corpus_chars":        corpus_chars,
+            "avg_chunk_len":       round(corpus_chars / n_units),
             **{f"hit_rate@{kk}": round(hits_at[kk] / n * 100, 1) for kk in self.REPORT_KS},
             "mrr":                 round(sum(reciprocal_ranks) / n, 3),
             "avg_dist_top1":       round(sum(top1_distances) / n, 3),

@@ -1,100 +1,117 @@
-"""
-    python -m app.main <path/to/file.pdf or .txt>                # chunk + evaluate
-    python -m app.main <path/to/file.pdf or .txt> --rechunk      # force re-chunking
-    python -m app.main <path/to/file.pdf or .txt> --enrich       # with topic enrichment
-    python -m app.main <path/to/file.pdf or .txt>                # incremental LLM chunking - default
-    python -m app.main <path/to/file.pdf or .txt> --window       # sliding-window chunking in fixed sizes
-    python -m app.main <path/to/file.pdf or .txt> --step-sentences 2 --max-chunk-sentences 12
-                                                                 # finer incremental boundaries / smaller chunks
-    python -m app.main <path/to/file.pdf or .txt> --rechunk --max-chunk-chars 700
-                                                                 # cap chunk size in chars
-    python -m app.main <path/to/file.pdf or .txt> --no-headings  # ablation: disable heading-aware splitting
-    python -m app.main <path/to/file.pdf or .txt> --llm-headings
-                                                                 # heading detection: strong line-based regex
-                                                                 # + LLM fallback where the regex finds nothing
-                                                                 # (default without this flag: regex-only, shipped)
-    python -m app.main <path/to/file.pdf or .txt> --chunk-only   # only chunk+cache (no question set needed yet)
-    python -m app.main <path/to/file.pdf or .txt> --no-filter      # ablation: keep low-info chunks
-    python -m app.main <path/to/file.pdf or .txt> --midpoint-split
-                                                                 # ablation: split in the middle instead of asking the LLM
-    python -m app.main <path/to/file.pdf or .txt> --questions-file eval_cache/foo_questions.json
-                                                                 # evaluate against a specific question set(natural/literal)
-    python -m app.main <path/to/file.pdf or .txt> --max-questions 20 # limit questions
-"""
+from __future__ import annotations
 
-import sys
+import argparse
 from pathlib import Path
 
-from .pipeline import Pipeline
+from llm_semantic_chunker import ChunkerConfig
+
+from .pipeline import EvalConfig, Pipeline
 
 
-def _parse_args() -> dict:
-    if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help"):
-        print(__doc__)
-        sys.exit(0)
+def _existing_file(value: str) -> str:
+    if not Path(value).exists():
+        raise argparse.ArgumentTypeError(f"file not found: {value}")
+    return value
 
-    file_path = sys.argv[1]
-    if not Path(file_path).exists():
-        print(f"File not found: {file_path}")
-        sys.exit(1)
 
-    max_questions = 1000         
-    if "--max-questions" in sys.argv:
-        max_questions = int(sys.argv[sys.argv.index("--max-questions") + 1])
+def _positive_int(value: str) -> int:
+    try:
+        number = int(value)
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"expected an integer, got {value!r}") from None
+    if number < 1:
+        raise argparse.ArgumentTypeError(f"must be >= 1, got {number}")
+    return number
 
-    step_sentences = 3
-    if "--step-sentences" in sys.argv:
-        step_sentences = int(sys.argv[sys.argv.index("--step-sentences") + 1])
 
-    max_chunk_sentences = 20
-    if "--max-chunk-sentences" in sys.argv:
-        max_chunk_sentences = int(sys.argv[sys.argv.index("--max-chunk-sentences") + 1])
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="python -m app.main",
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument("document", type=_existing_file,
+                        help="the .pdf or .txt to chunk")
 
-    max_chunk_chars = None
-    if "--max-chunk-chars" in sys.argv:
-        max_chunk_chars = int(sys.argv[sys.argv.index("--max-chunk-chars") + 1])
+    run = parser.add_argument_group("what to run")
+    run.add_argument("--chunk-only", action="store_true",
+                     help="only chunk and cache; skip retrieval (no question set needed)")
+    run.add_argument("--rechunk", action="store_true",
+                     help="ignore the cache and chunk again")
+    run.add_argument("--questions-file", type=_existing_file, metavar="PATH",
+                     help="question set to evaluate against; defaults to "
+                          "eval_cache/<document>_questions.json")
+    run.add_argument("--max-questions", type=_positive_int, default=1000, metavar="N",
+                     help="evaluate at most N questions (default: all)")
 
-    questions_file = None
-    if "--questions-file" in sys.argv:
-        questions_file = sys.argv[sys.argv.index("--questions-file") + 1]
-        if not Path(questions_file).exists():
-            print(f"Questions file not found: {questions_file}")
-            sys.exit(1)
+    mode = parser.add_argument_group("chunking mode")
+    mode.add_argument("--window", action="store_true",
+                      help="sliding-window chunking instead of the incremental "
+                           "default; kept for comparison, collapses without a size cap")
+    mode.add_argument("--step-sentences", type=_positive_int, default=3, metavar="N",
+                      help="sentences per boundary decision (default: 3)")
+    mode.add_argument("--max-chunk-sentences", type=_positive_int, default=20, metavar="N",
+                      help="sentence cap regardless of topic continuity (default: 20)")
+    mode.add_argument("--max-chunk-chars", type=_positive_int, default=None, metavar="N",
+                      help="character cap, applied at sentence boundaries; a single "
+                           "sentence longer than the cap stays whole")
 
-    return {
-        "file_path":       file_path,
-        "rechunk":         "--rechunk" in sys.argv,
-        "enrich":          "--enrich" in sys.argv,
-        "incremental":     "--window" not in sys.argv,   # incremental is the default; --window is the ablation
-        "step_sentences":  step_sentences,
-        "max_chunk_sentences": max_chunk_sentences,
-        "max_chunk_chars": max_chunk_chars,
-        "respect_headings": "--no-headings" not in sys.argv,  # heading-aware split is on by default
-        "heading_mode":    "hybrid" if "--llm-headings" in sys.argv else "regex",
-        "smart_split":     "--midpoint-split" not in sys.argv,
-        "filter_low_info": "--no-filter" not in sys.argv,      # Ablation: LowInfoFilter
-        "chunk_only":      "--chunk-only" in sys.argv,        # only chunk+cache, skip evaluation
-        "questions_file":  questions_file,
-        "max_questions":   max_questions,
-    }
+    headings = parser.add_argument_group("heading detection (ablation)")
+    exclusive = headings.add_mutually_exclusive_group()
+    exclusive.add_argument("--no-headings", action="store_true",
+                           help="no heading boundaries at all — the reference arm")
+    exclusive.add_argument("--line-headings", action="store_true",
+                           help="line-based regex on the raw text, no LLM call; "
+                                "isolates what the stronger regex contributes alone")
+    exclusive.add_argument("--llm-headings", action="store_true",
+                           help="line-based regex plus an LLM check where it finds "
+                                "nothing (default without either flag: the shipped "
+                                "sentence-based regex)")
+
+    ablations = parser.add_argument_group("other ablations")
+    ablations.add_argument("--no-filter", action="store_true",
+                           help="keep low-information chunks; separates the boundary "
+                                "effect from the filtering effect")
+    ablations.add_argument("--midpoint-split", action="store_true",
+                           help="at the size cap, cut in the middle instead of asking "
+                                "the LLM for the best split point")
+    ablations.add_argument("--enrich", action="store_true",
+                           help="prefix every chunk with an LLM-generated topic line")
+    return parser
+
+
+def _heading_mode(args: argparse.Namespace) -> str:
+    if args.llm_headings:
+        return "hybrid"
+    if args.line_headings:
+        return "lines"
+    return "regex"
+
+
+def main(argv: list[str] | None = None) -> None:
+    args = build_parser().parse_args(argv)
+    Pipeline(
+        document=args.document,
+        chunker=ChunkerConfig(
+            mode="window" if args.window else "incremental",
+            step_sentences=args.step_sentences,
+            max_chunk_sentences=args.max_chunk_sentences,
+            max_chunk_chars=args.max_chunk_chars,
+            respect_headings=not args.no_headings,
+            heading_mode=_heading_mode(args),
+            smart_split=not args.midpoint_split,
+            filter_low_info=not args.no_filter,
+            enrich=args.enrich,
+            verbose=True,
+        ),
+        evaluation=EvalConfig(
+            questions_file=args.questions_file,
+            max_questions=args.max_questions,
+            chunk_only=args.chunk_only,
+            rechunk=args.rechunk,
+        ),
+    ).run()
 
 
 if __name__ == "__main__":
-    args = _parse_args()
-    pipeline = Pipeline(
-        file_path=args["file_path"],
-        rechunk=args["rechunk"],
-        enrich=args["enrich"],
-        incremental=args["incremental"],
-        step_sentences=args["step_sentences"],
-        max_chunk_sentences=args["max_chunk_sentences"],
-        max_chunk_chars=args["max_chunk_chars"],
-        respect_headings=args["respect_headings"],
-        heading_mode=args["heading_mode"],
-        smart_split=args["smart_split"],
-        filter_low_info=args["filter_low_info"],
-        chunk_only=args["chunk_only"],
-        max_questions=args["max_questions"],
-        questions_file=args["questions_file"],
-    )
-    pipeline.run()
+    main()

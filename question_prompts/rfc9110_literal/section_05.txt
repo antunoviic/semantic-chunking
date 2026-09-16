@@ -1,0 +1,340 @@
+Du hilfst beim Aufbau eines Evaluationsdatensatzes fuer ein RAG-System.
+
+Unten steht Abschnitt 5 von 12 eines Dokuments. Erzeuge daraus
+GENAU 8 Frage-Antwort-Paare.
+
+REGELN — die zweite ist die wichtigste:
+1. Jede Frage muss aus diesem Abschnitt eindeutig beantwortbar sein.
+2. "source_text" muss ZEICHENGENAU aus dem Abschnitt kopiert sein — buchstaeblich
+   ein Substring. Nichts umformulieren, kuerzen, korrigieren oder Zeichen
+   ersetzen (auch keine Anfuehrungszeichen oder Bindestriche anpassen).
+   Ein einziges geaendertes Zeichen macht das Paar unbrauchbar.
+3. "source_text" ist 60-300 Zeichen lang und enthaelt die Antwort vollstaendig.
+4. Frage nach konkreten Fakten (Zahlen, Definitionen, Bedingungen, Verfahren),
+   nicht nach Meinungen oder Zusammenfassungen.
+5. Die Antwort darf NICHT an mehreren Stellen des Dokuments stehen — sonst zaehlt
+   ein inhaltlich richtiger Treffer als Fehler. Waehle eindeutige Textstellen.
+6. Keine Fragen zu Ueberschriften, Inhaltsverzeichnis, Literaturverzeichnis,
+   Autorenlisten, Tabellenkoepfen oder Seitenzahlen.
+7. Formuliere die Frage NAH am Wortlaut des Textes (hohe lexikalische Ueberlappung). Nutze die Fachbegriffe des Dokuments.
+8. Verteile die Fragen ueber den GANZEN Abschnitt, nicht nur den Anfang.
+
+Antworte AUSSCHLIESSLICH mit einem JSON-Array, ohne Kommentar davor oder danach:
+[{"question": "...", "source_text": "..."}]
+
+BEREITS VERWENDET — waehle ANDERE Textstellen (Auszug):
+  - HTTP has been the primary information transfer protocol for the World Wide Web s...
+  - HTTP/3 ([HTTP/3]) provides greater independence for concurrent messages by using...
+  - It is RECOMMENDED that all senders and recipients support, at a minimum, URIs wi...
+  - If the port subcomponent is empty or not given, TCP port 80 (the reserved port f...
+  - If the port subcomponent is empty or not given, TCP port 443 (the reserved port ...
+  - Field names are case-insensitive and ought to be registered within the "Hypertex...
+  - The "Content-Length" header field indicates the associated representation's data...
+  - The "Max-Forwards" header field provides a mechanism with the TRACE (Section 9.3...
+  - A recipient that parses a timestamp value in an HTTP field MUST accept all three...
+  - The method token is case-sensitive because it might be used as a gateway to obje...
+  - All general-purpose servers MUST support the methods GET and HEAD....
+  - Of the request methods defined by this specification, the GET, HEAD, OPTIONS, an...
+  - Of the request methods defined by this specification, PUT, DELETE, and safe requ...
+  - This specification defines caching semantics for GET, HEAD, and POST, although t...
+  - The GET method requests transfer of a current selected representation for the ta...
+  - The PUT method requests that the state of the target resource be created or repl...
+  - The DELETE method requests that the origin server remove the association between...
+  - The CONNECT method requests that the recipient establish a tunnel to the destina...
+  - The TRACE method requests a remote, application-level loop-back of the request m...
+  - The only expectation defined by this specification is "100-continue" (with no de...
+  - The "Referer" [sic] header field allows the user agent to specify a URI referenc...
+  - All valid status codes are within the range of 100 to 599, inclusive....
+  - The 201 (Created) status code indicates that the request has been fulfilled and ...
+  - The 206 (Partial Content) status code indicates that the server is successfully ...
+  - the 410 (Gone) status code is preferred over 404 if the origin server knows, pre...
+  - The origin server MUST generate an Allow header field in a 405 response containi...
+  - The 411 (Length Required) status code indicates that the server refuses to accep...
+  - The 421 (Misdirected Request) status code indicates that the request was directe...
+  - The 503 (Service Unavailable) status code indicates that the server is currently...
+  - [RFC2324] was an April 1 RFC that lampooned the various ways HTTP was abused...
+  - The "compress" coding is an adaptive Lempel-Ziv-Welch (LZW) coding [Welch] that ...
+  - The "gzip" coding is an LZ77 coding with a 32-bit Cyclic Redundancy Check (CRC) ...
+  - The weight is normalized to a real number in the range 0 through 1, where 0.001 ...
+  - the "basic" and "digest" authentication schemes are defined by [RFC7617] and [RF...
+
+--- ABSCHNITT 5/12 ---
+   A client SHOULD NOT automatically retry a request with a non-
+   idempotent method unless it has some means to know that the request
+   semantics are actually idempotent, regardless of the method, or some
+   means to detect that the original request was never applied.
+
+   For example, a user agent can repeat a POST request automatically if
+   it knows (through design or configuration) that the request is safe
+   for that resource.  Likewise, a user agent designed specifically to
+   operate on a version control repository might be able to recover from
+   partial failure conditions by checking the target resource
+   revision(s) after a failed connection, reverting or fixing any
+   changes that were partially applied, and then automatically retrying
+   the requests that failed.
+
+   Some clients take a riskier approach and attempt to guess when an
+   automatic retry is possible.  For example, a client might
+   automatically retry a POST request if the underlying transport
+   connection closed before any part of a response is received,
+   particularly if an idle persistent connection was used.
+
+   A proxy MUST NOT automatically retry non-idempotent requests.  A
+   client SHOULD NOT automatically retry a failed automatic retry.
+
+9.2.3.  Methods and Caching
+
+   For a cache to store and use a response, the associated method needs
+   to explicitly allow caching and to detail under what conditions a
+   response can be used to satisfy subsequent requests; a method
+   definition that does not do so cannot be cached.  For additional
+   requirements see [CACHING].
+
+   This specification defines caching semantics for GET, HEAD, and POST,
+   although the overwhelming majority of cache implementations only
+   support GET and HEAD.
+
+9.3.  Method Definitions
+
+9.3.1.  GET
+
+   The GET method requests transfer of a current selected representation
+   for the target resource.  A successful response reflects the quality
+   of "sameness" identified by the target URI (Section 1.2.2 of [URI]).
+   Hence, retrieving identifiable information via HTTP is usually
+   performed by making a GET request on an identifier associated with
+   the potential for providing that information in a 200 (OK) response.
+
+   GET is the primary mechanism of information retrieval and the focus
+   of almost all performance optimizations.  Applications that produce a
+   URI for each important resource can benefit from those optimizations
+   while enabling their reuse by other applications, creating a network
+   effect that promotes further expansion of the Web.
+
+   It is tempting to think of resource identifiers as remote file system
+   pathnames and of representations as being a copy of the contents of
+   such files.  In fact, that is how many resources are implemented (see
+   Section 17.3 for related security considerations).  However, there
+   are no such limitations in practice.
+
+   The HTTP interface for a resource is just as likely to be implemented
+   as a tree of content objects, a programmatic view on various database
+   records, or a gateway to other information systems.  Even when the
+   URI mapping mechanism is tied to a file system, an origin server
+   might be configured to execute the files with the request as input
+   and send the output as the representation rather than transfer the
+   files directly.  Regardless, only the origin server needs to know how
+   each resource identifier corresponds to an implementation and how
+   that implementation manages to select and send a current
+   representation of the target resource.
+
+   A client can alter the semantics of GET to be a "range request",
+   requesting transfer of only some part(s) of the selected
+   representation, by sending a Range header field in the request
+   (Section 14.2).
+
+   Although request message framing is independent of the method used,
+   content received in a GET request has no generally defined semantics,
+   cannot alter the meaning or target of the request, and might lead
+   some implementations to reject the request and close the connection
+   because of its potential as a request smuggling attack (Section 11.2
+   of [HTTP/1.1]).  A client SHOULD NOT generate content in a GET
+   request unless it is made directly to an origin server that has
+   previously indicated, in or out of band, that such a request has a
+   purpose and will be adequately supported.  An origin server SHOULD
+   NOT rely on private agreements to receive content, since participants
+   in HTTP communication are often unaware of intermediaries along the
+   request chain.
+
+   The response to a GET request is cacheable; a cache MAY use it to
+   satisfy subsequent GET and HEAD requests unless otherwise indicated
+   by the Cache-Control header field (Section 5.2 of [CACHING]).
+
+   When information retrieval is performed with a mechanism that
+   constructs a target URI from user-provided information, such as the
+   query fields of a form using GET, potentially sensitive data might be
+   provided that would not be appropriate for disclosure within a URI
+   (see Section 17.9).  In some cases, the data can be filtered or
+   transformed such that it would not reveal such information.  In
+   others, particularly when there is no benefit from caching a
+   response, using the POST method (Section 9.3.3) instead of GET can
+   transmit such information in the request content rather than within
+   the target URI.
+
+9.3.2.  HEAD
+
+   The HEAD method is identical to GET except that the server MUST NOT
+   send content in the response.  HEAD is used to obtain metadata about
+   the selected representation without transferring its representation
+   data, often for the sake of testing hypertext links or finding recent
+   modifications.
+
+   The server SHOULD send the same header fields in response to a HEAD
+   request as it would have sent if the request method had been GET.
+   However, a server MAY omit header fields for which a value is
+   determined only while generating the content.  For example, some
+   servers buffer a dynamic response to GET until a minimum amount of
+   data is generated so that they can more efficiently delimit small
+   responses or make late decisions with regard to content selection.
+   Such a response to GET might contain Content-Length and Vary fields,
+   for example, that are not generated within a HEAD response.  These
+   minor inconsistencies are considered preferable to generating and
+   discarding the content for a HEAD request, since HEAD is usually
+   requested for the sake of efficiency.
+
+   Although request message framing is independent of the method used,
+   content received in a HEAD request has no generally defined
+   semantics, cannot alter the meaning or target of the request, and
+   might lead some implementations to reject the request and close the
+   connection because of its potential as a request smuggling attack
+   (Section 11.2 of [HTTP/1.1]).  A client SHOULD NOT generate content
+   in a HEAD request unless it is made directly to an origin server that
+   has previously indicated, in or out of band, that such a request has
+   a purpose and will be adequately supported.  An origin server SHOULD
+   NOT rely on private agreements to receive content, since participants
+   in HTTP communication are often unaware of intermediaries along the
+   request chain.
+
+   The response to a HEAD request is cacheable; a cache MAY use it to
+   satisfy subsequent HEAD requests unless otherwise indicated by the
+   Cache-Control header field (Section 5.2 of [CACHING]).  A HEAD
+   response might also affect previously cached responses to GET; see
+   Section 4.3.5 of [CACHING].
+
+9.3.3.  POST
+
+   The POST method requests that the target resource process the
+   representation enclosed in the request according to the resource's
+   own specific semantics.  For example, POST is used for the following
+   functions (among others):
+
+   *  Providing a block of data, such as the fields entered into an HTML
+      form, to a data-handling process;
+
+   *  Posting a message to a bulletin board, newsgroup, mailing list,
+      blog, or similar group of articles;
+
+   *  Creating a new resource that has yet to be identified by the
+      origin server; and
+
+   *  Appending data to a resource's existing representation(s).
+
+   An origin server indicates response semantics by choosing an
+   appropriate status code depending on the result of processing the
+   POST request; almost all of the status codes defined by this
+   specification could be received in a response to POST (the exceptions
+   being 206 (Partial Content), 304 (Not Modified), and 416 (Range Not
+   Satisfiable)).
+
+   If one or more resources has been created on the origin server as a
+   result of successfully processing a POST request, the origin server
+   SHOULD send a 201 (Created) response containing a Location header
+   field that provides an identifier for the primary resource created
+   (Section 10.2.2) and a representation that describes the status of
+   the request while referring to the new resource(s).
+
+   Responses to POST requests are only cacheable when they include
+   explicit freshness information (see Section 4.2.1 of [CACHING]) and a
+   Content-Location header field that has the same value as the POST's
+   target URI (Section 8.7).  A cached POST response can be reused to
+   satisfy a later GET or HEAD request.  In contrast, a POST request
+   cannot be satisfied by a cached POST response because POST is
+   potentially unsafe; see Section 4 of [CACHING].
+
+   If the result of processing a POST would be equivalent to a
+   representation of an existing resource, an origin server MAY redirect
+   the user agent to that resource by sending a 303 (See Other) response
+   with the existing resource's identifier in the Location field.  This
+   has the benefits of providing the user agent a resource identifier
+   and transferring the representation via a method more amenable to
+   shared caching, though at the cost of an extra request if the user
+   agent does not already have the representation cached.
+
+9.3.4.  PUT
+
+   The PUT method requests that the state of the target resource be
+   created or replaced with the state defined by the representation
+   enclosed in the request message content.  A successful PUT of a given
+   representation would suggest that a subsequent GET on that same
+   target resource will result in an equivalent representation being
+   sent in a 200 (OK) response.  However, there is no guarantee that
+   such a state change will be observable, since the target resource
+   might be acted upon by other user agents in parallel, or might be
+   subject to dynamic processing by the origin server, before any
+   subsequent GET is received.  A successful response only implies that
+   the user agent's intent was achieved at the time of its processing by
+   the origin server.
+
+   If the target resource does not have a current representation and the
+   PUT successfully creates one, then the origin server MUST inform the
+   user agent by sending a 201 (Created) response.  If the target
+   resource does have a current representation and that representation
+   is successfully modified in accordance with the state of the enclosed
+   representation, then the origin server MUST send either a 200 (OK) or
+   a 204 (No Content) response to indicate successful completion of the
+   request.
+
+   An origin server SHOULD verify that the PUT representation is
+   consistent with its configured constraints for the target resource.
+   For example, if an origin server determines a resource's
+   representation metadata based on the URI, then the origin server
+   needs to ensure that the content received in a successful PUT request
+   is consistent with that metadata.  When a PUT representation is
+   inconsistent with the target resource, the origin server SHOULD
+   either make them consistent, by transforming the representation or
+   changing the resource configuration, or respond with an appropriate
+   error message containing sufficient information to explain why the
+   representation is unsuitable.  The 409 (Conflict) or 415 (Unsupported
+   Media Type) status codes are suggested, with the latter being
+   specific to constraints on Content-Type values.
+
+   For example, if the target resource is configured to always have a
+   Content-Type of "text/html" and the representation being PUT has a
+   Content-Type of "image/jpeg", the origin server ought to do one of:
+
+   a.  reconfigure the target resource to reflect the new media type;
+
+   b.  transform the PUT representation to a format consistent with that
+       of the resource before saving it as the new resource state; or,
+
+   c.  reject the request with a 415 (Unsupported Media Type) response
+       indicating that the target resource is limited to "text/html",
+       perhaps including a link to a different resource that would be a
+       suitable target for the new representation.
+
+   HTTP does not define exactly how a PUT method affects the state of an
+   origin server beyond what can be expressed by the intent of the user
+   agent request and the semantics of the origin server response.  It
+   does not define what a resource might be, in any sense of that word,
+   beyond the interface provided via HTTP.  It does not define how
+   resource state is "stored", nor how such storage might change as a
+   result of a change in resource state, nor how the origin server
+   translates resource state into representations.  Generally speaking,
+   all implementation details behind the resource interface are
+   intentionally hidden by the server.
+
+   This extends to how header and trailer fields are stored; while
+   common header fields like Content-Type will typically be stored and
+   returned upon subsequent GET requests, header and trailer field
+   handling is specific to the resource that received the request.  As a
+   result, an origin server SHOULD ignore unrecognized header and
+   trailer fields received in a PUT request (i.e., not save them as part
+   of the resource state).
+
+   An origin server MUST NOT send a validator field (Section 8.8), such
+   as an ETag or Last-Modified field, in a successful response to PUT
+   unless the request's representation data was saved without any
+   transformation applied to the content (i.e., the resource's new
+   representation data is identical to the content received in the PUT
+   request) and the validator field value reflects the new
+   representation.  This requirement allows a user agent to know when
+   the representation it sent (and retains in memory) is the result of
+   the PUT, and thus it doesn't need to be retrieved again from the
+   origin server.  The new validator(s) received in the response can be
+   used for future conditional requests in order to prevent accidental
+   overwrites (Section 13.1).
+
+   The fundamental difference between the POST and PUT methods is
+   highlighted by the different intent for the enclosed representation.
+   The target resource in a POST requ
+--- ENDE ABSCHNITT ---

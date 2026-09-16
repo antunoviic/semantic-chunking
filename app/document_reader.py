@@ -7,7 +7,7 @@ from pypdf import PdfReader
 
 
 class DocumentReader:
-    """SRP: reads a document file (.pdf or .txt) and returns its plain text."""
+    #reads a document file (.pdf or .txt) and returns its plain text
 
     SUPPORTED_EXTENSIONS = {".pdf", ".txt"}
 
@@ -34,16 +34,6 @@ class DocumentReader:
 
     @staticmethod
     def _dewrap(text: str) -> str:
-        r"""Undo pypdf's mid-paragraph line breaks.
-
-        PDF extraction inserts a newline at every visual line, so words that
-        merely wrapped to the next line get split by '\n' (sometimes with a
-        hyphen). This joins them back together while keeping real paragraph
-        breaks (blank lines):
-          "manag -\ning" -> "managing"    (de-hyphenated word wrap)
-          "word1\nword2" -> "word1 word2"  (single newline -> space)
-          blank line     -> paragraph break (kept)
-        """
         text = text.replace("\r\n", "\n").replace("\r", "\n")
         # de-hyphenate words split across a line break
         text = re.sub(r"(?<=\w) ?- ?\n ?(?=\w)", "", text)

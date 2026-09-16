@@ -8,8 +8,8 @@ from pathlib import Path as _Path
 sys.path.insert(0, str(_Path(__file__).resolve().parent.parent))   # project root importable
 
 from app.document_reader import DocumentReader
-from llm_chunker.incremental.headings import HEADING_RE
-from llm_chunker.text_splitter import TextSplitter
+from llm_semantic_chunker.incremental.headings import HEADING_RE
+from llm_semantic_chunker.text_splitter import TextSplitter
 
 STEP_SENTENCES = 2          # as in the ablation setup
 SECONDS_PER_CALL = 5.0      

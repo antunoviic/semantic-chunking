@@ -1,0 +1,412 @@
+Du hilfst beim Aufbau eines Evaluationsdatensatzes fuer ein RAG-System.
+
+Unten steht Abschnitt 12 von 12 eines Dokuments. Erzeuge daraus
+GENAU 8 Frage-Antwort-Paare.
+
+REGELN — die zweite ist die wichtigste:
+1. Jede Frage muss aus diesem Abschnitt eindeutig beantwortbar sein.
+2. "source_text" muss ZEICHENGENAU aus dem Abschnitt kopiert sein — buchstaeblich
+   ein Substring. Nichts umformulieren, kuerzen, korrigieren oder Zeichen
+   ersetzen (auch keine Anfuehrungszeichen oder Bindestriche anpassen).
+   Ein einziges geaendertes Zeichen macht das Paar unbrauchbar.
+3. "source_text" ist 60-300 Zeichen lang und enthaelt die Antwort vollstaendig.
+4. Frage nach konkreten Fakten (Zahlen, Definitionen, Bedingungen, Verfahren),
+   nicht nach Meinungen oder Zusammenfassungen.
+5. Die Antwort darf NICHT an mehreren Stellen des Dokuments stehen — sonst zaehlt
+   ein inhaltlich richtiger Treffer als Fehler. Waehle eindeutige Textstellen.
+6. Keine Fragen zu Ueberschriften, Inhaltsverzeichnis, Literaturverzeichnis,
+   Autorenlisten, Tabellenkoepfen oder Seitenzahlen.
+7. Formuliere die Frage NAH am Wortlaut des Textes (hohe lexikalische Ueberlappung). Nutze die Fachbegriffe des Dokuments.
+8. Verteile die Fragen ueber den GANZEN Abschnitt, nicht nur den Anfang.
+
+Antworte AUSSCHLIESSLICH mit einem JSON-Array, ohne Kommentar davor oder danach:
+[{"question": "...", "source_text": "..."}]
+
+BEREITS VERWENDET — waehle ANDERE Textstellen (Auszug):
+  - HTTP has been the primary information transfer protocol for the World Wide Web s...
+  - HTTP/3 ([HTTP/3]) provides greater independence for concurrent messages by using...
+  - It is RECOMMENDED that all senders and recipients support, at a minimum, URIs wi...
+  - If the port subcomponent is empty or not given, TCP port 80 (the reserved port f...
+  - If the port subcomponent is empty or not given, TCP port 443 (the reserved port ...
+  - Field names are case-insensitive and ought to be registered within the "Hypertex...
+  - The "Content-Length" header field indicates the associated representation's data...
+  - The "Max-Forwards" header field provides a mechanism with the TRACE (Section 9.3...
+  - A recipient that parses a timestamp value in an HTTP field MUST accept all three...
+  - The method token is case-sensitive because it might be used as a gateway to obje...
+  - All general-purpose servers MUST support the methods GET and HEAD....
+  - Of the request methods defined by this specification, the GET, HEAD, OPTIONS, an...
+  - Of the request methods defined by this specification, PUT, DELETE, and safe requ...
+  - This specification defines caching semantics for GET, HEAD, and POST, although t...
+  - The GET method requests transfer of a current selected representation for the ta...
+  - The PUT method requests that the state of the target resource be created or repl...
+  - The DELETE method requests that the origin server remove the association between...
+  - The CONNECT method requests that the recipient establish a tunnel to the destina...
+  - The TRACE method requests a remote, application-level loop-back of the request m...
+  - The only expectation defined by this specification is "100-continue" (with no de...
+  - The "Referer" [sic] header field allows the user agent to specify a URI referenc...
+  - All valid status codes are within the range of 100 to 599, inclusive....
+  - The 201 (Created) status code indicates that the request has been fulfilled and ...
+  - The 206 (Partial Content) status code indicates that the server is successfully ...
+  - the 410 (Gone) status code is preferred over 404 if the origin server knows, pre...
+  - The origin server MUST generate an Allow header field in a 405 response containi...
+  - The 411 (Length Required) status code indicates that the server refuses to accep...
+  - The 421 (Misdirected Request) status code indicates that the request was directe...
+  - The 503 (Service Unavailable) status code indicates that the server is currently...
+  - [RFC2324] was an April 1 RFC that lampooned the various ways HTTP was abused...
+  - The "compress" coding is an adaptive Lempel-Ziv-Welch (LZW) coding [Welch] that ...
+  - The "gzip" coding is an LZ77 coding with a 32-bit Cyclic Redundancy Check (CRC) ...
+  - The weight is normalized to a real number in the range 0 through 1, where 0.001 ...
+  - the "basic" and "digest" authentication schemes are defined by [RFC7617] and [RF...
+
+--- ABSCHNITT 12/12 ---
+   Range units are compared in a case-insensitive fashion.
+   (Section 14.1)
+
+   The use of the Accept-Ranges field is not restricted to origin
+   servers.  (Section 14.3)
+
+   The process of creating a redirected request has been clarified.
+   (Section 15.4)
+
+   Status code 308 (previously defined in [RFC7538]) has been added so
+   that it's defined closer to status codes 301, 302, and 307.
+   (Section 15.4.9)
+
+   Status code 421 (previously defined in Section 9.1.2 of [RFC7540])
+   has been added because of its general applicability. 421 is no longer
+   defined as heuristically cacheable since the response is specific to
+   the connection (not the target resource).  (Section 15.5.20)
+
+   Status code 422 (previously defined in Section 11.2 of [WEBDAV]) has
+   been added because of its general applicability.  (Section 15.5.21)
+
+B.4.  Changes from RFC 7232
+
+   Previous revisions of HTTP imposed an arbitrary 60-second limit on
+   the determination of whether Last-Modified was a strong validator to
+   guard against the possibility that the Date and Last-Modified values
+   are generated from different clocks or at somewhat different times
+   during the preparation of the response.  This specification has
+   relaxed that to allow reasonable discretion.  (Section 8.8.2.2)
+
+   An edge-case requirement on If-Match and If-Unmodified-Since has been
+   removed that required a validator not to be sent in a 2xx response if
+   validation fails because the change request has already been applied.
+   (Sections 13.1.1 and 13.1.4)
+
+   The fact that If-Unmodified-Since does not apply to a resource
+   without a concept of modification time has been clarified.
+   (Section 13.1.4)
+
+   Preconditions can now be evaluated before the request content is
+   processed rather than waiting until the response would otherwise be
+   successful.  (Section 13.2)
+
+B.5.  Changes from RFC 7233
+
+   Refactored the range-unit and ranges-specifier grammars to simplify
+   and reduce artificial distinctions between bytes and other
+   (extension) range units, removing the overlapping grammar of other-
+   range-unit by defining range units generically as a token and placing
+   extensions within the scope of a range-spec (other-range).  This
+   disambiguates the role of list syntax (commas) in all range sets,
+   including extension range units, for indicating a range-set of more
+   than one range.  Moving the extension grammar into range specifiers
+   also allows protocol specific to byte ranges to be specified
+   separately.
+
+   It is now possible to define Range handling on extension methods.
+   (Section 14.2)
+
+   Described use of the Content-Range header field (Section 14.4) as a
+   request modifier to perform a partial PUT.  (Section 14.5)
+
+B.6.  Changes from RFC 7235
+
+   None.
+
+B.7.  Changes from RFC 7538
+
+   None.
+
+B.8.  Changes from RFC 7615
+
+   None.
+
+B.9.  Changes from RFC 7694
+
+   This specification includes the extension defined in [RFC7694] but
+   leaves out examples and deployment considerations.
+
+Acknowledgements
+
+   Aside from the current editors, the following individuals deserve
+   special recognition for their contributions to early aspects of HTTP
+   and its core specifications: Marc Andreessen, Tim Berners-Lee, Robert
+   Cailliau, Daniel W. Connolly, Bob Denny, John Franks, Jim Gettys,
+   Jean-François Groff, Phillip M. Hallam-Baker, Koen Holtman, Jeffery
+   L. Hostetler, Shel Kaphan, Dave Kristol, Yves Lafon, Scott
+   D. Lawrence, Paul J. Leach, Håkon W. Lie, Ari Luotonen, Larry
+   Masinter, Rob McCool, Jeffrey C. Mogul, Lou Montulli, David Morris,
+   Henrik Frystyk Nielsen, Dave Raggett, Eric Rescorla, Tony Sanders,
+   Lawrence C. Stewart, Marc VanHeyningen, and Steve Zilles.
+
+   This document builds on the many contributions that went into past
+   specifications of HTTP, including [HTTP/1.0], [RFC2068], [RFC2145],
+   [RFC2616], [RFC2617], [RFC2818], [RFC7230], [RFC7231], [RFC7232],
+   [RFC7233], [RFC7234], and [RFC7235].  The acknowledgements within
+   those documents still apply.
+
+   Since 2014, the following contributors have helped improve this
+   specification by reporting bugs, asking smart questions, drafting or
+   reviewing text, and evaluating issues:
+
+   Alan Egerton, Alex Rousskov, Amichai Rothman, Amos Jeffries, Anders
+   Kaseorg, Andreas Gebhardt, Anne van Kesteren, Armin Abfalterer, Aron
+   Duby, Asanka Herath, Asbjørn Ulsberg, Asta Olofsson, Attila Gulyas,
+   Austin Wright, Barry Pollard, Ben Burkert, Benjamin Kaduk, Björn
+   Höhrmann, Brad Fitzpatrick, Chris Pacejo, Colin Bendell, Cory
+   Benfield, Cory Nelson, Daisuke Miyakawa, Dale Worley, Daniel
+   Stenberg, Danil Suits, David Benjamin, David Matson, David Schinazi,
+   Дилян Палаузов (Dilyan Palauzov), Eric Anderson, Eric Rescorla, Éric
+   Vyncke, Erik Kline, Erwin Pe, Etan Kissling, Evert Pot, Evgeny
+   Vrublevsky, Florian Best, Francesca Palombini, Igor Lubashev, James
+   Callahan, James Peach, Jeffrey Yasskin, Kalin Gyokov, Kannan Goundan,
+   奥 一穂 (Kazuho Oku), Ken Murchison, Krzysztof Maczyński, Lars Eggert,
+   Lucas Pardue, Martin Duke, Martin Dürst, Martin Thomson, Martynas
+   Jusevičius, Matt Menke, Matthias Pigulla, Mattias Grenfeldt, Michael
+   Osipov, Mike Bishop, Mike Pennisi, Mike Taylor, Mike West, Mohit
+   Sethi, Murray Kucherawy, Nathaniel J. Smith, Nicholas Hurley, Nikita
+   Prokhorov, Patrick McManus, Piotr Sikora, Poul-Henning Kamp, Rick van
+   Rein, Robert Wilton, Roberto Polli, Roman Danyliw, Samuel Williams,
+   Semyon Kholodnov, Simon Pieters, Simon Schüppel, Stefan Eissing,
+   Taylor Hunt, Todd Greer, Tommy Pauly, Vasiliy Faronov, Vladimir
+   Lashchev, Wenbo Zhu, William A. Rowe Jr., Willy Tarreau, Xingwei Liu,
+   Yishuai Li, and Zaheduzzaman Sarker.
+
+Index
+
+   1 2 3 4 5 A B C D E F G H I L M N O P R S T U V W X
+
+      1
+
+         100 Continue (status code)  *_Section 15.2.1_*
+         100-continue (expect value)  *_Section 10.1.1_*
+         101 Switching Protocols (status code)  *_Section 15.2.2_*
+         1xx Informational (status code class)  *_Section 15.2_*
+
+      2
+
+         200 OK (status code)  *_Section 15.3.1_*
+         201 Created (status code)  *_Section 15.3.2_*
+         202 Accepted (status code)  *_Section 15.3.3_*
+         203 Non-Authoritative Information (status code)  *_Section 15.3
+            .4_*
+         204 No Content (status code)  *_Section 15.3.5_*
+         205 Reset Content (status code)  *_Section 15.3.6_*
+         206 Partial Content (status code)  *_Section 15.3.7_*
+         2xx Successful (status code class)  *_Section 15.3_*
+
+      3
+
+         300 Multiple Choices (status code)  *_Section 15.4.1_*
+         301 Moved Permanently (status code)  *_Section 15.4.2_*
+         302 Found (status code)  *_Section 15.4.3_*
+         303 See Other (status code)  *_Section 15.4.4_*
+         304 Not Modified (status code)  *_Section 15.4.5_*
+         305 Use Proxy (status code)  *_Section 15.4.6_*
+         306 (Unused) (status code)  *_Section 15.4.7_*
+         307 Temporary Redirect (status code)  *_Section 15.4.8_*
+         308 Permanent Redirect (status code)  *_Section 15.4.9_*
+         3xx Redirection (status code class)  *_Section 15.4_*
+
+      4
+
+         400 Bad Request (status code)  *_Section 15.5.1_*
+         401 Unauthorized (status code)  *_Section 15.5.2_*
+         402 Payment Required (status code)  *_Section 15.5.3_*
+         403 Forbidden (status code)  *_Section 15.5.4_*
+         404 Not Found (status code)  *_Section 15.5.5_*
+         405 Method Not Allowed (status code)  *_Section 15.5.6_*
+         406 Not Acceptable (status code)  *_Section 15.5.7_*
+         407 Proxy Authentication Required (status code)  *_Section 15.5
+            .8_*
+         408 Request Timeout (status code)  *_Section 15.5.9_*
+         409 Conflict (status code)  *_Section 15.5.10_*
+         410 Gone (status code)  *_Section 15.5.11_*
+         411 Length Required (status code)  *_Section 15.5.12_*
+         412 Precondition Failed (status code)  *_Section 15.5.13_*
+         413 Content Too Large (status code)  *_Section 15.5.14_*
+         414 URI Too Long (status code)  *_Section 15.5.15_*
+         415 Unsupported Media Type (status code)  *_Section 15.5.16_*
+         416 Range Not Satisfiable (status code)  *_Section 15.5.17_*
+         417 Expectation Failed (status code)  *_Section 15.5.18_*
+         418 (Unused) (status code)  *_Section 15.5.19_*
+         421 Misdirected Request (status code)  *_Section 15.5.20_*
+         422 Unprocessable Content (status code)  *_Section 15.5.21_*
+         426 Upgrade Required (status code)  *_Section 15.5.22_*
+         4xx Client Error (status code class)  *_Section 15.5_*
+
+      5
+
+         500 Internal Server Error (status code)  *_Section 15.6.1_*
+         501 Not Implemented (status code)  *_Section 15.6.2_*
+         502 Bad Gateway (status code)  *_Section 15.6.3_*
+         503 Service Unavailable (status code)  *_Section 15.6.4_*
+         504 Gateway Timeout (status code)  *_Section 15.6.5_*
+         505 HTTP Version Not Supported (status code)  *_Section 15.6.6_
+            *
+         5xx Server Error (status code class)  *_Section 15.6_*
+
+      A
+
+         accelerator  *_Section 3.7, Paragraph 6_*
+         Accept header field  *_Section 12.5.1_*
+         Accept-Charset header field  *_Section 12.5.2_*
+         Accept-Encoding header field  *_Section 12.5.3_*
+         Accept-Language header field  *_Section 12.5.4_*
+         Accept-Ranges header field  *_Section 14.3_*
+         Allow header field  *_Section 10.2.1_*
+         Authentication-Info header field  *_Section 11.6.3_*
+         authoritative response  *_Section 17.1_*
+         Authorization header field  *_Section 11.6.2_*
+
+      B
+
+         browser  *_Section 3.5_*
+
+      C
+
+         cache  *_Section 3.8_*
+         cacheable  *_Section 3.8, Paragraph 4_*
+         client  *_Section 3.3_*
+         clock  *_Section 5.6.7_*
+         complete  *_Section 6.1_*
+         compress (Coding Format)  Section 8.4.1.1
+         compress (content coding)  *_Section 8.4.1_*
+         conditional request  *_Section 13_*
+         CONNECT method  *_Section 9.3.6_*
+         connection  *_Section 3.3_*
+         Connection header field  *_Section 7.6.1_*
+         content  Section 6.4
+         content coding  *_Section 8.4.1_*
+         content negotiation  Section 1.3, Paragraph 4
+         Content-Encoding header field  *_Section 8.4_*
+         Content-Language header field  *_Section 8.5_*
+         Content-Length header field  *_Section 8.6_*
+         Content-Location header field  *_Section 8.7_*
+         Content-MD5 header field  *_Section 18.4, Paragraph 10_*
+         Content-Range header field  *_Section 14.4_*; Section 14.5
+         Content-Type header field  *_Section 8.3_*
+         control data  *_Section 6.2_*
+
+      D
+
+         Date header field  *_Section 6.6.1_*
+         deflate (Coding Format)  Section 8.4.1.2
+         deflate (content coding)  *_Section 8.4.1_*
+         DELETE method  *_Section 9.3.5_*
+         Delimiters  Section 5.6.2, Paragraph 3
+         downstream  *_Section 3.7, Paragraph 4_*
+
+      E
+
+         effective request URI  *_Section 7.1, Paragraph 8.1_*
+         ETag field  *_Section 8.8.3_*
+         Expect header field  *_Section 10.1.1_*
+
+      F
+
+         field  *_Section 5_*; Section 6.3
+         field line  Section 5.2, Paragraph 1
+         field line value  Section 5.2, Paragraph 1
+         field name  Section 5.2, Paragraph 1
+         field value  Section 5.2, Paragraph 2
+         Fields
+            *  *_Section 18.4, Paragraph 9_*
+            Accept  *_Section 12.5.1_*
+            Accept-Charset  *_Section 12.5.2_*
+            Accept-Encoding  *_Section 12.5.3_*
+            Accept-Language  *_Section 12.5.4_*
+            Accept-Ranges  *_Section 14.3_*
+            Allow  *_Section 10.2.1_*
+            Authentication-Info  *_Section 11.6.3_*
+            Authorization  *_Section 11.6.2_*
+            Connection  *_Section 7.6.1_*
+            Content-Encoding  *_Section 8.4_*
+            Content-Language  *_Section 8.5_*
+            Content-Length  *_Section 8.6_*
+            Content-Location  *_Section 8.7_*
+            Content-MD5  *_Section 18.4, Paragraph 10_*
+            Content-Range  *_Section 14.4_*; Section 14.5
+            Content-Type  *_Section 8.3_*
+            Date  *_Section 6.6.1_*
+            ETag  *_Section 8.8.3_*
+            Expect  *_Section 10.1.1_*
+            From  *_Section 10.1.2_*
+            Host  *_Section 7.2_*
+            If-Match  *_Section 13.1.1_*
+            If-Modified-Since  *_Section 13.1.3_*
+            If-None-Match  *_Section 13.1.2_*
+            If-Range  *_Section 13.1.5_*
+            If-Unmodified-Since  *_Section 13.1.4_*
+            Last-Modified  *_Section 8.8.2_*
+            Location  *_Section 10.2.2_*
+            Max-Forwards  *_Section 7.6.2_*
+            Proxy-Authenticate  *_Section 11.7.1_*
+            Proxy-Authentication-Info  *_Section 11.7.3_*
+            Proxy-Authorization  *_Section 11.7.2_*
+            Range  *_Section 14.2_*
+            Referer  *_Section 10.1.3_*
+            Retry-After  *_Section 10.2.3_*
+            Server  *_Section 10.2.4_*
+            TE  *_Section 10.1.4_*
+            Trailer  *_Section 6.6.2_*
+            Upgrade  *_Section 7.8_*
+            User-Agent  *_Section 10.1.5_*
+            Vary  *_Section 12.5.5_*
+            Via  *_Section 7.6.3_*
+            WWW-Authenticate  *_Section 11.6.1_*
+         Fragment Identifiers  Section 4.2.5
+         From header field  *_Section 10.1.2_*
+
+      G
+
+         gateway  *_Section 3.7, Paragraph 6_*
+         GET method  *_Section 9.3.1_*
+         Grammar
+            ALPHA  *_Section 2.1_*
+            Accept  *_Section 12.5.1_*
+            Accept-Charset  *_Section 12.5.2_*
+            Accept-Encoding  *_Section 12.5.3_*
+            Accept-Language  *_Section 12.5.4_*
+            Accept-Ranges  *_Section 14.3_*
+            Allow  *_Section 10.2.1_*
+            Authentication-Info  *_Section 11.6.3_*
+            Authorization  *_Section 11.6.2_*
+            BWS  *_Section 5.6.3_*
+            CR  *_Section 2.1_*
+            CRLF  *_Section 2.1_*
+            CTL  *_Section 2.1_*
+            Connection  *_Section 7.6.1_*
+            Content-Encoding  *_Section 8.4_*
+            Content-Language  *_Section 8.5_*
+            Content-Length  *_Section 8.6_*
+            Content-Location  *_Section 8.7_*
+            Content-Range  *_Section 14.4_*
+            Content-Type  *_Section 8.3_*
+            DIGIT  *_Section 2.1_*
+            DQUOTE  *_Section 2.1_*
+            Date  *_Section 6.6.1_*
+            ETag  *_Section 8.8.3_*
+            Expect  *_Section 10.1.1_*
+            From  *_Section 10.1.2_*
+            GMT  *_Section 5.6.7_*
+            HEXDIG  *_Section 2.1_*
+            HTAB  *_Section 2.1_*
+            HTTP-date  *_Section 5.6.7_*
+            Host  *_Section 7.2_*
+            IMF-fixdate  *_Section 5.6.7_*
+            If-Match  *_Section 13.1.1_*
+            If-Modified-Since  *_Section 13.1.3
+--- ENDE ABSCHNITT ---
