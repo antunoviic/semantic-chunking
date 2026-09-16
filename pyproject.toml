@@ -7,7 +7,7 @@ name = "llm-semantic-chunker"
 # 0.2.0 statt 0.1.0: QwenClient heisst jetzt OllamaClient (ohne Alias) und
 # die Einstellungen liegen in ChunkerConfig — eine Bruchaenderung. Ausserdem
 # ist 0.1.0 auf TestPyPI bereits durch eine aeltere Fassung belegt.
-version = "0.2.0"
+version = "0.2.1"
 requires-python = ">=3.9"
 description = "LLM-based semantic chunking library for RAG pipelines"
 readme = "README.md"
