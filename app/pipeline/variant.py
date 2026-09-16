@@ -7,6 +7,7 @@ eine neue Erkennungsart musste an vier Stellen nachgetragen werden.
 
     cache_key(cfg)                      -> "incremental_headings_hybrid"
     cache_key(cfg, heading_mode="lines")-> "incremental_headings_lines"
+    cache_key(cfg, enrich=True)         -> "incremental_headings_hybrid_enriched"
     label(cfg)                          -> "llm_incremental_headings_hybrid"
 """
 from __future__ import annotations
@@ -31,16 +32,22 @@ def _with(cfg: ChunkerConfig, **overrides) -> ChunkerConfig:
 
 def _suffix(cfg: ChunkerConfig) -> str:
     if cfg.mode == "window":
-        return ""                                   # window laeuft unter dem Dokumentnamen
-    base = "incremental_headings" if cfg.respect_headings else "incremental"
-    if cfg.respect_headings and cfg.heading_mode != _DEFAULT_HEADING_MODE:
-        base += f"_{cfg.heading_mode}"
-    if not cfg.smart_split:
-        base += "_midpoint"
-    if not cfg.filter_low_info:
-        # Eigener Schluessel, sonst ueberschreibt die Filter-Ablation den
-        # Hauptcache — und genau ihr Vergleich trennt Filter- von Grenzeffekt.
-        base += "_nofilter"
+        base = ""                                   # window laeuft unter dem Dokumentnamen
+    else:
+        base = "incremental_headings" if cfg.respect_headings else "incremental"
+        if cfg.respect_headings and cfg.heading_mode != _DEFAULT_HEADING_MODE:
+            base += f"_{cfg.heading_mode}"
+        if not cfg.smart_split:
+            base += "_midpoint"
+        if not cfg.filter_low_info:
+            # Eigener Schluessel, sonst ueberschreibt die Filter-Ablation den
+            # Hauptcache — und genau ihr Vergleich trennt Filter- von Grenzeffekt.
+            base += "_nofilter"
+    if cfg.enrich:
+        # Mit enrich=True haengt der Chunker selbst "[Topic: ...]" vor jeden
+        # Chunk. Das sind andere Texte; sie duerfen nie unter dem Namen des
+        # unangereicherten Arms landen.
+        base = f"{base}_enriched" if base else "enriched"
     return base
 
 
@@ -53,5 +60,5 @@ def label(cfg: ChunkerConfig, **overrides) -> str:
     """Name dieses Arms in der Ergebnistabelle."""
     cfg = _with(cfg, **overrides)
     if cfg.mode == "window":
-        return "llm_window"
+        return "llm_window" + ("_enriched" if cfg.enrich else "")
     return "llm_" + _suffix(cfg)

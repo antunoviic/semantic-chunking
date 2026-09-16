@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ast
+import functools
 import hashlib
 import json
 from datetime import datetime
@@ -21,7 +22,13 @@ _CODE_ROOTS = (
 )
 
 
+@functools.lru_cache(maxsize=None)
 def _code_digest() -> str:
+    """Fingerprint of the code that draws chunk boundaries (AST, no docstrings).
+
+    Cached per process: the files do not change while a run is going, and every
+    cache load compares against it.
+    """
     h = hashlib.sha256()
     for root in _CODE_ROOTS:
         p = Path(root)
@@ -60,14 +67,29 @@ class ChunkCache:
         suffix = (f"_{variant}" if variant else "") + ("_enriched" if enriched else "")
         return self._dir / (Path(source_path).stem + suffix + ".json")
 
-    def load(self, source_path: str, enriched: bool = False, variant: str = "") -> Optional[list[str]]:
+    def load(self, source_path: str, enriched: bool = False, variant: str = "",
+             allow_stale: bool = False) -> Optional[list[str]]:
+        """Chunks of one arm, or None if there is no usable cache.
+
+        A cache whose `code_digest` differs from the code running now is treated
+        as absent: its boundaries were drawn by other code, and loading it next
+        to fresh arms would put two code states into one report. Unstamped
+        caches count as stale. `allow_stale=True` loads such a cache anyway,
+        for inspection, never for a comparison.
+        """
         path = self._path(source_path, enriched, variant)
         if not path.exists():
             return None
         data = json.loads(path.read_text(encoding="utf-8"))
+        have, want = data.get("code_digest"), _code_digest()
+        if have != want and not allow_stale:
+            print(f"[cache] Skipped {path.name}: chunked with code {have or 'unstamped'} "
+                  f"on {str(data.get('chunked_at', '?'))[:16]}, current code is {want}. "
+                  f"Re-chunk it (--rechunk) or load with allow_stale=True.")
+            return None
         print(f"[cache] Loaded {len(data['chunks'])} chunks from {path.name}")
-        print(f"        Chunked on: {data['chunked_at']}"
-              f"   code: {data.get('code_digest', 'ungestempelt')}")
+        print(f"        Chunked on: {data['chunked_at']}   code: {have or 'unstamped'}"
+              + ("   (STALE, loaded on request)" if have != want else ""))
         return data["chunks"]
 
     def provenance(self, source_path: str, enriched: bool = False,
@@ -90,8 +112,9 @@ class ChunkCache:
             path.rename(backup)
             print(f"[cache] Old chunks backed up to {backup.name}")
         #   chunked_at   — when
-        #   code_digest  — which code
-        #   params       — settings
+        #   code_digest  — which code (see _code_digest)
+        #   params       — ChunkerConfig plus, from the pipeline, the document
+        #                  hash, the LLM settings and the library versions
         data = {
             "chunked_at":  datetime.now().isoformat(),
             "code_digest": _code_digest(),

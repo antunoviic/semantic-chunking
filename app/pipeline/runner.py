@@ -1,10 +1,19 @@
 from __future__ import annotations
 
 import dataclasses
+import hashlib
+import platform
+from importlib import metadata
 from pathlib import Path
 
+import httpx
+
+from typing import TYPE_CHECKING
+
 from llm_semantic_chunker import ChunkerConfig, LLMChunker, OllamaClient
-from llm_semantic_chunker.vectorstore import VectorStore
+
+if TYPE_CHECKING:                      # nur fuer die Annotationen, kein Import zur Laufzeit
+    from llm_semantic_chunker.vectorstore import VectorStore
 
 from eval.question_generator import QuestionGenerator
 from eval.result_reporter import ResultReporter
@@ -31,8 +40,7 @@ class Pipeline:
         self._reader = DocumentReader(document)
         self._reporter = ResultReporter()
         self._strategies = StrategyCollector(
-            cache=self._cache, config=chunker, file_path=document,
-            client=self._client, rechunk=evaluation.rechunk)
+            cache=self._cache, config=chunker, file_path=document)
 
     def run(self) -> None:
         doc_stem = Path(self._file_path).stem
@@ -53,6 +61,8 @@ class Pipeline:
         qa_pairs = QuestionGenerator().load(
             doc_stem, self._eval.max_questions, questions_file=self._eval.questions_file)
         self._report_anchor_loss(llm_chunks, qa_pairs)
+
+        from llm_semantic_chunker.vectorstore import VectorStore
 
         print("\n[eval] Initializing vector store (Ollama embeddings)...", flush=True)
         store = VectorStore(persist_dir="./chroma_db_eval")
@@ -76,9 +86,14 @@ class Pipeline:
         if not chunks:
             raise RuntimeError("Chunking produced 0 chunks — cannot continue.")
 
-        # config parameters
+        # Everything a reader needs to tell whether two caches are comparable:
+        # the settings, what the boundaries came from, the exact input text, the
+        # model that judged it, and the libraries that split the sentences.
         params = dataclasses.asdict(cfg)
         params["boundary_stats"] = dict(chunker.boundary_stats)
+        params["document"] = _document_stamp(self._file_path, text)
+        params["llm"] = _llm_stamp(self._client)
+        params["environment"] = _environment_stamp()
         self._cache.save(self._file_path, chunks, enriched=False,
                          variant=key, params=params)
         return chunks
@@ -96,7 +111,7 @@ class Pipeline:
         return len(lost)
 
     def _evaluate(self, chunk_sets: ChunkSets, parent_child: ParentChild,
-                  qa_pairs: list[dict], store: VectorStore) -> list[dict]:
+                  qa_pairs: list[dict], store: "VectorStore") -> list[dict]:
         evaluator = StrategyEvaluator(store, k=self._eval.top_k)
         print(f"\n[eval] Running retrieval tests (k={self._eval.top_k}) "
               f"over {len(qa_pairs)} questions...\n")
@@ -130,3 +145,52 @@ class Pipeline:
         self._reporter.save_json(results, doc_stem)
         self._reporter.save_markdown(results, self._eval.top_k, doc_stem)
         self._reporter.save_charts(results, self._eval.top_k, doc_stem)
+
+
+# --------------------------------------------------------------- provenance
+
+def _document_stamp(path: str, text: str) -> dict:
+    """The cache is named after the file stem; this ties it to the content."""
+    return {
+        "path": str(path),
+        "text_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+        "chars": len(text),
+    }
+
+
+def _llm_stamp(client: OllamaClient) -> dict:
+    """Decoder settings plus the identity of the model behind the tag.
+
+    The tag `qwen3.5:4b` can point to different weights after a re-pull; the
+    manifest digest from /api/tags pins the exact model. A lookup failure is
+    recorded, never raised: provenance must not abort a run.
+    """
+    info = {
+        "model": client.model, "seed": client.seed, "temperature": client.temperature,
+        "num_ctx": client.num_ctx, "thinking": client.thinking,
+        "model_digest": None, "ollama_version": None,
+    }
+    try:
+        with httpx.Client(timeout=5.0) as http:
+            wanted = {client.model, f"{client.model}:latest"}
+            models = http.get(f"{client.base_url}/api/tags").json().get("models", [])
+            match = next((m for m in models
+                          if m.get("name") in wanted or m.get("model") in wanted), None)
+            info["model_digest"] = match.get("digest") if match else None
+            info["ollama_version"] = http.get(f"{client.base_url}/api/version").json().get("version")
+    except Exception as exc:  # noqa: BLE001 - any failure is just recorded
+        info["lookup_error"] = f"{type(exc).__name__}: {exc}"[:200]
+    return info
+
+
+def _environment_stamp() -> dict:
+    """Versions of everything between the file and the sentence list."""
+    def version(name: str):
+        try:
+            return metadata.version(name)
+        except metadata.PackageNotFoundError:
+            return None
+    return {
+        "python": platform.python_version(),
+        **{name: version(name) for name in ("nltk", "langdetect", "pypdf", "httpx")},
+    }
