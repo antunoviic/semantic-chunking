@@ -12,7 +12,7 @@ from typing import TYPE_CHECKING
 
 from llm_semantic_chunker import ChunkerConfig, LLMChunker, OllamaClient
 
-if TYPE_CHECKING:                      # nur fuer die Annotationen, kein Import zur Laufzeit
+if TYPE_CHECKING:                      # annotations only; no import at runtime
     from llm_semantic_chunker.vectorstore import VectorStore
 
 from eval.question_generator import QuestionGenerator
@@ -104,8 +104,8 @@ class Pipeline:
         blob = " ".join(" ".join(c.split()) for c in chunks)
         lost = [q for q in qa_pairs if " ".join(q["source_text"].split()) not in blob]
         n = len(qa_pairs) or 1
-        print(f"[anchors] {len(qa_pairs) - len(lost)}/{len(qa_pairs)} Anker in den LLM-Chunks "
-              f"vorhanden — {len(lost)} verloren ({len(lost) * 100 // n} %)")
+        print(f"[anchors] {len(qa_pairs) - len(lost)}/{len(qa_pairs)} anchors present in the "
+              f"LLM chunks — {len(lost)} lost ({len(lost) * 100 // n} %)")
         for q in lost[:3]:
             print(f"          fehlt: {q['question'][:70]}")
         return len(lost)

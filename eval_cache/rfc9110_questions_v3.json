@@ -1,0 +1,1186 @@
+[
+  {
+    "question": "Since what year has HTTP been the primary information transfer protocol for the World Wide Web?",
+    "source_text": "HTTP has been the primary information transfer protocol for the World Wide Web since its introduction in 1990."
+  },
+  {
+    "question": "What transport does HTTP/3 use instead of TCP?",
+    "source_text": "HTTP/3 ([HTTP/3]) provides greater independence for concurrent messages by using QUIC as a secure multiplexed transport over UDP instead of TCP."
+  },
+  {
+    "question": "What minimum URI length in octets is recommended to be supported by all senders and recipients?",
+    "source_text": "It is RECOMMENDED that all senders and recipients support, at a minimum, URIs with lengths of 8000 octets in protocol elements."
+  },
+  {
+    "question": "What is the default TCP port for an \"http\" URI when the port subcomponent is empty or not given?",
+    "source_text": "If the port subcomponent is empty or not given, TCP port 80 (the reserved port for WWW services) is the default."
+  },
+  {
+    "question": "What is the default TCP port for an \"https\" URI when the port subcomponent is empty or not given?",
+    "source_text": "If the port subcomponent is empty or not given, TCP port 443 (the reserved port for HTTP over TLS) is the default."
+  },
+  {
+    "question": "Are HTTP field names case-sensitive or case-insensitive?",
+    "source_text": "Field names are case-insensitive and ought to be registered within the \"Hypertext Transfer Protocol (HTTP) Field Name Registry\""
+  },
+  {
+    "question": "What does the Content-Length header field indicate about the associated representation?",
+    "source_text": "The \"Content-Length\" header field indicates the associated representation's data length as a decimal non-negative integer number of octets."
+  },
+  {
+    "question": "With which two request methods does the Max-Forwards header field provide a mechanism to limit forwarding by proxies?",
+    "source_text": "The \"Max-Forwards\" header field provides a mechanism with the TRACE (Section 9.3.8) and OPTIONS (Section 9.3.7) request methods to limit the number of times that the request is forwarded by proxies."
+  },
+  {
+    "question": "How many HTTP-date formats must a recipient that parses a timestamp value accept?",
+    "source_text": "A recipient that parses a timestamp value in an HTTP field MUST accept all three HTTP-date formats."
+  },
+  {
+    "question": "Why is the HTTP method token case-sensitive?",
+    "source_text": "The method token is case-sensitive because it might be used as a gateway to object-based systems with case-sensitive method names."
+  },
+  {
+    "question": "Which two methods must all general-purpose servers support?",
+    "source_text": "All general-purpose servers MUST support the methods GET and HEAD."
+  },
+  {
+    "question": "Which request methods defined by this specification are defined to be safe?",
+    "source_text": "Of the request methods defined by this specification, the GET, HEAD, OPTIONS, and TRACE methods are defined to be safe."
+  },
+  {
+    "question": "Which request methods are idempotent according to this specification?",
+    "source_text": "Of the request methods defined by this specification, PUT, DELETE, and safe request methods are idempotent."
+  },
+  {
+    "question": "For which methods does this specification define caching semantics?",
+    "source_text": "This specification defines caching semantics for GET, HEAD, and POST, although the overwhelming majority of cache implementations only support GET and HEAD."
+  },
+  {
+    "question": "What does the GET method request for the target resource?",
+    "source_text": "The GET method requests transfer of a current selected representation for the target resource."
+  },
+  {
+    "question": "What does the PUT method request regarding the state of the target resource?",
+    "source_text": "The PUT method requests that the state of the target resource be created or replaced with the state defined by the representation enclosed in the request message content."
+  },
+  {
+    "question": "What does the DELETE method request that the origin server do?",
+    "source_text": "The DELETE method requests that the origin server remove the association between the target resource and its current functionality."
+  },
+  {
+    "question": "What does the CONNECT method request the recipient to establish?",
+    "source_text": "The CONNECT method requests that the recipient establish a tunnel to the destination origin server identified by the request target"
+  },
+  {
+    "question": "What does the TRACE method request?",
+    "source_text": "The TRACE method requests a remote, application-level loop-back of the request message."
+  },
+  {
+    "question": "What is the only expectation defined by this specification for the Expect header field?",
+    "source_text": "The only expectation defined by this specification is \"100-continue\" (with no defined parameters)."
+  },
+  {
+    "question": "What does the Referer header field allow the user agent to specify?",
+    "source_text": "The \"Referer\" [sic] header field allows the user agent to specify a URI reference for the resource from which the target URI was obtained"
+  },
+  {
+    "question": "What is the valid range of HTTP status codes?",
+    "source_text": "All valid status codes are within the range of 100 to 599, inclusive."
+  },
+  {
+    "question": "What does the 201 (Created) status code indicate has happened?",
+    "source_text": "The 201 (Created) status code indicates that the request has been fulfilled and has resulted in one or more new resources being created."
+  },
+  {
+    "question": "What does the 206 (Partial Content) status code indicate the server is doing?",
+    "source_text": "The 206 (Partial Content) status code indicates that the server is successfully fulfilling a range request for the target resource by transferring one or more parts of the selected representation."
+  },
+  {
+    "question": "Which status code is preferred over 404 when the origin server knows the condition is likely to be permanent?",
+    "source_text": "the 410 (Gone) status code is preferred over 404 if the origin server knows, presumably through some configurable means, that the condition is likely to be permanent."
+  },
+  {
+    "question": "Which header field must an origin server generate in a 405 (Method Not Allowed) response?",
+    "source_text": "The origin server MUST generate an Allow header field in a 405 response containing a list of the target resource's currently supported methods."
+  },
+  {
+    "question": "What does the 411 (Length Required) status code indicate the server refuses to accept the request without?",
+    "source_text": "The 411 (Length Required) status code indicates that the server refuses to accept the request without a defined Content-Length"
+  },
+  {
+    "question": "What does the 421 (Misdirected Request) status code indicate about where the request was directed?",
+    "source_text": "The 421 (Misdirected Request) status code indicates that the request was directed at a server that is unable or unwilling to produce an authoritative response for the target URI."
+  },
+  {
+    "question": "What does the 503 (Service Unavailable) status code indicate about the server?",
+    "source_text": "The 503 (Service Unavailable) status code indicates that the server is currently unable to handle the request due to a temporary overload or scheduled maintenance, which will likely be alleviated after some delay."
+  },
+  {
+    "question": "What kind of April 1 RFC lampooned the various ways HTTP was abused, including a 418 status code?",
+    "source_text": "[RFC2324] was an April 1 RFC that lampooned the various ways HTTP was abused"
+  },
+  {
+    "question": "What compression algorithm is the \"compress\" content coding based on?",
+    "source_text": "The \"compress\" coding is an adaptive Lempel-Ziv-Welch (LZW) coding [Welch] that is commonly produced by the UNIX file compression program \"compress\"."
+  },
+  {
+    "question": "What kind of check does the \"gzip\" content coding include along with LZ77 coding?",
+    "source_text": "The \"gzip\" coding is an LZ77 coding with a 32-bit Cyclic Redundancy Check (CRC) that is commonly produced by the gzip file compression program [RFC1952]."
+  },
+  {
+    "question": "In content negotiation, what does a quality value of 0 mean?",
+    "source_text": "The weight is normalized to a real number in the range 0 through 1, where 0.001 is the least preferred and 1 is the most preferred; a value of 0 means \"not acceptable\"."
+  },
+  {
+    "question": "Which RFCs define the \"basic\" and \"digest\" authentication schemes, respectively?",
+    "source_text": "the \"basic\" and \"digest\" authentication schemes are defined by [RFC7617] and [RFC7616], respectively."
+  },
+  {
+    "question": "What is one consequence of HTTP's flexibility for how the protocol can be defined?",
+    "source_text": "One consequence of this flexibility is that the protocol cannot be\n   defined in terms of what occurs behind the interface."
+  },
+  {
+    "question": "What was HTTP/1.1 designed to refine while retaining compatibility with the existing text-based messaging syntax?",
+    "source_text": "HTTP/1.1 was designed to refine the protocol's features while\n   retaining compatibility with the existing text-based messaging\n   syntax, improving its interoperability, scalability, and robustness\n   across the Internet."
+  },
+  {
+    "question": "When was HTTP/1.1 introduced and when was it published on the Standards Track?",
+    "source_text": "HTTP/1.1 was\n   introduced in 1995 and published on the Standards Track in 1997\n   [RFC2068], revised in 1999 [RFC2616], and revised again in 2014\n   ([RFC7230] through [RFC7235])."
+  },
+  {
+    "question": "What does this revision of HTTP separate from the current HTTP/1.1 messaging syntax?",
+    "source_text": "This revision of HTTP separates the definition of semantics (this\n   document) and caching ([CACHING]) from the current HTTP/1.1 messaging\n   syntax ([HTTP/1.1]) to allow each major protocol version to progress\n   independently while referring to the same core semantics."
+  },
+  {
+    "question": "Which notation does this specification use for its syntax, and how is it extended?",
+    "source_text": "Syntax Notation\n\n   This specification uses the Augmented Backus-Naur Form (ABNF)\n   notation of [RFC5234], extended with the notation for case-\n   sensitivity in strings defined in [RFC7405]."
+  },
+  {
+    "question": "When is the verb \"generate\" used instead of \"send\"?",
+    "source_text": "The verb \"generate\" is used instead of \"send\" where a requirement\n   applies only to implementations that create the protocol element,\n   rather than an implementation that forwards a received element\n   downstream."
+  },
+  {
+    "question": "What protocol element lengths must a recipient be able to parse and process at a minimum?",
+    "source_text": "At a minimum, a recipient MUST be able to parse and process protocol\n   element lengths that are at least as long as the values that it\n   generates for those same protocol elements in other messages."
+  },
+  {
+    "question": "What do the first digit and the second digit of HTTP's version number indicate?",
+    "source_text": "The first digit (major version)\n   indicates the messaging syntax, whereas the second digit (minor\n   version) indicates the highest minor version within that major\n   version to which the sender is conformant (able to understand for\n   future communication)."
+  },
+  {
+    "question": "What is the \"origin\" for a given URI?",
+    "source_text": "URI Origin\n\n   The \"origin\" for a given URI is the triple of scheme, host, and port\n   after normalizing the scheme and host to lowercase and normalizing\n   the port to remove any leading zeros."
+  },
+  {
+    "question": "If the host identifier is provided as an IP address, what is the origin server?",
+    "source_text": "If the host identifier is provided as an IP address, the origin\n   server is the listener (if any) on the indicated TCP port at that IP\n   address."
+  },
+  {
+    "question": "In HTTP/1.1 and earlier, when will a client attribute authority to a server?",
+    "source_text": "In HTTP/1.1 and earlier, a client will only attribute authority to a\n   server when they are communicating over a successfully established\n   and secured connection specifically to that URI origin's host."
+  },
+  {
+    "question": "Which verification process must a client use to verify the service identity?",
+    "source_text": "In general, a client MUST verify the service identity using the\n   verification process defined in Section 6 of [RFC6125]."
+  },
+  {
+    "question": "How many octets are an IP version 4 address and an IP version 6 address?",
+    "source_text": "An IP version 4 address is 4 octets, and an IP version 6 address is\n   16 octets."
+  },
+  {
+    "question": "When must a proxy forward unrecognized header fields?",
+    "source_text": "A proxy MUST forward unrecognized header fields unless the field name\n   is listed in the Connection header field (Section 7.6.1) or the proxy\n   is specifically configured to block, or otherwise transform, such\n   fields."
+  },
+  {
+    "question": "How is the combined field value formed when a field name is repeated within a section?",
+    "source_text": "When a field name is repeated within a section, its combined\n   field value consists of the list of corresponding field line values\n   within that section, concatenated in order, with each field line\n   value separated by a comma."
+  },
+  {
+    "question": "Why is the order in which field lines with the same name are received significant?",
+    "source_text": "The order in which field lines with the same name are received is\n   therefore significant to the interpretation of the field value; a\n   proxy MUST NOT change the order of these field line values when\n   forwarding a message."
+  },
+  {
+    "question": "What happens to 2xx (Successful) responses to a CONNECT request method instead of having content?",
+    "source_text": "2xx (Successful) responses to a CONNECT request method\n   (Section 9.3.6) switch the connection to tunnel mode instead of\n   having content."
+  },
+  {
+    "question": "Which fields are referred to as \"trailer fields\"?",
+    "source_text": "Trailer Fields\n\n   Fields (Section 5) that are located within a \"trailer section\" are\n   referred to as \"trailer fields\" (or just \"trailers\", colloquially)."
+  },
+  {
+    "question": "When must a sender not generate a trailer field?",
+    "source_text": "A sender MUST NOT\n   generate a trailer field unless the sender knows the corresponding\n   header field name's definition permits the field to be sent in\n   trailers."
+  },
+  {
+    "question": "Why should a server not generate trailer fields that it believes are necessary for the user agent to receive?",
+    "source_text": "Because of the potential for trailer fields to be discarded in\n   transit, a server SHOULD NOT generate trailer fields that it believes\n   are necessary for the user agent to receive."
+  },
+  {
+    "question": "In which responses must an origin server with a clock generate a Date header field?",
+    "source_text": "An origin server with a clock (as defined in Section 5.6.7) MUST\n   generate a Date header field in all 2xx (Successful), 3xx\n   (Redirection), and 4xx (Client Error) responses, and MAY generate a\n   Date header field in 1xx (Informational) and 5xx (Server Error)\n   responses."
+  },
+  {
+    "question": "Why does the target URI exclude the reference's fragment component?",
+    "source_text": "The target URI excludes the reference's fragment\n   component, if any, since fragment identifiers are reserved for\n   client-side processing ([URI], Section 3.5)."
+  },
+  {
+    "question": "For CONNECT, what is the request target?",
+    "source_text": "There are two unusual cases for which the request target components\n   are in a method-specific form:\n\n   *  For CONNECT (Section 9.3.6), the request target is the host name\n      and port number of the tunnel destination, separated by a colon."
+  },
+  {
+    "question": "When must a user agent generate a Host header field in a request?",
+    "source_text": "A user agent MUST generate a Host header field in a request\n   unless it sends that information as an \":authority\" pseudo-header\n   field."
+  },
+  {
+    "question": "What must a sender generate to represent line breaks between body parts?",
+    "source_text": "The message body is itself a protocol element; a sender MUST\n   generate only CRLF to represent line breaks between body parts."
+  },
+  {
+    "question": "Why should the coding named \"identity\" not be included in Content-Encoding?",
+    "source_text": "Note that the coding named \"identity\" is reserved\n   for its special role in Accept-Encoding and thus SHOULD NOT be\n   included."
+  },
+  {
+    "question": "With which status code may an origin server respond if a representation in the request has an unacceptable content coding?",
+    "source_text": "An origin server MAY respond with a status code of 415 (Unsupported\n   Media Type) if a representation in the request message has a content\n   coding that is not acceptable."
+  },
+  {
+    "question": "What is the \"deflate\" coding?",
+    "source_text": "Deflate Coding\n\n   The \"deflate\" coding is a \"zlib\" data format [RFC1950] containing a\n   \"deflate\" compressed data stream [RFC1951] that uses a combination of\n   the Lempel-Ziv (LZ77) compression algorithm and Huffman coding."
+  },
+  {
+    "question": "What is the default if no Content-Language is specified?",
+    "source_text": "Thus, if the content is intended only for a Danish-literate audience,\n   the appropriate field is\n\n   Content-Language: da\n\n   If no Content-Language is specified, the default is that the content\n   is intended for all language audiences."
+  },
+  {
+    "question": "Is Content-Language limited to textual documents?",
+    "source_text": "Content-Language MAY be applied to any media type -- it is not\n   limited to textual documents."
+  },
+  {
+    "question": "Which Content-Length field values are valid?",
+    "source_text": "Any Content-Length field value greater than or equal to zero is\n   valid."
+  },
+  {
+    "question": "What can the Content-Location field value be?",
+    "source_text": "Content-Location = absolute-URI / partial-URI\n\n   The field value is either an absolute-URI or a partial-URI."
+  },
+  {
+    "question": "What must a proxy not do with non-idempotent requests?",
+    "source_text": "A proxy MUST NOT automatically retry non-idempotent requests."
+  },
+  {
+    "question": "What is GET the primary mechanism of, and what is it the focus of?",
+    "source_text": "GET is the primary mechanism of information retrieval and the focus\n   of almost all performance optimizations."
+  },
+  {
+    "question": "How can a client alter the semantics of GET to be a \"range request\"?",
+    "source_text": "A client can alter the semantics of GET to be a \"range request\",\n   requesting transfer of only some part(s) of the selected\n   representation, by sending a Range header field in the request\n   (Section 14.2)."
+  },
+  {
+    "question": "Which header fields should the server send in response to a HEAD request?",
+    "source_text": "The server SHOULD send the same header fields in response to a HEAD\n   request as it would have sent if the request method had been GET."
+  },
+  {
+    "question": "What does the POST method request that the target resource do?",
+    "source_text": "POST\n\n   The POST method requests that the target resource process the\n   representation enclosed in the request according to the resource's\n   own specific semantics."
+  },
+  {
+    "question": "Under which conditions are responses to POST requests cacheable?",
+    "source_text": "Responses to POST requests are only cacheable when they include\n   explicit freshness information (see Section 4.2.1 of [CACHING]) and a\n   Content-Location header field that has the same value as the POST's\n   target URI (Section 8.7)."
+  },
+  {
+    "question": "What must the origin server send if the target resource has no current representation and the PUT successfully creates one?",
+    "source_text": "If the target resource does not have a current representation and the\n   PUT successfully creates one, then the origin server MUST inform the\n   user agent by sending a 201 (Created) response."
+  },
+  {
+    "question": "What should an origin server do with unrecognized header and trailer fields received in a PUT request?",
+    "source_text": "As a\n   result, an origin server SHOULD ignore unrecognized header and\n   trailer fields received in a PUT request (i.e., not save them as part\n   of the resource state)."
+  },
+  {
+    "question": "Why must a proxy not modify the Allow header field?",
+    "source_text": "A proxy MUST NOT modify the Allow header field -- it does not need to\n   understand all of the indicated methods in order to handle them\n   according to the generic message handling rules."
+  },
+  {
+    "question": "For 201 (Created) responses, what does the Location value refer to?",
+    "source_text": "For 201 (Created) responses, the Location value refers to the primary\n   resource created by the request."
+  },
+  {
+    "question": "What can the Retry-After field value be?",
+    "source_text": "The Retry-After field value can be either an HTTP-date or a number of\n   seconds to delay after receiving the response."
+  },
+  {
+    "question": "In which order are the product identifiers in the Server header field listed by convention?",
+    "source_text": "By convention, the product identifiers are\n   listed in decreasing order of their significance for identifying the\n   origin server software."
+  },
+  {
+    "question": "How can a client authenticate itself with a proxy?",
+    "source_text": "A client that wishes to authenticate itself with a proxy -- usually,\n   but not necessarily, after receiving a 407 (Proxy Authentication\n   Required) -- can do so by including a Proxy-Authorization header\n   field with the request."
+  },
+  {
+    "question": "How should a server respond to valid credentials that are not adequate to gain access?",
+    "source_text": "A server that receives valid credentials that are not adequate to\n   gain access ought to respond with the 403 (Forbidden) status code\n   (Section 15.5.4)."
+  },
+  {
+    "question": "How is a \"protection space\" defined?",
+    "source_text": "A \"protection space\" is defined by the origin (see Section 4.3.1) of\n   the server being accessed, in combination with the realm value if\n   present."
+  },
+  {
+    "question": "What must a proxy forwarding a response not do with WWW-Authenticate header fields?",
+    "source_text": "A proxy forwarding a response MUST NOT modify any WWW-Authenticate\n   header fields in that response."
+  },
+  {
+    "question": "What must a user agent that does not provide language preference control to the user not send?",
+    "source_text": "A user agent that\n   does not provide such control to the user MUST NOT send an Accept-\n   Language header field."
+  },
+  {
+    "question": "What does a Vary list containing the member \"*\" signal?",
+    "source_text": "A list containing the member \"*\" signals that other aspects of the\n   request might have played a role in selecting the response\n   representation, possibly including aspects outside the message syntax\n   (e.g., the client's network address)."
+  },
+  {
+    "question": "When should an origin server generate a Vary header field on a cacheable response?",
+    "source_text": "An origin server SHOULD generate a Vary header field on a cacheable\n   response when it wishes that response to be selectively reused for\n   subsequent requests."
+  },
+  {
+    "question": "Why is there no need to send the Authorization field name in Vary?",
+    "source_text": "There is no need to send the Authorization field name in Vary because\n   reuse of that response for a different user is prohibited by the\n   field definition (Section 11.6.2)."
+  },
+  {
+    "question": "To which methods can conditionals be applied to prevent the \"lost update\" problem?",
+    "source_text": "Conditionals can also be applied to state-\n   changing methods, such as PUT and DELETE, to prevent the \"lost\n   update\" problem: one client accidentally overwriting the work of\n   another client that has been acting in parallel."
+  },
+  {
+    "question": "Which comparison function must an origin server use when comparing entity tags for If-Match?",
+    "source_text": "An origin server MUST use the strong comparison function when\n   comparing entity tags for If-Match (Section 8.8.3.2), since the\n   client intends this precondition to prevent the method from being\n   applied if there have been any changes to the representation data."
+  },
+  {
+    "question": "Why may a cache or intermediary ignore If-Match?",
+    "source_text": "A cache or intermediary MAY ignore If-Match because its\n   interoperability features are only necessary for an origin server."
+  },
+  {
+    "question": "When is extensibility of preconditions possible?",
+    "source_text": "Extensibility of preconditions is only possible when the precondition\n   can be safely ignored if unknown (like If-Modified-Since), when\n   deployment can be assumed for a given use case, or when\n   implementation is signaled by some other property of the target\n   resource."
+  },
+  {
+    "question": "What must a client not assume when it receives an Accept-Ranges field?",
+    "source_text": "Conversely, a client MUST NOT assume that receiving an Accept-Ranges\n   field means that future range requests will return partial responses."
+  },
+  {
+    "question": "When must a server ignore a Content-Range header field received in a request?",
+    "source_text": "A server MUST ignore a\n   Content-Range header field received in a request with a method for\n   which Content-Range support is not defined."
+  },
+  {
+    "question": "Which status codes describe a meaning for Content-Range in this specification?",
+    "source_text": "For this specification,\n   only the 206 (Partial Content) and 416 (Range Not Satisfiable) status\n   codes describe a meaning for Content-Range."
+  },
+  {
+    "question": "With which status code should an origin server respond to Content-Range on a PUT that does not support partial PUT?",
+    "source_text": "An origin server SHOULD respond with a 400 (Bad Request) status code\n   if it receives Content-Range on a PUT for a target resource that does\n   not support partial PUT requests."
+  },
+  {
+    "question": "Is the \"multipart/byteranges\" media type limited to byte ranges?",
+    "source_text": "Despite the name, the \"multipart/byteranges\" media type is not\n   limited to byte ranges."
+  },
+  {
+    "question": "How should a client process a response with an invalid status code?",
+    "source_text": "A client that receives a response with an invalid status code SHOULD\n   process the response as if it had a 5xx (Server Error) status code."
+  },
+  {
+    "question": "Why must a server not send a 1xx response to an HTTP/1.0 client?",
+    "source_text": "Since HTTP/1.0 did not define any 1xx status codes, a\n   server MUST NOT send a 1xx response to an HTTP/1.0 client."
+  },
+  {
+    "question": "What must the server generate in a 101 (Switching Protocols) response?",
+    "source_text": "The server MUST\n   generate an Upgrade header field in the response that indicates which\n   protocol(s) will be in effect after this response."
+  },
+  {
+    "question": "What is the current state of the 305 (Use Proxy) status code?",
+    "source_text": "305 Use Proxy\n\n   The 305 (Use Proxy) status code was defined in a previous version of\n   this specification and is now deprecated (Appendix B of [RFC7231])."
+  },
+  {
+    "question": "What is the 402 (Payment Required) status code reserved for?",
+    "source_text": "402 Payment Required\n\n   The 402 (Payment Required) status code is reserved for future use."
+  },
+  {
+    "question": "How can an origin server \"hide\" the current existence of a forbidden target resource?",
+    "source_text": "An origin server that wishes to \"hide\" the current existence of a\n   forbidden target resource MAY instead respond with a status code of\n   404 (Not Found)."
+  },
+  {
+    "question": "What does the 408 (Request Timeout) status code indicate?",
+    "source_text": "408 Request Timeout\n\n   The 408 (Request Timeout) status code indicates that the server did\n   not receive a complete request message within the time that it was\n   prepared to wait."
+  },
+  {
+    "question": "What is the 410 response primarily intended to assist?",
+    "source_text": "The 410 response is primarily intended to assist the task of web\n   maintenance by notifying the recipient that the resource is\n   intentionally unavailable and that the server owners desire that\n   remote links to that resource be removed."
+  },
+  {
+    "question": "Which response header field ought to be used if the problem was caused by an unsupported content coding?",
+    "source_text": "If the problem was caused by an unsupported content coding, the\n   Accept-Encoding response header field (Section 12.5.3) ought to be\n   used to indicate which (if any) content codings would have been\n   accepted in the request."
+  },
+  {
+    "question": "What should a server generate in a 416 response to a byte-range request?",
+    "source_text": "A server that generates a 416 response to a byte-range request SHOULD\n   generate a Content-Range header field specifying the current length\n   of the selected representation (Section 14.4)."
+  },
+  {
+    "question": "Which other range units are potentially usable in HTTP but not commonly used in practice?",
+    "source_text": "Considerations for New Range Units\n\n   Other range units, such as format-specific boundaries like pages,\n   sections, records, rows, or time, are potentially usable in HTTP for\n   application-specific purposes, but are not commonly used in practice."
+  },
+  {
+    "question": "How long does a protocol-name token stay registered once registered?",
+    "source_text": "A protocol-name token, once registered, stays registered forever."
+  },
+  {
+    "question": "Which attacks become an avenue for attack on establishing authority for \"http\" URIs?",
+    "source_text": "This\n   means that any attack on a user's network host table, cached names,\n   or name resolution libraries becomes an avenue for attack on\n   establishing authority for \"http\" URIs."
+  },
+  {
+    "question": "What is \"phishing\" an attack on?",
+    "source_text": "For example, \"phishing\" is an attack on the user's perception of\n   authority, where that perception can be misled by presenting similar\n   branding in hypertext, possibly aided by userinfo obfuscating the\n   authority component (see Section 4.2.1)."
+  },
+  {
+    "question": "Which intermediaries are especially vulnerable to cache poisoning attacks?",
+    "source_text": "Intermediaries that contain a shared cache are especially vulnerable\n   to cache poisoning attacks, as described in Section 7 of [CACHING]."
+  },
+  {
+    "question": "Which path component do UNIX, Microsoft Windows, and other operating systems use to indicate a directory level above the current one?",
+    "source_text": "For example, UNIX, Microsoft Windows, and other operating systems use\n   \"..\" as a path component to indicate a directory level above the\n   current one, and they use specially named paths or file names to send\n   data to system devices."
+  },
+  {
+    "question": "What can failure to limit the processing of protocol elements result in?",
+    "source_text": "Failure to limit such processing can result in\n   arbitrary code execution due to buffer or arithmetic overflows, and\n   increased vulnerability to denial-of-service attacks."
+  },
+  {
+    "question": "What is the most effective mitigation for the risk of shared-dictionary compression attacks?",
+    "source_text": "The most effective mitigation for this risk is to disable compression\n   on sensitive data, or to strictly separate sensitive data from\n   attacker-controlled data so that they cannot share the same\n   compression dictionary."
+  },
+  {
+    "question": "Why is the field name \"*\" reserved?",
+    "source_text": "The field name \"*\" is reserved because using that name as an HTTP\n   header field might conflict with its special semantics in the Vary\n   header field (Section 12.5.5)."
+  },
+  {
+    "question": "What status has IANA given the \"Content-MD5\" entry in the new registry?",
+    "source_text": "IANA has updated the \"Content-MD5\" entry in the new registry to have\n   a status of 'obsoleted' with references to Section 14.15 of [RFC2616]\n   (for the definition of the header field) and Appendix B of [RFC7231]\n   (which removed the field definition from the updated specification)."
+  },
+  {
+    "question": "Which registration procedure was applied to the Authentication Scheme Registry, and how many authentication schemes does this document define?",
+    "source_text": "Authentication Scheme Registry\" at <https://www.iana.org/assignments/\n   http-authschemes> with the registration procedure of Section 16.4.1.\n   No authentication schemes are defined in this document."
+  },
+  {
+    "question": "For which media type did IANA update the \"Media Types\" registry?",
+    "source_text": "IANA has updated the \"Media Types\" registry at\n   <https://www.iana.org/assignments/media-types> with the registration\n   information in Section 14.6 for the media type \"multipart/\n   byteranges\"."
+  },
+  {
+    "question": "What did IANA update the registry note about \"q\" parameters with?",
+    "source_text": "IANA has updated the registry note about \"q\" parameters with a link\n   to Section 12.5.1 of this document."
+  },
+  {
+    "question": "Which registry did IANA update for the services on ports 80 and 443?",
+    "source_text": "IANA has updated the \"Service Name and Transport Protocol Port Number\n   Registry\" at <https://www.iana.org/assignments/service-names-port-\n   numbers/> for the services on ports 80 and 443 that use UDP or TCP"
+  },
+  {
+    "question": "Is the use of the Accept-Ranges field restricted to origin servers?",
+    "source_text": "The use of the Accept-Ranges field is not restricted to origin\n   servers."
+  },
+  {
+    "question": "Why has status code 308 been added?",
+    "source_text": "Status code 308 (previously defined in [RFC7538]) has been added so\n   that it's defined closer to status codes 301, 302, and 307."
+  },
+  {
+    "question": "Why is 421 no longer defined as heuristically cacheable?",
+    "source_text": "421 is no longer\n   defined as heuristically cacheable since the response is specific to\n   the connection (not the target resource)."
+  },
+  {
+    "question": "Which arbitrary limit did previous revisions of HTTP impose on determining whether Last-Modified was a strong validator?",
+    "source_text": "Previous revisions of HTTP imposed an arbitrary 60-second limit on\n   the determination of whether Last-Modified was a strong validator"
+  },
+  {
+    "question": "Which clarification was made about If-Unmodified-Since and resources without a concept of modification time?",
+    "source_text": "The fact that If-Unmodified-Since does not apply to a resource\n   without a concept of modification time has been clarified."
+  },
+  {
+    "question": "At which point can preconditions now be evaluated?",
+    "source_text": "Preconditions can now be evaluated before the request content is\n   processed rather than waiting until the response would otherwise be\n   successful."
+  },
+  {
+    "question": "What is now possible regarding Range handling on extension methods?",
+    "source_text": "It is now possible to define Range handling on extension methods."
+  },
+  {
+    "question": "What does this specification leave out of the extension defined in [RFC7694]?",
+    "source_text": "This specification includes the extension defined in [RFC7694] but\n   leaves out examples and deployment considerations."
+  },
+  {
+    "question": "What does RFC 9110 describe and define?",
+    "source_text": "This document describes the overall architecture of HTTP,\n   establishes common terminology, and defines aspects of the protocol\n   that are shared by all versions."
+  },
+  {
+    "question": "Which RFCs does this document update and which does it obsolete?",
+    "source_text": "This document updates RFC 3864 and obsoletes RFCs 2818, 7231, 7232,\n   7233, 7235, 7538, 7615, 7694, and portions of 7230."
+  },
+  {
+    "question": "How is the Hypertext Transfer Protocol described in the Purpose section?",
+    "source_text": "The Hypertext Transfer Protocol (HTTP) is a family of stateless,\n   application-level, request/response protocols that share a generic\n   interface, extensible semantics, and self-descriptive messages to\n   enable flexible interaction with network-based hypertext information"
+  },
+  {
+    "question": "How does HTTP hide the details of how a service is implemented?",
+    "source_text": "HTTP hides the details of how a service is implemented by presenting\n   a uniform interface to clients that is independent of the types of\n   resources provided."
+  },
+  {
+    "question": "For what other use is HTTP designed besides direct client-server interaction?",
+    "source_text": "HTTP is also designed for use as an intermediation protocol, wherein\n   proxies and gateways can translate non-HTTP information systems into\n   a more generic interface."
+  },
+  {
+    "question": "Where can information about the current status of this document and its errata be obtained?",
+    "source_text": "Information about the current status of this document, any errata,\n   and how to provide feedback on it may be obtained at\n   https://www.rfc-editor.org/info/rfc9110."
+  },
+  {
+    "question": "What did HTTP/2 introduce?",
+    "source_text": "HTTP/2 ([HTTP/2]) introduced a multiplexed session layer on top of\n   the existing TLS and TCP protocols for exchanging concurrent HTTP\n   messages with efficient field compression and server push."
+  },
+  {
+    "question": "Why have the three major versions of HTTP not obsoleted each other?",
+    "source_text": "All three major versions of HTTP rely on the semantics defined by\n   this document.  They have not obsoleted each other because each one\n   has specific benefits and limitations depending on the context of"
+  },
+  {
+    "question": "What do ABNF rule names prefixed with \"obs-\" denote?",
+    "source_text": "As a convention, ABNF rule names prefixed with \"obs-\" denote obsolete\n   grammar rules that appear for historical reasons."
+  },
+  {
+    "question": "When is an implementation considered conformant?",
+    "source_text": "An implementation is considered conformant if it complies with all of\n   the requirements associated with the roles it partakes in HTTP."
+  },
+  {
+    "question": "When is HTTP's major version number incremented and when is the minor number incremented?",
+    "source_text": "HTTP's major version number is incremented when an incompatible\n   message syntax is introduced.  The minor number is incremented when\n   changes made to the protocol have the effect of adding to the message\n   semantics or implying additional capabilities of the sender."
+  },
+  {
+    "question": "Which minor version is implied when a major version of HTTP defines no minor versions?",
+    "source_text": "When a major version of HTTP does not define any minor versions, the\n   minor version \"0\" is implied."
+  },
+  {
+    "question": "What is a \"representation\" in HTTP?",
+    "source_text": "A \"representation\" is information that is intended to reflect a past,\n   current, or desired state of a given resource, in a format that can\n   be readily communicated via the protocol."
+  },
+  {
+    "question": "What does it mean that HTTP is defined as a stateless protocol?",
+    "source_text": "HTTP is defined as a stateless protocol, meaning that each request\n   message's semantics can be understood in isolation, and that the\n   relationship between connections and messages on them has no impact\n   on the interpretation of those messages."
+  },
+  {
+    "question": "What are the three common forms of HTTP intermediary?",
+    "source_text": "HTTP enables the use of intermediaries to satisfy requests through a\n   chain of connections.  There are three common forms of HTTP\n   \"intermediary\": proxy, gateway, and tunnel."
+  },
+  {
+    "question": "How are the terms \"inbound\" and \"outbound\" defined in relation to the request route?",
+    "source_text": "The terms \"inbound\" and\n   \"outbound\" are used to describe directional requirements in relation\n   to the request route: inbound means \"toward the origin server\",\n   whereas outbound means \"toward the user agent\"."
+  },
+  {
+    "question": "What is a \"tunnel\" and is an active tunnel considered a party to the HTTP communication?",
+    "source_text": "A \"tunnel\" acts as a blind relay between two connections without\n   changing the messages.  Once active, a tunnel is not considered a\n   party to the HTTP communication,"
+  },
+  {
+    "question": "What is a \"cache\" in HTTP?",
+    "source_text": "A \"cache\" is a local store of previous response messages and the\n   subsystem that controls its message storage, retrieval, and deletion."
+  },
+  {
+    "question": "What does the presence of an \"http\" or \"https\" URI not imply?",
+    "source_text": "Note that the presence of an \"http\" or \"https\" URI does not imply\n   that there is always an HTTP server at the identified origin\n   listening for connections."
+  },
+  {
+    "question": "What does \"secured\" specifically mean in the context of the https URI scheme?",
+    "source_text": "In this context, \"secured\" specifically means\n   that the server has been authenticated as acting on behalf of the\n   identified authority and all HTTP communication with that server has\n   confidentiality and integrity protection that is acceptable to both"
+  },
+  {
+    "question": "Do resources made available via the \"https\" scheme share identity with the \"http\" scheme?",
+    "source_text": "Resources made available via the \"https\" scheme have no shared\n   identity with the \"http\" scheme.  They are distinct origins with\n   separate namespaces."
+  },
+  {
+    "question": "What should a recipient do with userinfo in an http(s) URI reference received from an untrusted source?",
+    "source_text": "Before making use of an \"http\" or \"https\" URI reference received from\n   an untrusted source, a recipient SHOULD parse for userinfo and treat\n   its presence as an error; it is likely being used to obscure the\n   authority for the sake of phishing attacks."
+  },
+  {
+    "question": "When are two origins distinct?",
+    "source_text": "Two origins are distinct if they differ in scheme, host, or port.\n   Even when it can be verified that the same entity controls two\n   distinct origins, the two namespaces under those origins are distinct\n   unless explicitly aliased by a server authoritative for that origin."
+  },
+  {
+    "question": "What does authoritative access refer to?",
+    "source_text": "Authoritative access refers to dereferencing a given identifier, for\n   the sake of access to the identified resource, in a way that the\n   client believes is authoritative (controlled by the resource owner)."
+  },
+  {
+    "question": "Under which condition does a client attribute authority to a server in HTTP/2 and HTTP/3?",
+    "source_text": "In HTTP/2 and HTTP/3, a client will attribute authority to a server\n   when they are communicating over a successfully established and\n   secured connection if the URI origin's host matches any of the hosts"
+  },
+  {
+    "question": "What must a user agent do if the certificate is not valid for the target URI's origin?",
+    "source_text": "If the certificate is not valid for the target URI's origin, a user\n   agent MUST either obtain confirmation from the user before proceeding\n   (see Section 3.5) or terminate the connection with a bad certificate"
+  },
+  {
+    "question": "What are HTTP \"fields\" and where are they sent and received?",
+    "source_text": "HTTP uses \"fields\" to provide data in the form of extensible name/\n   value pairs with a registered key namespace.  Fields are sent and\n   received within the header and trailer sections of messages"
+  },
+  {
+    "question": "What must a recipient do upon receiving CR, LF, or NUL within a field value?",
+    "source_text": "a recipient of CR, LF, or NUL within\n   a field value MUST either reject the message or replace each of those\n   characters with SP before further processing or forwarding of that"
+  },
+  {
+    "question": "What are \"singleton fields\"?",
+    "source_text": "Fields that only anticipate a single member as the field value are\n   referred to as \"singleton fields\"."
+  },
+  {
+    "question": "What must a server do when it receives a request header field line or field value larger than it wishes to process?",
+    "source_text": "A server that receives a request header field line, field value, or\n   set of fields larger than it wishes to process MUST respond with an\n   appropriate 4xx (Client Error) status code."
+  },
+  {
+    "question": "What are tokens in HTTP field values?",
+    "source_text": "Tokens are short textual identifiers that do not include whitespace\n   or delimiters."
+  },
+  {
+    "question": "Which three rules does the specification use to denote the use of linear whitespace?",
+    "source_text": "This specification uses three rules to denote the use of linear\n   whitespace: OWS (optional whitespace), RWS (required whitespace), and\n   BWS (\"bad\" whitespace)."
+  },
+  {
+    "question": "How many timestamp formats were commonly used by servers prior to 1995 and what is the preferred format?",
+    "source_text": "Prior to 1995, there were three different formats commonly used by\n   servers to communicate timestamps.  For compatibility with old\n   implementations, all three are defined here.  The preferred format is\n   a fixed-length and single-zone subset of the date and time"
+  },
+  {
+    "question": "What is a \"clock\" in the context of HTTP-date values?",
+    "source_text": "A \"clock\" is an implementation capable of providing a reasonable\n   approximation of the current instant in UTC."
+  },
+  {
+    "question": "How must recipients interpret an rfc850-date timestamp that appears to be more than 50 years in the future?",
+    "source_text": "Recipients of a timestamp value in rfc850-date format, which uses a\n   two-digit year, MUST interpret a timestamp that appears to be more\n   than 50 years in the future as representing the most recent year in\n   the past that had the same last two digits."
+  },
+  {
+    "question": "What does it mean that HTTP messages are intended to be \"self-descriptive\"?",
+    "source_text": "Messages are intended to be \"self-descriptive\": everything a\n   recipient needs to know about the message can be determined by\n   looking at the message itself"
+  },
+  {
+    "question": "When is an HTTP message considered \"complete\"?",
+    "source_text": "A message is considered \"complete\" when all of the octets indicated\n   by its framing are available."
+  },
+  {
+    "question": "How is control data sent in HTTP/2 and HTTP/3 compared with HTTP/1.1 and earlier?",
+    "source_text": "In HTTP/1.1 ([HTTP/1.1]) and earlier, control data is sent as the\n   first line of a message.  In HTTP/2 ([HTTP/2]) and HTTP/3 ([HTTP/3]),\n   control data is sent as pseudo-header fields with a reserved name\n   prefix (e.g., \":authority\")."
+  },
+  {
+    "question": "What are \"header fields\"?",
+    "source_text": "Fields (Section 5) that are sent or received before the content are\n   referred to as \"header fields\" (or just \"headers\", colloquially)."
+  },
+  {
+    "question": "Which responses do not include content?",
+    "source_text": "All 1xx (Informational), 204 (No Content), and 304 (Not Modified)\n   responses do not include content."
+  },
+  {
+    "question": "Why ought trailer fields to be processed and stored separately from the header section fields?",
+    "source_text": "Trailer fields ought to be processed and stored separately from the\n   fields in the header section to avoid contradicting message semantics\n   known at the time the header section was complete."
+  },
+  {
+    "question": "What does the presence of the keyword \"trailers\" in the TE header field of a request indicate?",
+    "source_text": "The presence of the keyword \"trailers\" in the TE header field\n   (Section 10.1.4) of a request indicates that the client is willing to\n   accept trailer fields, on behalf of itself and any downstream"
+  },
+  {
+    "question": "What does the \"Date\" header field represent?",
+    "source_text": "The \"Date\" header field represents the date and time at which the\n   message was originated, having the same semantics as the Origination\n   Date Field (orig-date) defined in Section 3.6.1 of [RFC5322]."
+  },
+  {
+    "question": "What does the \"Trailer\" header field provide?",
+    "source_text": "The \"Trailer\" header field provides a list of field names that the\n   sender anticipates sending as trailer fields within that message.\n   This allows a recipient to prepare for receipt of the indicated\n   metadata before it starts processing the content."
+  },
+  {
+    "question": "What information does the \"Host\" header field in a request provide?",
+    "source_text": "The \"Host\" header field in a request provides the host and port\n   information from the target URI, enabling the origin server to\n   distinguish among resources while servicing requests for multiple\n   host names."
+  },
+  {
+    "question": "Which status code indicates that the origin server rejected a request because it appears to have been misdirected?",
+    "source_text": "The 421 (Misdirected Request) status code in a response indicates\n   that the origin server has rejected the request because it appears to\n   have been misdirected (Section 15.5.20)."
+  },
+  {
+    "question": "What must an intermediary not do with regard to forwarding a message to itself?",
+    "source_text": "An intermediary MUST NOT forward a message to itself unless it is\n   protected from an infinite request loop."
+  },
+  {
+    "question": "Which distinction does the Connection header field provide a declarative way of making?",
+    "source_text": "Hence, the Connection header field provides a declarative way of\n   distinguishing fields that are only intended for the immediate\n   recipient (\"hop-by-hop\") from those fields that are intended for all\n   recipients on the chain (\"end-to-end\")"
+  },
+  {
+    "question": "What must an intermediary do if the received Max-Forwards value is zero?",
+    "source_text": "If the received value is zero (0), the\n   intermediary MUST NOT forward the request; instead, the intermediary\n   MUST respond as the final recipient."
+  },
+  {
+    "question": "What does the \"Via\" header field indicate?",
+    "source_text": "The \"Via\" header field indicates the presence of intermediate\n   protocols and recipients between the user agent and the server (on\n   requests) or between the origin server and the client (on responses),"
+  },
+  {
+    "question": "When is an HTTP-to-HTTP proxy called a \"transforming proxy\"?",
+    "source_text": "An HTTP-to-HTTP proxy is called a \"transforming proxy\" if it is\n   designed or configured to modify messages in a semantically\n   meaningful way"
+  },
+  {
+    "question": "How can a proxy inform downstream recipients that it has transformed the content of a 200 (OK) response?",
+    "source_text": "A proxy that transforms the content\n   of a 200 (OK) response can inform downstream recipients that a\n   transformation has been applied by changing the response status code\n   to 203 (Non-Authoritative Information) (Section 15.3.4)."
+  },
+  {
+    "question": "What is the \"Upgrade\" header field intended to provide?",
+    "source_text": "The \"Upgrade\" header field is intended to provide a simple mechanism\n   for transitioning from HTTP/1.1 to some other protocol on the same\n   connection."
+  },
+  {
+    "question": "What must a server do if it receives both an Upgrade and an Expect header field with the \"100-continue\" expectation?",
+    "source_text": "If a server receives both an Upgrade and an Expect header field with\n   the \"100-continue\" expectation (Section 10.1.1), the server MUST send\n   a 100 (Continue) response before sending a 101 (Switching Protocols)"
+  },
+  {
+    "question": "What does the \"Content-Type\" header field indicate?",
+    "source_text": "The \"Content-Type\" header field indicates the media type of the\n   associated representation: either the representation enclosed in the\n   message content or the selected representation, as determined by the\n   message semantics."
+  },
+  {
+    "question": "What risk does \"MIME sniffing\" carry?",
+    "source_text": "This \"MIME sniffing\" risks drawing incorrect conclusions about the\n   data, which might expose the user to additional security risks (e.g.,\n   \"privilege escalation\")."
+  },
+  {
+    "question": "What does the \"Content-Encoding\" header field indicate?",
+    "source_text": "The \"Content-Encoding\" header field indicates what content codings\n   have been applied to the representation, beyond those inherent in the\n   media type, and thus what decoding mechanisms have to be applied in\n   order to obtain data in the media type referenced by the Content-Type\n   header field."
+  },
+  {
+    "question": "What is the \"deflate\" coding?",
+    "source_text": "The \"deflate\" coding is a \"zlib\" data format [RFC1950] containing a\n   \"deflate\" compressed data stream [RFC1951] that uses a combination of\n   the Lempel-Ziv (LZ77) compression algorithm and Huffman coding."
+  },
+  {
+    "question": "What is the default when no Content-Language is specified?",
+    "source_text": "If no Content-Language is specified, the default is that the content\n   is intended for all language audiences."
+  },
+  {
+    "question": "What does a language tag identify and what is explicitly excluded?",
+    "source_text": "A language tag, as defined in [RFC5646], identifies a natural\n   language spoken, written, or otherwise conveyed by human beings for\n   communication of information to other human beings.  Computer\n   languages are explicitly excluded."
+  },
+  {
+    "question": "In which responses must a server not send a Content-Length header field?",
+    "source_text": "A server MUST NOT send a Content-Length header field in any response\n   with a status code of 1xx (Informational) or 204 (No Content).  A\n   server MUST NOT send a Content-Length header field in any 2xx\n   (Successful) response to a CONNECT request (Section 9.3.6)."
+  },
+  {
+    "question": "What does the \"Content-Location\" header field reference?",
+    "source_text": "The \"Content-Location\" header field references a URI that can be used\n   as an identifier for a specific resource corresponding to the\n   representation in this message's content."
+  },
+  {
+    "question": "What is a \"strong validator\"?",
+    "source_text": "A \"strong validator\" is representation metadata that changes value\n   whenever a change occurs to the representation data that would be\n   observable in the content of a 200 (OK) response to GET."
+  },
+  {
+    "question": "What is a \"weak validator\"?",
+    "source_text": "In contrast, a \"weak validator\" is representation metadata that might\n   not change for every change to the representation data."
+  },
+  {
+    "question": "For which conditional requests are strong validators usable?",
+    "source_text": "Strong validators are usable for all conditional requests, including\n   cache validation, partial content ranges, and \"lost update\"\n   avoidance."
+  },
+  {
+    "question": "What does the \"Last-Modified\" header field in a response provide?",
+    "source_text": "The \"Last-Modified\" header field in a response provides a timestamp\n   indicating the date and time at which the origin server believes the\n   selected representation was last modified, as determined at the\n   conclusion of handling the request."
+  },
+  {
+    "question": "What does the \"ETag\" field in a response provide?",
+    "source_text": "The \"ETag\" field in a response provides the current entity tag for\n   the selected representation, as determined at the conclusion of\n   handling the request."
+  },
+  {
+    "question": "How must an origin server mark an entity tag that does not satisfy the characteristics of a strong validator?",
+    "source_text": "then the origin server MUST mark the entity tag as weak by prefixing\n   its opaque value with \"W/\" (case-sensitive)."
+  },
+  {
+    "question": "When are two entity tags equivalent under \"weak comparison\"?",
+    "source_text": "\"Weak comparison\":  two entity tags are equivalent if their opaque-\n      tags match character-by-character, regardless of either or both\n      being tagged as \"weak\"."
+  },
+  {
+    "question": "With which status code should an origin server respond to a request method that is unrecognized or not implemented?",
+    "source_text": "An origin server that receives a\n   request method that is unrecognized or not implemented SHOULD respond\n   with the 501 (Not Implemented) status code."
+  },
+  {
+    "question": "When are request methods considered \"safe\"?",
+    "source_text": "Request methods are considered \"safe\" if their defined semantics are\n   essentially read-only; i.e., the client does not request, and does\n   not expect, any state change on the origin server as a result of\n   applying a safe method to a target resource."
+  },
+  {
+    "question": "What is the purpose of distinguishing between safe and unsafe methods?",
+    "source_text": "The purpose of distinguishing between safe and unsafe methods is to\n   allow automated retrieval processes (spiders) and cache performance\n   optimization (pre-fetching) to work without fear of causing harm."
+  },
+  {
+    "question": "When is a request method considered \"idempotent\"?",
+    "source_text": "A request method is considered \"idempotent\" if the intended effect on\n   the server of multiple identical requests with that method is the\n   same as the effect for a single such request."
+  },
+  {
+    "question": "Why are idempotent methods distinguished?",
+    "source_text": "Idempotent methods are distinguished because the request can be\n   repeated automatically if a communication failure occurs before the\n   client is able to read the server's response."
+  },
+  {
+    "question": "What does a method definition need to do for a cache to store and use a response?",
+    "source_text": "For a cache to store and use a response, the associated method needs\n   to explicitly allow caching and to detail under what conditions a\n   response can be used to satisfy subsequent requests; a method\n   definition that does not do so cannot be cached."
+  },
+  {
+    "question": "How does the HEAD method differ from GET?",
+    "source_text": "The HEAD method is identical to GET except that the server MUST NOT\n   send content in the response."
+  },
+  {
+    "question": "How does an origin server indicate response semantics for a POST request?",
+    "source_text": "An origin server indicates response semantics by choosing an\n   appropriate status code depending on the result of processing the\n   POST request;"
+  },
+  {
+    "question": "What is the fundamental difference between the POST and PUT methods?",
+    "source_text": "The fundamental difference between the POST and PUT methods is\n   highlighted by the different intent for the enclosed representation."
+  },
+  {
+    "question": "Which status code should an origin server send after a successful DELETE when the action has been enacted and no further information is to be supplied?",
+    "source_text": "*  a 204 (No Content) status code if the action has been enacted and\n      no further information is to be supplied, or"
+  },
+  {
+    "question": "How must a server react to a CONNECT request that targets an empty or invalid port number?",
+    "source_text": "A server MUST reject a CONNECT request that targets an empty or\n   invalid port number, typically by responding with a 400 (Bad Request)\n   status code."
+  },
+  {
+    "question": "What does the OPTIONS method request?",
+    "source_text": "The OPTIONS method requests information about the communication\n   options available for the target resource, at either the origin\n   server or an intervening intermediary."
+  },
+  {
+    "question": "To what does an OPTIONS request with an asterisk as the request target apply?",
+    "source_text": "An OPTIONS request with an asterisk (\"*\") as the request target\n   (Section 7.1) applies to the server in general rather than to a\n   specific resource."
+  },
+  {
+    "question": "What must a client not generate in a TRACE request?",
+    "source_text": "A client MUST NOT generate fields in a TRACE request containing\n   sensitive data that might be disclosed by the response."
+  },
+  {
+    "question": "What does the \"Expect\" header field in a request indicate?",
+    "source_text": "The \"Expect\" header field in a request indicates a certain set of\n   behaviors (expectations) that need to be supported by the server in\n   order to properly handle this request."
+  },
+  {
+    "question": "With which status code may a server respond to an Expect field value containing a member other than 100-continue?",
+    "source_text": "A server that receives an Expect field value containing a member\n   other than 100-continue MAY respond with a 417 (Expectation Failed)\n   status code to indicate that the unexpected expectation cannot be\n   met."
+  },
+  {
+    "question": "Why should a server not use the From header field for access control or authentication?",
+    "source_text": "A server SHOULD NOT use the From header field for access control or\n   authentication, since its value is expected to be visible to anyone\n   receiving or observing the request and is often recorded within\n   logfiles and error reports without any expectation of privacy."
+  },
+  {
+    "question": "What must a user agent do if the target URI was obtained from a source that has no URI of its own?",
+    "source_text": "If the target URI was obtained from a source that does not have its\n   own URI (e.g., input from the user keyboard, or an entry within the\n   user's bookmarks/favorites), the user agent MUST either exclude the\n   Referer header field or send it with a value of \"about:blank\"."
+  },
+  {
+    "question": "What does the \"TE\" header field describe?",
+    "source_text": "The \"TE\" header field describes capabilities of the client with\n   regard to transfer codings and trailer sections."
+  },
+  {
+    "question": "What does the \"Allow\" header field list and what is its purpose?",
+    "source_text": "The \"Allow\" header field lists the set of methods advertised as\n   supported by the target resource.  The purpose of this field is\n   strictly to inform the recipient of valid request methods associated\n   with the resource."
+  },
+  {
+    "question": "To what does the Location value refer in 201 (Created) responses and in 3xx (Redirection) responses?",
+    "source_text": "For 201 (Created) responses, the Location value refers to the primary\n   resource created by the request.  For 3xx (Redirection) responses,\n   the Location value refers to the preferred target resource for\n   automatically redirecting the request."
+  },
+  {
+    "question": "What do overly long and detailed Server field values increase?",
+    "source_text": "Overly long and detailed Server field\n   values increase response latency and potentially reveal internal\n   implementation details"
+  },
+  {
+    "question": "Which general framework does HTTP provide for access control and authentication?",
+    "source_text": "HTTP provides a general framework for access control and\n   authentication, via an extensible set of challenge-response\n   authentication schemes, which can be used by a server to challenge a\n   client request and by a client to provide authentication information."
+  },
+  {
+    "question": "How is a \"protection space\" defined?",
+    "source_text": "A \"protection space\" is defined by the origin (see Section 4.3.1) of\n   the server being accessed, in combination with the realm value if"
+  },
+  {
+    "question": "What does the \"Authorization\" header field allow a user agent to do?",
+    "source_text": "The \"Authorization\" header field allows a user agent to authenticate\n   itself with an origin server -- usually, but not necessarily, after\n   receiving a 401 (Unauthorized) response."
+  },
+  {
+    "question": "How many Proxy-Authenticate header fields must a proxy send in each 407 response it generates?",
+    "source_text": "A proxy MUST send at least\n   one Proxy-Authenticate header field in each 407 (Proxy Authentication\n   Required) response that it generates."
+  },
+  {
+    "question": "To whom does the Proxy-Authorization header field apply, unlike Authorization?",
+    "source_text": "Unlike Authorization, the Proxy-Authorization header field applies\n   only to the next inbound proxy that demanded authentication using the\n   Proxy-Authenticate header field."
+  },
+  {
+    "question": "How is content selected in \"reactive negotiation\"?",
+    "source_text": "With \"reactive negotiation\" (a.k.a., \"agent-driven negotiation\"),\n   selection of content (regardless of the status code) is performed by\n   the user agent after receiving an initial response."
+  },
+  {
+    "question": "What does a request that does not contain a content negotiation field imply?",
+    "source_text": "For each of the content negotiation fields, a request that does not\n   contain the field implies that the sender has no preference on that\n   dimension of negotiation."
+  },
+  {
+    "question": "What does the \"q\" parameter assign and what is that weight referred to as?",
+    "source_text": "The content negotiation fields defined by this specification use a\n   common parameter, named \"q\" (case-insensitive), to assign a relative\n   \"weight\" to the preference for that associated kind of content."
+  },
+  {
+    "question": "How many digits after the decimal point may a sender of qvalue generate?",
+    "source_text": "A sender of qvalue MUST NOT generate more than three digits after the\n   decimal point.  User configuration of these values ought to be\n   limited in the same fashion."
+  },
+  {
+    "question": "What happens if no wildcard value is present in a content negotiation header field?",
+    "source_text": "Most of these header fields, where indicated, define a wildcard value\n   (\"*\") to select unspecified values.  If no wildcard is present,\n   values that are not explicitly mentioned in the field are considered\n   unacceptable.  Within Vary, the wildcard value means that the\n   variance is unlimited."
+  },
+  {
+    "question": "Which media range has precedence if more than one applies to a given type?",
+    "source_text": "Media ranges can be overridden by more specific media ranges or\n   specific media types.  If more than one media range applies to a\n   given type, the most specific reference has precedence."
+  },
+  {
+    "question": "What is the \"identity\" token used as a synonym for in Accept-Encoding?",
+    "source_text": "An \"identity\" token is used as a synonym for \"no encoding\" in order\n   to communicate when no encoding is preferred."
+  },
+  {
+    "question": "How should servers that fail a request due to an unsupported content coding respond?",
+    "source_text": "Servers that fail a request due to an unsupported content coding\n   ought to respond with a 415 (Unsupported Media Type) status and\n   include an Accept-Encoding header field in that response,"
+  },
+  {
+    "question": "What does the \"Vary\" header field in a response describe?",
+    "source_text": "The \"Vary\" header field in a response describes what parts of a\n   request message, aside from the method and target URI, might have\n   influenced the origin server's process for selecting the content of\n   this response."
+  },
+  {
+    "question": "What is a conditional request?",
+    "source_text": "A conditional request is an HTTP request with one or more request\n   header fields that indicate a precondition to be tested before\n   applying the request method to the target resource."
+  },
+  {
+    "question": "Which comparison function must a recipient use when comparing entity tags for If-None-Match?",
+    "source_text": "A recipient MUST use the weak comparison function when comparing\n   entity tags for If-None-Match (Section 8.8.3.2), since weak entity\n   tags can be used for cache validation even if there have been changes\n   to the representation data."
+  },
+  {
+    "question": "How must an origin server respond when an If-None-Match condition evaluates to false?",
+    "source_text": "instead, the origin server MUST respond with either a) the 304 (Not\n   Modified) status code if the request method is GET or HEAD or b) the\n   412 (Precondition Failed) status code for all other request methods."
+  },
+  {
+    "question": "For which two distinct purposes is If-Modified-Since typically used?",
+    "source_text": "If-Modified-Since is typically used for two distinct purposes: 1) to\n   allow efficient updates of a cached representation that does not have\n   an entity tag and 2) to limit the scope of a web traversal to\n   resources that have recently changed."
+  },
+  {
+    "question": "What does the \"If-Unmodified-Since\" header field make the request method conditional on?",
+    "source_text": "The \"If-Unmodified-Since\" header field makes the request method\n   conditional on the selected representation's last modification date\n   being earlier than or equal to the date provided in the field value."
+  },
+  {
+    "question": "What does the \"If-Range\" header field instruct the recipient to do if the validator does not match?",
+    "source_text": "but that instructs the recipient to ignore the Range\n   header field if the validator doesn't match, resulting in transfer of\n   the new selected representation instead of a 412 (Precondition"
+  },
+  {
+    "question": "How can a valid entity-tag be distinguished from a valid HTTP-date in If-Range?",
+    "source_text": "A valid entity-tag can be distinguished from a valid HTTP-date by\n   examining the first three characters for a DQUOTE."
+  },
+  {
+    "question": "At which point must a recipient cache or origin server evaluate received request preconditions?",
+    "source_text": "Except when excluded below, a recipient cache or origin server MUST\n   evaluate received request preconditions after it has successfully\n   performed its normal request checks and just before it would process\n   the request content (if any) or perform the action associated with"
+  },
+  {
+    "question": "Why are range requests an OPTIONAL feature of HTTP?",
+    "source_text": "Range requests are an OPTIONAL feature of HTTP, designed so that\n   recipients not implementing this feature (or not supporting it for\n   the target resource) can respond as if it is a normal GET request\n   without impacting interoperability."
+  },
+  {
+    "question": "What must a recipient of an If-Range header field do if the If-Range condition evaluates to false?",
+    "source_text": "A recipient of an If-Range header field MUST ignore the Range header\n   field if the If-Range condition evaluates to false.  Otherwise, the\n   recipient SHOULD process the Range header field as requested."
+  },
+  {
+    "question": "When is an int-range invalid?",
+    "source_text": "An int-range is invalid if the last-pos value is present and less\n   than the first-pos."
+  },
+  {
+    "question": "How are byte positions specified in a bytes int-range and where do byte offsets start?",
+    "source_text": "The first-pos value in a bytes int-range gives the offset of the\n   first byte in a range.  The last-pos value gives the offset of the\n   last byte in the range; that is, the byte positions specified are\n   inclusive.  Byte offsets start at zero."
+  },
+  {
+    "question": "For which method is range handling defined in this specification?",
+    "source_text": "A server MUST ignore a Range header field received with a request\n   method that is unrecognized or for which range handling is not\n   defined.  For this specification, GET is the only method for which\n   range handling is defined."
+  },
+  {
+    "question": "What does the \"Accept-Ranges\" field in a response indicate?",
+    "source_text": "The \"Accept-Ranges\" field in a response indicates whether an upstream\n   server supports range requests for the target resource."
+  },
+  {
+    "question": "When is a Content-Range field value invalid?",
+    "source_text": "A Content-Range field value is invalid if it contains a range-resp\n   that has a last-pos value less than its first-pos value, or a\n   complete-length value less than or equal to its last-pos value."
+  },
+  {
+    "question": "For which status codes does this specification describe a meaning for Content-Range?",
+    "source_text": "The Content-Range header field has no meaning for status codes that\n   do not explicitly describe its semantic.  For this specification,\n   only the 206 (Partial Content) and 416 (Range Not Satisfiable) status\n   codes describe a meaning for Content-Range."
+  },
+  {
+    "question": "What is the status code of a response and what does it describe?",
+    "source_text": "The status code of a response is a three-digit integer code that\n   describes the result of the request and the semantics of the\n   response, including whether the request was successful and what\n   content is enclosed (if any)."
+  },
+  {
+    "question": "How must a client treat an unrecognized status code?",
+    "source_text": "However, a client MUST\n   understand the class of any status code, as indicated by the first\n   digit, and treat an unrecognized status code as being equivalent to\n   the x00 status code of that class."
+  },
+  {
+    "question": "How many responses can a single request have?",
+    "source_text": "A single request can have multiple associated responses: zero or more\n   \"interim\" (non-final) responses with status codes in the\n   \"informational\" (1xx) range, followed by exactly one \"final\" response\n   with a status code in one of the other ranges."
+  },
+  {
+    "question": "Which status codes are defined as heuristically cacheable in this specification?",
+    "source_text": "Responses with status codes that are defined as heuristically\n   cacheable (e.g., 200, 203, 204, 206, 300, 301, 308, 404, 405, 410,\n   414, and 501 in this specification)"
+  },
+  {
+    "question": "Can a 1xx response contain content or trailers?",
+    "source_text": "A 1xx response is terminated by the end of the header section; it\n   cannot contain content or trailers."
+  },
+  {
+    "question": "What does the 203 (Non-Authoritative Information) status code indicate?",
+    "source_text": "The 203 (Non-Authoritative Information) status code indicates that\n   the request was successful but the enclosed content has been modified\n   from that of the origin server's 200 (OK) response by a transforming\n   proxy (Section 7.7)."
+  },
+  {
+    "question": "What does the 205 (Reset Content) status code indicate?",
+    "source_text": "The 205 (Reset Content) status code indicates that the server has\n   fulfilled the request and desires that the user agent reset the\n   \"document view\", which caused the request to be sent, to its original\n   state as received from the origin server."
+  },
+  {
+    "question": "Which fields must a client inspect in a 206 response?",
+    "source_text": "A client MUST inspect a 206 response's Content-Type and Content-Range\n   field(s) to determine what parts are enclosed and whether additional\n   requests are needed."
+  },
+  {
+    "question": "Which header fields must a server generating a 206 response generate if they would have been sent in a 200 (OK) response?",
+    "source_text": "A server that generates a 206 response MUST generate the following\n   header fields, in addition to those required in the subsections\n   below, if the field would have been sent in a 200 (OK) response to\n   the same request: Date, Cache-Control, ETag, Expires,\n   Content-Location, and Vary."
+  },
+  {
+    "question": "Under which condition may a client combine multiple partial responses into a larger continuous range?",
+    "source_text": "A client that has received multiple partial responses to GET requests\n   on a target resource MAY combine those responses into a larger\n   continuous range if they share the same strong validator."
+  },
+  {
+    "question": "What is the typical overhead between each part of a \"multipart/byteranges\" response?",
+    "source_text": "Since the typical overhead between each part of a\n   \"multipart/byteranges\" is around 80 bytes, depending on the selected\n   representation's media type and the chosen boundary parameter length,"
+  },
+  {
+    "question": "What should a client do about cyclical redirections?",
+    "source_text": "A client SHOULD detect and intervene in cyclical redirections (i.e.,\n   \"infinite\" redirection loops)."
+  },
+  {
+    "question": "What does the 302 (Found) status code indicate?",
+    "source_text": "The 302 (Found) status code indicates that the target resource\n   resides temporarily under a different URI.  Since the redirection\n   might be altered on occasion, the client ought to continue to use the\n   target URI for future requests."
+  },
+  {
+    "question": "What does the 303 (See Other) status code indicate?",
+    "source_text": "The 303 (See Other) status code indicates that the server is\n   redirecting the user agent to a different resource, as indicated by a\n   URI in the Location header field, which is intended to provide an\n   indirect response to the original request."
+  },
+  {
+    "question": "What does the 304 (Not Modified) status code indicate?",
+    "source_text": "The 304 (Not Modified) status code indicates that a conditional GET\n   or HEAD request has been received and would have resulted in a 200\n   (OK) response if it were not for the fact that the condition\n   evaluated to false."
+  },
+  {
+    "question": "What is the current status of the 305 (Use Proxy) status code?",
+    "source_text": "The 305 (Use Proxy) status code was defined in a previous version of\n   this specification and is now deprecated (Appendix B of [RFC7231])."
+  },
+  {
+    "question": "What does the 307 (Temporary Redirect) status code indicate about the request method?",
+    "source_text": "The 307 (Temporary Redirect) status code indicates that the target\n   resource resides temporarily under a different URI and the user agent\n   MUST NOT change the request method if it performs an automatic\n   redirection to that URI."
+  },
+  {
+    "question": "Why is the 410 (Gone) status code preferred over 404 in some cases?",
+    "source_text": "A 404 status code does not\n   indicate whether this lack of representation is temporary or\n   permanent; the 410 (Gone) status code is preferred over 404 if the\n   origin server knows, presumably through some configurable means, that\n   the condition is likely to be permanent."
+  },
+  {
+    "question": "What does the 409 (Conflict) status code indicate and in which situations is it used?",
+    "source_text": "The 409 (Conflict) status code indicates that the request could not\n   be completed due to a conflict with the current state of the target\n   resource.  This code is used in situations where the user might be\n   able to resolve the conflict and resubmit the request."
+  },
+  {
+    "question": "What may a client do after receiving a 411 (Length Required) response?",
+    "source_text": "The client MAY repeat the request if it adds a valid\n   Content-Length header field containing the length of the request\n   content."
+  },
+  {
+    "question": "What does the 414 (URI Too Long) status code indicate?",
+    "source_text": "The 414 (URI Too Long) status code indicates that the server is\n   refusing to service the request because the target URI is longer than\n   the server is willing to interpret."
+  },
+  {
+    "question": "Can the reserved 418 status code ever be re-assigned?",
+    "source_text": "If future circumstances\n   require its use (e.g., exhaustion of 4NN status codes), it can be re-\n   assigned to another use."
+  },
+  {
+    "question": "Why is a 415 (Unsupported Media Type) status code inappropriate when 422 applies?",
+    "source_text": "The 422 (Unprocessable Content) status code indicates that the server\n   understands the content type of the request content (hence a 415\n   (Unsupported Media Type) status code is inappropriate), and the\n   syntax of the request content is correct, but it was unable to"
+  },
+  {
+    "question": "Which fields must HTTP method registrations include?",
+    "source_text": "HTTP method registrations MUST include the following fields:\n\n   *  Method Name (see Section 9)\n\n   *  Safe (\"yes\" or \"no\", see Section 9.2.1)\n\n   *  Idempotent (\"yes\" or \"no\", see Section 9.2.2)\n\n   *  Pointer to specification text"
+  },
+  {
+    "question": "What can definitions of new methods not change with regard to message parsing?",
+    "source_text": "Since message parsing (Section 6) needs to be independent of method\n   semantics (aside from responses to HEAD), definitions of new methods\n   cannot change the parsing algorithm or prohibit the presence of\n   content on either the request or the response message."
+  },
+  {
+    "question": "Why should proposals for new status codes that are not yet widely deployed avoid allocating a specific number?",
+    "source_text": "Proposals for new status codes that are not yet widely deployed ought\n   to avoid allocating a specific number for the code until there is\n   clear consensus that it will be registered; instead, early drafts can\n   use a notation such as \"4NN\", or \"3N0\" .. \"3N9\", to indicate the"
+  },
+  {
+    "question": "To what does a status code apply by default?",
+    "source_text": "By default, a status code applies only to the request corresponding\n   to the response it occurs within."
+  },
+  {
+    "question": "What is HTTP's most widely used extensibility point?",
+    "source_text": "HTTP's most widely used extensibility point is the definition of new\n   header and trailer fields."
+  },
+  {
+    "question": "Which characters should new field names be constrained to?",
+    "source_text": "To be interoperable, new field names SHOULD\n   constrain themselves to alphanumeric characters, \"-\", and \".\", and\n   SHOULD begin with a letter."
+  },
+  {
+    "question": "Why is the Location field value a counter-example that should not be emulated?",
+    "source_text": "The Location field value provides a counter-\n   example that should not be emulated: because URIs can include commas,\n   it is not possible to reliably distinguish between a single value\n   that includes a comma from two values."
+  },
+  {
+    "question": "Why is HTTP authentication presumed to be stateless?",
+    "source_text": "HTTP authentication is presumed to be stateless: all of the\n      information necessary to authenticate a request MUST be provided\n      in the request, rather than be dependent on the server remembering\n      prior requests."
+  },
+  {
+    "question": "Why ought new authentication schemes to use the auth-param syntax instead of token68?",
+    "source_text": "The \"token68\" notation was introduced for compatibility with\n      existing authentication schemes and can only be used once per\n      challenge or credential.  Thus, new schemes ought to use the auth-\n      param syntax instead, because otherwise future extensions will be\n      impossible."
+  },
+  {
+    "question": "What is an \"authoritative response\" in HTTP?",
+    "source_text": "HTTP relies on the notion of an \"authoritative response\": a response\n   that has been determined by (or at the direction of) the origin\n   server identified within the target URI to be the most appropriate\n   response for that request given the state of the target resource at"
+  },
+  {
+    "question": "Why are HTTP intermediaries inherently situated for on-path attacks?",
+    "source_text": "HTTP intermediaries are inherently situated for on-path attacks.\n   Compromise of the systems on which the intermediaries run can result\n   in serious security and privacy problems."
+  },
+  {
+    "question": "What is SQL injection as described in the security considerations?",
+    "source_text": "For example, SQL injection is a common attack wherein additional\n   query language is inserted within some part of the target URI or\n   header fields (e.g., Host, Referer, etc.)."
+  },
+  {
+    "question": "How trustworthy are intermediaries according to this specification?",
+    "source_text": "Intermediaries are no more trustworthy than the people and policies\n   under which they operate; HTTP cannot solve this problem."
+  },
+  {
+    "question": "How do attacks on encrypted protocols using dynamic compression reveal confidential information?",
+    "source_text": "Some attacks on encrypted protocols use the differences in size\n   created by dynamic compression to reveal confidential information;\n   for example, [BREACH]."
+  },
+  {
+    "question": "Why are URIs an unwise place for sensitive information?",
+    "source_text": "URIs are intended to be shared, not secured, even when they identify\n   secure resources.  URIs are often shown on displays, added to\n   templates when a page is printed, and stored in a variety of\n   unprotected bookmark lists."
+  },
+  {
+    "question": "What is browser fingerprinting?",
+    "source_text": "Browser fingerprinting is a set of techniques for identifying a\n   specific user agent over time through its unique set of\n   characteristics."
+  },
+  {
+    "question": "What are the validators defined by this specification not intended to do?",
+    "source_text": "The validators defined by this specification are not intended to\n   ensure the validity of a representation, guard against malicious\n   changes, or detect on-path attacks."
+  },
+  {
+    "question": "Why are unconstrained multiple range requests susceptible to denial-of-service attacks?",
+    "source_text": "Unconstrained multiple range requests are susceptible to denial-of-\n   service attacks because the effort required to request many\n   overlapping ranges of the same data is tiny compared to the time,\n   memory, and bandwidth consumed by attempting to serve the requested\n   data in many parts."
+  },
+  {
+    "question": "Why is the method name \"*\" reserved?",
+    "source_text": "The method name \"*\" is reserved because using \"*\" as a method name\n   would conflict with its usage as a wildcard in some fields (e.g.,\n   \"Access-Control-Request-Method\")."
+  },
+  {
+    "question": "How can adding information to responses sent over an unencrypted channel affect security and privacy?",
+    "source_text": "Adding information to responses that are sent over an unencrypted\n   channel can affect security and privacy.  The presence of the\n   Authentication-Info and Proxy-Authentication-Info header fields alone\n   indicates that HTTP authentication is in use."
+  },
+  {
+    "question": "Which mitigation strategies are possible when an origin server hosts resources for multiple parties under the same origin?",
+    "source_text": "Possible\n   mitigation strategies include restricting direct access to\n   authentication credentials (i.e., not making the content of the\n   Authorization request header field available), and separating\n   protection spaces by using a different host name (or port number) for\n   each party."
+  },
+  {
+    "question": "Who is the change controller for the registrations in this document?",
+    "source_text": "The change controller for the following registrations is: \"IETF\n   (iesg@ietf.org) - Internet Engineering Task Force\"."
+  },
+  {
+    "question": "How does this specification replace the old registration procedures of RFC 3864 as they relate to HTTP?",
+    "source_text": "It replaces the old procedures as they relate to HTTP by\n   defining a new registration procedure and moving HTTP field\n   definitions into a separate registry."
+  },
+  {
+    "question": "Which status have entries that previously had a status of 'standard', 'experimental', 'reserved' or 'informational' been given?",
+    "source_text": "Entries that had a status of 'standard', 'experimental',\n       'reserved', or 'informational' have been made to have a status of\n       'permanent'."
+  },
+  {
+    "question": "Are any authentication schemes defined in this document?",
+    "source_text": "IANA has updated the \"Hypertext Transfer Protocol (HTTP)\n   Authentication Scheme Registry\" at <https://www.iana.org/assignments/\n   http-authschemes> with the registration procedure of Section 16.4.1.\n   No authentication schemes are defined in this document."
+  }
+]

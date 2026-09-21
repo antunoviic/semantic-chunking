@@ -211,6 +211,119 @@ OllamaClient(
 ---
 
 
+## Evaluation harness
+
+The repository also contains the evaluation part that produced the results of the bachelor thesis this library was written for. It chunks a document with every ablation strategy, embeds the chunks, runs a set of questions against every strategy and reports how often the answer was retrieved.
+
+```bash
+git clone https://github.com/antunoviic/semantic-chunking
+cd semantic-chunking
+pip install -e ".[eval]"
+```
+
+The `[eval]` extra adds ChromaDB, the LangChain baseline splitters, `pypdf` and
+matplotlib. A second Ollama model is needed for the embeddings:
+
+```bash
+ollama pull qwen3.5:4b     # boundary decisions
+ollama pull bge-m3         # embeddings
+```
+
+### A runnable example
+
+A short, freely redistributable document and a verified question set are included, to run after cloning. The document is
+RFC 8259, the JSON specification, a technical prose text with many sections.
+
+```bash
+python -m app.main demo/rfc8259_json.txt \
+       --max-chunk-chars 1200 --max-chunk-sentences 100 --step-sentences 2 \
+       --no-headings
+```
+
+The run should just take about 20 minutes, roughly one model call per two sentences for the boundaries. After that one per chunk for the low-information filter, then embedding and retrieval. 
+It writes a Markdown report, a JSON file and a chart to
+`eval_results/`, and caches the chunks — a second run skips the chunking
+entirely and finishes the retrieval in under two minutes.
+
+```
+# Chunking Strategy Comparison — rfc8259_json
+
+| Strategy                    | Chunks | Avg Len | Hit@1 | Hit@3 |   MRR | Ctx/Query |
+|-----------------------------|-------:|--------:|------:|------:|------:|----------:|
+| llm_incremental_parentchild |     97 |     737 | 71.4% | 85.7% | 0.815 |      2477 |
+| llm_incremental             |     25 |     737 | 71.4% | 71.4% | 0.759 |      2487 |
+| recursive                   |     73 |     356 | 71.4% | 71.4% | 0.733 |      1239 |
+| semantic_lc                 |     38 |     668 | 50.0% | 92.9% | 0.713 |     15290 |
+| recursive_matched_737       |     36 |     726 | 42.9% | 64.3% | 0.562 |      2336 |
+| fixed_256                   |    100 |     249 | 35.7% | 35.7% | 0.373 |       753 |
+```
+
+**These numbers are a smoke test, not a result.** The demo set has fourteen questions, so a single question moves the ranking heavily and is not conclusive for the overall chunking. Its purpose is to show that the harness runs end to end and produces the comparison. (The thesis used question sets of roughly 300 per document.)
+
+### What it compares
+
+| Strategy | What it is |
+|---|---|
+| `fixed_256`, `fixed_512` | fixed-size splitting with overlap |
+| `recursive` | LangChain's `RecursiveCharacterTextSplitter` |
+| `fixed_matched_N`, `recursive_matched_N` | the same, with `N` tuned to the mean LLM chunk length — for a fair comparison |
+| `semantic_lc` | LangChain's embedding-based `SemanticChunker` |
+| `llm_incremental` | this library |
+| `*_parentchild` | parent-child retrieval, applied to the LLM arm **and** to the matched baselines |
+
+Reported per strategy: Hit@1, Hit@3, Hit@10, MRR, the number of chunks, the mean chunk length, the total corpus searched, and the characters returned per query at *k* = 3. The last two are reported because retrieval quality can be bought with context: a strategy that returns larger chunks raises its hit rate simply by including more text, and pays for it in the generator's context window.
+
+### Chunking only
+
+Dropping the retrieval step gets rid of a question set and is the fastest way to see what the chunker does to a document:
+
+```bash
+python -m app.main <document> --chunk-only --max-chunk-chars 1200
+```
+
+The log then reports where the boundaries came from, a topic decision made by the LLM, the size cap, or a heading.
+
+### The documents evaluated in the thesis
+
+All three are in `docs/`, with their verified question sets in `eval_cache/`:
+the NASA Systems Engineering Handbook (implicit structure), RFC 9110 (explicit
+structure) and H. G. Wells' *A Short History of the World* (prose). The run script `thesis/scripts/run_v4.sh` runs the complete matrix of ablations over all three.
+
+### Using your own document
+
+Any `.txt` or `.pdf` works. Its question set is read from
+`eval_cache/<stem>_questions.json`, or from `--questions-file`, and is a list of
+objects whose `source_text` is a **verbatim** substring of the document:
+
+```json
+[{"question": "What is the registered media type for JSON text?",
+  "source_text": "The media type for JSON text is application/json. Type name: application Subtype name: json"}]
+```
+
+A chunk counts as a hit when the longest common substring of chunk and anchor covers at least 80 % of the anchor. `tools/make_question_prompts.py` produces the predefined prompt files for an external model to generate, `tools/verify_questions.py` checks the
+replies and drops anchors that are not literally present, duplicated, or ambiguous.
+
+### Ablation arms
+
+Each flag changes exactly one thing and writes its own cache, so arms stay
+comparable:
+
+| Flag | Isolates |
+|---|---|
+| `--no-headings` | the reference arm |
+| `--line-headings` / `--llm-headings` | what heading detection contributes |
+| `--no-filter` | whether the gain comes from boundaries or from a smaller corpus |
+| `--midpoint-split` | whether letting the model choose the split point helps |
+| `--enrich` | whether a `[Topic: ...]` prefix helps |
+
+`thesis/scripts/run_v4.sh` runs the full matrix used in the thesis.
+
+### Caching
+
+Every arm is cached, so an interrupted evaluation resumes where it stopped and a finished arm is skipped on the next run. Chunks are only reused when they were produced by the same code, so it ensures consistency in the evaluation process. Each cache file carries a fingerprint of the boundary-drawing modules, and one that no longer matches is treated as absent rather than loaded into a comparison.
+
+---
+
 ## License
 
 MIT — see [LICENSE](https://github.com/antunoviic/semantic-chunking/blob/main/LICENSE).

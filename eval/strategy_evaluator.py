@@ -154,12 +154,12 @@ class StrategyEvaluator:
                 "avg_dist_top1":       0.0,
                 "avg_retrieved_chars": 0,
             }
-        # Der durchsuchte Textbestand je Arm. Die laengengematchten Baselines
-        # gleichen nur die MITTLERE Chunklaenge an, nicht die Gesamtmasse: der
-        # LLM-Arm durchsucht auf nasa rund 17 % weniger Zeichen als
-        # recursive_matched, weil Low-Info-Filter und Whitespace-Normalisierung
-        # nur dort laufen. Weniger Text heisst weniger Distraktoren — ohne diese
-        # Spalte laesst sich der Grenzqualitaets-Effekt nicht davon trennen.
+        # Text actually searched, per arm. Length-matched baselines equalise the
+        # MEAN chunk length, not the total mass: on nasa the LLM arm searches
+        # about 17 % fewer characters than recursive_matched, because the
+        # low-information filter and whitespace normalisation run only there.
+        # Less text means fewer distractors — without this column the boundary
+        # quality effect cannot be separated from that.
         unique_texts = set(display_texts) if display_texts else chunks
         corpus_chars = sum(len(c) for c in unique_texts)
         n_units = max(1, len(set(display_texts)) if display_texts else len(chunks))

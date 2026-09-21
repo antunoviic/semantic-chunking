@@ -79,7 +79,7 @@ class OllamaClient:
             except (httpx.HTTPStatusError, httpx.TransportError) as exc:
                 status = getattr(getattr(exc, "response", None), "status_code", None)
                 if status is not None and status < 500:
-                    raise                      # 4xx ist unser Fehler, nicht wiederholen
+                    raise                      # 4xx is our mistake; retrying cannot fix it
                 last_error = exc
                 if attempt < self.MAX_RETRIES - 1:
                     wait = self.RETRY_BACKOFF * (2 ** attempt)

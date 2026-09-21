@@ -1,18 +1,35 @@
-# ChromaDB — wird lokal neu gebaut
-# Muster statt Einzelnamen: chroma_db_ask/ entsteht durch tools/ask.py,
-# weitere Stores kommen bei jedem neuen Auswertungslauf dazu.
+# ChromaDB — rebuilt locally
+# A pattern rather than single names: chroma_db_ask/ is created by tools/ask.py,
+# and every new evaluation run adds another store.
 chroma_db_*/
 chroma_db/
 
-# Chunk-Cache — wird lokal neu generiert
+# Chunk cache — regenerated locally
 chunks_cache/
 
-# Eval-Ergebnisse (lokal generiert)
+# Evaluation results (generated locally)
 eval_results/
-eval_cache/
+# Exclude the contents, not the directory: only then can a single file be added
+# back. The demo's question set belongs in the repository so that the evaluation
+# runs after a clone with no extra steps.
+eval_cache/*
+!eval_cache/rfc8259_json_questions.json
+# The question sets of the three evaluated documents belong in the repository so
+# that the results of the thesis can be reproduced.
+!eval_cache/nasa_questions_literal_v3.json
+!eval_cache/rfc9110_questions_v3.json
+!eval_cache/wells_questions.json
 
-# Logs der Chunking- und Ablationslaeufe (mehrere MB je Lauf)
+# Logs of the chunking and ablation runs (several MB per run)
 run_logs/
+runs/
+
+# Question-generation prompts: only the sets actually used by the reported run
+# are tracked (question_prompts/nasa_literal, rfc9110_literal). The rest belong
+# to documents that were dropped, or to superseded v2 sets.
+question_prompts/dailysteps_literal/
+expansion_prompts/
+natural_prompts/
 
 # Python
 __pycache__/
@@ -23,15 +40,27 @@ __pycache__/
 dist/
 build/
 
-# Experimentelle Module, nicht Teil der Pipeline
+# Experimental modules, not part of the pipeline
 experiments/
+tests/
 
 # macOS
 .DS_Store
 
-# Werkzeug-Zustand und Arbeitsanweisungen an Sprachmodelle
+# Tool state and working instructions to language models
 .pytest_cache/
 .claude/
 PROJECT_CONTEXT.md
 IMPLEMENTATION_PROMPT.md
 critique_prompts/
+
+# Thesis text: drafts and the Overleaf mirror do not belong in the repository.
+# The experiment scripts under thesis/scripts do.
+# thesis/results/ holds working documents in German that feed the chapters;
+# they are notes towards the thesis, not part of the published package.
+thesis/results/
+thesis/latex/
+thesis/overleaf/
+thesis/overleaf_BACKUP_*/
+thesis/*.zip
+thesis/*_RECOVERED_*.tex

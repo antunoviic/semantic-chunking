@@ -91,7 +91,7 @@ class VectorStore:
         try:
             self._client.delete_collection(name=collection_name)
         except Exception:
-            pass  # existierte noch nicht
+            pass  # did not exist yet
 
         collection = self._client.create_collection(
             name=collection_name,

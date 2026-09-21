@@ -1,0 +1,58 @@
+[
+  {
+    "question": "Which character encoding must be used for JSON text exchanged between open systems?",
+    "source_text": "JSON text exchanged between systems that are not part of a closed ecosystem MUST be encoded using UTF-8 [RFC3629]."
+  },
+  {
+    "question": "What does a JSON text consist of according to the grammar section?",
+    "source_text": "A JSON text is a sequence of tokens. The set of tokens includes six structural characters, strings, numbers, and three literal names."
+  },
+  {
+    "question": "Are Infinity and NaN permitted as JSON numbers?",
+    "source_text": "Numeric values that cannot be represented in the grammar below (such as Infinity and NaN) are not permitted."
+  },
+  {
+    "question": "How is a character outside the Basic Multilingual Plane represented in a string?",
+    "source_text": "To escape an extended character that is not in the Basic Multilingual Plane, the character is represented as a 12-character sequence, encoding the UTF-16 surrogate pair."
+  },
+  {
+    "question": "What is the registered media type for JSON text?",
+    "source_text": "The media type for JSON text is application/json. Type name: application Subtype name: json"
+  },
+  {
+    "question": "Which limits may a JSON implementation set?",
+    "source_text": "An implementation may set limits on the size of texts that it accepts. An implementation may set limits on the maximum depth of nesting. An implementation may set limits on the range and precision of numbers. An implementation may set limits on the length and character contents of strings."
+  },
+  {
+    "question": "What may a JSON value be?",
+    "source_text": "A JSON value MUST be an object, array, number, or string, or one of the following three literal names: false null true"
+  },
+  {
+    "question": "How is a JSON object structure represented?",
+    "source_text": "An object structure is represented as a pair of curly brackets surrounding zero or more name/value pairs (or members)."
+  },
+  {
+    "question": "How is a JSON array structure represented?",
+    "source_text": "An array structure is represented as square brackets surrounding zero or more values (or elements)."
+  },
+  {
+    "question": "Which characters must be escaped inside a JSON string?",
+    "source_text": "All Unicode characters may be placed within the quotation marks, except for the characters that MUST be escaped: quotation mark, reverse solidus, and the control characters (U+0000 through U+001F)."
+  },
+  {
+    "question": "May an implementation add a byte order mark to a JSON text?",
+    "source_text": "Implementations MUST NOT add a byte order mark (U+FEFF) to the beginning of a networked-transmitted JSON text."
+  },
+  {
+    "question": "How may a parser treat a byte order mark it encounters?",
+    "source_text": "implementations that parse JSON texts MAY ignore the presence of a byte order mark rather than treating it as an error."
+  },
+  {
+    "question": "How can a single reverse solidus character be represented?",
+    "source_text": "So, for example, a string containing only a single reverse solidus character may be represented as \"\\u005C\"."
+  },
+  {
+    "question": "What does ECMA-404 allow that this specification advises against?",
+    "source_text": "Note, however, that ECMA-404 allows several practices that this specification recommends avoiding in the interests of maximal interoperability."
+  }
+]

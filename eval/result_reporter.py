@@ -69,40 +69,65 @@ class ResultReporter:
         print(f"[results] Markdown table saved to {out}")
 
     def save_charts(self, results: list[dict], k: int, doc_stem: str) -> None:
+        """Four horizontal bar charts, one per metric.
+
+        Horizontal rather than vertical because the strategy names are long:
+        rotated, they overlapped each other and the value labels ran together.
+        Each chart is sorted by the value it shows, so the order carries the
+        message. Context cost uses a log scale because semantic_lc exceeds the
+        other strategies by an order of magnitude and would otherwise squash
+        every remaining bar into an invisible sliver.
+        """
         try:
             import matplotlib
-            import matplotlib.pyplot as plt
             matplotlib.use("Agg")
+            import matplotlib.pyplot as plt
         except ImportError:
             print("[charts] matplotlib not installed — skipping")
             return
 
         self._dir.mkdir(exist_ok=True)
         hr_key = f"hit_rate@{k}"
-        names  = [r["strategy"] for r in results]
-        cmap   = plt.get_cmap("tab10")
-        colors = [cmap(i % 10) for i in range(len(names))]
 
-        fig, axes = plt.subplots(2, 2, figsize=(14, 10))
-        fig.suptitle(f"Chunking Strategy Comparison — {doc_stem}", fontsize=13)
+        fig, axes = plt.subplots(2, 2, figsize=(16, max(8, 0.5 * len(results) + 4)))
+        fig.suptitle(f"Chunking Strategy Comparison — {doc_stem}", fontsize=15, y=0.98)
 
-        def bar(ax, values, title, ylabel, fmt="{:.1f}"):
-            bars = ax.bar(names, values, color=colors)
-            ax.set_title(title)
-            ax.set_ylabel(ylabel)
-            ax.set_ylim(0, max(values) * 1.2 if max(values) > 0 else 1)
+        def barh(ax, key, title, fmt, *, better_low=False, log=False):
+            rows = sorted(results, key=lambda r: r.get(key, 0), reverse=better_low)
+            names = [r["strategy"] for r in rows]
+            values = [r.get(key, 0) for r in rows]
+            # Both sort orders put the best value last, i.e. at the bottom:
+            # ascending for higher-is-better, descending for lower-is-better.
+            best = len(values) - 1
+            colors = ["#2e7d32" if i == best else "#90a4ae" for i in range(len(values))]
+            bars = ax.barh(names, values, color=colors, height=0.68)
+            ax.set_title(title, fontsize=11, pad=8)
+            ax.invert_yaxis()
+            ax.tick_params(axis="y", labelsize=8)
+            ax.grid(axis="x", alpha=0.25, linewidth=0.6)
+            ax.set_axisbelow(True)
+            if log:
+                ax.set_xscale("log")
+                ax.set_xlim(max(1, min(values) * 0.6), max(values) * 3)
+            else:
+                ax.set_xlim(0, max(values) * 1.22 if max(values) else 1)
             for b, v in zip(bars, values):
-                ax.text(b.get_x() + b.get_width() / 2, b.get_height() + max(values) * 0.02,
-                        fmt.format(v), ha="center", va="bottom", fontsize=9)
-            ax.tick_params(axis="x", rotation=25)
+                ax.text(b.get_width() * (1.06 if log else 1) + (0 if log else max(values) * 0.015),
+                        b.get_y() + b.get_height() / 2, fmt.format(v),
+                        va="center", ha="left", fontsize=8)
+            for side in ("top", "right"):
+                ax.spines[side].set_visible(False)
 
-        bar(axes[0][0], [r[hr_key] for r in results],                    f"Hit Rate@{k} (%)",                       "%", "{:.1f}")
-        bar(axes[0][1], [r["mrr"] for r in results],                      "MRR (higher = better)",                   "",  "{:.3f}")
-        bar(axes[1][0], [r["avg_dist_top1"] for r in results],            "Avg Distance Top-1\n(lower = better)",    "",  "{:.3f}")
-        bar(axes[1][1], [r.get("avg_retrieved_chars", 0) for r in results],
-            "Context Cost\n(avg chars retrieved per query, lower = cheaper)", "chars", "{:.0f}")
+        barh(axes[0][0], hr_key, f"Hit Rate@{k} (%) — higher is better", "{:.1f}")
+        barh(axes[0][1], "mrr", "MRR — higher is better", "{:.3f}")
+        barh(axes[1][0], "avg_dist_top1", "Avg distance top-1 — lower is better",
+             "{:.3f}", better_low=True)
+        barh(axes[1][1], "avg_retrieved_chars",
+             "Context cost: chars retrieved per query (log scale) — lower is cheaper",
+             "{:.0f}", better_low=True, log=True)
 
-        plt.tight_layout()
+        fig.tight_layout(rect=(0, 0, 1, 0.96))
         out = self._dir / f"{doc_stem}_comparison.png"
         plt.savefig(out, dpi=150)
+        plt.close(fig)
         print(f"[charts] Saved to {out}")

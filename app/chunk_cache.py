@@ -94,8 +94,8 @@ class ChunkCache:
 
     def provenance(self, source_path: str, enriched: bool = False,
                    variant: str = "") -> Optional[dict]:
-        """Kopfdaten ohne die Chunks — fuer Reports, die belegen sollen, dass alle
-        Vergleichsarme aus demselben Code-Stand stammen."""
+        """Header data without the chunks — for reports that need to show that all
+        compared arms came from the same code state."""
         path = self._path(source_path, enriched, variant)
         if not path.exists():
             return None

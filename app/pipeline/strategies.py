@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 from llm_semantic_chunker import ChunkerConfig
 
-if TYPE_CHECKING:                      # nur fuer die Annotation
+if TYPE_CHECKING:                      # annotation only
     from llm_semantic_chunker.vectorstore import VectorStore
 
 from eval.strategy_evaluator import (build_parent_child, build_semantic_lc,
@@ -49,15 +49,15 @@ class StrategyCollector:
         if self._config.mode == "incremental":
             parent_child = build_parent_child(llm_chunks)
             print(f"  parent_child   : {len(parent_child[0])} children "
-                  f"aus {len(llm_chunks)} parents")
+                  f"from {len(llm_chunks)} parents")
 
         for name, chunks in chunk_sets.items():
             print(f"  {name:<15}: {len(chunks)} chunks")
         return chunk_sets, parent_child
 
     def _other_mode(self) -> ChunkSets:
-        """Das jeweils andere Verfahren, sofern gecacht — window neben
-        incremental und umgekehrt."""
+        """The other mode, if it is cached — window alongside incremental
+        and vice versa."""
         other = "window" if self._config.mode == "incremental" else "incremental"
         name = label(self._config, mode=other)
         chunks = self._cache.load(self._file_path, variant=cache_key(self._config, mode=other))

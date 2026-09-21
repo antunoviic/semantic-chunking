@@ -7,10 +7,6 @@ from .._logging import get_logger
 
 logger = get_logger(__name__)
 
-# Upper bound on the candidate text handed to the pre-filter. The pre-filter
-# itself accepts at most _MAX_HEADING_LEN (90) characters and 12 words, so the
-# LLM is only ever asked about a short sentence group; a heading that shares its
-# group with a full sentence is not checked at all.
 _PROBE_CHARS = 120
 
 
