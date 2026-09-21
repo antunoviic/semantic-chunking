@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llm-semantic-chunker"
-# 0.2.x: QwenClient became OllamaClient (no alias) and the settings moved into
-# ChunkerConfig, a breaking change against the 0.1.0 on TestPyPI. Patch releases
-# since then change documentation, packaging metadata and the pipeline only;
-# a version that is on an index is never rebuilt with different content.
-version = "0.2.2"
+# First release on the production index. The 0.2.x series lived on TestPyPI while
+# the API settled: QwenClient became OllamaClient and the settings moved into
+# ChunkerConfig. A version that is on an index is never rebuilt with different
+# content, so every change ships under a new number.
+version = "1.0.0"
 requires-python = ">=3.9"
 description = "LLM-based semantic chunking library for RAG pipelines"
 readme = "README.md"

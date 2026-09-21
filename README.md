@@ -4,6 +4,8 @@ A Python library for **LLM-based semantic chunking**, designed for Retrieval-Aug
 
 The library runs entirely against a **local Ollama model** — no API keys, no data leaving your machine.
 
+**Links:** [PyPI](https://pypi.org/project/llm-semantic-chunker/) · [Source on GitHub](https://github.com/antunoviic/semantic-chunking) · [Issues](https://github.com/antunoviic/semantic-chunking/issues)
+
 ---
 
 ## Installation

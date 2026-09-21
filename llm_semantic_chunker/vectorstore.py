@@ -14,6 +14,7 @@ except ModuleNotFoundError as exc:                  # pragma: no cover
 import httpx
 from chromadb import EmbeddingFunction, Embeddings, Documents
 from ._logging import get_logger
+from ._retry import post_with_retries
 
 logger = get_logger(__name__)
 
@@ -47,15 +48,18 @@ class OllamaEmbeddingFunction(EmbeddingFunction[Documents]):
         embeddings: Embeddings = []
         for start in range(0, len(truncated), self._BATCH_SIZE):
             batch = truncated[start:start + self._BATCH_SIZE]
-            response = self._client.post(
-                f"{self._base_url}/api/embed",
-                json={"model": self._model, "input": batch},
-            )
-            if response.status_code != 200:
-                raise RuntimeError(
-                    f"Ollama embed failed ({response.status_code}) for batch "
-                    f"[{start}:{start + len(batch)}]: {response.text[:300]}"
+            # Same policy as the chat client: a runner restart or a transient 5xx
+            # must not abort a 40-minute evaluation; a 4xx is our mistake.
+            try:
+                response = post_with_retries(
+                    self._client, f"{self._base_url}/api/embed",
+                    json={"model": self._model, "input": batch},
                 )
+            except httpx.HTTPStatusError as exc:
+                raise RuntimeError(
+                    f"Ollama embed failed ({exc.response.status_code}) for batch "
+                    f"[{start}:{start + len(batch)}]: {exc.response.text[:300]}"
+                ) from exc
             embeddings.extend(response.json()["embeddings"])
         return embeddings
 
