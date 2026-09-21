@@ -7,6 +7,10 @@ from .._logging import get_logger
 
 logger = get_logger(__name__)
 
+# Upper bound on the candidate text handed to the pre-filter. The pre-filter
+# itself accepts at most _MAX_HEADING_LEN (90) characters and 12 words, so the
+# LLM is only ever asked about a short sentence group; a heading that shares its
+# group with a full sentence is not checked at all.
 _PROBE_CHARS = 120
 
 
@@ -33,6 +37,11 @@ class HybridHeadingBoundaryDetector(IncrementalBoundaryDetector):
                 "sentence tokenisation): the regex baseline works line by line."
             )
         self._heading_indices = heading_sentence_indices(raw_text, sentences)
+        # The three logger.debug strings in this file are the last German text in
+        # the codebase, and they stay. The cache fingerprint hashes the AST of this
+        # module, and a string literal is part of that AST: translating them changes
+        # the digest, which invalidates every chunk cache of the reported run.
+        # A comment is free, a log message is not. See DESIGN_DECISIONS.md.
         logger.debug(f"[hybrid-heading] Regex-Baseline: {len(self._heading_indices)} "
               f"Satz-Indizes als Ueberschrift erkannt")
         return super().detect_and_assemble(sentences)

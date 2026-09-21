@@ -4,17 +4,19 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llm-semantic-chunker"
-# First release on the production index. The 0.2.x series lived on TestPyPI while
-# the API settled: QwenClient became OllamaClient and the settings moved into
-# ChunkerConfig. A version that is on an index is never rebuilt with different
-# content, so every change ships under a new number.
-version = "1.0.0"
+# 1.0.0 was the first release on the production index; the 0.2.x series lived on
+# TestPyPI while the API settled (QwenClient became OllamaClient, the settings
+# moved into ChunkerConfig). A version that is on an index is never rebuilt with
+# different content, so every change ships under a new number. 1.0.1 carries the
+# README section on the evaluation harness, which PyPI serves as the project
+# page, and exports __version__.
+version = "1.0.1"
 requires-python = ">=3.9"
 description = "LLM-based semantic chunking library for RAG pipelines"
 readme = "README.md"
 authors = [{ name = "Ivan Antunovic" }]
-# PEP 639: SPDX-Ausdruck statt Classifier. Der alte
-# "License :: OSI Approved :: MIT License" ist damit unzulaessig.
+# PEP 639: an SPDX expression rather than a classifier. The old
+# "License :: OSI Approved :: MIT License" classifier is no longer allowed.
 license = "MIT"
 license-files = ["LICENSE"]
 keywords = ["chunking", "rag", "retrieval", "llm", "ollama", "nlp"]

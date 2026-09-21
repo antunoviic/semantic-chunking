@@ -1,0 +1,8 @@
+# The distribution is the library alone. The evaluation harness (app/, eval/,
+# tools/, thesis/) stays in the repository: it is the measurement apparatus
+# behind the thesis, not something a user of the chunker installs.
+#
+# tests/ is pruned for the same reason. The tests import app.chunk_cache, which
+# does not ship, so an sdist that carried them would offer a test suite that
+# cannot run.
+prune tests
