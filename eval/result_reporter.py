@@ -16,28 +16,39 @@ class ResultReporter:
         return sorted(results, key=lambda r: r["mrr"], reverse=True)
 
     def print_table(self, results: list[dict], k: int) -> None:
+        """One row per strategy, ranked by MRR.
+
+        The name column is sized from the data. It used to be a fixed 15
+        characters while names run to 33, so every long name pushed its own
+        row right and the header stopped lining up with the numbers.
+        """
         hr_key = f"hit_rate@{k}"
         ranked = self._sorted(results)
-        header = (
-            f"{'Strategy':<16} {'Chunks':>7} {'Avg Len':>8} {'Hit@1':>7} "
-            f"{f'Hit@{k}':>7} {'MRR':>7} {'Avg Dist':>9} {'Ctx Chars':>10}"
-        )
-        sep = "=" * len(header)
-        print(f"\n{sep}\n{header}\n{sep}")
-        for i, r in enumerate(ranked):
-            marker = "*" if i == 0 else " "
+        name_w = max([len(r["strategy"]) for r in ranked] + [len("Strategy")])
+        rank_w = len(str(len(ranked)))
+
+        cols = (f"{'':>{rank_w}}  {'Strategy':<{name_w}}  {'Chunks':>7} {'Avg Len':>7} "
+                f"{'Hit@1':>7} {f'Hit@{k}':>7} {'MRR':>6} {'Avg Dist':>8} {'Ctx Chars':>9}")
+        rule = "-" * len(cols)
+        print(f"\n{'=' * len(cols)}\n{cols}\n{rule}")
+
+        for i, r in enumerate(ranked, 1):
+            best = " *" if i == 1 else "  "
             print(
-                f"{r['strategy']:<15}{marker} "
+                f"{i:>{rank_w}}. {r['strategy']:<{name_w}}  "
                 f"{r['chunk_count']:>7} "
-                f"{r['avg_chunk_len']:>8} "
+                f"{r['avg_chunk_len']:>7} "
                 f"{r.get('hit_rate@1', 0.0):>6.1f}% "
                 f"{r[hr_key]:>6.1f}% "
-                f"{r['mrr']:>7.3f} "
-                f"{r['avg_dist_top1']:>9.3f} "
-                f"{r.get('avg_retrieved_chars', 0):>10}"
+                f"{r['mrr']:>6.3f} "
+                f"{r['avg_dist_top1']:>8.3f} "
+                f"{r.get('avg_retrieved_chars', 0):>9}"
+                f"{best}".rstrip()
             )
-        print(sep)
-        print("* best MRR — Ctx Chars = avg characters retrieved per query (context cost)")
+        print(rule)
+        print("* best MRR   |   Ctx Chars = characters returned per query, "
+              "the context cost of the hit rate")
+        print("=" * len(cols))
 
     def save_json(self, results: list[dict], doc_stem: str) -> None:
         self._dir.mkdir(exist_ok=True)

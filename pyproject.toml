@@ -7,13 +7,17 @@ name = "llm-semantic-chunker"
 # 1.0.0 was the first release on the production index; the 0.2.x series lived on
 # TestPyPI while the API settled (QwenClient became OllamaClient, the settings
 # moved into ChunkerConfig). A version that is on an index is never rebuilt with
-# different content, so every change ships under a new number. 1.0.1 carries the
-# README section on the evaluation harness, which PyPI serves as the project
-# page, and exports __version__.
-version = "1.0.1"
+# different content, so every change ships under a new number. 1.0.2 trims the
+# project page back to the library: the evaluation harness belongs to the
+# repository, not to the package.
+version = "1.0.2"
 requires-python = ">=3.9"
 description = "LLM-based semantic chunking library for RAG pipelines"
-readme = "README.md"
+# The project page on PyPI documents the library. The evaluation harness of
+# the thesis needs the documents and question sets from the repository, so it
+# is documented on GitHub instead. Both are generated from README.md by
+# tools/make_pypi_readme.py — run it with --check before a release.
+readme = "README-pypi.md"
 authors = [{ name = "Ivan Antunovic" }]
 # PEP 639: an SPDX expression rather than a classifier. The old
 # "License :: OSI Approved :: MIT License" classifier is no longer allowed.

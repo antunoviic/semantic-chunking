@@ -41,7 +41,7 @@ class HybridHeadingBoundaryDetector(IncrementalBoundaryDetector):
         # the codebase, and they stay. The cache fingerprint hashes the AST of this
         # module, and a string literal is part of that AST: translating them changes
         # the digest, which invalidates every chunk cache of the reported run.
-        # A comment is free, a log message is not. See DESIGN_DECISIONS.md.
+        # A comment is free, a log message is not.
         logger.debug(f"[hybrid-heading] Regex-Baseline: {len(self._heading_indices)} "
               f"Satz-Indizes als Ueberschrift erkannt")
         return super().detect_and_assemble(sentences)
