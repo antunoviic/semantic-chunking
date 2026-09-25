@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .interfaces import BasePrompt, ChunkPostProcessor, LLMClient
+from .interfaces import ChunkPostProcessor, ChunkQuestion, LLMClient
 from .prompts import is_explicit_no
 from ._logging import get_logger
 
@@ -10,7 +10,7 @@ logger = get_logger(__name__)
 class LowInfoFilter(ChunkPostProcessor):
     """Removes chunks the LLM judges as low-information."""
 
-    def __init__(self, client: LLMClient, prompt: BasePrompt) -> None:
+    def __init__(self, client: LLMClient, prompt: ChunkQuestion) -> None:
         self.client = client
         self.prompt = prompt
 
@@ -31,7 +31,7 @@ class LowInfoFilter(ChunkPostProcessor):
 class ChunkEnricher(ChunkPostProcessor):
     """Prefixes every chunk with an LLM-generated `[Topic: ...]` line."""
 
-    def __init__(self, client: LLMClient, prompt: BasePrompt) -> None:
+    def __init__(self, client: LLMClient, prompt: ChunkQuestion) -> None:
         self.client = client
         self.prompt = prompt
 

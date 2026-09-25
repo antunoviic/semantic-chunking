@@ -42,8 +42,13 @@ def _detect_language(text: str) -> str:
 
 
 class TextSplitter:
+    """Cuts raw text into the units the boundary detectors work on.
 
-    #Language is auto-detected unless explicitly provided.
+    Incremental mode consumes sentences, window mode fixed-size mini-chunks.
+    Sentence segmentation uses NLTK punkt, whose model is language-specific;
+    the language is auto-detected unless given, with a fixed seed so that the
+    detection itself is reproducible.
+    """
 
 
     def __init__(self, sentences_per_chunk: int = 3, language: Optional[str] = None) -> None:

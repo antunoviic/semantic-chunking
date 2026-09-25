@@ -11,6 +11,18 @@ logger = get_logger(__name__)
 
 
 class OllamaClient:
+    """Talks to a local Ollama server, with decoding fixed for reproducibility.
+
+    Temperature zero and a fixed seed are deliberate: three full passes over
+    the same document produced byte-identical chunks, which is what allows a
+    single reported run instead of averaging over repetitions.
+
+    Transport errors and 5xx responses are retried with exponential backoff;
+    a 4xx is raised immediately, because a malformed request does not become
+    well-formed by waiting. The prompt is checked against the context window
+    before it is sent, so an oversized prompt fails with a clear message
+    instead of being silently truncated by the server.
+    """
 
     DEFAULT_MODEL   = "qwen3.5:4b"
     DEFAULT_BASE_URL = "http://localhost:11434"

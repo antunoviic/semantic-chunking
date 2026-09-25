@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, field
 
-from .interfaces import BasePrompt
+
 
 
 # prompts shared by window and incremental
@@ -18,7 +18,7 @@ def is_explicit_no(raw: str) -> bool:
 
 
 @dataclass
-class EnrichmentPrompt(BasePrompt):
+class EnrichmentPrompt:
     """
     Prompt to label a chunk with its structural position in the document
     (chapter/section heading, hierarchical if identifiable).
@@ -50,7 +50,7 @@ class EnrichmentPrompt(BasePrompt):
 
 
 @dataclass
-class LowInfoPrompt(BasePrompt):
+class LowInfoPrompt:
     """Prompt to decide whether a chunk contains useful information for RAG."""
 
     system_message: str = field(default=(

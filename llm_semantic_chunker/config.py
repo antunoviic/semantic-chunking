@@ -21,6 +21,18 @@ _INCREMENTAL_ONLY = ("step_sentences", "max_chunk_sentences", "max_chunk_chars",
 
 @dataclass(frozen=True)
 class ChunkerConfig:
+    """Every setting that shapes a chunking run, validated on construction.
+
+    Frozen, so a configuration cannot drift while a run is in progress, and
+    self-validating, so a bad value fails before the first model call rather
+    than hours into a document.
+
+    The fields fall into three groups: those that only apply to incremental
+    mode, those that only apply to window mode, and those shared by both. A
+    setting from the wrong group is ignored rather than refused, which
+    `warn_about_ignored()` reports — a known weakness of holding both modes in
+    one class.
+    """
 
     mode: str = "incremental"
 

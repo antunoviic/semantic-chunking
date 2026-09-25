@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 
-from ..interfaces import BasePrompt, LLMClient
+from ..interfaces import ChunkQuestion, LLMClient
 from .._logging import get_logger
 
 logger = get_logger(__name__)
@@ -17,7 +17,7 @@ class BoundaryDetector:
     def __init__(
         self,
         client: LLMClient,
-        prompt: BasePrompt,
+        prompt: ChunkQuestion,
         window_size: int = 10,
         step_size: int = 5,
     ) -> None:

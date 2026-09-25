@@ -17,6 +17,13 @@ __all__ = ["LLMSemanticNodeParser"]
 
 
 class LLMSemanticNodeParser(TextSplitter):
+    """LlamaIndex adapter: this chunker as a NodeParser.
+
+    LlamaIndex's TextSplitter derives from NodeParser, so implementing
+    `split_text` is enough for `get_nodes_from_documents` to work. Requires
+    Python 3.10 or newer, because `llama-index-core` pulls in a dependency that
+    uses PEP 604 syntax; the library itself still runs on 3.9.
+    """
 
     _chunker: LLMChunker = PrivateAttr()
 

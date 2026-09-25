@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 
-from ..interfaces import LLMClient
+from ..interfaces import BoundaryQuestion, LLMClient, SplitPointQuestion
 from ..prompts import is_explicit_no
 from .prompt import IncrementalBoundaryPrompt, SplitPointPrompt
 from .._logging import get_logger
@@ -11,12 +11,23 @@ logger = get_logger(__name__)
 
 
 class IncrementalBoundaryDetector:
+    """Grows a chunk sentence group by sentence group, asking where topics end.
+
+    The chunk under construction and the next `step_sentences` sentences are
+    shown to the model, which answers whether they still belong together. A
+    negative answer closes the chunk; the size cap closes it regardless of the
+    answer, at a split point the model chooses rather than in the middle.
+
+    Subclasses add heading awareness by overriding one method each, so the
+    loop itself exists once. `boundary_stats` counts the four kinds of
+    boundary the loop can produce.
+    """
 
     def __init__(
         self,
         client: LLMClient,
-        prompt: IncrementalBoundaryPrompt | None = None,
-        split_prompt: SplitPointPrompt | None = None,
+        prompt: BoundaryQuestion | None = None,
+        split_prompt: SplitPointQuestion | None = None,
         step_sentences: int = 3,
         max_chunk_sentences: int = 20,
         max_chunk_chars: int | None = None,

@@ -23,10 +23,24 @@ logger = get_logger(__name__)
 
 
 class LLMChunker:
-    #Splits text into semantically coherent chunks using a local LLM.
+    """Splits text into semantically coherent chunks using a local LLM.
 
-        #LLMChunker(client=OllamaClient(), max_chunk_chars=1200)
-        #LLMChunker(client=OllamaClient(), config=ChunkerConfig(mode="window"))
+    The entry point of the library. Instead of cutting at a character count,
+    a language model reads the text and decides where the topic changes; the
+    chunker assembles the pieces around those decisions and applies a size cap
+    so that no chunk outgrows the retriever's budget.
+
+    Two forms are equivalent, and mixing them is refused:
+
+        LLMChunker(client=OllamaClient(), max_chunk_chars=1200)
+        LLMChunker(client=OllamaClient(), config=ChunkerConfig(mode="window"))
+
+    The client is a structural `LLMClient`, so any object with a compatible
+    `chat()` serves — a different backend, or a scripted fake for tests. All
+    four prompts are injectable for the same reason. After `chunk()`,
+    `boundary_stats` reports where the boundaries came from: a topic decision
+    by the model, the size cap, a heading, or the end of the document.
+    """
 
     def __init__(
         self,
@@ -68,7 +82,14 @@ class LLMChunker:
         return self._config
 
     def _build_detector(self, boundary_prompt, incremental_prompt):
-        #Picks the detector the mode and heading_mode call for
+        """Select and construct the boundary detector for this configuration.
+
+        Four detectors exist. Window mode uses the sliding-window detector;
+        the other three are incremental and differ only in how they locate
+        headings — not at all, by a sentence-level pattern, or by a line-level
+        pattern with an optional model check. The heading mode therefore
+        decides the subclass while every other setting is passed through.
+        """
 
         cfg = self._config
         if cfg.mode == "window":
@@ -79,14 +100,22 @@ class LLMChunker:
                 step_size=cfg.step_size,
             )
 
-        extra: dict = {}
-        if not cfg.respect_headings:
-            detector_cls = IncrementalBoundaryDetector
-        elif cfg.heading_mode in ("hybrid", "lines"):
-            detector_cls = HybridHeadingBoundaryDetector
-            extra["use_llm_fallback"] = cfg.heading_mode == "hybrid"
-        else:
-            detector_cls = HeadingAwareBoundaryDetector
+        # (respect_headings, heading_mode) -> (class, extra keyword arguments).
+        # A fourth mode is one entry here plus one name in ChunkerConfig's
+        # check list; no branch has to be edited.
+        registry = {
+            (False, None):      (IncrementalBoundaryDetector,      {}),
+            (True, "regex"):    (HeadingAwareBoundaryDetector,     {}),
+            (True, "lines"):    (HybridHeadingBoundaryDetector,    {"use_llm_fallback": False}),
+            (True, "hybrid"):   (HybridHeadingBoundaryDetector,    {"use_llm_fallback": True}),
+        }
+        # respect_headings counts by its truth value, as it did before the table
+        headings = bool(cfg.respect_headings)
+        key = (headings, cfg.heading_mode if headings else None)
+        if key not in registry:
+            raise ValueError(f"No boundary detector for heading_mode={cfg.heading_mode!r}. "
+                             f"Use 'regex', 'lines' or 'hybrid'.")
+        detector_cls, extra = registry[key]
         return detector_cls(
             client=self._client,
             prompt=incremental_prompt or IncrementalBoundaryPrompt(),
@@ -110,7 +139,14 @@ class LLMChunker:
         return out
 
     def chunk(self, text: str) -> list[str]:
-        #chunking itself
+        """Split one document into chunks.
+
+        Three stages: the text is cut into units (sentences in incremental
+        mode, fixed mini-chunks in window mode), a boundary detector assembles
+        them into chunks, and the post-processors run in order. The return
+        value is plain text — no offsets, no heading, no reason for the
+        boundary; see the project README for what that costs a caller.
+        """
         if self._config.mode == "incremental":
             units = self._splitter.split_sentences(text)
             logger.debug(f"[chunker] Split into {len(units)} sentences (incremental mode)")
@@ -124,10 +160,19 @@ class LLMChunker:
         self.boundary_stats = dict(getattr(self._detector, "boundary_stats", {}))
         logger.info("[chunker] Assembled %d chunks", len(chunks))
         if self.boundary_stats:
-            total = sum(self.boundary_stats.values()) or 1
+            # heading_llm_checks counts model CALLS, not boundaries: the model
+            # is asked about a candidate group and may answer "no". It belongs
+            # neither in the shares nor in their denominator, which is what
+            # understated every share in the hybrid arms.
+            calls = self.boundary_stats.get("heading_llm_checks", 0)
+            sources = {k: v for k, v in self.boundary_stats.items()
+                       if k != "heading_llm_checks" and v}
+            total = sum(sources.values()) or 1
             parts = "  ".join(f"{k}={v} ({v * 100 // total} %)"
-                              for k, v in self.boundary_stats.items() if v)
-            logger.info("[chunker] boundary sources: %s", parts)
+                              for k, v in sources.items())
+            logger.info("[chunker] boundary sources: %s  (of %d)", parts, total)
+            if calls:
+                logger.info("[chunker] heading checks asked of the model: %d", calls)
 
         if self._config.max_chunk_chars and self._config.mode != "incremental":
             before = len(chunks)

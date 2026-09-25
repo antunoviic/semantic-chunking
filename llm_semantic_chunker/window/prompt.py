@@ -2,11 +2,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from ..interfaces import BasePrompt
 
 
 @dataclass
-class BoundaryPrompt(BasePrompt):
+class BoundaryPrompt:
     """
     Prompt for the sliding-window boundary detection.
     The LLM sees tagged mini-chunks and returns indices where topics change.

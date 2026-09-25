@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from ..interfaces import HeadingQuestion
 from .detector import IncrementalBoundaryDetector
 from .heading_detection import (HeadingOnlyPrompt, heading_sentence_indices,
                                 looks_like_heading_candidate)
@@ -15,8 +16,20 @@ _PROBE_CHARS = 120
 
 
 class HybridHeadingBoundaryDetector(IncrementalBoundaryDetector):
+    """Finds headings in the raw text, optionally asking the model about the rest.
 
-    def __init__(self, *args, heading_prompt: HeadingOnlyPrompt | None = None,
+    The pattern runs on the text *before* sentence tokenisation, so numbered
+    headings on their own line survive. With `use_llm_fallback` the model is
+    additionally asked about short sentence groups the pattern did not flag,
+    which is the only difference between the `lines` and `hybrid` arms of the
+    evaluation and therefore isolates what the model contributes.
+
+    Because the check happens inside the loop rather than before it, the
+    boundary lands in front of the group containing the heading — up to
+    `step_sentences - 1` sentences early.
+    """
+
+    def __init__(self, *args, heading_prompt: HeadingQuestion | None = None,
                  use_llm_fallback: bool = True, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.heading_prompt = heading_prompt or HeadingOnlyPrompt()

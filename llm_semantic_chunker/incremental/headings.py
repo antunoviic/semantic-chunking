@@ -52,6 +52,14 @@ def split_at_headings(
 
 
 class HeadingAwareBoundaryDetector(IncrementalBoundaryDetector):
+    """Forces a boundary at headings found by a sentence-level pattern.
+
+    The sentence list is pre-segmented at each heading *before* the loop runs,
+    so the boundary sits exactly at the heading sentence. The cost is that the
+    pattern only sees text that already survived sentence tokenisation, where
+    a heading on its own line may have been merged into the sentence after it.
+    See `HybridHeadingBoundaryDetector` for the line-based alternative.
+    """
 
     def __init__(self, *args, heading_re: re.Pattern[str] = HEADING_RE, **kwargs) -> None:
         super().__init__(*args, **kwargs)

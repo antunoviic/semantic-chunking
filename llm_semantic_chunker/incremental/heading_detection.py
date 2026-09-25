@@ -108,6 +108,12 @@ def looks_like_heading_candidate(sentence: str) -> bool:
 
 @dataclass
 class HeadingOnlyPrompt:
+    """Asks the model a single yes-or-no question: is this a section heading?
+
+    Used only by the hybrid detector, and only for short sentence groups that
+    the line-based pattern did not already flag. The narrow question keeps the
+    answer parseable and the call cheap.
+    """
 
     system_message: str = field(default=(
         "You classify a single line of text from a document. You decide whether "

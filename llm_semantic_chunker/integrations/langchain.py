@@ -14,6 +14,12 @@ __all__ = ["LLMSemanticSplitter"]
 
 
 class LLMSemanticSplitter(TextSplitter):
+    """LangChain adapter: this chunker wherever a TextSplitter is expected.
+
+    Implements `split_text`, so `create_documents`, `split_documents` and
+    `transform_documents` come from the base class. Only the splitting step
+    changes; the rest of a LangChain pipeline is untouched.
+    """
 
     def __init__(self, client=None, **chunker_kwargs) -> None:
         super().__init__()
