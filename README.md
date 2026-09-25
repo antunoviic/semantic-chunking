@@ -257,7 +257,7 @@ entirely and finishes the retrieval in under two minutes.
 | fixed_256                   |    100 |     249 | 35.7% | 35.7% | 0.373 |       753 |
 ```
 
-**These numbers are a smoke test, not a result.** The demo set has fourteen questions, so a single question moves the ranking heavily and is not conclusive for the overall chunking. Its purpose is to show that the harness runs end to end and produces the comparison. (The thesis used question sets of roughly 300 per document.)
+**These numbers are a smoke test, not a result.** The demo set has fourteen questions, so a single question moves the ranking heavily and is not conclusive for the overall chunking. Its purpose is to show that the harness runs end to end and produces the comparison. (The thesis used question sets of 292, 296 and 400 questions.)
 
 ### What it compares
 
@@ -286,7 +286,7 @@ The log then reports where the boundaries came from, a topic decision made by th
 
 All three are in `docs/`, with their verified question sets in `eval_cache/`:
 the NASA Systems Engineering Handbook (implicit structure), RFC 9110 (explicit
-structure) and H. G. Wells' *A Short History of the World* (prose). The run script `thesis/scripts/run_v4.sh` runs the complete matrix of ablations over all three.
+structure) and H. G. Wells' *A Short History of the World* (prose). The run script `thesis/scripts/run_v4.sh` runs four ablation arms on each of the three, plus `--midpoint-split` on the NASA handbook alone.
 
 ### Using your own document
 
@@ -315,7 +315,7 @@ comparable:
 | `--midpoint-split` | whether letting the model choose the split point helps |
 | `--enrich` | whether a `[Topic: ...]` prefix helps |
 
-`thesis/scripts/run_v4.sh` runs the full matrix used in the thesis.
+`thesis/scripts/run_v4.sh` runs these on all three documents, except `--midpoint-split`, which is measured on the NASA handbook only.
 
 ### Caching
 

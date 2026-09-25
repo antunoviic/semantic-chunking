@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 set -uo pipefail
 
 SCRIPT="${BASH_SOURCE[0]}"
@@ -143,27 +144,77 @@ echo ""
 echo "=========================================================="
 echo "PROVENANCE — do all arms come from the same code state?"
 echo "=========================================================="
-python - <<'PY'
-import json, glob, pathlib, collections
+# Only the arms THIS run produces. chunks_cache/ also holds arms of documents
+# that were dropped and of arms that were retired; scanning those made the
+# check report a split code state on every run — noise exactly where it must
+# not be. The expected names are derived from DOCS and ARMS, so the check
+# follows the run instead of drifting from it.
+EXPECT=""
+for entry in "${DOCS[@]}"; do
+    IFS='|' read -r label doc _ <<< "$entry"
+    stem=$(basename "$doc"); stem="${stem%.*}"
+    arms=("${ARMS[@]}")
+    [ "$label" = "$SAMPLE_DOC_LABEL" ] && arms+=("${SAMPLE_ARMS[@]}")
+    [ -n "${SKIP_ENRICH:-}" ] || arms+=("enrichment|incremental_enriched|")
+    for arm in "${arms[@]}"; do
+        IFS='|' read -r _ suffix _ <<< "$arm"
+        if [ "$suffix" = "window" ]; then
+            EXPECT="$EXPECT ${stem}.json"
+        else
+            EXPECT="$EXPECT ${stem}_${suffix}.json"
+        fi
+    done
+done
+export RUN_EXPECT="$EXPECT"
+python - <<'PYEOF'
+import json, os, pathlib, collections
+expect = [n for n in os.environ.get("RUN_EXPECT", "").split() if n]
 revs = collections.defaultdict(list)
-for p in sorted(glob.glob("chunks_cache/*.json")):
-    name = pathlib.Path(p).name
-    if name.count(".") > 1:          # skip timestamped backups
+pythons = set()
+missing = []
+for name in expect:
+    p = pathlib.Path("chunks_cache") / name
+    if not p.exists():
+        missing.append(name)
         continue
     try:
         d = json.load(open(p))
     except Exception:
+        missing.append(f"{name} (unreadable)")
         continue
+    # Group by digest ONLY. The interpreter is shown per file, not folded into
+    # the key: caches written before the python stamp existed have no tag, and
+    # grouping on it would report them as a second code state.
     rev = d.get("code_digest", "unstamped")
-    revs[rev].append(f"{name}  ({len(d.get('chunks', []))} chunks)")
-for rev, files in revs.items():
-    print(f"\n  {rev}   — {len(files)} caches")
+    py = d.get("python")
+    pythons.add(py)
+    revs[rev].append(f"{name}  ({len(d.get('chunks', []))} chunks)"
+                     + (f"   [Python {py}]" if py else ""))
+for rev, files in sorted(revs.items()):
+    print(f"\n  {rev}   — {len(files)} of {len(expect)} arms")
     for f in files:
         print(f"      {f}")
+if missing:
+    print(f"\n  not yet chunked — {len(missing)}")
+    for m in missing:
+        print(f"      {m}")
+print()
+known = {p for p in pythons if p}
 if len(revs) > 1:
-    print("\n  !! More than one code state. Arms from different states are not")
-    print("     comparable — re-chunk the affected ones.")
-PY
+    print("  !! More than one code state among the arms of this run. Arms from")
+    print("     different states are not comparable — re-chunk the affected ones.")
+elif missing:
+    print("  Arms present are from one code state; the ones listed above are absent.")
+else:
+    print("  OK — every arm of this run comes from one code state.")
+if len(known) > 1:
+    print(f"  !! Arms were chunked under different Python versions: "
+          f"{', '.join(sorted(known))}. The digest is derived from the AST, whose")
+    print("     text form is version-dependent, so this needs checking by hand.")
+elif known and None in pythons:
+    print(f"  (Some arms predate the interpreter stamp; the stamped ones say "
+          f"Python {known.pop()}.)")
+PYEOF
 
 echo ""
 echo "Done: $(date '+%F %H:%M')"

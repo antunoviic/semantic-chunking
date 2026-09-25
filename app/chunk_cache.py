@@ -4,6 +4,7 @@ import ast
 import functools
 import hashlib
 import json
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
@@ -22,12 +23,21 @@ _CODE_ROOTS = (
 )
 
 
+#   The interpreter that produced a cache. `ast.dump()` is not stable across
+#   Python minor versions — new node fields and changed defaults alter its text
+#   for unchanged source — so a digest is only comparable within one version.
+#   It is stamped separately rather than hashed in, so that a mismatch can be
+#   reported as what it is instead of looking like a code change.
+_PY_TAG = f"{sys.version_info.major}.{sys.version_info.minor}"
+
+
 @functools.lru_cache(maxsize=None)
 def _code_digest() -> str:
     """Fingerprint of the code that draws chunk boundaries (AST, no docstrings).
 
-    Cached per process: the files do not change while a run is going, and every
-    cache load compares against it.
+    Comparable only within one Python minor version; see _PY_TAG. Cached per
+    process: the files do not change while a run is going, and every cache load
+    compares against it.
     """
     h = hashlib.sha256()
     for root in _CODE_ROOTS:
@@ -76,6 +86,10 @@ class ChunkCache:
         to fresh arms would put two code states into one report. Unstamped
         caches count as stale. `allow_stale=True` loads such a cache anyway,
         for inspection, never for a comparison.
+
+        A different Python minor version produces a different digest for
+        unchanged code, so the message names that case separately — otherwise a
+        switched interpreter is indistinguishable from an edited chunker.
         """
         path = self._path(source_path, enriched, variant)
         if not path.exists():
@@ -86,6 +100,12 @@ class ChunkCache:
             print(f"[cache] Skipped {path.name}: chunked with code {have or 'unstamped'} "
                   f"on {str(data.get('chunked_at', '?'))[:16]}, current code is {want}. "
                   f"Re-chunk it (--rechunk) or load with allow_stale=True.")
+            was = data.get("python")
+            if was and was != _PY_TAG:
+                print(f"        Note: this cache was written under Python {was}, you are "
+                      f"running {_PY_TAG}. The digest covers the AST, whose text form "
+                      f"changes between minor versions, so the chunker itself may be "
+                      f"unchanged. Run under Python {was} to reuse it.")
             return None
         print(f"[cache] Loaded {len(data['chunks'])} chunks from {path.name}")
         print(f"        Chunked on: {data['chunked_at']}   code: {have or 'unstamped'}"
@@ -113,11 +133,14 @@ class ChunkCache:
             print(f"[cache] Old chunks backed up to {backup.name}")
         #   chunked_at   — when
         #   code_digest  — which code (see _code_digest)
+        #   python       — which interpreter; the digest is only comparable
+        #                  within one minor version
         #   params       — ChunkerConfig plus, from the pipeline, the document
         #                  hash, the LLM settings and the library versions
         data = {
             "chunked_at":  datetime.now().isoformat(),
             "code_digest": _code_digest(),
+            "python":      _PY_TAG,
             "params":      params or {},
             "chunks":      chunks,
         }

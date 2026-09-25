@@ -42,7 +42,9 @@ python thesis/scripts/run_significance.py --document docs/wells.txt \
 
 | Script | Produces / does | Needs the model? |
 |---|---|---|
-| `run_v4.sh` | The run reported in the thesis: every arm on every document, then the evaluation. Resumable — a finished arm is skipped, a stale one re-chunked. | yes, hours |
+| `run_v4.sh` | The chunking run behind the thesis: four arms on each of the three documents, plus `--midpoint-split` on nasa alone, then the first evaluation (approximate HNSW search). Resumable — a finished arm is skipped, a stale one re-chunked. Closes with a provenance check over exactly the arms it expects. | yes, hours |
+| `run_fair_baselines.py` | The final comparison: the cached LLM arms against baselines held to the same terms — recursive with sentence ends, the same chunker with the model replaced by an always-YES client, and a SemanticChunker tuned to the same length and cap — with exact cosine search, McNemar and Holm. `--match filtered` matches to the filtered LLM arm (714 / 720 / 725 characters), the setting reported in the thesis. | embedding only |
+| `analyze_fair_arms.py` | Robustness of that comparison: token-level metrics, other hit thresholds, and how often chunk boundaries fall on section headings. | no |
 | `enrich_arm.py` | Derives the `[Topic: ...]` arm from an already chunked one. Called by `run_v4.sh`; enrichment is post-processing, so the boundaries are reused rather than recomputed. | yes |
 | `run_determinism.py` | Chunks one document N times and compares. The basis for using a fixed seed instead of averaging over runs. | yes |
 | `run_child_ablation.py` | Sensitivity of the parent-child result to the child size (150 / 250 / 400 characters). Reads the cached `incremental` arm and derives the children arithmetically, so no boundary is recomputed. | embedding only |
@@ -52,10 +54,22 @@ python thesis/scripts/run_significance.py --document docs/wells.txt \
 | `test_heading_detection.py` | Agreement between the LLM heading detector and the regex baseline, measured before the two are compared as chunking arms. | yes |
 | `prepare_gutenberg.py` | Turns a raw Project Gutenberg text into an evaluation document: strips boilerplate, captions and index, keeps chapter headings. Produced `docs/wells.txt`. | no |
 
-Everything that reads a chunk cache goes through `ChunkCache.load()`, which
+The pipeline reads chunk caches through `ChunkCache.load()`, which
 compares the cache's code fingerprint against the running code and reports a
 mismatched cache as absent. An arm from an older code state therefore cannot
-enter a comparison unnoticed — it is skipped, loudly.
+enter a comparison unnoticed — it is skipped, loudly. The exception is
+`run_fair_baselines.py`, which opens the two LLM caches directly and records their
+fingerprints in its output instead; `analyze_fair_arms.py` in turn reads what it
+saved, so the arms it analyses are never re-chunked.
+
+**Run these under Python 3.9.** The reported run is stamped `3c3df72cca46`,
+which was computed under 3.9. The fingerprint hashes `ast.dump()` of the modules
+that decide boundaries, and that text form is not stable across Python minor
+versions: the same unchanged source yields `c432af2e9c46` under 3.13. Under a
+different interpreter every cache of the reported run is therefore rejected as
+foreign, and `run_v4.sh` would re-chunk all of it — roughly three days of model
+time. Caches now carry the interpreter alongside the digest, so `load()` names
+that case instead of letting a switched Python look like an edited chunker.
 
 ## The reports
 
