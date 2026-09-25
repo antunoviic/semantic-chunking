@@ -7,10 +7,10 @@ name = "llm-semantic-chunker"
 # 1.0.0 was the first release on the production index; the 0.2.x series lived on
 # TestPyPI while the API settled (QwenClient became OllamaClient, the settings
 # moved into ChunkerConfig). A version that is on an index is never rebuilt with
-# different content, so every change ships under a new number. 1.0.2 trims the
-# project page back to the library: the evaluation harness belongs to the
-# repository, not to the package.
-version = "1.0.2"
+# different content, so every change ships under a new number. 1.0.2 trimmed the
+# project page back to the library; 1.0.3 moves the vector store out of the
+# package for the same reason — it belongs to the evaluation, not the chunker.
+version = "1.0.3"
 requires-python = ">=3.9"
 description = "LLM-based semantic chunking library for RAG pipelines"
 # The project page on PyPI documents the library. The evaluation harness of
@@ -59,7 +59,9 @@ llamaindex = ["llama-index-core>=0.11"]
 
 # PDF input via app/document_reader.py
 pdf = ["pypdf>=4.0"]
-# Vector store used by llm_semantic_chunker/vectorstore.py and the evaluation harness
+# Kept for callers who pinned it: the vector store moved to eval/ with 1.0.3,
+# because it belongs to the evaluation, not to the chunker. The extra now only
+# installs ChromaDB; the library itself never imports it.
 vectorstore = ["chromadb>=0.5"]
 
 # Everything the thesis evaluation harness needs on top: the rule-based
@@ -73,6 +75,9 @@ eval = [
     "langchain-experimental>=0.3",
     "matplotlib>=3.8",
 ]
+# For working on the library itself. The test files live outside the
+# repository (they cover the evaluation harness, which does not ship), so
+# this extra gives you the runner, not a suite to run.
 dev = ["pytest>=8"]
 
 [project.urls]
