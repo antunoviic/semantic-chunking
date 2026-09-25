@@ -13,7 +13,7 @@ from app.chunk_cache import ChunkCache
 from app.document_reader import DocumentReader
 from eval.strategy_evaluator import (StrategyEvaluator, build_parent_child,
                                      build_strategies)
-from llm_semantic_chunker.vectorstore import OllamaEmbeddingFunction
+from eval.vectorstore import OllamaEmbeddingFunction
 
 OUT_DIR = Path("thesis/results")     # one report per document, see write_report
 DEFAULT_EF = 100          # Chroma's default, which produced every number so far

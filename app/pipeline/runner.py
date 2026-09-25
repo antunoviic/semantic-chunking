@@ -13,7 +13,7 @@ from typing import TYPE_CHECKING
 from llm_semantic_chunker import ChunkerConfig, LLMChunker, OllamaClient
 
 if TYPE_CHECKING:                      # annotations only; no import at runtime
-    from llm_semantic_chunker.vectorstore import VectorStore
+    from eval.vectorstore import VectorStore
 
 from eval.question_generator import QuestionGenerator
 from eval.result_reporter import ResultReporter
@@ -62,7 +62,7 @@ class Pipeline:
             doc_stem, self._eval.max_questions, questions_file=self._eval.questions_file)
         self._report_anchor_loss(llm_chunks, qa_pairs)
 
-        from llm_semantic_chunker.vectorstore import VectorStore
+        from eval.vectorstore import VectorStore
 
         print("\n[eval] Initializing vector store (Ollama embeddings)...", flush=True)
         store = VectorStore(persist_dir="./chroma_db_eval")

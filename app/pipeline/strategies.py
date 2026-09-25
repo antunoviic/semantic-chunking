@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 from llm_semantic_chunker import ChunkerConfig
 
 if TYPE_CHECKING:                      # annotation only
-    from llm_semantic_chunker.vectorstore import VectorStore
+    from eval.vectorstore import VectorStore
 
 from eval.strategy_evaluator import (build_parent_child, build_semantic_lc,
                                      build_strategies)
@@ -39,7 +39,9 @@ class StrategyCollector:
         chunk_sets = build_strategies(text, match_len=match_len)
 
         print("  Building semantic_lc (Ollama embeddings)...")
-        chunk_sets["semantic_lc"] = build_semantic_lc(text, store._embedding_fn)
+        chunk_sets["semantic_lc"] = build_semantic_lc(
+            text, store._embedding_fn, match_len=match_len,
+            max_chars=self._config.max_chunk_chars)
         chunk_sets[label(self._config)] = llm_chunks
 
         chunk_sets.update(self._other_mode())

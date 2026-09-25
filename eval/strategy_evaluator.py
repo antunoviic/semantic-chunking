@@ -7,63 +7,168 @@ from langchain_core.embeddings import Embeddings
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_text_splitters import CharacterTextSplitter, RecursiveCharacterTextSplitter
 
-from llm_semantic_chunker.vectorstore import VectorStore
+from eval.vectorstore import VectorStore
+from llm_semantic_chunker import LLMChunker
+from llm_semantic_chunker.text_splitter import TextSplitter
 
 
-class _OllamaLCEmbeddings(Embeddings):
-    #Adapter: langcain uses same embedding as the semantic chunker
+class _CachedLCEmbeddings(Embeddings):
+    """LangChain adapter over the evaluation's embedding function.
+
+    Caches by text, so tuning the semantic chunker's threshold embeds each
+    sentence window once rather than once per attempt.
+    """
 
     def __init__(self, embedding_fn) -> None:
         self._fn = embedding_fn
+        self._cache: dict[str, list[float]] = {}
 
     def embed_documents(self, texts: list[str]) -> list[list[float]]:
-        return self._fn(list(texts))
+        missing = [t for t in dict.fromkeys(texts) if t not in self._cache]
+        if missing:
+            self._cache.update(zip(missing, self._fn(missing)))
+        return [self._cache[t] for t in texts]
 
     def embed_query(self, text: str) -> list[float]:
-        return self._fn([text])[0]
+        return self.embed_documents([text])[0]
+
+
+# Paragraph first, then sentence ends, and only then line breaks and spaces.
+# LangChain's default order puts "\n" and " " before any sentence end, so on
+# text without short paragraphs it cuts inside sentences.
+_SENTENCE_SEPARATORS = ["\n\n", r"(?<=[.!?])\s+", "\n", " ", ""]
 
 
 def _avg_len(chunks: list[str]) -> int:
     return round(sum(map(len, chunks)) / max(1, len(chunks)))
 
 
-def build_strategies(text: str, match_len: int | None = None) -> dict[str, list[str]]:
+def _fixed(text: str, size: int, overlap: int) -> list[str]:
+    return CharacterTextSplitter(chunk_size=size, chunk_overlap=overlap, separator=" ").split_text(text)
 
-    def fixed(size: int, overlap: int) -> list[str]:
-        return CharacterTextSplitter(chunk_size=size, chunk_overlap=overlap, separator=" ").split_text(text)
 
-    def recursive(size: int = 512, overlap: int = 50) -> list[str]:
-        return RecursiveCharacterTextSplitter(chunk_size=size, chunk_overlap=overlap).split_text(text)
+def _recursive(text: str, size: int = 512, overlap: int = 50,
+               sentence_aware: bool = False) -> list[str]:
+    if sentence_aware:
+        splitter = RecursiveCharacterTextSplitter(
+            chunk_size=size, chunk_overlap=overlap, separators=_SENTENCE_SEPARATORS,
+            is_separator_regex=True, keep_separator="end")
+    else:
+        splitter = RecursiveCharacterTextSplitter(chunk_size=size, chunk_overlap=overlap)
+    return splitter.split_text(text)
 
-    out = {
-        "fixed_256": fixed(256, 20),
-        "fixed_512": fixed(512, 50),
-        "recursive": recursive(),
-    }
-    if match_len: #matches length of llm-semantic-chunker to show difference in chunkking not length
-        out[f"fixed_matched_{match_len}"] = fixed(match_len, 50)
-        size, best = match_len, None
-        for _ in range(6):
-            cand = recursive(size, 50)
-            got = _avg_len(cand)
-            if best is None or abs(got - match_len) < abs(_avg_len(best) - match_len):
-                best = cand
-            if abs(got - match_len) / match_len <= 0.04:
-                break
-            size = max(60, round(size * match_len / max(1, got)))
-        out[f"recursive_matched_{match_len}"] = best
+
+def _match_length(make, target: int, start: int) -> list[str]:
+    """Tune `make(param)` until the mean chunk length is within 4 % of `target`."""
+    param, best = start, None
+    for _ in range(6):
+        cand = make(param)
+        got = _avg_len(cand)
+        if best is None or abs(got - target) < abs(_avg_len(best) - target):
+            best = cand
+        if abs(got - target) / target <= 0.04:
+            break
+        param = max(60, round(param * target / max(1, got)))
+    return best
+
+
+def _cap_chars(chunks: list[str], max_chars: int, splitter: TextSplitter) -> list[str]:
+    """Cut chunks longer than `max_chars` at sentence boundaries, as LLMChunker does."""
+    out: list[str] = []
+    for chunk in chunks:
+        if len(chunk) <= max_chars:
+            out.append(chunk)
+            continue
+        current = ""
+        for sentence in splitter.split_sentences(chunk):
+            if current and len(current) + 1 + len(sentence) > max_chars:
+                out.append(current)
+                current = sentence
+            else:
+                current = f"{current} {sentence}".strip()
+        if current:
+            out.append(current)
     return out
 
 
-def build_semantic_lc(text: str, embedding_fn) -> list[str]:
+def build_strategies(text: str, match_len: int | None = None) -> dict[str, list[str]]:
+    out = {
+        "fixed_256": _fixed(text, 256, 20),
+        "fixed_512": _fixed(text, 512, 50),
+        "recursive": _recursive(text),
+    }
+    if match_len: #matches length of llm-semantic-chunker to show difference in chunkking not length
+        out[f"fixed_matched_{match_len}"] = _fixed(text, match_len, 50)
+        out[f"recursive_matched_{match_len}"] = _match_length(
+            lambda size: _recursive(text, size, 50), match_len, start=match_len)
+    return out
 
-    chunker = SemanticChunker(
-        _OllamaLCEmbeddings(embedding_fn),
-        breakpoint_threshold_type="percentile",
-        breakpoint_threshold_amount=95,
-    )
-    chunks = chunker.split_text(text)
-    return chunks or [text]
+
+def build_recursive_sentences(text: str, match_len: int) -> list[str]:
+    """Recursive splitting that prefers sentence ends to spaces, length-matched."""
+    return _match_length(lambda size: _recursive(text, size, 50, sentence_aware=True),
+                         match_len, start=match_len)
+
+
+class _AlwaysSameTopic:
+    """LLMClient that never opens a topic boundary, so only the size cap cuts."""
+
+    def chat(self, messages: list[dict]) -> str:
+        return "YES"
+
+
+def build_packing(text: str, match_len: int) -> list[str]:
+    """The incremental chunker with the model taken out, length-matched.
+
+    Same sentences, step and midpoint split as the LLM arm; every boundary
+    comes from the character cap, which is tuned to the target mean length.
+    Whatever the LLM arm gains over this arm is what the model's topic
+    decisions contribute.
+    """
+    def pack(max_chars: int) -> list[str]:
+        return LLMChunker(client=_AlwaysSameTopic(), respect_headings=False,
+                          step_sentences=2, max_chunk_sentences=100,
+                          max_chunk_chars=max_chars, smart_split=False,
+                          filter_low_info=False).chunk(text)
+    return _match_length(pack, match_len, start=2 * match_len)
+
+
+def build_semantic_lc(text: str, embedding_fn, match_len: int,
+                      max_chars: int | None = None) -> list[str]:
+    """LangChain's SemanticChunker, held to the same terms as the LLM arm.
+
+    The breakpoint percentile is searched until the mean chunk length matches
+    `match_len`, and chunks above `max_chars` (the LLM arm's cap) are cut at
+    sentence boundaries. At its default of percentile 95 with no cap, the
+    chunks run to thousands of characters and the embedder truncates them, so
+    the baseline loses on length rather than on where it draws boundaries.
+    """
+    embeddings = _CachedLCEmbeddings(embedding_fn)
+    sentences = TextSplitter()
+
+    def split(percentile: float) -> list[str]:
+        chunks = SemanticChunker(
+            embeddings,
+            breakpoint_threshold_type="percentile",
+            breakpoint_threshold_amount=percentile,
+        ).split_text(text) or [text]
+        return _cap_chars(chunks, max_chars, sentences) if max_chars else chunks
+
+    # a higher percentile means fewer breakpoints and longer chunks
+    lo, hi, best = 0.0, 100.0, None
+    for _ in range(12):
+        percentile = (lo + hi) / 2
+        cand = split(percentile)
+        got = _avg_len(cand)
+        if best is None or abs(got - match_len) < abs(_avg_len(best) - match_len):
+            best = cand
+        if abs(got - match_len) / match_len <= 0.04:
+            break
+        if got < match_len:
+            lo = percentile
+        else:
+            hi = percentile
+    return best
 
 #splits parents into children for search
 #search through children, retireving parent

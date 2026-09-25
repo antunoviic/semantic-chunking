@@ -7,20 +7,21 @@ try:
     import chromadb
 except ModuleNotFoundError as exc:                  # pragma: no cover
     raise ModuleNotFoundError(
-        "llm_semantic_chunker.vectorstore needs ChromaDB, an optional extra: "
-        'pip install "llm-semantic-chunker[vectorstore]". '
+        "eval.vectorstore needs ChromaDB: pip install chromadb. "
         "Chunking itself does not require it."
     ) from exc
 import httpx
 from chromadb import EmbeddingFunction, Embeddings, Documents
-from ._logging import get_logger
-from ._retry import post_with_retries
+from llm_semantic_chunker._logging import get_logger
+from llm_semantic_chunker._retry import post_with_retries
 
 logger = get_logger(__name__)
 
 
 @dataclass
 class RetrievalResult:
+    """One retrieved chunk with the distance that ranked it."""
+
     chunk_text: str
     distance: float        # lower = more similar (cosine distance)
     chunk_index: int
@@ -28,7 +29,13 @@ class RetrievalResult:
 
 
 class OllamaEmbeddingFunction(EmbeddingFunction[Documents]):
-    #Calls Ollama's /api/embed endpoint
+    """Embeds text through a local Ollama model, in ChromaDB's interface.
+
+    Keeping the embedder behind Ollama rather than loading a model in-process
+    is what lets the evaluation run on 8 GB of memory: the weights live in one
+    server shared by every arm instead of in each Python process.
+    """
+
 
     def __init__(
         self,
@@ -65,6 +72,15 @@ class OllamaEmbeddingFunction(EmbeddingFunction[Documents]):
 
 
 class VectorStore:
+    """A ChromaDB collection per arm, rebuilt on every run.
+
+    Belongs to the evaluation rather than to chunking, and is not exported from
+    the package. `add_chunks` deletes an existing collection before writing, so
+    a run never reads vectors left over from an earlier one. The cost is that
+    the HNSW graph is rebuilt each time, and its construction is not seeded —
+    identical inputs can therefore give slightly different rankings between
+    runs.
+    """
 
     #each chunking strategy gets its own chromaDB collection
 
@@ -132,9 +148,12 @@ class VectorStore:
         )
 
         wanted = k * self._DEDUPE_OVERFETCH if dedupe_by_text else k
+        count = collection.count()
+        if count == 0:                 # ChromaDB rejects n_results=0
+            return []
         results = collection.query(
             query_texts=[query_text],
-            n_results=min(wanted, collection.count()),
+            n_results=min(wanted, count),
         )
 
         out: list[RetrievalResult] = []

@@ -28,7 +28,7 @@ sys.path.insert(0, str(_Path(__file__).resolve().parent.parent.parent))   # make
 
 from app.chunk_cache import ChunkCache
 from eval.strategy_evaluator import StrategyEvaluator, build_parent_child
-from llm_semantic_chunker.vectorstore import VectorStore
+from eval.vectorstore import VectorStore
 
 CHILD_SIZES = [150, 250, 400]
 OVERLAP = 30
