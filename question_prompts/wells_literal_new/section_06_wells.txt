@@ -1,0 +1,88 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 6 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 6/40 ---
+On the left is a flint implement excavated in Gray’s Inn Lane, London; on the right one of similar form chipped by primitive men of Somaliland
+
+In many cases it is not difficult to link cause and effect, in many others erroneous ideas were soon corrected by experience; but there was a large series of issues of very great importance to primitive man, where he sought persistently for causes and found explanations that were wrong but not sufficiently wrong nor so obviously wrong as to be detected. It was a matter of great importance to him that game should be abundant or fish plentiful and easily caught, and no doubt he tried and believed in a thousand charms, incantations and omens to determine these desirable results. Another great concern of his was illness and death. Occasionally infections crept through the land and men died of them. Occasionally men were stricken by illness and died or were enfeebled without any manifest cause. This too must have given the hasty, emotional mind of primitive man much feverish exercise. Dreams and fantastic guesses made him blame this, or appeal for help to that man or beast or thing. He had the child’s aptitude for fear and panic.
+
+Quite early in the little human tribe, older, steadier minds sharing the fears, sharing the imaginations, but a little more forceful than the others, must have asserted themselves, to advise, to prescribe, to command. This they declared unpropitious and that imperative, this an omen of good and that an omen of evil. The expert in Fetish, the Medicine Man, was the first priest. He exhorted, he interpreted dreams, he warned, he performed the complicated hocus pocus that brought luck or averted calamity. Primitive religion was not so much what we now call religion as practice and observance, and the early priest dictated what was indeed an arbitrary primitive practical science.
+
+XIII THE BEGINNINGS OF CULTIVATION
+
+We are still very ignorant about the beginnings of cultivation and settlement in the world although a vast amount of research and speculation has been given to these matters in the last fifty years. All that we can say with any confidence at present is that somewhen about 15,000 and 12,000 B.C. while the Azilian people were in the south of Spain and while the remnants of the earlier hunters were drifting northward and eastward, somewhere in North Africa or Western Asia or in that great Mediterranean valley that is now submerged under the waters of the Mediterranean sea, there were people who, age by age, were working out two vitally important things; they were beginning cultivation and they were domesticating animals. They were also beginning to make, in addition to the chipped implements of their hunter forebears, implements of polished stone. They had discovered the possibility of basketwork and roughly woven textiles of plant fibre, and they were beginning to make a rudely modelled pottery.
+
+They were entering upon a new phase in human culture, the Neolithic phase (New Stone Age) as distinguished from the Palæolithic (Old Stone) phase of the Cro-Magnards, the Grimaldi people, the Azilians and their like. [1] Slowly these Neolithic people spread over the warmer parts of the world; and the arts they had mastered, the plants and animals they had learnt to use, spread by imitation and acquisition even more widely than they did. By 10,000 B.C., most of mankind was at the Neolithic level.
+
+Now the ploughing of land, the sowing of seed, the reaping of harvest, threshing and grinding, may seem the most obviously reasonable steps to a modern mind just as to a modern mind it is a commonplace that the world is round. What else could you do? people will ask. What else can it be? But to the primitive man of twenty thousand years ago neither of the systems of action and reasoning that seem so sure and manifest to us to-day were at all obvious. He felt his way to effectual practice through a multitude of trials and misconceptions, with fantastic and unnecessary elaborations and false interpretations at every turn. Somewhere in the Mediterranean region, wheat grew wild; and man may have learnt to pound and then grind up its seeds for food long before he learnt to sow. He reaped before he sowed.
+
+And it is a very remarkable thing that throughout the world wherever there is sowing and harvesting there is still traceable the vestiges of a strong primitive association of the idea of sowing with the idea of a blood sacrifice, and primarily of the sacrifice of a human being. The study of the original entanglement of these two things is a profoundly attractive one to the curious mind; the interested reader will find it very fully developed in that monumental work, Sir J. G. Frazer’s _Golden Bough_. It was an entanglement, we must remember, in the childish, dreaming, myth-making primitive mind; no reasoned process will explain it. But in that world of 12,000 to 20,000 years ago, it would seem that whenever seed time came round to the Neolithic peoples there was a human sacrifice. And it was not the sacrifice of any mean or outcast person; it was the sacrifice usually of a chosen youth or maiden, a youth more often who was treated with profound deference and even worship up to the moment of his immolation. He was a sort of sacrificial god-king, and all the details of his killing had become a ritual directed by the old, knowing men and sanctioned by the accumulated usage of ages.
+
+At first primitive men, with only a very rough idea of the seasons, must have found great difficulty in determining when was the propitious moment for the seed-time sacrifice and the sowing. There is some reason for supposing that there was an early stage in human experience when men had no idea of a year. The first chronology was in lunar months; it is supposed that the years of the Biblical patriarchs are really moons, and the Babylonian calendar shows distinct traces of an attempt to reckon seed time by taking thirteen lunar months to see it round. This lunar influence upon the calendar reaches down to our own days. If usage did not dull our sense of its strangeness we should think it a very remarkable thing indeed that the Christian Church does not commemorate the Crucifixion and Resurrection of Christ on the proper anniversaries but on dates that vary year by year with the phases of the moon.
+
+It may be doubted whether the first agriculturalists made any observation of the stars. It is more likely that stars were first observed by migratory herdsmen, who found them a convenient mark of direction. But once their use in determining seasons was realized, their importance to agriculture became very great. The seed-time sacrifice was linked up with the southing or northing of some prominent star. A myth and worship of that star was for primitive man an almost inevitable consequence.
+
+Spearheads, exactly as in the true Neolithic days, but made recently by Australian Natives,
+
+(1) Made from a telegraph insulator;
+
+(2) from a piece of broken bottle glass.
+
+It is easy to see how important the man of knowledge and experience, the man who knew about the blood sacrifice and the stars, became in this early Neolithic world.
+
+The fear of uncleanness and pollution, and the methods of cleansing that were advisable, constituted another source of power for the knowledgeable men and women. For there have always been witches as well as wizards, and priestesses as well as priests. The early priest was really not so much a religious man as a man of applied science. His science was generally empirical and often bad; he kept it secret from the generality of men very jealously; but that does not alter the fact that his primary function was knowledge and that his primary use was a practical use.
+
+Dug up at Mortlake from the Thames Bed
+
+Twelve or fifteen thousand years ago, in all the warm and fairly well-watered parts of the Old World these Neolithic human communities, with their class and tradition of priests and priestesses and their cultivated fields and their development of villages and little walled cities, were spreading. Age by age a drift and exchange of ideas went on between these communities. Eliot Smith and Rivers have used the term “Heliolithic culture” for the culture of these first agricultural peoples. “Heliolithic” (Sun and Stone) is not perhaps the best possible word to use for this, but until scientific men give us a better one we shall have to use it. Originating somewhere in the Mediterranean and western Asiatic area, it spread age by age eastward and from island to island across the Pacific until it may even have reached America and mingled with the more primitive ways of living of the Mongoloid immigrants coming down from the North.
+
+Wherever the brownish people with the Heliolithic culture went they took with them all or most of a certain group of curious ideas and practices. Some of them are such queer ideas that they call for the explanation of the mental expert. They made pyramids and great mounds, and set up great circles of big stones, perhaps to facilitate the astronomical observation of the priests; they made mummies of some or all of their dead; they tattooed and circumcized; they had the old custom, known as the _couvade_, of sending the _father_ to bed and rest when a child was born, and they had as a luck symbol the well-known Swastika.
+
+If we were to make a map of the world with dots to show how far these group practices have left their traces, we should make a belt along the temperate and sub-tropical coasts of the world from Stonehenge and Spain across the world to Mexico and Peru. But Africa below the equator, north central Europe, and north Asia would show none of these dottings; there lived races who were developing along practically independent lines.
+
+[1] The term Palæolithic we may note is also used to cover the Neanderthaler and even the Eolithic implements. The pre-human age is called the “Older Palæolithic;” the age of true men using unpolished stones in the “Newer Palæolithic.”
+
+XIV PRIMITIVE NEOLITHIC CIVILIZATIONS
+
+About 10,000 B.C. the geography of the world was very similar in its general outline to that of the world to-day. It is probable that by that time the great barrier across the Straits of Gibraltar that had hitherto banked back the ocean waters from the Mediterranean valley had been eaten through, and that the Mediterranean was a sea following much the same coastlines as it does now. The Caspian Sea was probably still far more extensive than it is at present, and it may have been continuous with the Black Sea to the north of the Caucasus Mountains. About this great Central Asian sea lands that are now steppes and deserts were fertile and habitable. Generally it was a moister and more fertile world. European Russia was much more a land of swamp and lake than it is now, and there may still have been a land connexion between Asia and America at Behring Straits.
+
+It would have been already possible at that time to have distinguished the main racial divisions of mankind as we know them to-day. Across the warm temperate regions of this rather warmer and better-wooded world, and along the coasts, stretched the brownish peoples of the Heliolithic culture, the ancestors of the bulk of the living inhabitants of the Mediterranean world, of the Berbers, the Egyptians and of much of the population of South and Eastern Asia. This great race had of course a number of varieties. The Iberian or Mediterranean or “dark-white” race of the Atlantic and Mediterranean coast, the “Hamitic” peoples which include the Berbers and Egyptians, the Dravidians; the darker people of India, a multitude of East Indian people, many Polynesian races and the Maoris are all divisions of various value of this great main mass of humanity. Its western varieties are whiter than its eastern.
+
+men with blue eyes was becoming distinguishable, branching off from the main mass of brownish people, a variety which many people now speak of as the Nordic race. In the more open regions of northeastern Asia was another differentiation of this brownish humanity in the direction of a type with more oblique eyes, high cheek-bones, a yellowish skin, and very straight black hair, the Mongolian peoples. In South Africa, Australia, in many tropical islands in the south of Asia were remains of the early negroid peoples. The central parts of Africa were already a region of racial intermixture. Nearly all the coloured races of Africa to-day seem to be blends of the brownish peoples of the north with a negroid substratum.
+
+A Diagrammatic Summary of Current Ideas of the Relationship of Human Races
+
+We have to remember that human races can all interbreed freely and that they separate, mingle and reunite as clouds do. Human races do not branch out like trees with branches that never come together again. It is a thing we need to bear constantly in mind, this remingling of races at any opportunity. It will save us from many cruel delusions and prejudices if we do so. People will use such a word as race in the loosest manner, and base the most preposterous generalizations upon it. They will speak of a “British” race or of a “European” race. But nearly all the European nations are confused mixtures of brownish, dark-white, white and Mongolian elements.
+
+Showing a worshipper and a Serpent God. Note the grotesque faces in the writing
+
+It was at the Neolithic phase of human development that peoples of the Mongolian breed first made their way into America. Apparently they came by way of Behring Straits and spread southward. They found caribou, the American reindeer, in the north and great herds of bison the Glyptodon, a gigantic armadillo, and the Megatherium, a monstrous clumsy sloth as high as an elephant. They probably exterminated the latter beast, which was as helpless as it was big.
+
+The greater portion of these American tribes never rose above a hunting nomadic Neolithic life. They never discovered the use of iron, and their chief metal possessions were native gold and copper. But in Mexico, Yucatan and Peru conditions existed favourable to settled cultivation, and here about 1000 B.C. or so arose very interesting civilizations of a parallel but different type from the old-world civilization. Like the much earlier primitive civilizations of the old world these communities displayed a great development of human sacrifice about the processes of seed time and harvest; but while in the old world, as we shall see, these primary ideas were ultimately mitigated, complicated and overlaid by others, in America they developed and were elaborated, to a very high degree of intensity. These American civilized countries were essentially priest-ruled countries; their war chiefs and rulers were under a rigorous rule of law and omen.
+--- END OF SECTION ---

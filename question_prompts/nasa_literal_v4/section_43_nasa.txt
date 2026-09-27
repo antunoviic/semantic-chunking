@@ -1,0 +1,32 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 43 of 43 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 43/43 ---
+287 NASA SYSTEMS ENGINEERING HANDBOOK Bibliography Institute of Defense Analyses (IDA) Report R-338, Dec 1988 Wolfram, Mathematica http://www.wolfram.com/ mathematica/ X XMI: Extensible Markup Language (XML) Metadata Interchange (XMI) http://www.omg. org/spec/XMI/ XML: Extensible Markup Language (XML) http:// www.w3.org/TR/REC-xml/ Z Ziemer, J., Ervin, J., Lang, J., “Exploring Mission Concepts with the JPL Innovation Foundry A-Tea m,” AIAA Space 2013 Proceedings, September 10–12, 2013, San Diego, CA
+--- END OF SECTION ---

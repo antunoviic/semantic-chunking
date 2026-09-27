@@ -257,7 +257,7 @@ entirely and finishes the retrieval in under two minutes.
 | fixed_256                   |    100 |     249 | 35.7% | 35.7% | 0.373 |       753 |
 ```
 
-**These numbers are a smoke test, not a result.** The demo set has fourteen questions, so a single question moves the ranking heavily and is not conclusive for the overall chunking. Its purpose is to show that the harness runs end to end and produces the comparison. (The thesis used question sets of 292, 296 and 400 questions.)
+**These numbers are a smoke test, not a result.** The demo set has fourteen questions, so a single question moves the ranking heavily and is not conclusive for the overall chunking. Its purpose is to show that the harness runs end to end and produces the comparison. (The thesis used question sets of 534, 549 and 400 questions.)
 
 ### What it compares
 

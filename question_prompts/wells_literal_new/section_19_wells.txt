@@ -1,0 +1,86 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 19 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 19/40 ---
+After the Greek conquest, the new city of Alexandria became the centre of Egyptian religious life, and indeed of the religious life of the whole Hellenic world. A great temple, the Serapeum, was set up by Ptolemy I at which a sort of trinity of gods was worshipped. These were Serapis (who was Osiris-Apis rechristened), Isis and Horus. These were not regarded as separate gods but as three aspects of one god, and Serapis was identified with the Greek Zeus, the Roman Jupiter and the Persian sun-god. This worship spread wherever the Hellenic influence extended, even into North India and Western China. The idea of immortality, an immortality of compensations and consolation, was eagerly received by a world in which the common life was hopelessly wretched. Serapis was called “the saviour of souls.” “After death,” said the hymns of that time, “we are still in the care of his providence.” Isis attracted many devotees. Her images stood in her temples, as Queen of Heaven, bearing the infant Horus in her arms. Candles were burnt before her, votive offerings were made to her, shaven priests consecrated to celibacy waited on her altar.
+
+The rise of the Roman empire opened the western European world to this growing cult. The temples of Serapis-Isis, the chanting of the priests and the hope of immortal life, followed the Roman standards to Scotland and Holland. But there were many rivals to the Serapis-Isis religion. Prominent among these was Mithraism. This was a religion of Persian origin, and it centred upon some now forgotten mysteries about Mithras sacrificing a sacred and benevolent bull. Here we seem to have something more primordial than the complicated and sophisticated Serapis-Isis beliefs. We are carried back directly to the blood sacrifices of the heliolithic stage in human culture. The bull upon the Mithraic monuments always bleeds copiously from a wound in its side, and from this blood springs new life. The votary to Mithraism actually bathed in the blood of the sacrificial bull. At his initiation he went beneath a scaffolding upon which a bull was killed so that the blood could actually run down on him.
+
+Both these religions, and the same is true of many other of the numerous parallel cults that sought the allegiance of the slaves and citizens under the earlier Roman emperors, are personal religions. They aim at personal salvation and personal immortality. The older religions were not personal like that; they were social. The older fashion of divinity was god or goddess of the city first or of the state, and only secondarily of the individual. The sacrifices were a public and not a private function. They concerned collective practical needs in this world in which we live. But the Greeks first and now the Romans had pushed religion out of politics. Guided by the Egyptian tradition religion had retreated to the other world.
+
+Represented as the God Mithras, Roman, Circa A.D. 190
+
+_(In the British Museum)_
+
+These new private immortality religions took all the heart and emotion out of the old state religions, but they did not actually replace them. A typical city under the earlier Roman emperors would have a number of temples to all sorts of gods. There might be a temple to Jupiter of the Capitol, the great god of Rome, and there would probably be one to the reigning Cæsar. For the Cæsars had learnt from the Pharaohs the possibility of being gods. In such temples a cold and stately political worship went on; one would go and make an offering and burn a pinch of incense to show one’s loyalty. But it would be to the temple of Isis, the dear Queen of Heaven, one would go with the burthen of one’s private troubles for advice and relief. There might be local and eccentric gods. Seville, for example, long affected the worship of the old Carthaginian Venus. In a cave or an underground temple there would certainly be an altar to Mithras, attended by legionaries and slaves. And probably also there would be a synagogue where the Jews gathered to read their Bible and uphold their faith in the unseen God of all the Earth.
+
+Sometimes there would be trouble with the Jews about the political side of the state religion. They held that their God was a jealous God intolerant of idolatry, and they would refuse to take part in the public sacrifices to Cæsar. They would not even salute the Roman standards for fear of idolatry.
+
+and women who gave up most of the delights of life, who repudiated marriage and property and sought spiritual powers and an escape from the stresses and mortifications of the world in abstinence, pain and solitude. Buddha himself set his face against ascetic extravagances, but many of his disciples followed a monkish life of great severity. Obscure Greek cults practised similar disciplines even to the extent of self-mutilation. Asceticism appeared in the Jewish communities of Judea and Alexandria also in the first century B.C. Communities of men abandoned the world and gave themselves to austerities and mystical contemplation. Such was the sect of the Essenes. Throughout the first and second centuries A.D. there was an almost world-wide resort to such repudiations of life, a universal search for “salvation” from the distresses of the time. The old sense of an established order, the old confidence in priest and temple and law and custom, had gone. Amidst the prevailing slavery, cruelty, fear, anxiety, waste, display and hectic self-indulgence, went this epidemic of self- disgust and mental insecurity, this agonized search for peace even at the price of renunciation and voluntary suffering. This it was that filled the Serapeum with weeping penitents and brought the converts into the gloom and gore of the Mithraic cave.
+
+XXXVII THE TEACHING OF JESUS
+
+It was while Augustus Cæsar, the first of the Emperors, was reigning in Rome that Jesus who is the Christ of Christianity was born in Judea. In his name a religion was to arise which was destined to become the official religion of the entire Roman Empire.
+
+Now it is on the whole more convenient to keep history and theology apart. A large proportion of the Christian world believes that Jesus was an incarnation of that God of all the Earth whom the Jews first recognized. The historian, if he is to remain historian, can neither accept nor deny that interpretation. Materially Jesus appeared in the likeness of a man, and it is as a man that the historian must deal with him.
+
+He appeared in Judea in the reign of Tiberius Cæsar. He was a prophet. He preached after the fashion of the preceding Jewish prophets. He was a man of about thirty, and we are in the profoundest ignorance of his manner of life before his preaching began.
+
+Our only direct sources of information about the life and teaching of Jesus are the four Gospels. All four agree in giving us a picture of a very definite personality. One is obliged to say, “Here was a man. This could not have been invented.”
+
+But just as the personality of Gautama Buddha has been distorted and obscured by the stiff squatting figure, the gilded idol of later Buddhism, so one feels that the lean and strenuous personality of Jesus is much wronged by the unreality and conventionality that a mistaken reverence has imposed upon his figure in modern Christian art. Jesus was a penniless teacher, who wandered about the dusty sun-bit country of Judea, living upon casual gifts of food; yet he is always represented clean, combed and sleek, in spotless raiment, erect and with something motionless about him as though he was gliding through the air. This alone has made him unreal and incredible to many people who cannot distinguish the core of the story from the ornamental and unwise additions of the unintelligently devout.
+
+We are left, if we do strip this record of these difficult accessories, with the figure of a being, very human, very earnest and passionate, capable of swift anger, and teaching a new and simple and profound doctrine—namely, the universal loving Fatherhood of God and the coming of the Kingdom of Heaven. He was clearly a person—to use a common phrase—of intense personal magnetism. He attracted followers and filled them with love and courage. Weak and ailing people were heartened and healed by his presence. Yet he was probably of a delicate physique, because of the swiftness with which he died under the pains of crucifixion. There is a tradition that he fainted when, according to the custom, he was made to bear his cross to the place of execution. He went about the country for three years spreading his doctrine and then he came to Jerusalem and was accused of trying to set up a strange kingdom in Judea; he was tried upon this charge, and crucified together with two thieves. Long before these two were dead his sufferings were over.
+
+The doctrine of the Kingdom of Heaven, which was the main teaching of Jesus, is certainly one of the most revolutionary doctrines that ever stirred and changed human thought. It is small wonder if the world of that time failed to grasp its full significance, and recoiled in dismay established habits and institutions of mankind. For the doctrine of the Kingdom of Heaven, as Jesus seems to have preached it, was no less than a bold and uncompromising demand for a complete change and cleansing of the life of our struggling race, an utter cleansing, without and within. To the gospels the reader must go for all that is preserved of this tremendous teaching; here we are only concerned with the jar of its impact upon established ideas.
+
+The Jews were persuaded that God, the one God of the whole world, was a righteous god, but they also thought of him as a trading god who had made a bargain with their Father Abraham about them, a very good bargain indeed for them, to bring them at last to predominance in the earth. With dismay and anger they heard Jesus sweeping away their dear securities. God, he taught, was no bargainer; there were no chosen people and no favourites in the Kingdom of Heaven. God was the loving father of all life, as incapable of showing favour as the universal sun. And all men were brothers—sinners alike and beloved sons alike—of this divine father. In the parable of the Good Samaritan Jesus cast scorn upon that natural tendency we all obey, to glorify our own people and to minimize the righteousness of other creeds and other races. In the parable of the labourers he thrust aside the obstinate claim of the Jews to have a special claim upon God. All whom God takes into the kingdom, he taught, God serves alike; there is no distinction in his treatment, because there is no measure to his bounty. From all moreover, as the parable of the buried talent witnesses, and as the incident of the widow’s mite enforces, he demands the utmost. There are no privileges, no rebates and no excuses in the Kingdom of Heaven.
+
+But it is not only the intense tribal patriotism of the Jews that Jesus outraged. They were a people of intense family loyalty, and he would have swept away all the narrow and restrictive family affections in the great flood of the love of God. The whole kingdom of Heaven was to be the family of his followers. We are told that, “While he yet talked to the people, behold, his mother and his brethren stood without, desiring to speak with him. Then one said unto him, Behold, thy mother and thy brethren stand without, desiring to speak with thee. But he answered and said unto him that told him, Who is my mother? and who are my brethren? And he stretched forth his hands towards his disciples, and said, Behold my mother and my brethren! For whosoever shall do the will of my Father which is in heaven, the same is my brother, and sister, and mother.? [1]
+
+And not only did Jesus strike at patriotism and the bonds of family loyalty in the name of God’s universal fatherhood and brotherhood of all mankind, but it is clear that his teaching condemned all the gradations of the economic system, all private wealth, and personal advantages. All men belonged to the kingdom; all their possessions belonged to the kingdom; the righteous life for all men, the only righteous life, was the service of God’s will with all that we had, with all that we were. Again and again he denounced private riches and the reservation of any private life.
+
+“And when he was gone forth into the way, there came one running, and kneeled to him, and asked him, Good Master, what shall I do that I may inherit eternal life? And Jesus said to him, Why callest thou me good? there is none good but one, that is God. Thou knowest the commandments, Do not commit adultery, Do not kill, Do not steal, Do not bear false witness, Defraud not, Honour thy father and mother. And he answered and said unto him, Master, all these things have I observed One thing thou lackest; go thy way, sell whatsoever thou hast, and give to the poor, and thou shalt have treasure in heaven; and come, take up the cross, and follow me. And he was sad at that saying, and went away grieved; for he had great possessions.
+
+Along such a thoroughfare Christ carried his cross to the place of execution
+
+“And Jesus looked round about, and saith unto his disciples, How hardly shall they that have riches enter into the Kingdom of God! And the disciples were astonished at his words. But Jesus answered again, and saith unto them, Children, how hard is it for them that trust in riches to enter into the Kingdom of God! It is easier for a camel to go through the eye of a needle, than for a rich man to enter into the Kingdom of God.” [2]
+
+Moreover, in his tremendous prophecy of this kingdom which was to make all men one together in God, Jesus had small patience for the bargaining righteousness of formal religion. Another large part of his recorded utterances is aimed against the meticulous observance of the rules of the pious career. “Then the Pharisees and scribes asked him, Why walk not thy disciples according to the tradition of the elders, but eat bread with unwashen hands? He answered and said unto them, Well hath Isaiah prophesied of you hypocrites, as it is written,
+
+“This people honoureth me with their lips,
+
+“But their heart is far from me.
+
+“Howbeit in vain do they worship me,
+
+“Teaching for doctrines the commandments of men.
+
+“For laying aside the commandment of God, ye hold the tradition of men, as the washing of pots and cups: and many other such things ye do. And he said unto them, Full well ye reject the commandment of God, that ye may keep your own tradition.” [3]
+--- END OF SECTION ---

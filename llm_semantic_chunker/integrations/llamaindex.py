@@ -27,11 +27,11 @@ class LLMSemanticNodeParser(TextSplitter):
 
     _chunker: LLMChunker = PrivateAttr()
 
-    def __init__(self, client=None, **chunker_kwargs) -> None:
+    def __init__(self, client=None, **settings) -> None:  #puts all arguments into a dict
         super().__init__()
-        chunker_kwargs.setdefault("mode", "incremental")
+        settings.setdefault("mode", "incremental")
         self._chunker = LLMChunker(client=client or OllamaClient(),
-                                   config=ChunkerConfig(**chunker_kwargs))
+                                   config=ChunkerConfig(**settings))
 
     def split_text(self, text: str) -> list[str]:
         return self._chunker.chunk(text)

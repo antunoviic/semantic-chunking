@@ -1,0 +1,92 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 22 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 22/40 ---
+War, the bitterest theology, and the usual vices of mankind constituted Byzantine life of those days. It was picturesque, it was romantic; it had little sweetness or light. When Byzantium and Persia were not fighting the barbarians from the north, they wasted Asia Minor and Syria in dreary and destructive hostilities. Even in close alliance these two empires would have found it a hard task to turn back the barbarians and recover their prosperity. The Turks or Tartars first come into history as the allies first of one power and then of another. Chosroes I; in the opening of the seventh the Emperor Heraclius was pitted against Chosroes II (580).
+
+At first and until after Heraclius had become Emperor (610) Chosroes II carried all before him. He took Antioch, Damascus and Jerusalem and his armies reached Chalcedon, which is in Asia Minor over against Constantinople. In 619 he conquered Egypt. Then Heraclius pressed a counter attack home and routed a Persian army at Nineveh (627), although at that time there were still Persian troops at Chalcedon. In 628 Chosroes II was deposed and murdered by his son, Kavadh, and an inconclusive peace was made between the two exhausted empires.
+
+Byzantium and Persia had fought their last war. But few people as yet dreamt of the storm that was even then gathering in the deserts to put an end for ever to this aimless, chronic struggle.
+
+While Heraclius was restoring order in Syria a message reached him. It had been brought in to the imperial outpost at Bostra south of Damascus; it was in Arabic, an obscure Semitic desert language, and it was read to the Emperor, if it reached him at all, by an interpreter. It was from someone who called himself “Muhammad the Prophet of God.” It called upon the Emperor to acknowledge the One True God and to serve him. What the Emperor said is not recorded.
+
+A similar message came to Kavadh at Ctesiphon. He was annoyed, tore up the letter, and bade the messenger begone.
+
+This Muhammad, it appeared, was a Bedouin leader whose headquarters were in the mean little desert town of Medina. He was preaching a new religion of faith in the One True God.
+
+“Even so, O Lord!” he said; “rend thou his Kingdom from Kavadh.”
+
+XLII THE DYNASTIES OF SUY AND TANG IN CHINA
+
+Throughout the fifth, sixth, seventh and eighth centuries, there was a steady drift of Mongolian peoples westward. The Huns of Attila were merely precursors of this advance, which led at last to the establishment of Mongolian peoples in Finland, Esthonia, Hungary and Bulgaria, where their descendants, speaking languages akin to Turkish, survive to this day. The Mongolian nomads were, in fact, playing a role towards the Aryanized civilizations of Europe and Persia and India that the Aryans had played to the Ægean and Semitic civilizations ten or fifteen centuries before.
+
+In Central Asia the Turkish peoples had taken root in what is now Western Turkestan, and Persia already employed many Turkish officials and Turkish mercenaries. The Parthians had gone out of history, absorbed into the general population of Persia. There were no more Aryan nomads in the history of Central Asia; Mongolian people had replaced them. The Turks became masters of Asia from China to the Caspian.
+
+The same great pestilence at the end of the second century A.D. that had shattered the Roman Empire had overthrown the Han dynasty in China. Then came a period of division and of Hunnish conquests from which China arose refreshed, more rapidly and more completely than Europe was destined to do. Before the end of the sixth century China was reunited under the Suy dynasty, and this by the time of Heraclius gave place to the Tang dynasty, whose reign marks another great period of prosperity for China.
+
+Specimens in glazed earthenware, in brown, green and buff, discovered in tombs in China
+
+_(In the Victoria and Albert Museum)_
+
+Throughout the seventh, eighth and ninth centuries China was the most secure and civilized country in the world. The Han dynasty had extended her boundaries in the north; the Suy and Tang dynasties now spread her civilization to the south, and China began to assume the proportions she has to-day. In Central Asia indeed she reached much further, extending at last, through tributary Turkish tribes, to Persia and the Caspian Sea.
+
+The new China that had arisen was a very different land from the old China of the Hans. A new and more vigorous literary school appeared, there was a great poetic revival; Buddhism had revolutionized philosophical and religious thought. There were great advances in artistic work, in technical skill and in all the amenities of life. Tea was first used, paper manufactured and wood-block printing began. Millions of people indeed were leading orderly, graceful and kindly lives in China during these centuries when the attenuated populations of Europe and Western Asia were living either in hovels, small walled cities or grim robber fortresses. While the mind of the west was black with theological obsessions, the mind of China was open and tolerant and enquiring.
+
+One of the earliest monarchs of the Tang dynasty was Tai- tsung, who began to reign in 627, the year of the victory of Heraclius at Nineveh. He received an embassy from Heraclius, who was probably seeking an ally in the rear of Persia. From Persia itself came a party of Christian missionaries (635). They were allowed to explain their creed to Tai-tsung and he examined a Chinese translation of their Scriptures. He pronounced this strange religion acceptable, and gave permission for the foundation of a church and monastery.
+
+To this monarch also (in 628) came messengers from Muhammad. They came to Canton on a trading ship. They had sailed the whole way from Arabia along the Indian coasts. Unlike Heraclius and Kavadh, Tai-Tsung gave these envoys a courteous hearing. He expressed his interest in their theological ideas and assisted them to build a mosque in Canton, a mosque which survives, it is said, to this day, the oldest mosque in the world.
+
+XLIII MUHAMMAD AND ISLAM
+
+A prophetic amateur of history surveying the world in the opening of the seventh century might have concluded very reasonably that it was only a question of a few centuries before the whole of Europe and Asia fell under Mongolian domination. There were no signs of order or union in Western Europe, and the Byzantine and Persian Empires were manifestly bent upon a mutual destruction. India also was divided and wasted. On the other hand China was a steadily expanding empire which probably at that time exceeded all Europe in population, and the Turkish people who were growing to power in Central Asia were disposed to work in accord with China. And such a prophecy would not have been an altogether vain one. A time was to come in the thirteenth century when a Mongolian overlord would rule from the Danube to the Pacific, and Turkish dynasties were destined to reign over the entire Byzantine and Persian Empires, over Egypt and most of India.
+
+Where our prophet would have been most likely to have erred would have been in under-estimating the recuperative power of the Latin end of Europe and in ignoring the latent forces of the Arabian desert. Arabia would have seemed what it had been for times immemorial, the refuge of small and bickering nomadic tribes. No Semitic people had founded an empire now for more than a thousand years.
+
+Then suddenly the Bedouin flared out for a brief century of splendour. They spread their rule and language from Spain to the boundaries of China. They gave the world a new culture. They created a religion that is still to this day one of the most vital forces in the world.
+
+The man who fired this Arab flame appears first in history as the young husband of the widow of a rich merchant of the town of Mecca, named Muhammad. Until he was forty he did very little to distinguish himself religious discussion. Mecca was a pagan city at that time worshipping in particular a black stone, the Kaaba, of great repute throughout all Arabia and a centre of pilgrimages; but there were great numbers of Jews in the country—indeed all the southern portion of Arabia professed the Jewish faith—and there were Christian churches in Syria.
+
+About forty Muhammad began to develop prophetic characteristics like those of the Hebrew prophets twelve hundred years before him. He talked first to his wife of the One True God, and of the rewards and punishments of virtue and wickedness. There can be no doubt that his thoughts were very strongly influenced by Jewish and Christian ideas. He gathered about him a small circle of believers and presently began to preach in the town against the prevalent idolatry. This made him extremely unpopular with his fellow townsmen because the pilgrimages to the Kaaba were the chief source of such prosperity as Mecca enjoyed. He became bolder and more definite in his teaching, declaring himself to be the last chosen prophet of God entrusted with a mission to perfect religion. Abraham, he declared, and Jesus Christ were his forerunners. He had been chosen to complete and perfect the revelation of God’s will.
+
+He produced verses which he said had been communicated to him by an angel, and he had a strange vision in which he was taken up through the Heavens to God and instructed in his mission.
+
+As his teaching increased in force the hostility of his fellow townsmen increased also. At last a plot was made to kill him; but he escaped with his faithful friend and disciple, Abu Bekr, to the friendly town of Medina which adopted his doctrine. Hostilities followed between Mecca and Medina which ended at last in a treaty. Mecca was to adopt the worship of the One True God and accept Muhammad as his prophet, _but the adherents of the new faith were still to make the pilgrimage to Mecca_ just as they had done when they were pagans. So Muhammad established the One True God in Mecca without injuring its pilgrim traffic. In 629 Muhammad returned to Mecca as its master, a year after he had sent out these envoys of his to Heraclius, Tai-tsung, Kavadh and all the rulers of the earth.
+
+Then for four years more until his death in 632, Muhammad spread his power over the rest of Arabia. He married a number of wives in his declining years, and his life on the whole was by modern standards unedifying. He seems to have been a man compounded of very considerable vanity, greed, cunning, self-deception and quite sincere religious passion. He dictated a book of injunctions and expositions, the Koran, which he declared was communicated to him from God. Regarded as literature or philosophy the Koran is certainly unworthy of its alleged Divine authorship.
+
+Yet when the manifest defects of Muhammad’s life and writings have been allowed for, there remains in Islam, this faith he imposed upon the Arabs, much power and inspiration. One is its uncompromising monotheism; its simple enthusiastic faith in the rule and fatherhood of God and its freedom from theological complications. Another is its complete detachment from the sacrificial priest and the temple. It is an entirely prophetic religion, proof against any possibility of relapse towards blood sacrifices. In the Koran the limited and ceremonial nature of the pilgrimage to Mecca is stated beyond the possibility of dispute, and every precaution was taken by Muhammad to prevent the deification of himself after his death. And a third element of strength lay in the insistence of Islam upon the perfect brotherhood and equality before God of all believers, whatever their colour, origin or status.
+
+These are the things that made Islam a power in human affairs. It has been said that the true founder of the Empire of Islam was not so much Muhammad as his friend and helper, Abu Bekr. If Muhammad, with his shifty character, was the mind and imagination of primitive Islam, Abu Bekr was its conscience and its will. Whenever Muhammad wavered Abu Bekr sustained him. And when Muhammad died, Abu Bekr became Caliph (= successor), and with that faith that moves mountains, he set himself simply and sanely to organize the subjugation of the whole world to Allah—with little armies of 3,000 or 4,000 Arabs—according to those letters the prophet had written from Medina in 628 to all the monarchs of the world.
+
+XLIV THE GREAT DAYS OF THE ARABS
+
+There follows the most amazing story of conquest in the whole history of our race. The Byzantine army was smashed at the battle of the Yarmuk (a tributary of the Jordan) in 634; and the Emperor Heraclius, his energy sapped by dropsy and his resources exhausted by the Persian war, saw his new conquests in Syria, Damascus, Palmyra, Antioch, Jerusalem and the rest fall almost without resistance to the Moslim. Large elements in the population went over to Islam. Then the Moslim turned east. The Persians had found an able general in Rustam; they had a great host with a force of elephants; and for three days they fought the Arabs at Kadessia (637) and broke at last in headlong rout.
+
+The conquest of all Persia followed, and the Moslem Empire pushed far into Western Turkestan and eastward until it met the Chinese. Egypt fell almost without resistance to the new conquerors, who full of a fanatical belief in the sufficiency of the Koran, wiped out the vestiges of the book-copying industry of the Alexandria Library. The tide of conquest poured along the north coast of Africa to the Straits of Gibraltar and Spain. Spain was invaded in 710 and the Pyrenees Mountains were reached in 720. In 732 the Arab advance had reached the centre of France, but here it was stopped for good at the battle of Poitiers and thrust back as far as the Pyrenees again. The conquest of Egypt had given the Moslim a fleet, and for a time it looked as though they would take Constantinople. They made repeated sea attacks between 672 and 718 but the great city held out against them.
+--- END OF SECTION ---

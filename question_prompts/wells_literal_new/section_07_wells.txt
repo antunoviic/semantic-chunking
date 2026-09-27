@@ -1,0 +1,86 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 7 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 7/40 ---
+This linking of these aberrant American civilizations to the idea of a general mental aberration finds support in their extraordinary obsession by the shedding of human blood. The Mexican civilization in particular ran blood; it offered thousands of human victims yearly. The cutting open of living victims, the tearing out of the still beating heart, was an act that dominated the minds and lives of these strange priesthoods. The public life, the national festivities all turned on this fantastically horrible act.
+
+Modelled from drawing by Prof. Rutot
+
+The ordinary existence of the common people in these communities was very like the ordinary existence of any other barbaric peasantry. Their pottery, weaving and dyeing was very good. The Maya writing was not only carven on stone but written and painted upon skins and the like. The European and American museums contain many enigmatical Maya manuscripts of which at present little has been deciphered except the dates. In Peru there were beginnings of a similar writing but they were superseded by a method of keeping records by knotting cords. A similar method of mnemonics was in use in China thousands of years ago.
+
+thousand years earlier, there were primitive civilizations not unlike these American civilizations; civilizations based upon a temple, having a vast quantity of blood sacrifices and with an intensely astronomical priesthood. But in the old world the primitive civilizations reacted upon one another and developed towards the conditions of our own world. In America these primitive civilizations never progressed beyond this primitive stage. Each of them was in a little world of its own. Mexico it seems knew little or nothing of Peru, until the Europeans came to America. The potato, which was the principal food stuff in Peru, was unknown in Mexico.
+
+Age by age these peoples lived and marvelled at their gods and made their sacrifices and died. Maya art rose to high levels of decorative beauty. Men made love and tribes made war. Drought and plenty, pestilence and health, followed one another. The priests elaborated their calendar and their sacrificial ritual through long centuries, but made little progress in other directions.
+
+XV SUMERIA, EARLY EGYPT AND WRITING
+
+The old world is a wider, more varied stage than the new. By 6000 or 7000 B.C. there were already quasi-civilized communities almost at the Peruvian level, appearing in various fertile regions of Asia and in the Nile valley. At that time north Persia and western Turkestan and south Arabia were all more fertile than they are now, and there are traces of very early communities in these regions. It is in lower Mesopotamia however and in Egypt that there first appear cities, temples, systematic irrigation, and evidences of a social organization rising above the level of a mere barbaric village-town. In those days the Euphrates and Tigris flowed by separate mouths into the Persian Gulf, and it was in the country between them that the Sumerians built their first cities. About the same time, for chronology is still vague, the great history of Egypt was beginning.
+
+These Sumerians appear to have been a brownish people with prominent noses. They employed a sort of writing that has been deciphered, and their language is now known. They had discovered the use of bronze and they built great tower-like temples of sun-dried brick. The clay of this country is very fine; they used it to write upon, and so it is that their inscriptions have been preserved to us. They had cattle, sheep, goats and asses, but no horses. They fought on foot, in close formation, carrying spears and shields of skin. Their clothing was of wool and they shaved their heads.
+
+Each of the Sumerian cities seems generally to have been an independent state with a god of its own and priests of its own. But sometimes one city would establish an ascendancy over others and exact tribute from their population. A very ancient inscription at Nippur records the “empire,” the first recorded empire, of the Sumerian city of Erech. Its god and its priest-king claimed an authority from the Persian Gulf to the Red Sea.
+
+Note the cuneiform characters of the inscription, which records the building of a temple to a Sun God
+
+At first writing was merely an abbreviated method of pictorial record. Even before Neolithic times men were beginning to write. The Azilian rock pictures to which we have already referred show the beginning of the process. Many of them record hunts and expeditions, and in most of these the human figures are plainly drawn. But in some the painter would not bother with head and limbs; he just indicated men by a vertical and one or two transverse strokes. From this to a conventional condensed picture writing was an easy transition. In Sumeria, where the writing was done on clay with a stick, the dabs of the characters soon became unrecognizably unlike the things they stood for, but in Egypt where men painted on walls and on strips of the papyrus reed (the first paper) the likeness to the thing imitated remained. From the fact that the wooden styles used in Sumeria made wedge-shaped marks, the Sumerian writing is called cuneiform (= wedge-shaped).
+
+Recovered from the Tombs at Abydos in 1921 by the British School of Archæology. They give evidence of early form of block printing
+
+An important step towards writing was made when pictures were used to indicate not the thing represented but some similar thing. In the rebus dear to children of a suitable age, this is still done to-day. We draw a camp with tents and a bell, and the child is delighted to guess that this is the Scotch name Campbell. The Sumerian language was a language made up of accumulated syllables rather like some contemporary Amerindian languages, and it lent itself very readily to this syllabic method of writing words expressing ideas that could not be conveyed by pictures directly. Egyptian writing underwent parallel developments. Later on, when foreign peoples with less distinctly syllabled methods of speech were to learn and use these picture scripts they were to make those further modifications and simplifications that developed at last into alphabetical writing. All the true alphabets of the later world derived from a mixture of the Sumerian cuneiform and the Egyptian hieroglyphic (priest writing). Later in China there was to develop a conventionalized picture writing, but in China it never got to the alphabetical stage.
+
+The invention of writing was of very great importance in the development of human societies. It put agreements, laws, commandments on record. It made the growth of states larger than the old city states possible. It made a continuous historical consciousness possible. The command of the priest or king and his seal could go far beyond his sight and voice and could survive his death. It is interesting to note that in ancient Sumeria seals were greatly used. A king or a nobleman or a merchant would have his seal often very artistically carved, and would impress it on any clay document he wished to authorize. So close had civilization got to printing six thousand years ago. Then the clay was dried hard and became permanent. For the reader must remember that in the land of Mesopotamia for countless years, letters, records and accounts were all written on comparatively indestructible tiles. To that fact we owe a great wealth of recovered knowledge.
+
+The Pyramid to the right, the step Pyramid, is the oldest stone building in the world
+
+Bronze, copper, gold, silver and, as a precious rarity, meteoric iron were known in both Sumeria and Egypt at a very early stage.
+
+Showing how these great monuments dominate the plain
+
+Daily life in those first city lands of the old world must have been very similar in both Egypt and Sumeria. And except for the asses and cattle in the streets it must have been not unlike the life in the Maya cities of America three or four thousand years later. Most of the people in peace time were busy with irrigation and cultivation—except on days of religious festivity. They had no money and no need for it. They managed their small occasional trades by barter. The princes and rulers who alone had more than a few possessions used gold and silver bars and precious stones for any incidental act of trade. The temple dominated life; in Sumeria it was a great towering temple that went up to a roof from which the stars were observed; in Egypt it was a massive building with only a ground floor. In Sumeria the priest ruler was the greatest, most splendid of beings. In Egypt however there was one who was raised above the priests; he was the living incarnation of the chief god of the land, the Pharaoh, the god king.
+
+There were few changes in the world in those days; men’s days were sunny, toilsome and conventional. Few strangers came into the land and such as did fared uncomfortably. The priest directed life according to immemorial rules and watched the stars for seed time and marked the omens of the sacrifices and interpreted the warnings of dreams. Men worked and loved and died, not unhappily, forgetful of the savage past of their race and heedless of its future. Sometimes the ruler was benign. Such was Pepi II, who reigned in Egypt for ninety years. Sometimes he was ambitious and took men’s sons to be soldiers and sent them against neighbouring city states to war and plunder, or he made them toil to build great buildings. Such were Cheops and Chephren and Mycerinus, who built those vast sepulchral piles, the pyramids at Gizeh. The largest of these is 450 feet high and the weight of stone in it is 4,883,000 tons. All this was brought down the Nile in boats and lugged into place chiefly by human muscle. Its erection must have exhausted Egypt more than a great war would have done.
+
+XVI PRIMITIVE NOMADIC PEOPLES
+
+It was not only in Mesopotamia and the Nile Valley that men were settling down to agriculture and the formation of city states in the centuries between 6000 and 8000 B.C. Wherever there were possibilities of irrigation and a steady all-the-year-round food supply men were exchanging the uncertainties and hardships of hunting and wandering for the routines of settlement. On the upper Tigris a people called the Assyrians were founding cities; in the valleys of Asia Minor and on the Mediterranean shores and islands, there were small communities growing up to civilization. Possibly parallel developments of human life were already going on in favourable regions of India, and China. In many parts of Europe where there were lakes well stocked with fish, little communities of men had long settled in dwellings built on piles over the water, and were eking out agriculture by fishing and hunting. But over much larger areas of the old world no such settlement was possible. The land was too harsh, too thickly wooded or too arid, or the seasons too uncertain for mankind, with only the implements and science of that age to take root.
+
+For settlement under the conditions of the primitive civilizations men needed a constant water supply and warmth and sunshine. Where these needs were not satisfied, man could live as a transient, as a hunter following his game, as a herdsman following the seasonal grass, but he could not settle. The transition from the hunting to the herding life may have been very gradual. From following herds of wild cattle or (in Asia) wild horses, men may have come to an idea of property in them, have learnt to pen them into valleys, have fought for them against wolves, wild dogs and other predatory beasts.
+
+These Borneo dwellings are practically counterparts of the homes of European neolithic communities 6000 B.C.
+
+So while the primitive civilizations of the cultivators were growing up chiefly in the great river valleys, a different way of living, the nomadic life, a life in constant movement to and fro from winter pasture to summer pasture, was also growing up. The nomadic peoples were on the whole hardier than the agriculturalists; they were less prolific and numerous, they had no permanent temples and no highly organized priesthood; they had less gear; but the reader must not suppose that theirs was necessarily a less highly developed way of living on that account. In many ways this free life was a fuller life than that of the tillers of the soil. The individual was more self-reliant; less of a unit in a crowd. The leader was more important; the medicine man perhaps less so.
+
+Egyptian wall painting in a tomb near ancient Beni Hassan, middle Egypt. It depicts the arrival of a tribe of Semitic Nomads in Egypt about the year of 1895 B.C.
+
+Moving over large stretches of country the nomad took a wider view of life. He touched on the confines of this settled land and that. He was used to the sight of strange faces. He had to scheme and treat for pasture with competing tribes. He knew more of minerals than the folk upon the plough lands because he went over mountain passes and into rocky places. He may have been a better metallurgist. Possibly bronze and much more probably iron smelting were nomadic discoveries. Some of the earliest implements of iron reduced from its ores have been found in Central Europe far away from the early civilizations.
+
+Excavated 1922 by the British School of Archæology in Egypt from First Dynasty Tombs
+
+On the other hand the settled folk had their textiles and their pottery and made many desirable things. It was inevitable that as the two sorts of life, the agricultural and the nomadic differentiated, a certain amount of looting and trading should develop between the two. In Sumeria particularly which had deserts and seasonal country on either hand it must have been usual to have the nomads camping close to the cultivated fields, trading and stealing and perhaps tinkering, as gipsies do to this day. (But hens they would not steal, because the domestic fowl—an Indian jungle fowl originally was not domesticated by man until about 1000 B.C.) They would bring precious stones and things of metal and leather. If they were hunters they would bring skins. They would get in exchange pottery and beads and glass, garments and suchlike manufactured things.
+--- END OF SECTION ---

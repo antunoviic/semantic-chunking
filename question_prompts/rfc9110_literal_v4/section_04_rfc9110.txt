@@ -1,0 +1,261 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 4 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 4/45 ---
+   Being a user agent does not imply that there is a human user directly
+   interacting with the software agent at the time of a request.  In
+   many cases, a user agent is installed or configured to run in the
+   background and save its results for later inspection (or save only a
+   subset of those results that might be interesting or erroneous).
+   Spiders, for example, are typically given a start URI and configured
+   to follow certain behavior while crawling the Web as a hypertext
+   graph.
+
+   Many user agents cannot, or choose not to, make interactive
+   suggestions to their user or provide adequate warning for security or
+   privacy concerns.  In the few cases where this specification requires
+   reporting of errors to the user, it is acceptable for such reporting
+   to only be observable in an error console or log file.  Likewise,
+   requirements that an automated action be confirmed by the user before
+   proceeding might be met via advance configuration choices, run-time
+   options, or simple avoidance of the unsafe action; confirmation does
+   not imply any specific user interface or interruption of normal
+   processing if the user has already made that choice.
+
+3.6.  Origin Server
+
+   The term "origin server" refers to a program that can originate
+   authoritative responses for a given target resource.
+
+   The most familiar form of origin server are large public websites.
+   However, like user agents being equated with browsers, it is easy to
+   be misled into thinking that all origin servers are alike.  Common
+   origin servers also include home automation units, configurable
+   networking components, office machines, autonomous robots, news
+   feeds, traffic cameras, real-time ad selectors, and video-on-demand
+   platforms.
+
+   Most HTTP communication consists of a retrieval request (GET) for a
+   representation of some resource identified by a URI.  In the simplest
+   case, this might be accomplished via a single bidirectional
+   connection (===) between the user agent (UA) and the origin server
+   (O).
+
+            request   >
+       UA ======================================= O
+                                   <   response
+
+                                  Figure 1
+
+3.7.  Intermediaries
+
+   HTTP enables the use of intermediaries to satisfy requests through a
+   chain of connections.  There are three common forms of HTTP
+   "intermediary": proxy, gateway, and tunnel.  In some cases, a single
+   intermediary might act as an origin server, proxy, gateway, or
+   tunnel, switching behavior based on the nature of each request.
+
+            >             >             >             >
+       UA =========== A =========== B =========== C =========== O
+                  <             <             <             <
+
+                                  Figure 2
+
+   The figure above shows three intermediaries (A, B, and C) between the
+   user agent and origin server.  A request or response message that
+   travels the whole chain will pass through four separate connections.
+   Some HTTP communication options might apply only to the connection
+   with the nearest, non-tunnel neighbor, only to the endpoints of the
+   chain, or to all connections along the chain.  Although the diagram
+   is linear, each participant might be engaged in multiple,
+   simultaneous communications.  For example, B might be receiving
+   requests from many clients other than A, and/or forwarding requests
+   to servers other than C, at the same time that it is handling A's
+   request.  Likewise, later requests might be sent through a different
+   path of connections, often based on dynamic configuration for load
+   balancing.
+
+   The terms "upstream" and "downstream" are used to describe
+   directional requirements in relation to the message flow: all
+   messages flow from upstream to downstream.  The terms "inbound" and
+   "outbound" are used to describe directional requirements in relation
+   to the request route: inbound means "toward the origin server",
+   whereas outbound means "toward the user agent".
+
+   A "proxy" is a message-forwarding agent that is chosen by the client,
+   usually via local configuration rules, to receive requests for some
+   type(s) of absolute URI and attempt to satisfy those requests via
+   translation through the HTTP interface.  Some translations are
+   minimal, such as for proxy requests for "http" URIs, whereas other
+   requests might require translation to and from entirely different
+   application-level protocols.  Proxies are often used to group an
+   organization's HTTP requests through a common intermediary for the
+   sake of security services, annotation services, or shared caching.
+   Some proxies are designed to apply transformations to selected
+   messages or content while they are being forwarded, as described in
+   Section 7.7.
+
+   A "gateway" (a.k.a. "reverse proxy") is an intermediary that acts as
+   an origin server for the outbound connection but translates received
+   requests and forwards them inbound to another server or servers.
+   Gateways are often used to encapsulate legacy or untrusted
+   information services, to improve server performance through
+   "accelerator" caching, and to enable partitioning or load balancing
+   of HTTP services across multiple machines.
+
+   All HTTP requirements applicable to an origin server also apply to
+   the outbound communication of a gateway.  A gateway communicates with
+   inbound servers using any protocol that it desires, including private
+   extensions to HTTP that are outside the scope of this specification.
+   However, an HTTP-to-HTTP gateway that wishes to interoperate with
+   third-party HTTP servers needs to conform to user agent requirements
+   on the gateway's inbound connection.
+
+   A "tunnel" acts as a blind relay between two connections without
+   changing the messages.  Once active, a tunnel is not considered a
+   party to the HTTP communication, though the tunnel might have been
+   initiated by an HTTP request.  A tunnel ceases to exist when both
+   ends of the relayed connection are closed.  Tunnels are used to
+   extend a virtual connection through an intermediary, such as when
+   Transport Layer Security (TLS, [TLS13]) is used to establish
+   confidential communication through a shared firewall proxy.
+
+   The above categories for intermediary only consider those acting as
+   participants in the HTTP communication.  There are also
+   intermediaries that can act on lower layers of the network protocol
+   stack, filtering or redirecting HTTP traffic without the knowledge or
+   permission of message senders.  Network intermediaries are
+   indistinguishable (at a protocol level) from an on-path attacker,
+   often introducing security flaws or interoperability problems due to
+   mistakenly violating HTTP semantics.
+
+   For example, an "interception proxy" [RFC3040] (also commonly known
+   as a "transparent proxy" [RFC1919]) differs from an HTTP proxy
+   because it is not chosen by the client.  Instead, an interception
+   proxy filters or redirects outgoing TCP port 80 packets (and
+   occasionally other common port traffic).  Interception proxies are
+   commonly found on public network access points, as a means of
+   enforcing account subscription prior to allowing use of non-local
+   Internet services, and within corporate firewalls to enforce network
+   usage policies.
+
+3.8.  Caches
+
+   A "cache" is a local store of previous response messages and the
+   subsystem that controls its message storage, retrieval, and deletion.
+   A cache stores cacheable responses in order to reduce the response
+   time and network bandwidth consumption on future, equivalent
+   requests.  Any client or server MAY employ a cache, though a cache
+   cannot be used while acting as a tunnel.
+
+   The effect of a cache is that the request/response chain is shortened
+   if one of the participants along the chain has a cached response
+   applicable to that request.  The following illustrates the resulting
+   chain if B has a cached copy of an earlier response from O (via C)
+   for a request that has not been cached by UA or A.
+
+               >             >
+          UA =========== A =========== B - - - - - - C - - - - - - O
+                     <             <
+
+                                  Figure 3
+
+   A response is "cacheable" if a cache is allowed to store a copy of
+   the response message for use in answering subsequent requests.  Even
+   when a response is cacheable, there might be additional constraints
+   placed by the client or by the origin server on when that cached
+   response can be used for a particular request.  HTTP requirements for
+   cache behavior and cacheable responses are defined in [CACHING].
+
+   There is a wide variety of architectures and configurations of caches
+   deployed across the World Wide Web and inside large organizations.
+   These include national hierarchies of proxy caches to save bandwidth
+   and reduce latency, content delivery networks that use gateway
+   caching to optimize regional and global distribution of popular
+   sites, collaborative systems that broadcast or multicast cache
+   entries, archives of pre-fetched cache entries for use in off-line or
+   high-latency environments, and so on.
+
+3.9.  Example Message Exchange
+
+   The following example illustrates a typical HTTP/1.1 message exchange
+   for a GET request (Section 9.3.1) on the URI "http://www.example.com/
+   hello.txt":
+
+   Client request:
+
+   GET /hello.txt HTTP/1.1
+   User-Agent: curl/7.64.1
+   Host: www.example.com
+   Accept-Language: en, mi
+
+   Server response:
+
+   HTTP/1.1 200 OK
+   Date: Mon, 27 Jul 2009 12:28:53 GMT
+   Server: Apache
+   Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
+   ETag: "34aa387-d-1568eb00"
+   Accept-Ranges: bytes
+   Content-Length: 51
+   Vary: Accept-Encoding
+   Content-Type: text/plain
+
+   Hello World! My content includes a trailing CRLF.
+
+4.  Identifiers in HTTP
+
+   Uniform Resource Identifiers (URIs) [URI] are used throughout HTTP as
+   the means for identifying resources (Section 3.1).
+
+4.1.  URI References
+
+   URI references are used to target requests, indicate redirects, and
+   define relationships.
+
+   The definitions of "URI-reference", "absolute-URI", "relative-part",
+   "authority", "port", "host", "path-abempty", "segment", and "query"
+   are adopted from the URI generic syntax.  An "absolute-path" rule is
+   defined for protocol elements that can contain a non-empty path
+   component.  (This rule differs slightly from the path-abempty rule of
+   RFC 3986, which allows for an empty path, and path-absolute rule,
+   which does not allow paths that begin with "//".)  A "partial-URI"
+   rule is defined for protocol elements that can contain a relative URI
+   but not a fragment component.
+
+     URI-reference = <URI-reference, see [URI], Section 4.1>
+     absolute-URI  = <absolute-URI, see [URI], Section 4.3>
+     relative-part = <relative-part, see [URI], Section 4.2>
+     authority     = <authority, see [URI], Section 3.2>
+     uri-host      = <host, see [URI], Section 3.2.2>
+     port          = <port, see [URI], Section 3.2.3>
+     path-abempty  = <path-abempty, see [URI], Section 3.3>
+     segment       = <segment, see [URI], Section 3.3>
+     query         = <query, see [URI], Section 3.4>
+--- END OF SECTION ---

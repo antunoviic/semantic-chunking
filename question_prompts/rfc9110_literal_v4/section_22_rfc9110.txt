@@ -1,0 +1,265 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 22 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 22/45 ---
+   The protection space determines the domain over which credentials can
+   be automatically applied.  If a prior request has been authorized,
+   the user agent MAY reuse the same credentials for all other requests
+   within that protection space for a period of time determined by the
+   authentication scheme, parameters, and/or user preferences (such as a
+   configurable inactivity timeout).
+
+   The extent of a protection space, and therefore the requests to which
+   credentials might be automatically applied, is not necessarily known
+   to clients without additional information.  An authentication scheme
+   might define parameters that describe the extent of a protection
+   space.  Unless specifically allowed by the authentication scheme, a
+   single protection space cannot extend outside the scope of its
+   server.
+
+   For historical reasons, a sender MUST only generate the quoted-string
+   syntax.  Recipients might have to support both token and quoted-
+   string syntax for maximum interoperability with existing clients that
+   have been accepting both notations for a long time.
+
+11.6.  Authenticating Users to Origin Servers
+
+11.6.1.  WWW-Authenticate
+
+   The "WWW-Authenticate" response header field indicates the
+   authentication scheme(s) and parameters applicable to the target
+   resource.
+
+     WWW-Authenticate = #challenge
+
+   A server generating a 401 (Unauthorized) response MUST send a WWW-
+   Authenticate header field containing at least one challenge.  A
+   server MAY generate a WWW-Authenticate header field in other response
+   messages to indicate that supplying credentials (or different
+   credentials) might affect the response.
+
+   A proxy forwarding a response MUST NOT modify any WWW-Authenticate
+   header fields in that response.
+
+   User agents are advised to take special care in parsing the field
+   value, as it might contain more than one challenge, and each
+   challenge can contain a comma-separated list of authentication
+   parameters.  Furthermore, the header field itself can occur multiple
+   times.
+
+   For instance:
+
+   WWW-Authenticate: Basic realm="simple", Newauth realm="apps",
+                    type=1, title="Login to \"apps\""
+
+   This header field contains two challenges, one for the "Basic" scheme
+   with a realm value of "simple" and another for the "Newauth" scheme
+   with a realm value of "apps".  It also contains two additional
+   parameters, "type" and "title".
+
+   Some user agents do not recognize this form, however.  As a result,
+   sending a WWW-Authenticate field value with more than one member on
+   the same field line might not be interoperable.
+
+      |  *Note:* The challenge grammar production uses the list syntax
+      |  as well.  Therefore, a sequence of comma, whitespace, and comma
+      |  can be considered either as applying to the preceding
+      |  challenge, or to be an empty entry in the list of challenges.
+      |  In practice, this ambiguity does not affect the semantics of
+      |  the header field value and thus is harmless.
+
+11.6.2.  Authorization
+
+   The "Authorization" header field allows a user agent to authenticate
+   itself with an origin server -- usually, but not necessarily, after
+   receiving a 401 (Unauthorized) response.  Its value consists of
+   credentials containing the authentication information of the user
+   agent for the realm of the resource being requested.
+
+     Authorization = credentials
+
+   If a request is authenticated and a realm specified, the same
+   credentials are presumed to be valid for all other requests within
+   this realm (assuming that the authentication scheme itself does not
+   require otherwise, such as credentials that vary according to a
+   challenge value or using synchronized clocks).
+
+   A proxy forwarding a request MUST NOT modify any Authorization header
+   fields in that request.  See Section 3.5 of [CACHING] for details of
+   and requirements pertaining to handling of the Authorization header
+   field by HTTP caches.
+
+11.6.3.  Authentication-Info
+
+   HTTP authentication schemes can use the "Authentication-Info"
+   response field to communicate information after the client's
+   authentication credentials have been accepted.  This information can
+   include a finalization message from the server (e.g., it can contain
+   the server authentication).
+
+   The field value is a list of parameters (name/value pairs), using the
+   "auth-param" syntax defined in Section 11.3.  This specification only
+   describes the generic format; authentication schemes using
+   Authentication-Info will define the individual parameters.  The
+   "Digest" Authentication Scheme, for instance, defines multiple
+   parameters in Section 3.5 of [RFC7616].
+
+     Authentication-Info = #auth-param
+
+   The Authentication-Info field can be used in any HTTP response,
+   independently of request method and status code.  Its semantics are
+   defined by the authentication scheme indicated by the Authorization
+   header field (Section 11.6.2) of the corresponding request.
+
+   A proxy forwarding a response is not allowed to modify the field
+   value in any way.
+
+   Authentication-Info can be sent as a trailer field (Section 6.5) when
+   the authentication scheme explicitly allows this.
+
+11.7.  Authenticating Clients to Proxies
+
+11.7.1.  Proxy-Authenticate
+
+   The "Proxy-Authenticate" header field consists of at least one
+   challenge that indicates the authentication scheme(s) and parameters
+   applicable to the proxy for this request.  A proxy MUST send at least
+   one Proxy-Authenticate header field in each 407 (Proxy Authentication
+   Required) response that it generates.
+
+     Proxy-Authenticate = #challenge
+
+   Unlike WWW-Authenticate, the Proxy-Authenticate header field applies
+   only to the next outbound client on the response chain.  This is
+   because only the client that chose a given proxy is likely to have
+   the credentials necessary for authentication.  However, when multiple
+   proxies are used within the same administrative domain, such as
+   office and regional caching proxies within a large corporate network,
+   it is common for credentials to be generated by the user agent and
+   passed through the hierarchy until consumed.  Hence, in such a
+   configuration, it will appear as if Proxy-Authenticate is being
+   forwarded because each proxy will send the same challenge set.
+
+   Note that the parsing considerations for WWW-Authenticate apply to
+   this header field as well; see Section 11.6.1 for details.
+
+11.7.2.  Proxy-Authorization
+
+   The "Proxy-Authorization" header field allows the client to identify
+   itself (or its user) to a proxy that requires authentication.  Its
+   value consists of credentials containing the authentication
+   information of the client for the proxy and/or realm of the resource
+   being requested.
+
+     Proxy-Authorization = credentials
+
+   Unlike Authorization, the Proxy-Authorization header field applies
+   only to the next inbound proxy that demanded authentication using the
+   Proxy-Authenticate header field.  When multiple proxies are used in a
+   chain, the Proxy-Authorization header field is consumed by the first
+   inbound proxy that was expecting to receive credentials.  A proxy MAY
+   relay the credentials from the client request to the next proxy if
+   that is the mechanism by which the proxies cooperatively authenticate
+   a given request.
+
+11.7.3.  Proxy-Authentication-Info
+
+   The "Proxy-Authentication-Info" response header field is equivalent
+   to Authentication-Info, except that it applies to proxy
+   authentication (Section 11.3) and its semantics are defined by the
+   authentication scheme indicated by the Proxy-Authorization header
+   field (Section 11.7.2) of the corresponding request:
+
+     Proxy-Authentication-Info = #auth-param
+
+   However, unlike Authentication-Info, the Proxy-Authentication-Info
+   header field applies only to the next outbound client on the response
+   chain.  This is because only the client that chose a given proxy is
+   likely to have the credentials necessary for authentication.
+   However, when multiple proxies are used within the same
+   administrative domain, such as office and regional caching proxies
+   within a large corporate network, it is common for credentials to be
+   generated by the user agent and passed through the hierarchy until
+   consumed.  Hence, in such a configuration, it will appear as if
+   Proxy-Authentication-Info is being forwarded because each proxy will
+   send the same field value.
+
+   Proxy-Authentication-Info can be sent as a trailer field
+   (Section 6.5) when the authentication scheme explicitly allows this.
+
+12.  Content Negotiation
+
+   When responses convey content, whether indicating a success or an
+   error, the origin server often has different ways of representing
+   that information; for example, in different formats, languages, or
+   encodings.  Likewise, different users or user agents might have
+   differing capabilities, characteristics, or preferences that could
+   influence which representation, among those available, would be best
+   to deliver.  For this reason, HTTP provides mechanisms for content
+   negotiation.
+
+   This specification defines three patterns of content negotiation that
+   can be made visible within the protocol: "proactive" negotiation,
+   where the server selects the representation based upon the user
+   agent's stated preferences; "reactive" negotiation, where the server
+   provides a list of representations for the user agent to choose from;
+   and "request content" negotiation, where the user agent selects the
+   representation for a future request based upon the server's stated
+   preferences in past responses.
+
+   Other patterns of content negotiation include "conditional content",
+   where the representation consists of multiple parts that are
+   selectively rendered based on user agent parameters, "active
+   content", where the representation contains a script that makes
+   additional (more specific) requests based on the user agent
+   characteristics, and "Transparent Content Negotiation" ([RFC2295]),
+   where content selection is performed by an intermediary.  These
+   patterns are not mutually exclusive, and each has trade-offs in
+   applicability and practicality.
+
+   Note that, in all cases, HTTP is not aware of the resource semantics.
+   The consistency with which an origin server responds to requests,
+   over time and over the varying dimensions of content negotiation, and
+   thus the "sameness" of a resource's observed representations over
+   time, is determined entirely by whatever entity or algorithm selects
+   or generates those responses.
+
+12.1.  Proactive Negotiation
+
+   When content negotiation preferences are sent by the user agent in a
+   request to encourage an algorithm located at the server to select the
+   preferred representation, it is called "proactive negotiation"
+   (a.k.a., "server-driven negotiation").  Selection is based on the
+   available representations for a response (the dimensions over which
+   it might vary, such as language, content coding, etc.) compared to
+   various information supplied in the request, including both the
+   explicit negotiation header fields below and implicit
+   characteristics, such as the client's network address or parts of the
+   User-Agent field.
+--- END OF SECTION ---

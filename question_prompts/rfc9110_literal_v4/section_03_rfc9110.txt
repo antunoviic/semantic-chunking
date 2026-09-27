@@ -1,0 +1,249 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 3 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 3/45 ---
+2.3.  Length Requirements
+
+   A recipient SHOULD parse a received protocol element defensively,
+   with only marginal expectations that the element will conform to its
+   ABNF grammar and fit within a reasonable buffer size.
+
+   HTTP does not have specific length limitations for many of its
+   protocol elements because the lengths that might be appropriate will
+   vary widely, depending on the deployment context and purpose of the
+   implementation.  Hence, interoperability between senders and
+   recipients depends on shared expectations regarding what is a
+   reasonable length for each protocol element.  Furthermore, what is
+   commonly understood to be a reasonable length for some protocol
+   elements has changed over the course of the past three decades of
+   HTTP use and is expected to continue changing in the future.
+
+   At a minimum, a recipient MUST be able to parse and process protocol
+   element lengths that are at least as long as the values that it
+   generates for those same protocol elements in other messages.  For
+   example, an origin server that publishes very long URI references to
+   its own resources needs to be able to parse and process those same
+   references when received as a target URI.
+
+   Many received protocol elements are only parsed to the extent
+   necessary to identify and forward that element downstream.  For
+   example, an intermediary might parse a received field into its field
+   name and field value components, but then forward the field without
+   further parsing inside the field value.
+
+2.4.  Error Handling
+
+   A recipient MUST interpret a received protocol element according to
+   the semantics defined for it by this specification, including
+   extensions to this specification, unless the recipient has determined
+   (through experience or configuration) that the sender incorrectly
+   implements what is implied by those semantics.  For example, an
+   origin server might disregard the contents of a received
+   Accept-Encoding header field if inspection of the User-Agent header
+   field indicates a specific implementation version that is known to
+   fail on receipt of certain content codings.
+
+   Unless noted otherwise, a recipient MAY attempt to recover a usable
+   protocol element from an invalid construct.  HTTP does not define
+   specific error handling mechanisms except when they have a direct
+   impact on security, since different applications of the protocol
+   require different error handling strategies.  For example, a Web
+   browser might wish to transparently recover from a response where the
+   Location header field doesn't parse according to the ABNF, whereas a
+   systems control client might consider any form of error recovery to
+   be dangerous.
+
+   Some requests can be automatically retried by a client in the event
+   of an underlying connection failure, as described in Section 9.2.2.
+
+2.5.  Protocol Version
+
+   HTTP's version number consists of two decimal digits separated by a
+   "." (period or decimal point).  The first digit (major version)
+   indicates the messaging syntax, whereas the second digit (minor
+   version) indicates the highest minor version within that major
+   version to which the sender is conformant (able to understand for
+   future communication).
+
+   While HTTP's core semantics don't change between protocol versions,
+   their expression "on the wire" can change, and so the HTTP version
+   number changes when incompatible changes are made to the wire format.
+   Additionally, HTTP allows incremental, backwards-compatible changes
+   to be made to the protocol without changing its version through the
+   use of defined extension points (Section 16).
+
+   The protocol version as a whole indicates the sender's conformance
+   with the set of requirements laid out in that version's corresponding
+   specification(s).  For example, the version "HTTP/1.1" is defined by
+   the combined specifications of this document, "HTTP Caching"
+   [CACHING], and "HTTP/1.1" [HTTP/1.1].
+
+   HTTP's major version number is incremented when an incompatible
+   message syntax is introduced.  The minor number is incremented when
+   changes made to the protocol have the effect of adding to the message
+   semantics or implying additional capabilities of the sender.
+
+   The minor version advertises the sender's communication capabilities
+   even when the sender is only using a backwards-compatible subset of
+   the protocol, thereby letting the recipient know that more advanced
+   features can be used in response (by servers) or in future requests
+   (by clients).
+
+   When a major version of HTTP does not define any minor versions, the
+   minor version "0" is implied.  The "0" is used when referring to that
+   protocol within elements that require a minor version identifier.
+
+3.  Terminology and Core Concepts
+
+   HTTP was created for the World Wide Web (WWW) architecture and has
+   evolved over time to support the scalability needs of a worldwide
+   hypertext system.  Much of that architecture is reflected in the
+   terminology used to define HTTP.
+
+3.1.  Resources
+
+   The target of an HTTP request is called a "resource".  HTTP does not
+   limit the nature of a resource; it merely defines an interface that
+   might be used to interact with resources.  Most resources are
+   identified by a Uniform Resource Identifier (URI), as described in
+   Section 4.
+
+   One design goal of HTTP is to separate resource identification from
+   request semantics, which is made possible by vesting the request
+   semantics in the request method (Section 9) and a few request-
+   modifying header fields.  A resource cannot treat a request in a
+   manner inconsistent with the semantics of the method of the request.
+   For example, though the URI of a resource might imply semantics that
+   are not safe, a client can expect the resource to avoid actions that
+   are unsafe when processing a request with a safe method (see
+   Section 9.2.1).
+
+   HTTP relies upon the Uniform Resource Identifier (URI) standard [URI]
+   to indicate the target resource (Section 7.1) and relationships
+   between resources.
+
+3.2.  Representations
+
+   A "representation" is information that is intended to reflect a past,
+   current, or desired state of a given resource, in a format that can
+   be readily communicated via the protocol.  A representation consists
+   of a set of representation metadata and a potentially unbounded
+   stream of representation data (Section 8).
+
+   HTTP allows "information hiding" behind its uniform interface by
+   defining communication with respect to a transferable representation
+   of the resource state, rather than transferring the resource itself.
+   This allows the resource identified by a URI to be anything,
+   including temporal functions like "the current weather in Laguna
+   Beach", while potentially providing information that represents that
+   resource at the time a message is generated [REST].
+
+   The uniform interface is similar to a window through which one can
+   observe and act upon a thing only through the communication of
+   messages to an independent actor on the other side.  A shared
+   abstraction is needed to represent ("take the place of") the current
+   or desired state of that thing in our communications.  When a
+   representation is hypertext, it can provide both a representation of
+   the resource state and processing instructions that help guide the
+   recipient's future interactions.
+
+   A target resource might be provided with, or be capable of
+   generating, multiple representations that are each intended to
+   reflect the resource's current state.  An algorithm, usually based on
+   content negotiation (Section 12), would be used to select one of
+   those representations as being most applicable to a given request.
+   This "selected representation" provides the data and metadata for
+   evaluating conditional requests (Section 13) and constructing the
+   content for 200 (OK), 206 (Partial Content), and 304 (Not Modified)
+   responses to GET (Section 9.3.1).
+
+3.3.  Connections, Clients, and Servers
+
+   HTTP is a client/server protocol that operates over a reliable
+   transport- or session-layer "connection".
+
+   An HTTP "client" is a program that establishes a connection to a
+   server for the purpose of sending one or more HTTP requests.  An HTTP
+   "server" is a program that accepts connections in order to service
+   HTTP requests by sending HTTP responses.
+
+   The terms client and server refer only to the roles that these
+   programs perform for a particular connection.  The same program might
+   act as a client on some connections and a server on others.
+
+   HTTP is defined as a stateless protocol, meaning that each request
+   message's semantics can be understood in isolation, and that the
+   relationship between connections and messages on them has no impact
+   on the interpretation of those messages.  For example, a CONNECT
+   request (Section 9.3.6) or a request with the Upgrade header field
+   (Section 7.8) can occur at any time, not just in the first message on
+   a connection.  Many implementations depend on HTTP's stateless design
+   in order to reuse proxied connections or dynamically load balance
+   requests across multiple servers.
+
+   As a result, a server MUST NOT assume that two requests on the same
+   connection are from the same user agent unless the connection is
+   secured and specific to that agent.  Some non-standard HTTP
+   extensions (e.g., [RFC4559]) have been known to violate this
+   requirement, resulting in security and interoperability problems.
+
+3.4.  Messages
+
+   HTTP is a stateless request/response protocol for exchanging
+   "messages" across a connection.  The terms "sender" and "recipient"
+   refer to any implementation that sends or receives a given message,
+   respectively.
+
+   A client sends requests to a server in the form of a "request"
+   message with a method (Section 9) and request target (Section 7.1).
+   The request might also contain header fields (Section 6.3) for
+   request modifiers, client information, and representation metadata,
+   content (Section 6.4) intended for processing in accordance with the
+   method, and trailer fields (Section 6.5) to communicate information
+   collected while sending the content.
+
+   A server responds to a client's request by sending one or more
+   "response" messages, each including a status code (Section 15).  The
+   response might also contain header fields for server information,
+   resource metadata, and representation metadata, content to be
+   interpreted in accordance with the status code, and trailer fields to
+   communicate information collected while sending the content.
+
+3.5.  User Agents
+
+   The term "user agent" refers to any of the various client programs
+   that initiate a request.
+
+   The most familiar form of user agent is the general-purpose Web
+   browser, but that's only a small percentage of implementations.
+   Other common user agents include spiders (web-traversing robots),
+   command-line tools, billboard screens, household appliances, scales,
+   light bulbs, firmware update scripts, mobile apps, and communication
+   devices in a multitude of shapes and sizes.
+--- END OF SECTION ---

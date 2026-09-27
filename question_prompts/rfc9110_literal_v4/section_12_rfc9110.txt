@@ -1,0 +1,256 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 12 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 12/45 ---
+   The received-by portion is normally the host and optional port number
+   of a recipient server or client that subsequently forwarded the
+   message.  However, if the real host is considered to be sensitive
+   information, a sender MAY replace it with a pseudonym.  If a port is
+   not provided, a recipient MAY interpret that as meaning it was
+   received on the default port, if any, for the received-protocol.
+
+   A sender MAY generate comments to identify the software of each
+   recipient, analogous to the User-Agent and Server header fields.
+   However, comments in Via are optional, and a recipient MAY remove
+   them prior to forwarding the message.
+
+   For example, a request message could be sent from an HTTP/1.0 user
+   agent to an internal proxy code-named "fred", which uses HTTP/1.1 to
+   forward the request to a public proxy at p.example.net, which
+   completes the request by forwarding it to the origin server at
+   www.example.com.  The request received by www.example.com would then
+   have the following Via header field:
+
+   Via: 1.0 fred, 1.1 p.example.net
+
+   An intermediary used as a portal through a network firewall SHOULD
+   NOT forward the names and ports of hosts within the firewall region
+   unless it is explicitly enabled to do so.  If not enabled, such an
+   intermediary SHOULD replace each received-by host of any host behind
+   the firewall by an appropriate pseudonym for that host.
+
+   An intermediary MAY combine an ordered subsequence of Via header
+   field list members into a single member if the entries have identical
+   received-protocol values.  For example,
+
+   Via: 1.0 ricky, 1.1 ethel, 1.1 fred, 1.0 lucy
+
+   could be collapsed to
+
+   Via: 1.0 ricky, 1.1 mertz, 1.0 lucy
+
+   A sender SHOULD NOT combine multiple list members unless they are all
+   under the same organizational control and the hosts have already been
+   replaced by pseudonyms.  A sender MUST NOT combine members that have
+   different received-protocol values.
+
+7.7.  Message Transformations
+
+   Some intermediaries include features for transforming messages and
+   their content.  A proxy might, for example, convert between image
+   formats in order to save cache space or to reduce the amount of
+   traffic on a slow link.  However, operational problems might occur
+   when these transformations are applied to content intended for
+   critical applications, such as medical imaging or scientific data
+   analysis, particularly when integrity checks or digital signatures
+   are used to ensure that the content received is identical to the
+   original.
+
+   An HTTP-to-HTTP proxy is called a "transforming proxy" if it is
+   designed or configured to modify messages in a semantically
+   meaningful way (i.e., modifications, beyond those required by normal
+   HTTP processing, that change the message in a way that would be
+   significant to the original sender or potentially significant to
+   downstream recipients).  For example, a transforming proxy might be
+   acting as a shared annotation server (modifying responses to include
+   references to a local annotation database), a malware filter, a
+   format transcoder, or a privacy filter.  Such transformations are
+   presumed to be desired by whichever client (or client organization)
+   chose the proxy.
+
+   If a proxy receives a target URI with a host name that is not a fully
+   qualified domain name, it MAY add its own domain to the host name it
+   received when forwarding the request.  A proxy MUST NOT change the
+   host name if the target URI contains a fully qualified domain name.
+
+   A proxy MUST NOT modify the "absolute-path" and "query" parts of the
+   received target URI when forwarding it to the next inbound server
+   except as required by that forwarding protocol.  For example, a proxy
+   forwarding a request to an origin server via HTTP/1.1 will replace an
+   empty path with "/" (Section 3.2.1 of [HTTP/1.1]) or "*"
+   (Section 3.2.4 of [HTTP/1.1]), depending on the request method.
+
+   A proxy MUST NOT transform the content (Section 6.4) of a response
+   message that contains a no-transform cache directive (Section 5.2.2.6
+   of [CACHING]).  Note that this does not apply to message
+   transformations that do not change the content, such as the addition
+   or removal of transfer codings (Section 7 of [HTTP/1.1]).
+
+   A proxy MAY transform the content of a message that does not contain
+   a no-transform cache directive.  A proxy that transforms the content
+   of a 200 (OK) response can inform downstream recipients that a
+   transformation has been applied by changing the response status code
+   to 203 (Non-Authoritative Information) (Section 15.3.4).
+
+   A proxy SHOULD NOT modify header fields that provide information
+   about the endpoints of the communication chain, the resource state,
+   or the selected representation (other than the content) unless the
+   field's definition specifically allows such modification or the
+   modification is deemed necessary for privacy or security.
+
+7.8.  Upgrade
+
+   The "Upgrade" header field is intended to provide a simple mechanism
+   for transitioning from HTTP/1.1 to some other protocol on the same
+   connection.
+
+   A client MAY send a list of protocol names in the Upgrade header
+   field of a request to invite the server to switch to one or more of
+   the named protocols, in order of descending preference, before
+   sending the final response.  A server MAY ignore a received Upgrade
+   header field if it wishes to continue using the current protocol on
+   that connection.  Upgrade cannot be used to insist on a protocol
+   change.
+
+     Upgrade          = #protocol
+
+     protocol         = protocol-name ["/" protocol-version]
+     protocol-name    = token
+     protocol-version = token
+
+   Although protocol names are registered with a preferred case,
+   recipients SHOULD use case-insensitive comparison when matching each
+   protocol-name to supported protocols.
+
+   A server that sends a 101 (Switching Protocols) response MUST send an
+   Upgrade header field to indicate the new protocol(s) to which the
+   connection is being switched; if multiple protocol layers are being
+   switched, the sender MUST list the protocols in layer-ascending
+   order.  A server MUST NOT switch to a protocol that was not indicated
+   by the client in the corresponding request's Upgrade header field.  A
+   server MAY choose to ignore the order of preference indicated by the
+   client and select the new protocol(s) based on other factors, such as
+   the nature of the request or the current load on the server.
+
+   A server that sends a 426 (Upgrade Required) response MUST send an
+   Upgrade header field to indicate the acceptable protocols, in order
+   of descending preference.
+
+   A server MAY send an Upgrade header field in any other response to
+   advertise that it implements support for upgrading to the listed
+   protocols, in order of descending preference, when appropriate for a
+   future request.
+
+   The following is a hypothetical example sent by a client:
+
+   GET /hello HTTP/1.1
+   Host: www.example.com
+   Connection: upgrade
+   Upgrade: websocket, IRC/6.9, RTA/x11
+
+   The capabilities and nature of the application-level communication
+   after the protocol change is entirely dependent upon the new
+   protocol(s) chosen.  However, immediately after sending the 101
+   (Switching Protocols) response, the server is expected to continue
+   responding to the original request as if it had received its
+   equivalent within the new protocol (i.e., the server still has an
+   outstanding request to satisfy after the protocol has been changed,
+   and is expected to do so without requiring the request to be
+   repeated).
+
+   For example, if the Upgrade header field is received in a GET request
+   and the server decides to switch protocols, it first responds with a
+   101 (Switching Protocols) message in HTTP/1.1 and then immediately
+   follows that with the new protocol's equivalent of a response to a
+   GET on the target resource.  This allows a connection to be upgraded
+   to protocols with the same semantics as HTTP without the latency cost
+   of an additional round trip.  A server MUST NOT switch protocols
+   unless the received message semantics can be honored by the new
+   protocol; an OPTIONS request can be honored by any protocol.
+
+   The following is an example response to the above hypothetical
+   request:
+
+   HTTP/1.1 101 Switching Protocols
+   Connection: upgrade
+   Upgrade: websocket
+
+   [... data stream switches to websocket with an appropriate response
+   (as defined by new protocol) to the "GET /hello" request ...]
+
+   A sender of Upgrade MUST also send an "Upgrade" connection option in
+   the Connection header field (Section 7.6.1) to inform intermediaries
+   not to forward this field.  A server that receives an Upgrade header
+   field in an HTTP/1.0 request MUST ignore that Upgrade field.
+
+   A client cannot begin using an upgraded protocol on the connection
+   until it has completely sent the request message (i.e., the client
+   can't change the protocol it is sending in the middle of a message).
+   If a server receives both an Upgrade and an Expect header field with
+   the "100-continue" expectation (Section 10.1.1), the server MUST send
+   a 100 (Continue) response before sending a 101 (Switching Protocols)
+   response.
+
+   The Upgrade header field only applies to switching protocols on top
+   of the existing connection; it cannot be used to switch the
+   underlying connection (transport) protocol, nor to switch the
+   existing communication to a different connection.  For those
+   purposes, it is more appropriate to use a 3xx (Redirection) response
+   (Section 15.4).
+
+   This specification only defines the protocol name "HTTP" for use by
+   the family of Hypertext Transfer Protocols, as defined by the HTTP
+   version rules of Section 2.5 and future updates to this
+   specification.  Additional protocol names ought to be registered
+   using the registration procedure defined in Section 16.7.
+
+8.  Representation Data and Metadata
+
+8.1.  Representation Data
+
+   The representation data associated with an HTTP message is either
+   provided as the content of the message or referred to by the message
+   semantics and the target URI.  The representation data is in a format
+   and encoding defined by the representation metadata header fields.
+
+   The data type of the representation data is determined via the header
+   fields Content-Type and Content-Encoding.  These define a two-layer,
+   ordered encoding model:
+
+     representation-data := Content-Encoding( Content-Type( data ) )
+
+8.2.  Representation Metadata
+
+   Representation header fields provide metadata about the
+   representation.  When a message includes content, the representation
+   header fields describe how to interpret that data.  In a response to
+   a HEAD request, the representation header fields describe the
+   representation data that would have been enclosed in the content if
+   the same request had been a GET.
+--- END OF SECTION ---

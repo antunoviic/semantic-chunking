@@ -1,0 +1,246 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 6 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 6/45 ---
+   Origin is also used within HTML and related Web protocols, beyond the
+   scope of this document, as described in [RFC6454].
+
+4.3.2.  http Origins
+
+   Although HTTP is independent of the transport protocol, the "http"
+   scheme (Section 4.2.1) is specific to associating authority with
+   whomever controls the origin server listening for TCP connections on
+   the indicated port of whatever host is identified within the
+   authority component.  This is a very weak sense of authority because
+   it depends on both client-specific name resolution mechanisms and
+   communication that might not be secured from an on-path attacker.
+   Nevertheless, it is a sufficient minimum for binding "http"
+   identifiers to an origin server for consistent resolution within a
+   trusted environment.
+
+   If the host identifier is provided as an IP address, the origin
+   server is the listener (if any) on the indicated TCP port at that IP
+   address.  If host is a registered name, the registered name is an
+   indirect identifier for use with a name resolution service, such as
+   DNS, to find an address for an appropriate origin server.
+
+   When an "http" URI is used within a context that calls for access to
+   the indicated resource, a client MAY attempt access by resolving the
+   host identifier to an IP address, establishing a TCP connection to
+   that address on the indicated port, and sending over that connection
+   an HTTP request message containing a request target that matches the
+   client's target URI (Section 7.1).
+
+   If the server responds to such a request with a non-interim HTTP
+   response message, as described in Section 15, then that response is
+   considered an authoritative answer to the client's request.
+
+   Note, however, that the above is not the only means for obtaining an
+   authoritative response, nor does it imply that an authoritative
+   response is always necessary (see [CACHING]).  For example, the Alt-
+   Svc header field [ALTSVC] allows an origin server to identify other
+   services that are also authoritative for that origin.  Access to
+   "http" identified resources might also be provided by protocols
+   outside the scope of this document.
+
+4.3.3.  https Origins
+
+   The "https" scheme (Section 4.2.2) associates authority based on the
+   ability of a server to use the private key corresponding to a
+   certificate that the client considers to be trustworthy for the
+   identified origin server.  The client usually relies upon a chain of
+   trust, conveyed from some prearranged or configured trust anchor, to
+   deem a certificate trustworthy (Section 4.3.4).
+
+   In HTTP/1.1 and earlier, a client will only attribute authority to a
+   server when they are communicating over a successfully established
+   and secured connection specifically to that URI origin's host.  The
+   connection establishment and certificate verification are used as
+   proof of authority.
+
+   In HTTP/2 and HTTP/3, a client will attribute authority to a server
+   when they are communicating over a successfully established and
+   secured connection if the URI origin's host matches any of the hosts
+   present in the server's certificate and the client believes that it
+   could open a connection to that host for that URI.  In practice, a
+   client will make a DNS query to check that the origin's host contains
+   the same server IP address as the established connection.  This
+   restriction can be removed by the origin server sending an equivalent
+   ORIGIN frame [RFC8336].
+
+   The request target's host and port value are passed within each HTTP
+   request, identifying the origin and distinguishing it from other
+   namespaces that might be controlled by the same server (Section 7.2).
+   It is the origin's responsibility to ensure that any services
+   provided with control over its certificate's private key are equally
+   responsible for managing the corresponding "https" namespaces or at
+   least prepared to reject requests that appear to have been
+   misdirected (Section 7.4).
+
+   An origin server might be unwilling to process requests for certain
+   target URIs even when they have the authority to do so.  For example,
+   when a host operates distinct services on different ports (e.g., 443
+   and 8000), checking the target URI at the origin server is necessary
+   (even after the connection has been secured) because a network
+   attacker might cause connections for one port to be received at some
+   other port.  Failing to check the target URI might allow such an
+   attacker to replace a response to one target URI (e.g.,
+   "https://example.com/foo") with a seemingly authoritative response
+   from the other port (e.g., "https://example.com:8000/foo").
+
+   Note that the "https" scheme does not rely on TCP and the connected
+   port number for associating authority, since both are outside the
+   secured communication and thus cannot be trusted as definitive.
+   Hence, the HTTP communication might take place over any channel that
+   has been secured, as defined in Section 4.2.2, including protocols
+   that don't use TCP.
+
+   When an "https" URI is used within a context that calls for access to
+   the indicated resource, a client MAY attempt access by resolving the
+   host identifier to an IP address, establishing a TCP connection to
+   that address on the indicated port, securing the connection end-to-
+   end by successfully initiating TLS over TCP with confidentiality and
+   integrity protection, and sending over that connection an HTTP
+   request message containing a request target that matches the client's
+   target URI (Section 7.1).
+
+   If the server responds to such a request with a non-interim HTTP
+   response message, as described in Section 15, then that response is
+   considered an authoritative answer to the client's request.
+
+   Note, however, that the above is not the only means for obtaining an
+   authoritative response, nor does it imply that an authoritative
+   response is always necessary (see [CACHING]).
+
+4.3.4.  https Certificate Verification
+
+   To establish a secured connection to dereference a URI, a client MUST
+   verify that the service's identity is an acceptable match for the
+   URI's origin server.  Certificate verification is used to prevent
+   server impersonation by an on-path attacker or by an attacker that
+   controls name resolution.  This process requires that a client be
+   configured with a set of trust anchors.
+
+   In general, a client MUST verify the service identity using the
+   verification process defined in Section 6 of [RFC6125].  The client
+   MUST construct a reference identity from the service's host: if the
+   host is a literal IP address (Section 4.3.5), the reference identity
+   is an IP-ID, otherwise the host is a name and the reference identity
+   is a DNS-ID.
+
+   A reference identity of type CN-ID MUST NOT be used by clients.  As
+   noted in Section 6.2.1 of [RFC6125], a reference identity of type CN-
+   ID might be used by older clients.
+
+   A client might be specially configured to accept an alternative form
+   of server identity verification.  For example, a client might be
+   connecting to a server whose address and hostname are dynamic, with
+   an expectation that the service will present a specific certificate
+   (or a certificate matching some externally defined reference
+   identity) rather than one matching the target URI's origin.
+
+   In special cases, it might be appropriate for a client to simply
+   ignore the server's identity, but it must be understood that this
+   leaves a connection open to active attack.
+
+   If the certificate is not valid for the target URI's origin, a user
+   agent MUST either obtain confirmation from the user before proceeding
+   (see Section 3.5) or terminate the connection with a bad certificate
+   error.  Automated clients MUST log the error to an appropriate audit
+   log (if available) and SHOULD terminate the connection (with a bad
+   certificate error).  Automated clients MAY provide a configuration
+   setting that disables this check, but MUST provide a setting which
+   enables it.
+
+4.3.5.  IP-ID Reference Identity
+
+   A server that is identified using an IP address literal in the "host"
+   field of an "https" URI has a reference identity of type IP-ID.  An
+   IP version 4 address uses the "IPv4address" ABNF rule, and an IP
+   version 6 address uses the "IP-literal" production with the
+   "IPv6address" option; see Section 3.2.2 of [URI].  A reference
+   identity of IP-ID contains the decoded bytes of the IP address.
+
+   An IP version 4 address is 4 octets, and an IP version 6 address is
+   16 octets.  Use of IP-ID is not defined for any other IP version.
+   The iPAddress choice in the certificate subjectAltName extension does
+   not explicitly include the IP version and so relies on the length of
+   the address to distinguish versions; see Section 4.2.1.6 of
+   [RFC5280].
+
+   A reference identity of type IP-ID matches if the address is
+   identical to an iPAddress value of the subjectAltName extension of
+   the certificate.
+
+5.  Fields
+
+   HTTP uses "fields" to provide data in the form of extensible name/
+   value pairs with a registered key namespace.  Fields are sent and
+   received within the header and trailer sections of messages
+   (Section 6).
+
+5.1.  Field Names
+
+   A field name labels the corresponding field value as having the
+   semantics defined by that name.  For example, the Date header field
+   is defined in Section 6.6.1 as containing the origination timestamp
+   for the message in which it appears.
+
+     field-name     = token
+
+   Field names are case-insensitive and ought to be registered within
+   the "Hypertext Transfer Protocol (HTTP) Field Name Registry"; see
+   Section 16.3.1.
+
+   The interpretation of a field does not change between minor versions
+   of the same major HTTP version, though the default behavior of a
+   recipient in the absence of such a field can change.  Unless
+   specified otherwise, fields are defined for all versions of HTTP.  In
+   particular, the Host and Connection fields ought to be recognized by
+   all HTTP implementations whether or not they advertise conformance
+   with HTTP/1.1.
+
+   New fields can be introduced without changing the protocol version if
+   their defined semantics allow them to be safely ignored by recipients
+   that do not recognize them; see Section 16.3.
+
+   A proxy MUST forward unrecognized header fields unless the field name
+   is listed in the Connection header field (Section 7.6.1) or the proxy
+   is specifically configured to block, or otherwise transform, such
+   fields.  Other recipients SHOULD ignore unrecognized header and
+   trailer fields.  Adhering to these requirements allows HTTP's
+   functionality to be extended without updating or removing deployed
+   intermediaries.
+
+5.2.  Field Lines and Combined Field Value
+
+   Field sections are composed of any number of "field lines", each with
+   a "field name" (see Section 5.1) identifying the field, and a "field
+   line value" that conveys data for that instance of the field.
+--- END OF SECTION ---

@@ -1,0 +1,84 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 4 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 4/40 ---
+The earliest mammals of the Cainozoic period are but little superior in brain size to the more active carnivorous dinosaurs, but as we read on through the record towards modern times we find, in every tribe and race of the mammalian animals, a steady universal increase in brain capacity. For instance we find at a comparatively early stage that rhinoceros-like beasts appear. There is a creature, the Titanotherium, which lived in the earliest division of this period. It was probably very like a modern rhinoceros in its habits and needs. But its brain capacity was not one tenth that of its living successor.
+
+The earlier mammals probably parted from their offspring as soon as suckling was over, but, once the capacity for mutual understanding has arisen, the advantages of continuing the association are very great; and we presently find a number of mammalian species displaying the beginnings of a true social life and keeping together in herds, packs and flocks, watching each other, imitating each other, taking warning not seen before among vertebrated animals. Reptiles and fish may no doubt be found in swarms and shoals; they have been hatched in quantities and similar conditions have kept them together, but in the case of the social and gregarious mammals the association arises not simply from a community of external forces, it is sustained by an inner impulse. They are not merely like one another and so found in the same places at the same times; they like one another and so they keep together.
+
+This difference between the reptile world and the world of our human minds is one our sympathies seem unable to pass. We cannot conceive in ourselves the swift uncomplicated urgency of a reptile’s instinctive motives, its appetites, fears and hates. We cannot understand them in their simplicity because all our motives are complicated; our’s are balances and resultants and not simple urgencies. But the mammals and birds have self-restraint and consideration for other individuals, a social appeal, a self- control that is, at its lower level, after our own fashion. We can in consequence establish relations with almost all sorts of them. When they suffer they utter cries and make movements that rouse our feelings. We can make understanding pets of them with a mutual recognition. They can be tamed to self-restraint towards us, domesticated and taught.
+
+That unusual growth of brain which is the central fact of Cainozoic times marks a new communication and interdependence of individuals. It foreshadows the development of human societies of which we shall soon be telling.
+
+As the Cainozoic period unrolled, the resemblance of its flora and fauna to the plants and animals that inhabit the world to-day increased. The big clumsy Uintatheres and Titanotheres, the Entelodonts and Hyracodons, big clumsy brutes like nothing living, disappeared. On the other hand a series of forms led up by steady degrees from grotesque and clumsy predecessors to the giraffes, camels, horses, elephants, deer, dogs and lions and tigers of the existing world. The evolution of the horse is particularly legible upon the geological record. We have a fairly complete series of forms from a small tapir-like ancestor in the early Cainozoic. Another line of development that has now been pieced together with some precision is that of the llamas and camels.
+
+IX MONKEYS, APES AND SUB-MEN
+
+Naturalists divide the class _Mammalia_ into a number of orders. At the head of these is the order _Primates_, which includes the lemurs, the monkeys, apes and man. Their classification was based originally upon anatomical resemblances and took no account of any mental qualities.
+
+Now the past history of the Primates is one very difficult to decipher live in forests like the lemurs and monkeys or in bare rocky places like the baboons. They are rarely drowned and covered up by sediment, nor are most of them very numerous species, and so they do not figure so largely among the fossils as the ancestors of the horses, camels and so forth do. But we know that quite early in the Cainozoic period, that is to say some forty million years ago or so, primitive monkeys and lemuroid creatures had appeared, poorer in brain and not so specialized as their later successors.
+
+The great world summer of the middle Cainozoic period drew at last to an end. It was to follow those other two great summers in the history of life, the summer of the Coal Swamps and the vast summer of the Age of Reptiles. Once more the earth spun towards an ice age. The world chilled, grew milder for a time and chilled again. In the warm past hippopotami had wallowed through a lush sub-tropical vegetation, and a tremendous tiger with fangs like sabres, the sabre-toothed tiger, had hunted its prey where now the journalists of Fleet Street go to and fro. Now came a bleaker age and still bleaker ages. A great weeding and extinction of species occurred. A woolly rhinoceros, adapted to a cold climate, and the mammoth, a big woolly cousin of the elephants, the Arctic musk ox and the reindeer passed across the scene. Then century by century the Arctic ice cap, the wintry death of the great Ice Age, crept southward. In England it came almost down to the Thames, in America it reached Ohio. There would be warmer spells of a few thousand years and relapses towards a bitterer cold.
+
+Geologists talk of these wintry phases as the First, Second, Third and Fourth Glacial Ages, and of the interludes as Interglacial periods. We live to-day in a world that is still impoverished and scarred by that terrible winter. The First Glacial Age was coming on 600,000 years ago; the Fourth Glacial Age reached its bitterest some fifty thousand years ago. And it was amidst the snows of this long universal winter that the first man-like beings lived upon our planet.
+
+By the middle Cainozoic period there have appeared various apes with many quasi-human attributes of the jaws and leg bones, but it is only as we approach these Glacial Ages that we find traces of creatures that we can speak of as “almost human.” These traces are not bones but implements. In Europe, in deposits of this period, between half a million and a million years old, we find flints and stones that have evidently been chipped intentionally by some handy creature desirous of hammering, scraping or fighting with the sharpened edge. These things have been called “Eoliths” (dawn stones). In Europe there are no bones nor other remains of the creature which made these objects, simply the objects themselves. For all the certainty we have it may have been some entirely un-human but intelligent monkey. But at Trinil in Java, in accumulations of this age, a piece of a skull and various teeth and bones have been found of a sort of ape man, with a brain case bigger than that of any living apes, which seems to have walked erect. This creature is now called _Pithecanthropus erectus_, the walking ape man, and the little trayful of its bones is the only help our imaginations have as yet in figuring to, ourselves the makers of the Eoliths.
+
+It is not until we come to sands that are almost a quarter of a million years old that we find any other particle of a sub- human being. But there are plenty of implements, and they are steadily improving in quality as we read on through the record. They are no longer clumsy Eoliths; they are now shapely instruments made with considerable skill. _And they are much bigger than the similar implements afterwards made by true man._ Then, in a sandpit at Heidelberg, appears a single quasi-human jaw-bone, a clumsy jaw-bone, absolutely chinless, far heavier than a true human jaw-bone and narrower, so that it is improbable the creature’s tongue could have moved about for articulate speech. On the strength of this jaw-bone, scientific men suppose this creature to have been a heavy, almost human monster, possibly with huge limbs and hands, possibly with a thick felt of hair, and they call it the Heidelberg Man.
+
+This jaw-bone is, I think, one of the most tormenting objects in the world to our human curiosity. To see it is like looking through a defective glass into the past and catching just one blurred and tantalizing glimpse of this Thing, shambling through the bleak wilderness, clambering to avoid the sabre- toothed tiger, watching the woolly rhinoceros in the woods. Then before we can scrutinize the monster, he vanishes. Yet the soil is littered abundantly with the indestructible implements he chipped out for his uses.
+
+The Heidelberg Man, as modelled under the supervision of Prof. Rutot
+
+Still more fascinatingly enigmatical are the remains of a creature found at Piltdown in Sussex in a deposit that may indicate an age between a hundred and a hundred and fifty thousand years ago, though some authorities would put these particular remains back in time to before the Heidelberg jaw- bone. Here there are the remains of a thick sub-human skull much larger than any existing ape’s, and a chimpanzee-like jaw-bone which may or may not belong to it, and, in addition, a bat-shaped piece of elephant bone evidently carefully manufactured, through which a hole had apparently been bored. There is also the thigh-bone of a deer with cuts upon it like a tally. That is all.
+
+What sort of beast was this creature which sat and bored holes in bones?
+
+Scientific men have named him Eoanthropus, the Dawn Man. He stands apart from his kindred; a very different being either from the Heidelberg creature or from any living ape. No other vestige like him is known. But the gravels and deposits of from one hundred thousand years onward are increasingly rich in implements of flint and similar stone. And these implements are no longer rude “Eoliths.” The archæologists are presently able to distinguish scrapers, borers, knives, darts, throwing stones and hand axes ....
+
+We are drawing very near to man. In our next section we shall have to describe the strangest of all these precursors of humanity, the Neanderthalers, the men who were almost, but not quite, true men.
+
+But it may be well perhaps to state quite clearly here that no scientific man supposes either of these creatures, the Heidelberg Man or _Eoanthropus_, to be direct ancestors of the men of to-day. These are, at the closest, related forms.
+
+X THE NEANDERTHALER AND THE RHODESIAN MAN
+
+About fifty or sixty thousand years ago, before the climax of the Fourth Glacial Age, there lived a creature on earth so like a man that until a few years ago its remains were considered to be altogether human. We have skulls and bones of it and a great accumulation of the large implements it made and used. It made fires. It sheltered in caves right-handed as men are.
+
+Yet now the ethnologists tell us these creatures were not true men. They were of a different species of the same genus. They had heavy protruding jaws and great brow ridges above the eyes and very low foreheads. Their thumbs were not opposable to the fingers as men’s are; their necks were so poised that they could not turn back their heads and look up to the sky. They probably slouched along, head down and forward. Their chinless jaw-bones resemble the Heidelberg jaw-bone and are markedly unlike human jaw-bones. And there were great differences from the human pattern in their teeth. Their cheek teeth were more complicated in structure than ours, more complicated and not less so; they had not the long fangs of our cheek teeth; and also these quasi-men had not the marked canines (dog teeth) of an ordinary human being. The capacity of their skulls was quite human, but the brain was bigger behind and lower in front than the human brain. Their intellectual faculties were differently arranged. They were not ancestral to the human line. Mentally and physically they were upon a different line from the human line.
+
+Skulls and bones of this extinct species of man were found at Neanderthal among other places, and from that place these strange proto-men have been christened Neanderthal Men, or Neanderthalers. They must have endured in Europe for many hundreds or even thousands of years.
+
+At that time the climate and geography of our world was very different with ice reaching as far south as the Thames and into Central Germany and Russia; there was no Channel separating Britain from France; the Mediterranean and the Red Sea were great valleys, with perhaps a chain of lakes in their deeper portions, and a great inland sea spread from the present Black Sea across South Russia and far into Central Asia. Spain and all of Europe not actually under ice consisted of bleak uplands under a harder climate than that of Labrador, and it was only when North Africa was reached that one would have found a temperate climate. Across the cold steppes of Southern Europe with its sparse arctic vegetation, drifted such hardy creatures as the woolly mammoth, and woolly rhinoceros, great oxen and reindeer, no doubt following the vegetation northward in spring and southward in autumn.
+
+Fourth Ice Age (about 50,000 years ago)
+
+Such was the scene through which the Neanderthaler wandered, gathering such subsistence as he could from small game or fruits and berries and roots. Possibly he was mainly a vegetarian, chewing twigs and roots. His level elaborate teeth suggest a largely vegetarian dietary. But we also find the long marrow bones of great animals in his caves, cracked to extract the marrow. His weapons could not have been of much avail in open conflict with great beasts, but it is supposed that he attacked them with spears at difficult river crossings and even constructed pitfalls for them. Possibly he followed the herds and preyed upon any dead that were killed in fights, and perhaps he played the part of jackal to the sabre-toothed tiger which still survived in his day. Possibly in the bitter hardships of the Glacial Ages this creature had taken to attacking animals after long ages of vegetarian adaptation.
+
+We cannot guess what this Neanderthal man looked like. He may have been very hairy and very unhuman-looking indeed. It is even doubtful if he went erect. He may have used his knuckles as well as his feet to hold himself up. Probably he went about alone or in small family groups. It is inferred from the structure of his jaw that he was incapable of speech as we understand it.
+--- END OF SECTION ---

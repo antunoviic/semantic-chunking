@@ -1,0 +1,242 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 37 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 37/45 ---
+   Similar considerations apply to request data when it is stored and
+   later processed, such as within log files, monitoring tools, or when
+   included within a data format that allows embedded scripts.
+
+17.5.  Attacks via Protocol Element Length
+
+   Because HTTP uses mostly textual, character-delimited fields, parsers
+   are often vulnerable to attacks based on sending very long (or very
+   slow) streams of data, particularly where an implementation is
+   expecting a protocol element with no predefined length (Section 2.3).
+
+   To promote interoperability, specific recommendations are made for
+   minimum size limits on fields (Section 5.4).  These are minimum
+   recommendations, chosen to be supportable even by implementations
+   with limited resources; it is expected that most implementations will
+   choose substantially higher limits.
+
+   A server can reject a message that has a target URI that is too long
+   (Section 15.5.15) or request content that is too large
+   (Section 15.5.14).  Additional status codes related to capacity
+   limits have been defined by extensions to HTTP [RFC6585].
+
+   Recipients ought to carefully limit the extent to which they process
+   other protocol elements, including (but not limited to) request
+   methods, response status phrases, field names, numeric values, and
+   chunk lengths.  Failure to limit such processing can result in
+   arbitrary code execution due to buffer or arithmetic overflows, and
+   increased vulnerability to denial-of-service attacks.
+
+17.6.  Attacks Using Shared-Dictionary Compression
+
+   Some attacks on encrypted protocols use the differences in size
+   created by dynamic compression to reveal confidential information;
+   for example, [BREACH].  These attacks rely on creating a redundancy
+   between attacker-controlled content and the confidential information,
+   such that a dynamic compression algorithm using the same dictionary
+   for both content will compress more efficiently when the attacker-
+   controlled content matches parts of the confidential content.
+
+   HTTP messages can be compressed in a number of ways, including using
+   TLS compression, content codings, transfer codings, and other
+   extension or version-specific mechanisms.
+
+   The most effective mitigation for this risk is to disable compression
+   on sensitive data, or to strictly separate sensitive data from
+   attacker-controlled data so that they cannot share the same
+   compression dictionary.  With careful design, a compression scheme
+   can be designed in a way that is not considered exploitable in
+   limited use cases, such as HPACK ([HPACK]).
+
+17.7.  Disclosure of Personal Information
+
+   Clients are often privy to large amounts of personal information,
+   including both information provided by the user to interact with
+   resources (e.g., the user's name, location, mail address, passwords,
+   encryption keys, etc.) and information about the user's browsing
+   activity over time (e.g., history, bookmarks, etc.).  Implementations
+   need to prevent unintentional disclosure of personal information.
+
+17.8.  Privacy of Server Log Information
+
+   A server is in the position to save personal data about a user's
+   requests over time, which might identify their reading patterns or
+   subjects of interest.  In particular, log information gathered at an
+   intermediary often contains a history of user agent interaction,
+   across a multitude of sites, that can be traced to individual users.
+
+   HTTP log information is confidential in nature; its handling is often
+   constrained by laws and regulations.  Log information needs to be
+   securely stored and appropriate guidelines followed for its analysis.
+   Anonymization of personal information within individual entries
+   helps, but it is generally not sufficient to prevent real log traces
+   from being re-identified based on correlation with other access
+   characteristics.  As such, access traces that are keyed to a specific
+   client are unsafe to publish even if the key is pseudonymous.
+
+   To minimize the risk of theft or accidental publication, log
+   information ought to be purged of personally identifiable
+   information, including user identifiers, IP addresses, and user-
+   provided query parameters, as soon as that information is no longer
+   necessary to support operational needs for security, auditing, or
+   fraud control.
+
+17.9.  Disclosure of Sensitive Information in URIs
+
+   URIs are intended to be shared, not secured, even when they identify
+   secure resources.  URIs are often shown on displays, added to
+   templates when a page is printed, and stored in a variety of
+   unprotected bookmark lists.  Many servers, proxies, and user agents
+   log or display the target URI in places where it might be visible to
+   third parties.  It is therefore unwise to include information within
+   a URI that is sensitive, personally identifiable, or a risk to
+   disclose.
+
+   When an application uses client-side mechanisms to construct a target
+   URI out of user-provided information, such as the query fields of a
+   form using GET, potentially sensitive data might be provided that
+   would not be appropriate for disclosure within a URI.  POST is often
+   preferred in such cases because it usually doesn't construct a URI;
+   instead, POST of a form transmits the potentially sensitive data in
+   the request content.  However, this hinders caching and uses an
+   unsafe method for what would otherwise be a safe request.
+   Alternative workarounds include transforming the user-provided data
+   prior to constructing the URI or filtering the data to only include
+   common values that are not sensitive.  Likewise, redirecting the
+   result of a query to a different (server-generated) URI can remove
+   potentially sensitive data from later links and provide a cacheable
+   response for later reuse.
+
+   Since the Referer header field tells a target site about the context
+   that resulted in a request, it has the potential to reveal
+   information about the user's immediate browsing history and any
+   personal information that might be found in the referring resource's
+   URI.  Limitations on the Referer header field are described in
+   Section 10.1.3 to address some of its security considerations.
+
+17.10.  Application Handling of Field Names
+
+   Servers often use non-HTTP gateway interfaces and frameworks to
+   process a received request and produce content for the response.  For
+   historical reasons, such interfaces often pass received field names
+   as external variable names, using a name mapping suitable for
+   environment variables.
+
+   For example, the Common Gateway Interface (CGI) mapping of protocol-
+   specific meta-variables, defined by Section 4.1.18 of [RFC3875], is
+   applied to received header fields that do not correspond to one of
+   CGI's standard variables; the mapping consists of prepending "HTTP_"
+   to each name and changing all instances of hyphen ("-") to underscore
+   ("_").  This same mapping has been inherited by many other
+   application frameworks in order to simplify moving applications from
+   one platform to the next.
+
+   In CGI, a received Content-Length field would be passed as the meta-
+   variable "CONTENT_LENGTH" with a string value matching the received
+   field's value.  In contrast, a received "Content_Length" header field
+   would be passed as the protocol-specific meta-variable
+   "HTTP_CONTENT_LENGTH", which might lead to some confusion if an
+   application mistakenly reads the protocol-specific meta-variable
+   instead of the default one.  (This historical practice is why
+   Section 16.3.2.1 discourages the creation of new field names that
+   contain an underscore.)
+
+   Unfortunately, mapping field names to different interface names can
+   lead to security vulnerabilities if the mapping is incomplete or
+   ambiguous.  For example, if an attacker were to send a field named
+   "Transfer_Encoding", a naive interface might map that to the same
+   variable name as the "Transfer-Encoding" field, resulting in a
+   potential request smuggling vulnerability (Section 11.2 of
+   [HTTP/1.1]).
+
+   To mitigate the associated risks, implementations that perform such
+   mappings are advised to make the mapping unambiguous and complete for
+   the full range of potential octets received as a name (including
+   those that are discouraged or forbidden by the HTTP grammar).  For
+   example, a field with an unusual name character might result in the
+   request being blocked, the specific field being removed, or the name
+   being passed with a different prefix to distinguish it from other
+   fields.
+
+17.11.  Disclosure of Fragment after Redirects
+
+   Although fragment identifiers used within URI references are not sent
+   in requests, implementers ought to be aware that they will be visible
+   to the user agent and any extensions or scripts running as a result
+   of the response.  In particular, when a redirect occurs and the
+   original request's fragment identifier is inherited by the new
+   reference in Location (Section 10.2.2), this might have the effect of
+   disclosing one site's fragment to another site.  If the first site
+   uses personal information in fragments, it ought to ensure that
+   redirects to other sites include a (possibly empty) fragment
+   component in order to block that inheritance.
+
+17.12.  Disclosure of Product Information
+
+   The User-Agent (Section 10.1.5), Via (Section 7.6.3), and Server
+   (Section 10.2.4) header fields often reveal information about the
+   respective sender's software systems.  In theory, this can make it
+   easier for an attacker to exploit known security holes; in practice,
+   attackers tend to try all potential holes regardless of the apparent
+   software versions being used.
+
+   Proxies that serve as a portal through a network firewall ought to
+   take special precautions regarding the transfer of header information
+   that might identify hosts behind the firewall.  The Via header field
+   allows intermediaries to replace sensitive machine names with
+   pseudonyms.
+
+17.13.  Browser Fingerprinting
+
+   Browser fingerprinting is a set of techniques for identifying a
+   specific user agent over time through its unique set of
+   characteristics.  These characteristics might include information
+   related to how it uses the underlying transport protocol, feature
+   capabilities, and scripting environment, though of particular
+   interest here is the set of unique characteristics that might be
+   communicated via HTTP.  Fingerprinting is considered a privacy
+   concern because it enables tracking of a user agent's behavior over
+   time ([Bujlow]) without the corresponding controls that the user
+   might have over other forms of data collection (e.g., cookies).  Many
+   general-purpose user agents (i.e., Web browsers) have taken steps to
+   reduce their fingerprints.
+
+   There are a number of request header fields that might reveal
+   information to servers that is sufficiently unique to enable
+   fingerprinting.  The From header field is the most obvious, though it
+   is expected that From will only be sent when self-identification is
+   desired by the user.  Likewise, Cookie header fields are deliberately
+   designed to enable re-identification, so fingerprinting concerns only
+   apply to situations where cookies are disabled or restricted by the
+   user agent's configuration.
+--- END OF SECTION ---

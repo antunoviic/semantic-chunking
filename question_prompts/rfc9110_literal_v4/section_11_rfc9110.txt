@@ -1,0 +1,261 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 11 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 11/45 ---
+7.3.3.  To the Origin
+
+   If no proxy is applicable, a typical client will invoke a handler
+   routine (specific to the target URI's scheme) to obtain access to the
+   identified resource.  How that is accomplished is dependent on the
+   target URI scheme and defined by its associated specification.
+
+   Section 4.3.2 defines how to obtain access to an "http" resource by
+   establishing (or reusing) an inbound connection to the identified
+   origin server and then sending it an HTTP request message containing
+   a request target that matches the client's target URI.
+
+   Section 4.3.3 defines how to obtain access to an "https" resource by
+   establishing (or reusing) an inbound secured connection to an origin
+   server that is authoritative for the identified origin and then
+   sending it an HTTP request message containing a request target that
+   matches the client's target URI.
+
+7.4.  Rejecting Misdirected Requests
+
+   Once a request is received by a server and parsed sufficiently to
+   determine its target URI, the server decides whether to process the
+   request itself, forward the request to another server, redirect the
+   client to a different resource, respond with an error, or drop the
+   connection.  This decision can be influenced by anything about the
+   request or connection context, but is specifically directed at
+   whether the server has been configured to process requests for that
+   target URI and whether the connection context is appropriate for that
+   request.
+
+   For example, a request might have been misdirected, deliberately or
+   accidentally, such that the information within a received Host header
+   field differs from the connection's host or port.  If the connection
+   is from a trusted gateway, such inconsistency might be expected;
+   otherwise, it might indicate an attempt to bypass security filters,
+   trick the server into delivering non-public content, or poison a
+   cache.  See Section 17 for security considerations regarding message
+   routing.
+
+   Unless the connection is from a trusted gateway, an origin server
+   MUST reject a request if any scheme-specific requirements for the
+   target URI are not met.  In particular, a request for an "https"
+   resource MUST be rejected unless it has been received over a
+   connection that has been secured via a certificate valid for that
+   target URI's origin, as defined by Section 4.2.2.
+
+   The 421 (Misdirected Request) status code in a response indicates
+   that the origin server has rejected the request because it appears to
+   have been misdirected (Section 15.5.20).
+
+7.5.  Response Correlation
+
+   A connection might be used for multiple request/response exchanges.
+   The mechanism used to correlate between request and response messages
+   is version dependent; some versions of HTTP use implicit ordering of
+   messages, while others use an explicit identifier.
+
+   All responses, regardless of the status code (including interim
+   responses) can be sent at any time after a request is received, even
+   if the request is not yet complete.  A response can complete before
+   its corresponding request is complete (Section 6.1).  Likewise,
+   clients are not expected to wait any specific amount of time for a
+   response.  Clients (including intermediaries) might abandon a request
+   if the response is not received within a reasonable period of time.
+
+   A client that receives a response while it is still sending the
+   associated request SHOULD continue sending that request unless it
+   receives an explicit indication to the contrary (see, e.g.,
+   Section 9.5 of [HTTP/1.1] and Section 6.4 of [HTTP/2]).
+
+7.6.  Message Forwarding
+
+   As described in Section 3.7, intermediaries can serve a variety of
+   roles in the processing of HTTP requests and responses.  Some
+   intermediaries are used to improve performance or availability.
+   Others are used for access control or to filter content.  Since an
+   HTTP stream has characteristics similar to a pipe-and-filter
+   architecture, there are no inherent limits to the extent an
+   intermediary can enhance (or interfere) with either direction of the
+   stream.
+
+   Intermediaries are expected to forward messages even when protocol
+   elements are not recognized (e.g., new methods, status codes, or
+   field names) since that preserves extensibility for downstream
+   recipients.
+
+   An intermediary not acting as a tunnel MUST implement the Connection
+   header field, as specified in Section 7.6.1, and exclude fields from
+   being forwarded that are only intended for the incoming connection.
+
+   An intermediary MUST NOT forward a message to itself unless it is
+   protected from an infinite request loop.  In general, an intermediary
+   ought to recognize its own server names, including any aliases, local
+   variations, or literal IP addresses, and respond to such requests
+   directly.
+
+   An HTTP message can be parsed as a stream for incremental processing
+   or forwarding downstream.  However, senders and recipients cannot
+   rely on incremental delivery of partial messages, since some
+   implementations will buffer or delay message forwarding for the sake
+   of network efficiency, security checks, or content transformations.
+
+7.6.1.  Connection
+
+   The "Connection" header field allows the sender to list desired
+   control options for the current connection.
+
+     Connection        = #connection-option
+     connection-option = token
+
+   Connection options are case-insensitive.
+
+   When a field aside from Connection is used to supply control
+   information for or about the current connection, the sender MUST list
+   the corresponding field name within the Connection header field.
+   Note that some versions of HTTP prohibit the use of fields for such
+   information, and therefore do not allow the Connection field.
+
+   Intermediaries MUST parse a received Connection header field before a
+   message is forwarded and, for each connection-option in this field,
+   remove any header or trailer field(s) from the message with the same
+   name as the connection-option, and then remove the Connection header
+   field itself (or replace it with the intermediary's own control
+   options for the forwarded message).
+
+   Hence, the Connection header field provides a declarative way of
+   distinguishing fields that are only intended for the immediate
+   recipient ("hop-by-hop") from those fields that are intended for all
+   recipients on the chain ("end-to-end"), enabling the message to be
+   self-descriptive and allowing future connection-specific extensions
+   to be deployed without fear that they will be blindly forwarded by
+   older intermediaries.
+
+   Furthermore, intermediaries SHOULD remove or replace fields that are
+   known to require removal before forwarding, whether or not they
+   appear as a connection-option, after applying those fields'
+   semantics.  This includes but is not limited to:
+
+   *  Proxy-Connection (Appendix C.2.2 of [HTTP/1.1])
+
+   *  Keep-Alive (Section 19.7.1 of [RFC2068])
+
+   *  TE (Section 10.1.4)
+
+   *  Transfer-Encoding (Section 6.1 of [HTTP/1.1])
+
+   *  Upgrade (Section 7.8)
+
+   A sender MUST NOT send a connection option corresponding to a field
+   that is intended for all recipients of the content.  For example,
+   Cache-Control is never appropriate as a connection option
+   (Section 5.2 of [CACHING]).
+
+   Connection options do not always correspond to a field present in the
+   message, since a connection-specific field might not be needed if
+   there are no parameters associated with a connection option.  In
+   contrast, a connection-specific field received without a
+   corresponding connection option usually indicates that the field has
+   been improperly forwarded by an intermediary and ought to be ignored
+   by the recipient.
+
+   When defining a new connection option that does not correspond to a
+   field, specification authors ought to reserve the corresponding field
+   name anyway in order to avoid later collisions.  Such reserved field
+   names are registered in the "Hypertext Transfer Protocol (HTTP) Field
+   Name Registry" (Section 16.3.1).
+
+7.6.2.  Max-Forwards
+
+   The "Max-Forwards" header field provides a mechanism with the TRACE
+   (Section 9.3.8) and OPTIONS (Section 9.3.7) request methods to limit
+   the number of times that the request is forwarded by proxies.  This
+   can be useful when the client is attempting to trace a request that
+   appears to be failing or looping mid-chain.
+
+     Max-Forwards = 1*DIGIT
+
+   The Max-Forwards value is a decimal integer indicating the remaining
+   number of times this request message can be forwarded.
+
+   Each intermediary that receives a TRACE or OPTIONS request containing
+   a Max-Forwards header field MUST check and update its value prior to
+   forwarding the request.  If the received value is zero (0), the
+   intermediary MUST NOT forward the request; instead, the intermediary
+   MUST respond as the final recipient.  If the received Max-Forwards
+   value is greater than zero, the intermediary MUST generate an updated
+   Max-Forwards field in the forwarded message with a field value that
+   is the lesser of a) the received value decremented by one (1) or b)
+   the recipient's maximum supported value for Max-Forwards.
+
+   A recipient MAY ignore a Max-Forwards header field received with any
+   other request methods.
+
+7.6.3.  Via
+
+   The "Via" header field indicates the presence of intermediate
+   protocols and recipients between the user agent and the server (on
+   requests) or between the origin server and the client (on responses),
+   similar to the "Received" header field in email (Section 3.6.7 of
+   [RFC5322]).  Via can be used for tracking message forwards, avoiding
+   request loops, and identifying the protocol capabilities of senders
+   along the request/response chain.
+
+     Via = #( received-protocol RWS received-by [ RWS comment ] )
+
+     received-protocol = [ protocol-name "/" ] protocol-version
+                       ; see Section 7.8
+     received-by       = pseudonym [ ":" port ]
+     pseudonym         = token
+
+   Each member of the Via field value represents a proxy or gateway that
+   has forwarded the message.  Each intermediary appends its own
+   information about how the message was received, such that the end
+   result is ordered according to the sequence of forwarding recipients.
+
+   A proxy MUST send an appropriate Via header field, as described
+   below, in each message that it forwards.  An HTTP-to-HTTP gateway
+   MUST send an appropriate Via header field in each inbound request
+   message and MAY send a Via header field in forwarded response
+   messages.
+
+   For each intermediary, the received-protocol indicates the protocol
+   and protocol version used by the upstream sender of the message.
+   Hence, the Via field value records the advertised protocol
+   capabilities of the request/response chain such that they remain
+   visible to downstream recipients; this can be useful for determining
+   what backwards-incompatible features might be safe to use in
+   response, or within a later request, as described in Section 2.5.
+   For brevity, the protocol-name is omitted when the received protocol
+   is HTTP.
+--- END OF SECTION ---

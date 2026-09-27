@@ -1,0 +1,326 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 42 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 42/45 ---
+   RWS = 1*( SP / HTAB )
+   Range = ranges-specifier
+   Referer = absolute-URI / partial-URI
+   Retry-After = HTTP-date / delay-seconds
+
+   Server = product *( RWS ( product / comment ) )
+
+   TE = [ t-codings *( OWS "," OWS t-codings ) ]
+   Trailer = [ field-name *( OWS "," OWS field-name ) ]
+
+   URI-reference = <URI-reference, see [URI], Section 4.1>
+   Upgrade = [ protocol *( OWS "," OWS protocol ) ]
+   User-Agent = product *( RWS ( product / comment ) )
+
+   Vary = [ ( "*" / field-name ) *( OWS "," OWS ( "*" / field-name ) )
+    ]
+   Via = [ ( received-protocol RWS received-by [ RWS comment ] ) *( OWS
+    "," OWS ( received-protocol RWS received-by [ RWS comment ] ) ) ]
+
+   WWW-Authenticate = [ challenge *( OWS "," OWS challenge ) ]
+
+   absolute-URI = <absolute-URI, see [URI], Section 4.3>
+   absolute-path = 1*( "/" segment )
+   acceptable-ranges = range-unit *( OWS "," OWS range-unit )
+   asctime-date = day-name SP date3 SP time-of-day SP year
+   auth-param = token BWS "=" BWS ( token / quoted-string )
+   auth-scheme = token
+   authority = <authority, see [URI], Section 3.2>
+
+   challenge = auth-scheme [ 1*SP ( token68 / [ auth-param *( OWS ","
+    OWS auth-param ) ] ) ]
+   codings = content-coding / "identity" / "*"
+   comment = "(" *( ctext / quoted-pair / comment ) ")"
+   complete-length = 1*DIGIT
+   connection-option = token
+   content-coding = token
+   credentials = auth-scheme [ 1*SP ( token68 / [ auth-param *( OWS ","
+    OWS auth-param ) ] ) ]
+   ctext = HTAB / SP / %x21-27 ; '!'-'''
+    / %x2A-5B ; '*'-'['
+    / %x5D-7E ; ']'-'~'
+    / obs-text
+
+   date1 = day SP month SP year
+   date2 = day "-" month "-" 2DIGIT
+   date3 = month SP ( 2DIGIT / ( SP DIGIT ) )
+   day = 2DIGIT
+   day-name = %x4D.6F.6E ; Mon
+    / %x54.75.65 ; Tue
+    / %x57.65.64 ; Wed
+    / %x54.68.75 ; Thu
+    / %x46.72.69 ; Fri
+    / %x53.61.74 ; Sat
+    / %x53.75.6E ; Sun
+   day-name-l = %x4D.6F.6E.64.61.79 ; Monday
+    / %x54.75.65.73.64.61.79 ; Tuesday
+    / %x57.65.64.6E.65.73.64.61.79 ; Wednesday
+    / %x54.68.75.72.73.64.61.79 ; Thursday
+    / %x46.72.69.64.61.79 ; Friday
+    / %x53.61.74.75.72.64.61.79 ; Saturday
+    / %x53.75.6E.64.61.79 ; Sunday
+   delay-seconds = 1*DIGIT
+
+   entity-tag = [ weak ] opaque-tag
+   etagc = "!" / %x23-7E ; '#'-'~'
+    / obs-text
+   expectation = token [ "=" ( token / quoted-string ) parameters ]
+
+   field-content = field-vchar [ 1*( SP / HTAB / field-vchar )
+    field-vchar ]
+   field-name = token
+   field-value = *field-content
+   field-vchar = VCHAR / obs-text
+   first-pos = 1*DIGIT
+
+   hour = 2DIGIT
+   http-URI = "http://" authority path-abempty [ "?" query ]
+   https-URI = "https://" authority path-abempty [ "?" query ]
+
+   incl-range = first-pos "-" last-pos
+   int-range = first-pos "-" [ last-pos ]
+
+   language-range = <language-range, see [RFC4647], Section 2.1>
+   language-tag = <Language-Tag, see [RFC5646], Section 2.1>
+   last-pos = 1*DIGIT
+
+   mailbox = <mailbox, see [RFC5322], Section 3.4>
+   media-range = ( "*/*" / ( type "/*" ) / ( type "/" subtype ) )
+    parameters
+   media-type = type "/" subtype parameters
+   method = token
+   minute = 2DIGIT
+   month = %x4A.61.6E ; Jan
+    / %x46.65.62 ; Feb
+    / %x4D.61.72 ; Mar
+    / %x41.70.72 ; Apr
+    / %x4D.61.79 ; May
+    / %x4A.75.6E ; Jun
+    / %x4A.75.6C ; Jul
+    / %x41.75.67 ; Aug
+    / %x53.65.70 ; Sep
+    / %x4F.63.74 ; Oct
+    / %x4E.6F.76 ; Nov
+    / %x44.65.63 ; Dec
+
+   obs-date = rfc850-date / asctime-date
+   obs-text = %x80-FF
+   opaque-tag = DQUOTE *etagc DQUOTE
+   other-range = 1*( %x21-2B ; '!'-'+'
+    / %x2D-7E ; '-'-'~'
+    )
+
+   parameter = parameter-name "=" parameter-value
+   parameter-name = token
+   parameter-value = ( token / quoted-string )
+   parameters = *( OWS ";" OWS [ parameter ] )
+   partial-URI = relative-part [ "?" query ]
+   path-abempty = <path-abempty, see [URI], Section 3.3>
+   port = <port, see [URI], Section 3.2.3>
+   product = token [ "/" product-version ]
+   product-version = token
+   protocol = protocol-name [ "/" protocol-version ]
+   protocol-name = token
+   protocol-version = token
+   pseudonym = token
+
+   qdtext = HTAB / SP / "!" / %x23-5B ; '#'-'['
+    / %x5D-7E ; ']'-'~'
+    / obs-text
+   query = <query, see [URI], Section 3.4>
+   quoted-pair = "\" ( HTAB / SP / VCHAR / obs-text )
+   quoted-string = DQUOTE *( qdtext / quoted-pair ) DQUOTE
+   qvalue = ( "0" [ "." *3DIGIT ] ) / ( "1" [ "." *3"0" ] )
+
+   range-resp = incl-range "/" ( complete-length / "*" )
+   range-set = range-spec *( OWS "," OWS range-spec )
+   range-spec = int-range / suffix-range / other-range
+   range-unit = token
+   ranges-specifier = range-unit "=" range-set
+   received-by = pseudonym [ ":" port ]
+   received-protocol = [ protocol-name "/" ] protocol-version
+   relative-part = <relative-part, see [URI], Section 4.2>
+   rfc850-date = day-name-l "," SP date2 SP time-of-day SP GMT
+
+   second = 2DIGIT
+   segment = <segment, see [URI], Section 3.3>
+   subtype = token
+   suffix-length = 1*DIGIT
+   suffix-range = "-" suffix-length
+
+   t-codings = "trailers" / ( transfer-coding [ weight ] )
+   tchar = "!" / "#" / "$" / "%" / "&" / "'" / "*" / "+" / "-" / "." /
+    "^" / "_" / "`" / "|" / "~" / DIGIT / ALPHA
+   time-of-day = hour ":" minute ":" second
+   token = 1*tchar
+   token68 = 1*( ALPHA / DIGIT / "-" / "." / "_" / "~" / "+" / "/" )
+    *"="
+   transfer-coding = token *( OWS ";" OWS transfer-parameter )
+   transfer-parameter = token BWS "=" BWS ( token / quoted-string )
+   type = token
+
+   unsatisfied-range = "*/" complete-length
+   uri-host = <host, see [URI], Section 3.2.2>
+
+   weak = %x57.2F ; W/
+   weight = OWS ";" OWS "q=" qvalue
+
+   year = 4DIGIT
+
+Appendix B.  Changes from Previous RFCs
+
+B.1.  Changes from RFC 2818
+
+   None.
+
+B.2.  Changes from RFC 7230
+
+   The sections introducing HTTP's design goals, history, architecture,
+   conformance criteria, protocol versioning, URIs, message routing, and
+   header fields have been moved here.
+
+   The requirement on semantic conformance has been replaced with
+   permission to ignore or work around implementation-specific failures.
+   (Section 2.2)
+
+   The description of an origin and authoritative access to origin
+   servers has been extended for both "http" and "https" URIs to account
+   for alternative services and secured connections that are not
+   necessarily based on TCP.  (Sections 4.2.1, 4.2.2, 4.3.1, and 7.3.3)
+
+   Explicit requirements have been added to check the target URI
+   scheme's semantics and reject requests that don't meet any associated
+   requirements.  (Section 7.4)
+
+   Parameters in media type, media range, and expectation can be empty
+   via one or more trailing semicolons.  (Section 5.6.6)
+
+   "Field value" now refers to the value after multiple field lines are
+   combined with commas -- by far the most common use.  To refer to a
+   single header line's value, use "field line value".  (Section 6.3)
+
+   Trailer field semantics now transcend the specifics of chunked
+   transfer coding.  The use of trailer fields has been further limited
+   to allow generation as a trailer field only when the sender knows the
+   field defines that usage and to allow merging into the header section
+   only if the recipient knows the corresponding field definition
+   permits and defines how to merge.  In all other cases,
+   implementations are encouraged either to store the trailer fields
+   separately or to discard them instead of merging.  (Section 6.5.1)
+
+   The priority of the absolute form of the request URI over the Host
+   header field by origin servers has been made explicit to align with
+   proxy handling.  (Section 7.2)
+
+   The grammar definition for the Via field's "received-by" was expanded
+   in RFC 7230 due to changes in the URI grammar for host [URI] that are
+   not desirable for Via. For simplicity, we have removed uri-host from
+   the received-by production because it can be encompassed by the
+   existing grammar for pseudonym.  In particular, this change removed
+   comma from the allowed set of characters for a host name in received-
+   by.  (Section 7.6.3)
+
+B.3.  Changes from RFC 7231
+
+   Minimum URI lengths to be supported by implementations are now
+   recommended.  (Section 4.1)
+
+   The following have been clarified: CR and NUL in field values are to
+   be rejected or mapped to SP, and leading and trailing whitespace
+   needs to be stripped from field values before they are consumed.
+   (Section 5.5)
+
+   Parameters in media type, media range, and expectation can be empty
+   via one or more trailing semicolons.  (Section 5.6.6)
+
+   An abstract data type for HTTP messages has been introduced to define
+   the components of a message and their semantics as an abstraction
+   across multiple HTTP versions, rather than in terms of the specific
+   syntax form of HTTP/1.1 in [HTTP/1.1], and reflect the contents after
+   the message is parsed.  This makes it easier to distinguish between
+   requirements on the content (what is conveyed) versus requirements on
+   the messaging syntax (how it is conveyed) and avoids baking
+   limitations of early protocol versions into the future of HTTP.
+   (Section 6)
+
+   The terms "payload" and "payload body" have been replaced with
+   "content", to better align with its usage elsewhere (e.g., in field
+   names) and to avoid confusion with frame payloads in HTTP/2 and
+   HTTP/3.  (Section 6.4)
+
+   The term "effective request URI" has been replaced with "target URI".
+   (Section 7.1)
+
+   Restrictions on client retries have been loosened to reflect
+   implementation behavior.  (Section 9.2.2)
+
+   The fact that request bodies on GET, HEAD, and DELETE are not
+   interoperable has been clarified.  (Sections 9.3.1, 9.3.2, and 9.3.5)
+
+   The use of the Content-Range header field (Section 14.4) as a request
+   modifier on PUT is allowed.  (Section 9.3.4)
+
+   A superfluous requirement about setting Content-Length has been
+   removed from the description of the OPTIONS method.  (Section 9.3.7)
+
+   The normative requirement to use the "message/http" media type in
+   TRACE responses has been removed.  (Section 9.3.8)
+
+   List-based grammar for Expect has been restored for compatibility
+   with RFC 2616.  (Section 10.1.1)
+
+   Accept and Accept-Encoding are allowed in response messages; the
+   latter was introduced by [RFC7694].  (Section 12.3)
+
+   "Accept Parameters" (accept-params and accept-ext ABNF production)
+   have been removed from the definition of the Accept field.
+   (Section 12.5.1)
+
+   The Accept-Charset field is now deprecated.  (Section 12.5.2)
+
+   The semantics of "*" in the Vary header field when other values are
+   present was clarified.  (Section 12.5.5)
+
+   Range units are compared in a case-insensitive fashion.
+   (Section 14.1)
+
+   The use of the Accept-Ranges field is not restricted to origin
+   servers.  (Section 14.3)
+
+   The process of creating a redirected request has been clarified.
+   (Section 15.4)
+
+   Status code 308 (previously defined in [RFC7538]) has been added so
+   that it's defined closer to status codes 301, 302, and 307.
+   (Section 15.4.9)
+--- END OF SECTION ---

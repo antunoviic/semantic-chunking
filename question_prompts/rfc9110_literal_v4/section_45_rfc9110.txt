@@ -1,0 +1,128 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 45 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 45/45 ---
+      S
+
+         safe  *_Section 9.2.1_*
+         satisfiable range  *_Section 14.1.1_*
+         secured  *_Section 4.2.2_*
+         selected representation  *_Section 3.2, Paragraph 4_*;
+            Section 8.8; Section 13.1
+         self-descriptive  *_Section 6_*
+         sender  *_Section 3.4_*
+         server  *_Section 3.3_*
+         Server header field  *_Section 10.2.4_*
+         singleton field  Section 5.5, Paragraph 6
+         spider  *_Section 3.5_*
+         Status Code  Section 15
+         Status Codes
+            Final  Section 15, Paragraph 7
+            Informational  Section 15, Paragraph 7
+            Interim  Section 15, Paragraph 7
+         Status Codes Classes
+            1xx Informational  *_Section 15.2_*
+            2xx Successful  *_Section 15.3_*
+            3xx Redirection  *_Section 15.4_*
+            4xx Client Error  *_Section 15.5_*
+            5xx Server Error  *_Section 15.6_*
+
+      T
+
+         target resource  *_Section 7.1_*
+         target URI  *_Section 7.1_*
+         TE header field  *_Section 10.1.4_*
+         TRACE method  *_Section 9.3.8_*
+         Trailer Fields  *_Section 6.5_*
+            ETag  *_Section 8.8.3_*
+         Trailer header field  *_Section 6.6.2_*
+         trailer section  *_Section 6.5_*
+         trailers  *_Section 6.5_*
+         transforming proxy  *_Section 7.7_*
+         transparent proxy  *_Section 3.7, Paragraph 10_*
+         tunnel  *_Section 3.7, Paragraph 8_*
+
+      U
+
+         unsatisfiable range  *_Section 14.1.1_*
+         Upgrade header field  *_Section 7.8_*
+         upstream  *_Section 3.7, Paragraph 4_*
+         URI  *_Section 4_*
+            origin  *_Section 4.3.1_*
+         URI reference  *_Section 4.1_*
+         URI scheme
+            http  *_Section 4.2.1_*
+            https  *_Section 4.2.2_*
+         user agent  *_Section 3.5_*
+         User-Agent header field  *_Section 10.1.5_*
+
+      V
+
+         validator  *_Section 8.8_*
+            strong  *_Section 8.8.1_*
+            weak  *_Section 8.8.1_*
+         Vary header field  *_Section 12.5.5_*
+         Via header field  *_Section 7.6.3_*
+
+      W
+
+         WWW-Authenticate header field  *_Section 11.6.1_*
+
+      X
+
+         x-compress (content coding)  *_Section 8.4.1_*
+         x-gzip (content coding)  *_Section 8.4.1_*
+
+Authors' Addresses
+
+   Roy T. Fielding (editor)
+   Adobe
+   345 Park Ave
+   San Jose, CA 95110
+   United States of America
+   Email: fielding@gbiv.com
+   URI:   https://roy.gbiv.com/
+
+
+   Mark Nottingham (editor)
+   Fastly
+   Prahran
+   Australia
+   Email: mnot@mnot.net
+   URI:   https://www.mnot.net/
+
+
+   Julian Reschke (editor)
+   greenbytes GmbH
+   Hafenweg 16
+   48155 Münster
+   Germany
+   Email: julian.reschke@greenbytes.de
+   URI:   https://greenbytes.de/tech/webdav/
+--- END OF SECTION ---

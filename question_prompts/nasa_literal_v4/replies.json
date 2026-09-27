@@ -1,0 +1,2752 @@
+[
+  {
+    "question": "What document does NASA SP-2016-6105 Rev2 supersede?",
+    "source_text": "NASA SP-2016-6105 Rev2 supersedes SP-2007-6105 Rev 1 dated December, 2007.",
+    "section": 1
+  },
+  {
+    "question": "What percentage scale model did engineers led by researcher Greg Gatlin spray with fluorescent oil during tests in the 14- by 22-Foot Subsonic Wind Tunnel?",
+    "source_text": "engineers led by researcher Greg Gatlin have sprayed fluorescent oil on a 5.8 percent scale model of a futuristic hybrid wing body during tests in the 14- by 22-Foot Subsonic Wind Tunnel",
+    "section": 1
+  },
+  {
+    "question": "What does the oil sprayed on the wind tunnel model help researchers do?",
+    "source_text": "The oil helps researchers “see” the flow patterns when air passes over and around the model.",
+    "section": 1
+  },
+  {
+    "question": "On what date did the water impact test of a test version of the Orion spacecraft take place at NASA Langley Research Center?",
+    "source_text": "Water impact test of a test version of the Orion spacecraft took place on August 24, 2016, at NASA Langley Research Center",
+    "section": 1
+  },
+  {
+    "question": "At what site does NASA's Curiosity Mars rover self-portrait show the vehicle, where its drill collected the mission's second taste of Mount Sharp?",
+    "source_text": "This self-portrait of NASA’s Curiosity Mars rover shows the vehicle at the “Mojave” site, where its drill collected the mission’s second taste of Mount Sharp.",
+    "section": 1
+  },
+  {
+    "question": "Who should comments, questions, and suggestions regarding the NASA Systems Engineering Handbook be sent to?",
+    "source_text": "Comments, questions, and suggestions regarding this document can be sent to: Steven R. Hirshorn Chief Engineer, Aeronautics Research Mission Directorate (ARMD)",
+    "section": 1
+  },
+  {
+    "question": "In what year was NASA/SP-6105 initially written, before the revision (Rev 1) in 2007?",
+    "source_text": "S ince the initial writing of NASA/SP-6105 in 1995 and the following revision (Rev 1) in 2007, systems engineering as a discipline at the National Aeronautics and Space Administration (NASA) has undergone rapid and continued evolution.",
+    "section": 1
+  },
+  {
+    "question": "What NASA Procedural Requirements document did changes to systems engineering accommodate updates to, alongside the use of Model-Based Systems Engineering?",
+    "source_text": "Changes include using Model-Based Systems Engineering to improve development and delivery of products, and accommodating updates to NASA Procedural Requirements (NPR) 7123.1.",
+    "section": 1
+  },
+  {
+    "question": "Besides the NASA Integrated Action Team (NIAT) and the Columbia Accident Investigation Board (CAIB), what follow-on report documented lessons learned on systems engineering?",
+    "source_text": "Lessons learned on systems engineering were documented in reports such as those by the NASA Integrated Action Team (NIAT), the Columbia Accident Investigation Board (CAIB), and the follow-on Diaz Report.",
+    "section": 1
+  },
+  {
+    "question": "From which robotic missions were other lessons learned garnered, besides mishaps from ground operations and the commercial space flight industry?",
+    "source_text": "Other lessons learned were garnered from the robotic missions such as Genesis and the Mars Reconnaissance Orbiter as well as from mishaps from ground operations and the commercial space flight industry.",
+    "section": 1
+  },
+  {
+    "question": "What NASA office's initiative aimed to improve the overall Agency systems engineering infrastructure and capability?",
+    "source_text": "Out of these reports came the NASA Office of the Chief Engineer (OCE) initiative to improve the overall Agency systems engineering infrastructure and capability for the efficient and effective engineering of NASA systems",
+    "section": 1
+  },
+  {
+    "question": "How many chapters does the NASA Systems Engineering Handbook consist of?",
+    "source_text": "This handbook consists of six chapters: (1) an introduction, (2) a systems engineering fundamentals discussion, (3) the NASA program/project life cycles, (4) systems engineering processes to get from a concept to a design",
+    "section": 1
+  },
+  {
+    "question": "Is the NASA Systems Engineering Handbook intended to be a directive?",
+    "source_text": "this handbook provides top-level guidance for good systems engineering practices; it is not intended in any way to be a directive.",
+    "section": 1
+  },
+  {
+    "question": "What is a goal of the NASA Systems Engineering Handbook regarding awareness and consistency?",
+    "source_text": "A goal of the handbook is to increase awareness and consistency across the Agency and advance the practice of SE.",
+    "section": 2
+  },
+  {
+    "question": "For guidance on entrance and exit criteria for milestone reviews of software projects, which document should be consulted?",
+    "source_text": "For guidance on entrance and exit criteria for milestone reviews of software projects, refer to NASAHDBK-2203, NASA Software Engineering Handbook.",
+    "section": 2
+  },
+  {
+    "question": "At what web address can a NASA systems engineer participate in the NASA Engineering Network (NEN) Systems Engineering Community of Practice?",
+    "source_text": "A NASA systems engineer can also participate in the NASA Engineering Network (NEN) Systems Engineering Community of Practice, located at https://nen.nasa.gov/web/se .",
+    "section": 2
+  },
+  {
+    "question": "How many common technical processes does this handbook apply to all NASA space flight projects, though formality and depth of documentation vary?",
+    "source_text": "While all 17 processes are applicable to all projects, the amount of formality, depth of documentation, and timescales are varied as appropriate for the type, size, and complexity of the project.",
+    "section": 2
+  },
+  {
+    "question": "How is a 'system' defined in the NASA Systems Engineering Handbook?",
+    "source_text": "A “system” is the combination of elements that function together to produce the capability required to meet a need.",
+    "section": 2
+  },
+  {
+    "question": "According to the handbook, how is 'systems engineering' defined at NASA?",
+    "source_text": "A t NASA, “systems engineering” is defined as a methodical, multi-disciplinary approach for the design, realization, technical management, operations, and retirement of a system.",
+    "section": 2
+  },
+  {
+    "question": "Who is the source of the comments on systems engineering extracted throughout Chapter 2.0, from the speech \"System Engineering and the Two Cultures of Engineering\"?",
+    "source_text": "Comments on systems engineering throughout Chapter 2 .0 are extracted from the speech “System Engineering and the Two Cultures of Engineering” by Michael D . G riffin, NASA Administrator .",
+    "section": 2
+  },
+  {
+    "question": "What does the lead systems engineer ensure regarding the system?",
+    "source_text": "The lead systems engineer ensures that the system technically fulfills the defined needs and requirements and that a proper systems engineering approach is being followed.",
+    "section": 2
+  },
+  {
+    "question": "What three main objectives does managing a project consist of, according to the handbook?",
+    "source_text": "Managing a project consists of three main objectives: managing the technical aspects of the project, managing the project team, and managing the cost and schedule.",
+    "section": 2
+  },
+  {
+    "question": "What is the Project Planning and Control (PP&C) function responsible for?",
+    "source_text": "The Project Planning and Control (PP&C) function is responsible for identifying and controlling the cost and schedules of the project.",
+    "section": 2
+  },
+  {
+    "question": "What are the three sets of common technical processes in NPR 7123.1?",
+    "source_text": "There are three sets of common technical processes in NPR 7123.1, NASA Systems Engineering Processes and Requirements: system design, product realization, and technical management.",
+    "section": 2
+  },
+  {
+    "question": "How is 'iterative' defined in NPR 7123.1 with respect to a process applied to a product?",
+    "source_text": "As defined in NPR 7123.1, “iterative” is the “application of a process to the same product or set of products to correct a discovered disc repancy or other variation from requirements,”",
+    "section": 2
+  },
+  {
+    "question": "According to the definition of 'recursive' in NPR 7123.1, how does the repeated application of processes add value to the system?",
+    "source_text": "“recursive” is defined as adding value to the system “by the repeated application of processes to design next lower layer system products or to realize next upper layer end products within the system structure.",
+    "section": 2
+  },
+  {
+    "question": "What kind of quality management system is AS9100, and for which industry was it developed?",
+    "source_text": "AS9100 is a widely adopted and standardized quality management system developed for the commercial aerospace industry.",
+    "section": 3
+  },
+  {
+    "question": "How many times does the SE engine cycle through the technical development processes (steps 1 through 9) from Pre-Phase A through Phase D?",
+    "source_text": "The SE engine cycles five times from Pre-Phase A through Phase D.",
+    "section": 3
+  },
+  {
+    "question": "How many times does the SE engine cycle the technical management processes from Pre-Phase A through Phase F?",
+    "source_text": "The SE engine cycles the technical management processes seven times from Pre-Phase A through Phase F.",
+    "section": 3
+  },
+  {
+    "question": "What is the purpose of Pre-Phase A: Concept Studies in the project life cycle?",
+    "source_text": "To produce a broad spectrum of ideas and alternatives for missions from which new programs/projects can be selected.",
+    "section": 3
+  },
+  {
+    "question": "What must the operational concept developed in Pre-Phase A include for all significant operational situations?",
+    "source_text": "The operational concept must include scenarios for all significant operational situations, including known off-nominal situations.",
+    "section": 3
+  },
+  {
+    "question": "What does Verification of a product show, as distinguished from Validation?",
+    "source_text": "Verification of a product shows proof of compliance with requirements—that the product can meet each “shall” statement as proven though performance of a test, analysis, inspection, or demonstration",
+    "section": 3
+  },
+  {
+    "question": "What does Validation of a product show about the product's accomplishment of its intended purpose?",
+    "source_text": "Validation of a product shows that the product accomplishes the intended purpose in the intended environment—that it meets the expectations of the customer and other stakeholders",
+    "section": 3
+  },
+  {
+    "question": "According to the life-cycle cost figure, what percentage of the life cycle costs might be expended during design, even though design itself commits a much larger share?",
+    "source_text": "the figure shows that during design, only about 15% of the costs might be expended, but the design itself will commit about 75% of the life cycle costs.",
+    "section": 3
+  },
+  {
+    "question": "In the Systems Engineer's Dilemma, what must be reduced to reduce cost at constant risk?",
+    "source_text": "To re duce cost at constant risk, performance must be reduced.",
+    "section": 3
+  },
+  {
+    "question": "In the Systems Engineer's Dilemma, what must be accepted to reduce risk at constant performance?",
+    "source_text": "To re duce risk at constant performance, higher costs must be accepted.",
+    "section": 3
+  },
+  {
+    "question": "How many levels of proficiencies are associated with each competency in the NASA SE Competency Model?",
+    "source_text": "There are four levels of proficiencies associated with each of these competencies: • Team Practitioner/Technical Engineer • Team Lead/Subsystem Lead • Project Systems Engineer • Chief Engineer",
+    "section": 3
+  },
+  {
+    "question": "What does the SE 1.1 Stakeholder Expectation Definition & Management competency involve eliciting and defining?",
+    "source_text": "Eliciting and defining use cases, scenarios, concept of operations and stakeholder expectations.",
+    "section": 3
+  },
+  {
+    "question": "What does the SE 2.3 Product Verification competency involve proving about the end product?",
+    "source_text": "SE 2.3 Product Verification Proving the end product conforms to its requirements. This includes preparing for the verification efforts",
+    "section": 3
+  },
+  {
+    "question": "What does the SE 2.4 Product Validation competency confirm about a verified end product?",
+    "source_text": "Confirming that a verified end product satisfies the stakeholder expectations for its intended use when placed in its intended environment",
+    "section": 4
+  },
+  {
+    "question": "What is SE 2.5 Product Transition, in terms of what happens to the verified and validated product?",
+    "source_text": "Transitioning the verified and validated product to the customer at the next level in the system structure.",
+    "section": 4
+  },
+  {
+    "question": "What does SE 3.1 Technical Planning involve preparing, besides a planning strategy for each technical process?",
+    "source_text": "This also includes preparing the Systems Engineering Management Plan (SEMP) and other technical plans; obtaining stakeholder commitments to the technical plans; and issuing authorized technical work directives to implement the technical work",
+    "section": 4
+  },
+  {
+    "question": "What does SE 3.2 Requirements Management involve managing, in terms of traceability?",
+    "source_text": "Managing the product requirements, including providing bidirectional traceability, and managing changes to establish requirement baselines over the life cycle of the system products.",
+    "section": 4
+  },
+  {
+    "question": "What does SE 3.3 Interface Management establish and use to maintain interface definition and compliance?",
+    "source_text": "Establishing and using formal interface management to maintain internal and external interface definition and compliance among the end products and enabling products.",
+    "section": 4
+  },
+  {
+    "question": "What does SE 3.4 Technical Risk Management involve examining on a continual basis?",
+    "source_text": "Examining on a continual basis the risks of technical deviations from the plans, and identifying potential technical problems before they occur.",
+    "section": 4
+  },
+  {
+    "question": "What does SE 3.6 Technical Data Management involve identifying and controlling throughout a product's life cycle?",
+    "source_text": "Identifying and controlling product-related data throughout its life cycle; acquiring, accessing, and distributing data needed to develop, manage, operate, support, and retire system products",
+    "section": 4
+  },
+  {
+    "question": "What events separate the distinct phases into which the NASA program/project life cycle is categorized?",
+    "source_text": "categorizes everything that should be done to accomplish a program or project into distinct phases that are separated by Key Decision Points (KDPs).",
+    "section": 4
+  },
+  {
+    "question": "What may happen to a program or project that fails to pass a Key Decision Point after addressing the deficiencies that precluded passing it?",
+    "source_text": "A program or project that fails to pass a KDP may be allowed to try again later after addressing deficiencies that precluded passing the KDP, or it may be terminated.",
+    "section": 4
+  },
+  {
+    "question": "Which NPR governs the life cycle for NASA information technology projects?",
+    "source_text": "For information technology: NPR 7120.7, NASA Information Technology and Institutional Infrastructure Program and Project Management Requirements",
+    "section": 4
+  },
+  {
+    "question": "Which NPR defines NASA Software Engineering Requirements governing the life cycle for software?",
+    "source_text": "For software: NPR 7150.2 NASA Software Engineering Requirements",
+    "section": 4
+  },
+  {
+    "question": "What document authorizes a Program Manager (PM) to initiate the planning of a new program?",
+    "source_text": "The program Formulation Authorization Document (FAD) authorizes a Program Manager (PM) to initiate the planning of a new program and to perform the analyses required to formulate a sound program plan.",
+    "section": 4
+  },
+  {
+    "question": "Which major reviews lead to approval at KDP I during Program Formulation?",
+    "source_text": "Major reviews leading to approval at KDP I are the SRR, SDR, PDR, and governing Program Management Council (PMC) review.",
+    "section": 4
+  },
+  {
+    "question": "What is the purpose of Pre-Phase A: Concept Studies according to the SPACE FLIGHT PRE-PHASE A box?",
+    "source_text": "To produce a broad spectrum of ideas and alternatives for missions from which new programs and projects can be selected.",
+    "section": 5
+  },
+  {
+    "question": "In projects governed by NPR 7120.5, what do descope options define?",
+    "source_text": "In projects governed by NPR 7120.5, the descope options define what the system can accomplish if the resources are not available to accomplish the entire mission.",
+    "section": 5
+  },
+  {
+    "question": "What happens to the preliminary set of mission descope options developed as a gate product for the MCR?",
+    "source_text": "The project team develops a preliminary set of mission descope options as a gate product for the MCR, but these preliminary descope options are not baselined or maintained.",
+    "section": 5
+  },
+  {
+    "question": "What is the emphasis during Pre-Phase A regarding feasibility versus optimality?",
+    "source_text": "The emphasis is on establishing feasibility and desirability rather than optimality.",
+    "section": 5
+  },
+  {
+    "question": "What is the purpose of Project Phase A: Concept and Technology Development?",
+    "source_text": "The purpose of Phase A is to develop a proposed mission/system architecture that is credible and responsive to program expectations, requirements, and constraints on the project, including resources.",
+    "section": 5
+  },
+  {
+    "question": "What is baselined in Phase A to document how NASA systems engineering requirements and practices of NPR 7123.1 will be addressed throughout the program life cycle?",
+    "source_text": "A Systems Engineering Management Plan (SEMP) is baselined in Phase A to document how NASA systems engineering requirements and practices of NPR 7123.1 will be addressed throughout the program life cycle.",
+    "section": 5
+  },
+  {
+    "question": "What NPR and FIPS publication govern the security categorization of IT systems conducted by the project team in Phase A?",
+    "source_text": "The project team conducts the security categorization of IT systems required by NPR 2810.1 and Federal Information Processing Standard Publication (FIPS PUB) 199.",
+    "section": 5
+  },
+  {
+    "question": "For projects with a Life Cycle Cost (LCC) greater than what dollar amount is the commitment to accomplishing the project's objectives made with Congress and the OMB?",
+    "source_text": "For projects with a Life Cycle Cost (LCC) greater than $250 million, this commitment is made with the Congress and the U.S. Office of Management and Budget (OMB).",
+    "section": 5
+  },
+  {
+    "question": "What is the external commitment called that is made with Congress and the OMB for high-cost projects at the conclusion of Phase B?",
+    "source_text": "This external commitment is the Agency Baseline Commitment (ABC).",
+    "section": 5
+  },
+  {
+    "question": "What does the Phase B baseline consist of, covering technical and business aspects of the project?",
+    "source_text": "The Phase B baseline consists of a collection of evolving baselines covering technical and business aspects of the project: system (and subsystem) requirements and specifications, designs, verification and operations plans, and so on",
+    "section": 5
+  },
+  {
+    "question": "In what series of reviews does Phase B culminate?",
+    "source_text": "Phase B culminates in a series of PDRs, containing the system-level PDR and PDRs for lower level end items as appropriate.",
+    "section": 5
+  },
+  {
+    "question": "What is the purpose of Project Phase C: Final Design and Fabrication?",
+    "source_text": "The purpose of Phase C is to complete and document the detailed design of the system that meets the detailed requirements and to fabricate, code, or otherwise realize the products.",
+    "section": 5
+  },
+  {
+    "question": "During Phase C fabrication, what is the systems engineer available to do?",
+    "source_text": "During fabrication, the systems engineer is available to answer questions and work any interfacing issues that might arise.",
+    "section": 5
+  },
+  {
+    "question": "What must be held for each end item prior to the start of fabrication/production for hardware and prior to the start of coding of deliverable software products?",
+    "source_text": "A CDR for each end item should be held prior to the start of fabrication/production for hardware and prior to the start of coding of deliverable software products.",
+    "section": 6
+  },
+  {
+    "question": "What review does a production run of products require to ensure the production plans, facilities, and personnel are ready to begin production?",
+    "source_text": "If there is a production run of products, a PRR will be performed to ensure the production plans, facilities, and personnel are ready to begin production.",
+    "section": 6
+  },
+  {
+    "question": "What is the purpose of Project Phase D: System Assembly, Integration and Test, Launch?",
+    "source_text": "The purpose of Phase D is to assemble, integrate, verify, validate, and launch the system.",
+    "section": 6
+  },
+  {
+    "question": "What kind of system does Phase D conclude with, according to the handbook?",
+    "source_text": "Phase D concludes with a system that has been shown to be capable of accomplishing the purpose for which it was created.",
+    "section": 6
+  },
+  {
+    "question": "What may Phase E software development include, such as for a planetary probe?",
+    "source_text": "For example, software for a planetary probe may be developed and uplinked while in-flight.",
+    "section": 6
+  },
+  {
+    "question": "What constitutes new \"needs\" during Phase E that would cause the project life cycle to start over?",
+    "source_text": "Changes of that scope constitute new “needs,” and the project life cycle starts over.",
+    "section": 6
+  },
+  {
+    "question": "What NASA Policy Directive covers notification of intent to decommission or terminate operating space systems and terminate missions?",
+    "source_text": "Refer to NASA Policy Directive (NPD) 8010.3, Notification of Intent to Decommission or Terminate Operating Space Systems and Terminate Missions,",
+    "section": 6
+  },
+  {
+    "question": "At what altitude above Earth are Geostationary (GEO) satellites located, according to the handbook's discussion of orbital debris?",
+    "source_text": "The Geostationary (GEO) satellites at 35,790 km above the Earth cannot be practically deorbited, so they are boosted to a higher orbit well beyond the crowded operational GEO orbit.",
+    "section": 6
+  },
+  {
+    "question": "How does NPR 7123.1 define tailoring?",
+    "source_text": "NPR 7123.1 defines tailoring as “the process used to seek relief from SE NPR requirements consistent with program or project objectives, allowable risk, and constraints .”",
+    "section": 6
+  },
+  {
+    "question": "How is \"customization\" defined in the context of SE requirements, as distinct from tailoring?",
+    "source_text": "the term “customization” is introduced and is defined as “the modification of recommended SE practices that are used to accomplish the SE requirements.”",
+    "section": 6
+  },
+  {
+    "question": "What NPR is intended for assigning a risk classification to NASA projects and programs?",
+    "source_text": "NPR 8705.4, Risk Classification for NASA Payloads, is intended for assigning a risk classification to projects and programs.",
+    "section": 6
+  },
+  {
+    "question": "According to the criteria for tailoring, how do the requirements for a human space flight mission compare to those for a small robotic mission?",
+    "source_text": "Type of mission. For example, the requirements for a human space flight mission are much more rigorous than those for a small robotic mission.",
+    "section": 6
+  },
+  {
+    "question": "Where in NPR 7123.1 is the Compliance Matrix included to assist programs and projects in verifying that they meet the specified NPR requirements?",
+    "source_text": "NPR 7123.1 includes a Compliance Matrix (Appendix H.2) to assist programs and projects in verifying that they meet the specified NPR requirements.",
+    "section": 6
+  },
+  {
+    "question": "What does the Compliance Matrix provide for each of the NPR requirements to assist in understanding?",
+    "source_text": "The Compliance Matrix provides rationales for each of the NPR requirements to assist in understanding.",
+    "section": 7
+  },
+  {
+    "question": "What are the three areas that tailoring often comes in, according to the handbook?",
+    "source_text": "Tailoring often comes in three areas: 1. Eliminating a requirement that does not apply to the specific program/project.",
+    "section": 7
+  },
+  {
+    "question": "What two things can customizing SE practices include, according to the handbook?",
+    "source_text": "Customizing SE practices can include the following: 1. Adjusting the way each of the 17 SE processes is implemented. 2. Adjusting the formality and timing of reviews.",
+    "section": 7
+  },
+  {
+    "question": "If a system does not contain software, what NPR requirements would not be applicable?",
+    "source_text": "If a system does not contain software, then none of the NPR requirements for developing and maintaining software would be applicable.",
+    "section": 7
+  },
+  {
+    "question": "What is needed if the applicable project management directive, such as NPR 7120.5 or NPR 7120.8, requires documents to be stand-alone?",
+    "source_text": "If the applicable project management directive (e.g., NPR 7120.5 or NPR 7120.8) requires documents to be stand-alone, a program/project waiver/deviation is needed.",
+    "section": 7
+  },
+  {
+    "question": "Which appendix of NPR 7123.1 provides extensive guidance for suggested review entrance and success criteria?",
+    "source_text": "NPR 7123.1, Appendix G, provides extensive guidance for suggested review entrance and success criteria.",
+    "section": 7
+  },
+  {
+    "question": "What example is given of two reviews that a small project may decide to combine?",
+    "source_text": "A small project may decide to combine the SRR and the SDR (or Mission Definition Review (MDR)) for example.",
+    "section": 7
+  },
+  {
+    "question": "For large projects, what kind of formal process might be appropriate for conducting a review?",
+    "source_text": "For large projects, it might be appropriate to conduct a very formal review with a formal Review Item Discrepancy (RID)/Request for Action (RFA) process, a summary, and detailed presentations to a wide audience including boards and pre-boards over several weeks.",
+    "section": 7
+  },
+  {
+    "question": "If a Center is requesting tailoring of the NPR requirements for standard use at the Center, which appendix is completed and submitted to the OCE for approval?",
+    "source_text": "If it is a Center that is requesting tailoring of the NPR requirements for standard use at the Center, Appendix H.1 is completed and submitted to the OCE for approval upon request or as changes to the Center processes occur.",
+    "section": 7
+  },
+  {
+    "question": "Who approves the waiver/deviation when a program/project whose responsibility has been delegated to a Center seeks relief using the Compliance Matrix in Appendix H.2?",
+    "source_text": "In these cases, the Center Director or designee will approve the waiver/deviation.",
+    "section": 7
+  },
+  {
+    "question": "How many system design processes are there, according to Chapter 4.0 of the handbook?",
+    "source_text": "There are four system design processes: developing stakeholder expectations, technical requirements, logical decompositions, and design solutions.",
+    "section": 7
+  },
+  {
+    "question": "What three questions does a simplified validation ask when checking a proposed design against stakeholder expectations?",
+    "source_text": "A simplified validation asks the questions: Will the system work as expected? Is the system achievable within budget and schedule constraints? Does the system provide the functionality and fulfill the operational needs that drove the project’s funding approval?",
+    "section": 7
+  },
+  {
+    "question": "What should the depth of the design effort be sufficient to allow, according to the system design processes discussion?",
+    "source_text": "The depth of the design effort should be sufficient to allow analytical verification of the design to the requirements.",
+    "section": 7
+  },
+  {
+    "question": "According to the System Design Keys, what is a critical factor in successful validation of requirements?",
+    "source_text": "Complete and thorough requirements traceability is a critical factor in successful validation of requirements.",
+    "section": 8
+  },
+  {
+    "question": "What should be documented in the technical data package regarding the original design concept?",
+    "source_text": "Document all decisions made during the development of the original design concept in the technical data package.",
+    "section": 8
+  },
+  {
+    "question": "What kind of design does Phase B result in, according to the discussion of system design process phases?",
+    "source_text": "Phase B results in a preliminary design that satisfies the approval criteria.",
+    "section": 8
+  },
+  {
+    "question": "What is the main purpose of the Stakeholder Expectations Definition Process?",
+    "source_text": "The main purpose of this process is to identify who the stakeholders are and how they intend to use the product.",
+    "section": 8
+  },
+  {
+    "question": "How is a \"stakeholder\" defined in the context of the Stakeholder Expectations Definition Process?",
+    "source_text": "A “stakeholder” is a group or individual that is affected by or has a stake in the product or project.",
+    "section": 8
+  },
+  {
+    "question": "How is a \"constraint\" defined in the context of defining stakeholder expectations?",
+    "source_text": "A “constraint” is a condition that is to be met. Sometimes a constraint is dictated by external factors such as orbital mechanics",
+    "section": 8
+  },
+  {
+    "question": "What question do Needs answer, according to the definitions of Needs, Goals, and Objectives (NGOs)?",
+    "source_text": "Needs are defined in the answer to the question “What problem are we trying to solve?”",
+    "section": 8
+  },
+  {
+    "question": "According to the NGO definitions, what is a \"Need\" described as, in terms of the number of statements?",
+    "source_text": "Need: A single statement that drives everything else. It should relate to the problem that the system is supposed to solve but not be the solution.",
+    "section": 8
+  },
+  {
+    "question": "What must objectives be, according to the second of the four criteria for objectives?",
+    "source_text": "They should be measurable, quantifiable, and verifiable. The project needs to monitor the system’s success in achieving each objective.",
+    "section": 8
+  },
+  {
+    "question": "When may objectives labeled \"To Be Determined\" (TBD) be included?",
+    "source_text": "Objectives “To Be Determined” (TBD) may be included until trade studies occur, operations concepts solidify, or technology matures.",
+    "section": 8
+  },
+  {
+    "question": "What does the development of a Concept of Operations (ConOps) further ensure about the technical team's understanding?",
+    "source_text": "the development of a Concept of Operations (ConOps) will further ensure that the technical team fully understands the expectations and how they may be satisfied by the product",
+    "section": 8
+  },
+  {
+    "question": "What must the ConOps include scenarios for, regarding operational situations?",
+    "source_text": "The ConOps should include scenarios for all significant operational situations, including known off-nominal situations.",
+    "section": 8
+  },
+  {
+    "question": "For exploration missions, what makes up a ConOps?",
+    "source_text": "For exploration missions, multiple DRMs make up a ConOps. The design and performance analysis leading to the requirements should satisfy all of them.",
+    "section": 8
+  },
+  {
+    "question": "When in the project life cycle is the Concept of Operations developed, and by whom?",
+    "source_text": "Developed early in Pre-Phase A by the technical team, describes the overall high-level concept of how the system will be used to meet stakeholder expectations, usually in a time sequenced manner.",
+    "section": 9
+  },
+  {
+    "question": "Who typically develops the Operations Concept, as distinguished from the Concept of Operations?",
+    "source_text": "It is typically developed by the operational team. (See NPR 7120.5.)",
+    "section": 9
+  },
+  {
+    "question": "What does the mission success criteria define, regarding what the mission needs to accomplish?",
+    "source_text": "The mission success criteria define what the mission needs to accomplish to be successful.",
+    "section": 9
+  },
+  {
+    "question": "How are Measures of Effectiveness (MOEs) described in terms of their relationship to mission/project success criteria?",
+    "source_text": "As such, they can be synonymous with mission/project success criteria.",
+    "section": 9
+  },
+  {
+    "question": "What is particularly useful for capturing and tracing expectations and requirements, when validating bidirectional traceability?",
+    "source_text": "The use of a requirements management tool or model or other application is particularly useful in capturing and tracing expectations and requirements.",
+    "section": 9
+  },
+  {
+    "question": "What is typically held to obtain stakeholder commitments to the validated set of expectations?",
+    "source_text": "In order to obtain these commitments, a concept review is typically held on a formal or informal basis depending on the scope and complexity of the system",
+    "section": 9
+  },
+  {
+    "question": "What does the Technical Requirements Definition Process transform stakeholder expectations into, besides a definition of the problem?",
+    "source_text": "The Technical Requirements Definition Process transforms the stakeholder expectations into a definition of the problem and then into a complete set of validated technical requirements expressed as “shall” statements",
+    "section": 9
+  },
+  {
+    "question": "What must the team not rely solely on to design and build the system, according to the note in the Technical Requirements Definition Process?",
+    "source_text": "It is important to note that the team must not rely solely on the requirements received to design and build the system.",
+    "section": 9
+  },
+  {
+    "question": "What do functional requirements define, as distinguished from performance requirements?",
+    "source_text": "Functional requirements define what functions need to be performed to accomplish the objectives.",
+    "section": 9
+  },
+  {
+    "question": "In the Thrust Vector Controller (TVC) example, at what maximum angle and tolerance must the TVC gimbal the engine?",
+    "source_text": "The TVC shall gimbal the engine a maximum of 9 degrees, ± 0.1 degree.",
+    "section": 9
+  },
+  {
+    "question": "In the Thrust Vector Controller (TVC) example, what force and tolerance must the TVC provide?",
+    "source_text": "The TVC shall provide a force of 40,000 pounds, ± 500 pounds.",
+    "section": 9
+  },
+  {
+    "question": "How should requirements be defined, in terms of the number of \"shall\" statements per sentence?",
+    "source_text": "the requirements should be defined in acceptable “shall” statements, which are complete sentences with a single “shall” per statement.",
+    "section": 9
+  },
+  {
+    "question": "What are Key Driving Requirements (KDRs), in terms of their impact on cost or schedule?",
+    "source_text": "These are requirements that can have a large impact on cost or schedule when implemented. A KDR can have any priority or criticality.",
+    "section": 9
+  },
+  {
+    "question": "If a requirement was written assuming the completion of a technology development program, what should be documented according to the RATIONALE box?",
+    "source_text": "If a requirement was written assuming the completion of a technology development program or a successful technology mission, the assumption should be documented.",
+    "section": 10
+  },
+  {
+    "question": "What is the first of the six steps for validating requirements?",
+    "source_text": "1. Are the Requirements Written Correctly? Identify and correct requirements “shall” statement format errors and editorial errors.",
+    "section": 10
+  },
+  {
+    "question": "What should all requirements be, according to the sixth step of validating requirements regarding redundancy?",
+    "source_text": "6. Are the Requirements Redundant or Overspecified? All requirements should be unique (not redundant to other requirements) and necessary to meet the required functions, performance, or behaviors.",
+    "section": 10
+  },
+  {
+    "question": "What do Measures of Performance (MOPs) define regarding the system's performance characteristics?",
+    "source_text": "Measures of Performance (MOPs) define the performance characteristics that the system should exhibit when fielded and operated in its intended environment.",
+    "section": 10
+  },
+  {
+    "question": "How many MOPs are typically needed to satisfy a single MOE?",
+    "source_text": "Typically, multiple MOPs, which are quantitative and measurable, are needed to satisfy a MOE, which can be qualitative.",
+    "section": 10
+  },
+  {
+    "question": "How are Technical Performance Measures (TPMs) defined in relation to MOPs and mission success?",
+    "source_text": "Technical Performance Measures (TPMs) are physical or functional characteristics of the system associated with or established from the MOPs that are deemed critical or key to mission success.",
+    "section": 10
+  },
+  {
+    "question": "What review is typically held to allow comments on any needed changes and to gain agreement on the set of requirements so they may be baselined?",
+    "source_text": "Typically, a System Requirements Review (SRR) is held to allow comments on any needed changes and to gain agreement on the set of requirements so that it may be subsequently baselined.",
+    "section": 10
+  },
+  {
+    "question": "What process identifies the \"what\" that should be achieved by the system at each level to enable a successful project?",
+    "source_text": "This process identifies the “what” that should be achieved by the system at each level to enable a successful project.",
+    "section": 10
+  },
+  {
+    "question": "During which phase is the baselining of a single architecture completed for most NASA projects and tightly coupled programs?",
+    "source_text": "For most NASA projects (and tightly coupled programs), the baselining of a single architecture happens during Phase A.",
+    "section": 10
+  },
+  {
+    "question": "What is one example given of an architecture framework tool used in developing a system's architecture?",
+    "source_text": "For example, one way of doing architecture is the Department of Defense (DOD) Architecture Framework (DODAF).",
+    "section": 10
+  },
+  {
+    "question": "What is functional analysis described as, in terms of identifying and relating system functions?",
+    "source_text": "It is the systematic process of identifying, describing, and relating the functions a system should perform to fulfill its goals and objectives.",
+    "section": 10
+  },
+  {
+    "question": "What is the first of the three key steps in performing functional analysis?",
+    "source_text": "1. Translate top-level requirements into functions that should be performed to accomplish the requirements.",
+    "section": 10
+  },
+  {
+    "question": "In terms of what four things is each function identified in functional analysis described?",
+    "source_text": "Each function identified is described in terms of inputs, outputs, failure modes, consequence of failure, and interface requirements.",
+    "section": 10
+  },
+  {
+    "question": "What example does the handbook give of several alternative ways to communicate with the crew during logical decomposition?",
+    "source_text": "For example, there may be several ways to communicate with the crew: Radio Frequency (RF), laser, Internet, etc.",
+    "section": 11
+  },
+  {
+    "question": "What must be true of all requirements before the system architecture and requirements should be baselined during logical decomposition?",
+    "source_text": "Only at that point should the system architecture and requirements be baselined.",
+    "section": 11
+  },
+  {
+    "question": "What are Derived Technical Requirements, as an output of the Logical Decomposition Process?",
+    "source_text": "These are requirements that arise from the definitions of the selected architecture that were not explicitly stated in the baselined requirements that served as an input to this process.",
+    "section": 11
+  },
+  {
+    "question": "What is the Design Solution Definition Process used to translate into a design solution?",
+    "source_text": "The Design Solution Definition Process is used to translate the high-level requirements derived from the stakeholder expectations and the outputs of the Logical Decomposition Process into a design solution.",
+    "section": 11
+  },
+  {
+    "question": "What is generated to produce the product and conduct product verification, as an output of the design solution definition?",
+    "source_text": "This design solution definition is used to generate the end product specifications that are used to produce",
+    "section": 11
+  },
+  {
+    "question": "What is the purpose of systems engineering in the Design Solution Definition Process, in terms of the kind of final system it leads to?",
+    "source_text": "The purpose of systems engineering is to make sure that the Design Solution Definition Process happens in a way that leads to the most functional, safe, and cost-effective final system while working within any given schedule boundaries.",
+    "section": 11
+  },
+  {
+    "question": "Why should the systems engineer stay an \"outsider\" during the creation of alternative design concepts?",
+    "source_text": "a problem for the systems engineer is that the designers tend to become fond of the designs they create, so they lose their objectivity; the systems engineer should stay an “outsider” so that there is more objectivity.",
+    "section": 11
+  },
+  {
+    "question": "Through what phase of the design and development process does technology assessment need to play a role, according to the handbook?",
+    "source_text": "technology assessment needs to play a role throughout the design and development process from concept development through Preliminary Design Review (PDR).",
+    "section": 11
+  },
+  {
+    "question": "How is the analysis of each alternative design solution accomplished, according to the handbook?",
+    "source_text": "This assessment is accomplished through the use of trade studies.",
+    "section": 11
+  },
+  {
+    "question": "What is the first basic step in the trade study process for analyzing alternative design solutions?",
+    "source_text": "Devise some alternative means to meet the functional requirements. In the early phases of the project life cycle, this means focusing on system architectures; in later phases, emphasis is given to system designs.",
+    "section": 11
+  },
+  {
+    "question": "Where should trade study assumptions, models, and results be documented, according to the handbook?",
+    "source_text": "Trade study assumptions, models, and results should be documented as part of the project archives.",
+    "section": 11
+  },
+  {
+    "question": "Which process should be used to make an evaluation of the alternative design concepts and recommend the \"best\" design solution?",
+    "source_text": "The Decision Analysis Process, as described in Section 6.8 , should be used to make an evaluation of the alternative design concepts and to recommend the “best” design solution.",
+    "section": 11
+  },
+  {
+    "question": "What is a mathematical expression called that expresses the values of combinations of possible outcomes as a single measure of cost-effectiveness?",
+    "source_text": "it is usually well worth the trouble to develop a mathematical expression, called an “objective function,” that expresses the values of combinations of possible outcomes as a single measure of cost-effectiveness",
+    "section": 11
+  },
+  {
+    "question": "What is a feasible solution called that minimizes or maximizes the objective function?",
+    "source_text": "A feasible solution that minimizes (or maximizes, if that is the goal) the objective function is called an “optimal solution.”",
+    "section": 12
+  },
+  {
+    "question": "In the design concepts illustrated in FIGURE 4.4-3, what characterizes concept B's risk in effectiveness or cost?",
+    "source_text": "There is little risk in either effectiveness or cost for concept B, while the risk of an expensive failure is high for concept C",
+    "section": 12
+  },
+  {
+    "question": "What is an essential feature of the systems engineering process regarding when trade studies are performed relative to decisions?",
+    "source_text": "An essential feature of the systems engineering process is that trade studies are performed before decisions are made.",
+    "section": 12
+  },
+  {
+    "question": "In which phase is the tendency to define the system with better resolution formalized by defining a baseline system definition?",
+    "source_text": "This tendency is formalized at some point (in Phase B) by defining a baseline system definition.",
+    "section": 12
+  },
+  {
+    "question": "What method is used to verify the design solution against the system requirements and constraints?",
+    "source_text": "A method to achieve this verification is by means of a peer review to evaluate the resulting design solution definition.",
+    "section": 12
+  },
+  {
+    "question": "What three questions does a simplified validation ask when validating the design solution against stakeholder expectations?",
+    "source_text": "A simplified validation asks the questions: Does the system work as expected? How does the system respond to failures, faults, and anomalies? Is the system affordable?",
+    "section": 12
+  },
+  {
+    "question": "What are enabling products, in terms of what they facilitate?",
+    "source_text": "Enabling products are the life cycle support products and services (e.g., production, test, deployment, training, maintenance, and disposal) that facilitate the progression and use of the operational end product through its life cycle.",
+    "section": 12
+  },
+  {
+    "question": "What example is given of an enabling product whose use would be acquired during the test phase of a space flight system?",
+    "source_text": "An environmental test chamber is an example of an enabling product whose use would be acquired at an appropriate time during the test phase of a space flight system.",
+    "section": 12
+  },
+  {
+    "question": "What does baselining a particular design solution enable the technical team to do?",
+    "source_text": "Baselining a particular design solution enables the technical team to focus on one design out of all the alternative design concepts.",
+    "section": 12
+  },
+  {
+    "question": "What danger exists if baselining a design is exercised too early in the Design Solution Definition Process?",
+    "source_text": "there is a danger if it is exercised too early in the Design Solution Definition Process. The early exploration of alternative designs should be free and open to a wide range of ideas, concepts, and implementations.",
+    "section": 12
+  },
+  {
+    "question": "What does the System Specification contain, as an output of the Design Solution Definition Process?",
+    "source_text": "The system specification contains the functional baseline for the system that is the result of the Design Solution Definition Process.",
+    "section": 12
+  },
+  {
+    "question": "What do the End-Product Specifications contain, as an output of the Design Solution Definition Process?",
+    "source_text": "The end-product specifications contain the detailed build-to and code-to requirements for the end product.",
+    "section": 12
+  },
+  {
+    "question": "What does the Product Validation Plan identify, regarding confirming that the realized end product conforms to stakeholder expectations?",
+    "source_text": "The plan identifies the type of validation, the validation procedures, and the validation environment that are appropriate to confirm that the realized end product conforms to stakeholder expectations.",
+    "section": 12
+  },
+  {
+    "question": "How many interdependent processes are there on the product realization side of the SE engine?",
+    "source_text": "In the product realization side of the SE engine, five interdependent processes result in systems that meet the design specifications and stakeholder expectations.",
+    "section": 13
+  },
+  {
+    "question": "What are products verified through the Technical Assessment Process to ensure, regarding consistency with the technical data package?",
+    "source_text": "These products are then verified through the Technical Assessment Process to ensure that they are consistent with the technical data package and that “the product was built right.”",
+    "section": 13
+  },
+  {
+    "question": "What does the technical team validate the products against to ensure that \"the right product was built\"?",
+    "source_text": "the technical team validates the products against the stakeholder expectations to ensure that “the right product was built.”",
+    "section": 13
+  },
+  {
+    "question": "Why is it important to detect as many errors and failures as possible at the lowest level of integration and early in the life cycle?",
+    "source_text": "It is important to detect as many errors and failures as possible at the lowest level of integration and early in the life cycle so that changes can be made through the design processes with minimum impact to the project.",
+    "section": 13
+  },
+  {
+    "question": "What should not be relied upon for a reused product in a different system, subsystem, or application?",
+    "source_text": "The “pedigree” of a reused product in its original application should not be relied upon in a different system, subsystem, or application.",
+    "section": 13
+  },
+  {
+    "question": "What is Product Implementation used to generate through buying, making/coding, or reusing previously developed hardware, software, models, or studies?",
+    "source_text": "Product implementation is used to generate a specified product of a project or activity through buying, making/coding, or reusing previously developed",
+    "section": 13
+  },
+  {
+    "question": "What must the product satisfy, according to the description of the Product Implementation Process?",
+    "source_text": "The product should satisfy the design solution and its specified requirements.",
+    "section": 13
+  },
+  {
+    "question": "What are the three forms that implementing the product can take?",
+    "source_text": "Implementing the product can take one of three forms: 1. Purchase/buy 2. Make/code 3. Reuse",
+    "section": 13
+  },
+  {
+    "question": "Where should the responsibilities of the Government and contractor team be documented for major end products purchased from a vendor?",
+    "source_text": "For major end products purchased from a vendor, the responsibilities of the Government and contractor team should be documented in the SEMP and Integration Plan.",
+    "section": 13
+  },
+  {
+    "question": "With which NPR must software development be consistent, according to the Product Implementation section?",
+    "source_text": "Software development must be consistent with NPR 7150.2, NASA Software Engineering Requirements.",
+    "section": 13
+  },
+  {
+    "question": "What board is typically used for large projects to review any nonconformance to specifications during production?",
+    "source_text": "there is a need to establish a method (Material Review Boards (MRBs) are typically used for large projects) to review any nonconformance to specifications and disposition whether the components can be accepted, reworked, or scrapped and remade.",
+    "section": 13
+  },
+  {
+    "question": "What is needed for a component or system if the new environment for a reused product is more extreme?",
+    "source_text": "If the new environment is more extreme, requalification is needed for the component or system.",
+    "section": 13
+  },
+  {
+    "question": "What must a reused product's verification and validation documentation do relative to the current project's requirements, in order to rely on prior verification and validation?",
+    "source_text": "Relying on prior verification and validation should only be considered if the product’s verification and validation documentation meets or exceeds the verification, validation, and documentation requirements of the current project",
+    "section": 13
+  },
+  {
+    "question": "Where does the savings gained from reuse of a product possibly come from, other than reduced acceptance-level testing?",
+    "source_text": "The savings gained from reuse is not necessarily from reduced acceptance-level testing of the flight products, but possibly elimination of the need to fully requalify the item",
+    "section": 14
+  },
+  {
+    "question": "What is Product Integration described as being the engineering of, regarding subsystem interactions?",
+    "source_text": "Product integration is the engineering of the subsystem interactions and their interactions with the system environments (both natural and induced).",
+    "section": 14
+  },
+  {
+    "question": "What is the result of a well-integrated and balanced system, according to the Product Integration discussion?",
+    "source_text": "The result of a well-integrated and balanced system is an elegant design and operation.",
+    "section": 14
+  },
+  {
+    "question": "What types of interfaces are included among the pathways of system interactions defined during integration?",
+    "source_text": "Interfaces include mechanical (i.e., structure, loads), fluids, thermal, electrical, data, logical (i.e., algorithms and software), and human.",
+    "section": 14
+  },
+  {
+    "question": "What kinds of disposal can the closeout phase's safe disposal of flight assets involve?",
+    "source_text": "This disposal can involve the safe reentry and recovery or impact in the ocean, impact on the moon, or solar trajectory.",
+    "section": 14
+  },
+  {
+    "question": "What is the ultimate purpose of product integration, according to the handbook?",
+    "source_text": "The ultimate purpose of product integration is to ensure that the system elements function as a whole.",
+    "section": 14
+  },
+  {
+    "question": "Where is an example outline for a separate integration plan provided?",
+    "source_text": "An example outline for a separate integration plan is provided in Appendix H.",
+    "section": 14
+  },
+  {
+    "question": "What two activities does preparing to conduct product integration involve, regarding the product integration strategy/plan and configuration documentation?",
+    "source_text": "Prepare to conduct product integration by (1) reviewing the product integration strategy/plan (see Section 6.1.2.4.4), generating detailed planning for the integration, and developing integration sequences and procedures",
+    "section": 14
+  },
+  {
+    "question": "What should received lower-level products be inspected for during assembly and integration?",
+    "source_text": "Received products should be inspected to ensure no damages occurred during the transitioning process.",
+    "section": 14
+  },
+  {
+    "question": "What must be confirmed about received products before they are assembled and integrated?",
+    "source_text": "Confirm that the received products that are to be assembled and integrated have been validated to demonstrate that the individual products satisfy the agreed-to set of stakeholder expectations, including interface requirements.",
+    "section": 14
+  },
+  {
+    "question": "What is the Product Verification Process described as, relative to the other verification and validation processes conducted on an end product?",
+    "source_text": "The Product Verification Process is the first of the verification and validation processes conducted on an end product.",
+    "section": 14
+  },
+  {
+    "question": "What critical question does the Product Verification Process answer?",
+    "source_text": "Simply put, the Product Verification Process answers the critical question, “Was the end product realized right?”",
+    "section": 14
+  },
+  {
+    "question": "What critical question does the Product Validation Process address?",
+    "source_text": "The Product Validation Process addresses the equally critical question, “Was the right end product realized?”",
+    "section": 14
+  },
+  {
+    "question": "What is the outcome of the Product Verification Process, regarding the end product's conformance?",
+    "source_text": "The outcome of the Product Verification Process is confirmation that the end product, whether achieved by implementation or integration, conforms to its specified requirements, i.e., verification of the end product.",
+    "section": 15
+  },
+  {
+    "question": "What are verification tests described as, in terms of the official record and requirements?",
+    "source_text": "Verification tests are the official “for the record” testing performed on a system or element to show that it meets its allocated requirements or specifications including physical and functional interfaces.",
+    "section": 15
+  },
+  {
+    "question": "What document does Validation Testing relate back to, as distinguished from Verification Testing?",
+    "source_text": "Validation relates back to the ConOps document. Validation testing is conducted under realistic conditions (or simulated conditions) on any end product",
+    "section": 15
+  },
+  {
+    "question": "How many times is the Verification program performed, regardless of how many flight units may be generated?",
+    "source_text": "The Verification program is performed once regardless of how many flight units may be generated (as long as the design doesn’t change).",
+    "section": 15
+  },
+  {
+    "question": "What are Qualification activities performed to ensure, regarding the flight unit design?",
+    "source_text": "Qualification activities are performed to ensure that the flight unit design will meet functional and performance requirements in anticipated environmental conditions.",
+    "section": 15
+  },
+  {
+    "question": "What is prepared for each of the flight units during Acceptance activities and shipped with the unit?",
+    "source_text": "An Acceptance Data Package is prepared for each of the flight units and shipped with the unit.",
+    "section": 15
+  },
+  {
+    "question": "What is Certification described as, in terms of the audit process and certifying authority?",
+    "source_text": "Certification is the audit process by which the body of evidence that results from the verification activities and other activities are provided to the appropriate certifying authority to indicate the design is certified for flight/use.",
+    "section": 15
+  },
+  {
+    "question": "What are the five major activities in the Product Verification Process?",
+    "source_text": "There are five major activities in the Product Verification Process: (1) prepare to conduct product verification; (2) perform verification; (3) analyze verification results; (4) preparing a product verification report; and (5) capture work products generated during the verification activities.",
+    "section": 15
+  },
+  {
+    "question": "What NPR provides NASA payload classification guidelines intended to serve as a starting point for establishing the formality of verification approaches?",
+    "source_text": "NASA payload classification (NPR 8705.4, Risk Classification for NASA Payloads) guidelines are intended to serve as a starting point for establishing the formality of verification approaches",
+    "section": 15
+  },
+  {
+    "question": "What is testing that includes representatives of the human in the system often referred to as?",
+    "source_text": "Testing that includes representatives of the human in the system is often referred to as “human-in-the-loop” testing.",
+    "section": 15
+  },
+  {
+    "question": "When is Analysis, as a method of verification, generally used?",
+    "source_text": "Analysis is generally used when a prototype; engineering model; or fabricated, assembled, and integrated product is not available.",
+    "section": 15
+  },
+  {
+    "question": "How is Demonstration, as a method of verification, differentiated from testing?",
+    "source_text": "It is generally a basic confirmation of performance capability, differentiated from testing by the lack of detailed data gathering.",
+    "section": 15
+  },
+  {
+    "question": "What saying captures the nature of Test as a verification method, according to the Methods of Verification box?",
+    "source_text": "Testing produces data at discrete points for each specified requirement under controlled conditions and is the most resource-intensive verification technique. As the saying goes, “Test as you fly, and fly as you test.”",
+    "section": 15
+  },
+  {
+    "question": "What is the purpose of end-to-end testing in the Product Verification Process?",
+    "source_text": "The purpose of end-to-end testing is to demonstrate interface compatibility and desired total functionality among different elements of a mission system, between systems (the system of interest and external enabling systems), and within a system as a whole.",
+    "section": 16
+  },
+  {
+    "question": "What are operational scenarios in the context of end-to-end testing?",
+    "source_text": "Operational scenarios are a step-by-step description of how the system should operate and interact with its users and its external interfaces (e.g., other systems).",
+    "section": 16
+  },
+  {
+    "question": "For which mission phases should operational scenarios be described?",
+    "source_text": "installation, startup, typical examples of normal and contingency operations, shutdown, and maintenance",
+    "section": 16
+  },
+  {
+    "question": "When should final end-to-end testing be done according to the handbook?",
+    "source_text": "final end-to-end testing should be done on the flight articles in the flight configuration if possible and prior to deployment and launch",
+    "section": 16
+  },
+  {
+    "question": "What kinds of interfaces are not within the scope of end-to-end testing?",
+    "source_text": "Internal interfaces (e.g., software subro utine calls, analog-to-digital conversion) of a designated configuration item are not within the scope of end-to-end testing.",
+    "section": 16
+  },
+  {
+    "question": "What should happen when a discrepancy is observed during verification activities?",
+    "source_text": "verification activities should stop and a discrepancy report should be generated",
+    "section": 16
+  },
+  {
+    "question": "Which process should be used to make decisions about needed changes in the verification plans, environment, and procedures?",
+    "source_text": "The Decision Analysis Process should be used to make decisions with respect to needed changes in the verification plans, environment, and/or procedures.",
+    "section": 16
+  },
+  {
+    "question": "What may be required for approval depending on the nature of a nonconformance found during verification?",
+    "source_text": "Depending on the nature of the nonconformance, approval through such bodies as a Material Review Board or Configuration Control Board (which typically includes risk management participation) may be required.",
+    "section": 16
+  },
+  {
+    "question": "Which system design processes might need to be reapplied as part of re-engineering after verification results analysis?",
+    "source_text": "the reapplication of the system design processes (Stakeholder Expectations Definition Process, Technical Requirements Definition Process, Logical Decomposition Process, and Design Solution Definition Process)",
+    "section": 16
+  },
+  {
+    "question": "What are the two criteria for completing verification of a product?",
+    "source_text": "Criteria for completing verification of the product include: (1) documented objective evidence of compliance with requirements or waiver and (2) closure of all discrepancy and nonconformance reports.",
+    "section": 16
+  },
+  {
+    "question": "How does the handbook distinguish what verification proves from what validation proves?",
+    "source_text": "While verification proves whether “the product was done right,” validation proves whether “the right product was done.”",
+    "section": 16
+  },
+  {
+    "question": "How is the Analysis method of validation defined?",
+    "source_text": "Analysis: The use of mathematical modeling and analytical techniques to predict the suitability of a design to stakeholder expectations based on calculated data or data derived from lower system structure end product verifications.",
+    "section": 16
+  },
+  {
+    "question": "How is the Test method of validation described in terms of resource intensity?",
+    "source_text": "Testing produces information at discrete points for each specified expectation under controlled conditions and is the most resource-intensive validation technique.",
+    "section": 16
+  },
+  {
+    "question": "What does human representation in validation activities need to account for?",
+    "source_text": "This includes physical size, skills, knowledge, training, clothing, special gear, and tools.",
+    "section": 17
+  },
+  {
+    "question": "How does validation testing differ from qualification testing in terms of focus?",
+    "source_text": "Validation testing is focused on the expected environments and operations of the system where as qualification testing includes the worst case loads and environmental requirements within which the system is expected to perform or survive.",
+    "section": 17
+  },
+  {
+    "question": "What should happen when a discrepancy is observed during product validation?",
+    "source_text": "When a discrepancy is observed, the validation should be stopped and a discrepancy report generated.",
+    "section": 17
+  },
+  {
+    "question": "What is regression testing as described in the context of re-engineering after Product Validation?",
+    "source_text": "Regression testing, a formal process of rerunning previously used acceptance tests (primarily used for software), is one method to ensure a change does not affect function or performance that was previously accepted.",
+    "section": 17
+  },
+  {
+    "question": "What is one reason validation outcomes can be unsatisfactory related to conduct of the validation?",
+    "source_text": "One reason is poor conduct of the validation (e.g., enabling products and supporting resources missing or not functioning correctly, untrained operators, procedures not followed, equipment not calibrated, or improper validation environmental conditions)",
+    "section": 17
+  },
+  {
+    "question": "What is the ultimate reason for performing validation, according to the handbook?",
+    "source_text": "the ultimate reason for performing validation is to determine if the design itself is the right design for meeting stakeholder expectations",
+    "section": 17
+  },
+  {
+    "question": "Why should validation be performed as early and as iteratively as possible in the systems engineering process?",
+    "source_text": "Validation should be performed as early and as iteratively as possible in the SE process since the earlier re-engineering needs are discovered, the less expensive they are to resolve.",
+    "section": 17
+  },
+  {
+    "question": "What is critical to preventing unsuccessful validation, according to the discussion of passing verification but failing validation?",
+    "source_text": "Developing a solid ConOps in early phases of the project (and refining it through the requirements development and design phases) is critical to preventing unsuccessful validation.",
+    "section": 17
+  },
+  {
+    "question": "What does the Product Validation Process normally complete for systems where only a single deliverable item is developed?",
+    "source_text": "For systems where only a single deliverable item is developed, the Product Validation Process normally completes acceptance testing of the system.",
+    "section": 17
+  },
+  {
+    "question": "What is the preferred means to ensure that subsequent deliverables meet stakeholder expectations for systems with several production units?",
+    "source_text": "acceptance testing is the preferred means to ensure that subsequent deliverables meet stakeholder expectations",
+    "section": 17
+  },
+  {
+    "question": "What are the two success criteria for the Product Validation Process?",
+    "source_text": "objective evidence of performance and the results of each system-of-interest validation activity are documented, and (2) the validation process should not be considered or designated as complete until all issues and actions are resolved",
+    "section": 17
+  },
+  {
+    "question": "What examples does the handbook give of hardware transitioned to Kennedy Space Center for integration and flight?",
+    "source_text": "Examples are transitioning the external tank, solid rocket boosters, and orbiter to Kennedy Space Center (KSC) for integration and flight.",
+    "section": 17
+  },
+  {
+    "question": "What form do the technical team's products typically take during the early phases of the life cycle for the Product Transition Process?",
+    "source_text": "During the early phases, the technical team’s products are documents, models, studies, and reports.",
+    "section": 17
+  },
+  {
+    "question": "What might a COTS product typically contain as part of its documentation?",
+    "source_text": "A COTS product would typically contain a manufacturer’s specification or fact sheet.",
+    "section": 18
+  },
+  {
+    "question": "What special consideration should be given regarding hazardous materials during product transition documentation?",
+    "source_text": "Special consideration should be given to safety, including clearly identifiable tags and markings that identify the use of hazardous materials, special handling instructions, and storage requirements.",
+    "section": 18
+  },
+  {
+    "question": "What are the two forms that transitioning the product can take?",
+    "source_text": "The delivery of lower system end products to higher ones for integration into another end product; or • The delivery of the final end product to the customer or user that will use it in its operational environment.",
+    "section": 18
+  },
+  {
+    "question": "What form might early life cycle phase products of the Product Transition Process take?",
+    "source_text": "Early life cycle phase products may be in the form of paper, electronic files, physical models, or technology demonstration prototypes.",
+    "section": 18
+  },
+  {
+    "question": "What form might later phase products of the Product Transition Process take?",
+    "source_text": "Later phase products may be preproduction prototypes (engineering models), the final study report, or the flight units.",
+    "section": 18
+  },
+  {
+    "question": "What must be reviewed and approved before conducting the transition according to the preparation activities?",
+    "source_text": "Procedures necessary for conducting the transition should be reviewed and approved by this time.",
+    "section": 18
+  },
+  {
+    "question": "When should a site survey be made in the product life cycle for preparing a site to receive the product?",
+    "source_text": "the site survey should be made during an early phase in the product life cycle",
+    "section": 18
+  },
+  {
+    "question": "What documentation or approvals may need to be obtained prior to the receipt of the end product at the receiving site?",
+    "source_text": "National Environmental Policy Act documentation or approvals may need to be obtained prior to the receipt of the end product.",
+    "section": 18
+  },
+  {
+    "question": "What kinds of physical damage does the handbook say packaging should protect against during transportation?",
+    "source_text": "protecting surfaces from physical damage, preventing corrosion, eliminating damage to electronic wiring or cabling, shock or stress damage, heat warping or cold fractures, moisture, and other particulate intrusion that could damage moving parts",
+    "section": 18
+  },
+  {
+    "question": "What is the Product Breakdown Structure (PBS) referenced in relation to?",
+    "source_text": "the next higher level item in the product hierarchy (often called the Product Breakdown Structure (PBS)) for product integration or to the end user",
+    "section": 18
+  },
+  {
+    "question": "What should be conducted after installation to confirm the product is ready to support, whether into the next higher assembly or the final customer site?",
+    "source_text": "functional and acceptance testing of the end product should be conducted. This ensures no damage from the shipping/handling process has occurred and that the product is ready for support.",
+    "section": 18
+  },
+  {
+    "question": "How many technical management processes are described in the systems engineering engine's crosscutting technical management chapter?",
+    "source_text": "In this portion of the engine, eight processes provide the crosscutting functions that allow the design solution to be developed, realized, and to operate.",
+    "section": 18
+  },
+  {
+    "question": "When does the technical team's effort on the Technical Planning Process start, according to the handbook?",
+    "source_text": "This effort starts with the technical team conducting extensive planning early in Pre-Phase A.",
+    "section": 18
+  },
+  {
+    "question": "What document is developed and baselined from the early technical planning effort, alongside other technical plans?",
+    "source_text": "From this effort, the Systems Engineering Management Plan (SEMP) and other technical plans are developed and baselined.",
+    "section": 19
+  },
+  {
+    "question": "What example does the handbook give of how control of the configuration is critical to understanding system impacts?",
+    "source_text": "For example, changes in design and environment could invalidate previous analysis results.",
+    "section": 19
+  },
+  {
+    "question": "At what minimum frequency will technical plan updates occur as the system matures through the life cycle?",
+    "source_text": "At a minimum, these updates will occur at e very Key Decision Point (KDP).",
+    "section": 19
+  },
+  {
+    "question": "What kinds of significant project changes should trigger analysis of the impact on all baselined plans?",
+    "source_text": "if there is a significant change in the project, such as new stakeholder expectations, resource adjustments, or other constraints, all plans should be analyzed for the impact of these changes on the baselined project",
+    "section": 19
+  },
+  {
+    "question": "How many common technical processes does technical planning at NASA identify, define, and plan for application in each life cycle phase?",
+    "source_text": "the 17 common technical processes in NPR 7123.1, NASA Systems Engineering Processes and Requirements will be applied in each life cycle phase for all levels of the product hierarchy",
+    "section": 19
+  },
+  {
+    "question": "What is the relationship between the SEMP and the project plan?",
+    "source_text": "The SEMP is a subordinate document to the project plan. The project plan defines how the project will be managed to achieve its goals and objectives within defined programmatic constraints.",
+    "section": 19
+  },
+  {
+    "question": "With which two processes should technical planning be tightly integrated to ensure corrective action for future activities is incorporated?",
+    "source_text": "Technical planning should be tightly integrated with the Technical Risk Management Process (see Section 6.4 ) and the Technical Assessment Process (see Section 6.7)",
+    "section": 19
+  },
+  {
+    "question": "Who leads the technical team that concentrates on managing the technical aspects of a project, as distinct from the project manager?",
+    "source_text": "While the project manager concentrates on managing the overall project life cycle, the technical team, led by the systems engineer, concentrates on managing the technical aspects of the project.",
+    "section": 19
+  },
+  {
+    "question": "Who typically determines the skill mix required for developing a particular product, given that this is a subjective process?",
+    "source_text": "the skill mix is normally determined in consultation with people experienced in leading design teams for a particular mission or technical application",
+    "section": 19
+  },
+  {
+    "question": "What additional discipline engineering do human-rated systems typically add compared to robotic space missions?",
+    "source_text": "human-rated systems typically add the need for human systems discipline engineering and environmental control and life support subsystem engineering",
+    "section": 19
+  },
+  {
+    "question": "What additional discipline engineering might deep space missions add compared to near Earth space missions?",
+    "source_text": "deep space missions may add the need for safety and planetary protection discipline engineering specific to contamination of the Earth or remote solar system bodies",
+    "section": 19
+  },
+  {
+    "question": "What kind of subsystem support do teams designing spacecraft instruments that operate at cryogenic temperatures need?",
+    "source_text": "teams designing spacecraft instruments that operate at cryogenic temperatures will need cryogenics subsystem support",
+    "section": 19
+  },
+  {
+    "question": "What has historically happened to many projects that underestimated the resources required for proper planning activities?",
+    "source_text": "many projects have underestimated the resources required to perform proper planning activities and have been forced into a position of continuous crisis management in order to keep up with changes in the project",
+    "section": 19
+  },
+  {
+    "question": "Why should additional software engineering resources typically be planned into project contingencies?",
+    "source_text": "Additional software staff should be planned into the project contingencies to accommodate inevitable component and system debugging and avoid cost and schedule overruns.",
+    "section": 20
+  },
+  {
+    "question": "How is Hardware-In-the-Loop (HWIL) testing typically accomplished?",
+    "source_text": "HWIL testing is typically accomplished as a debugging exercise where the hardware and software are brought together for the first time in the costly environment of HWIL.",
+    "section": 20
+  },
+  {
+    "question": "Why are Human-In-The-Loop (HITL) investigations particularly critical early in the design process?",
+    "source_text": "HITL investigations are particularly critical early in the design process to expose, identify, and cost-effectively correct operational issues—nominal, maintenance, repair, off-nominal, training, etc.—in the required human interactions with the planned design.",
+    "section": 20
+  },
+  {
+    "question": "What is the definition of \"Critical path\" given in the discussion of scheduling?",
+    "source_text": "“Critical path” is the sequence of dependent tasks that determines the longest duration of time needed to complete the project.",
+    "section": 20
+  },
+  {
+    "question": "What NASA document should be referenced for additional information on scheduling?",
+    "source_text": "For additional information on scheduling, refer to NASA/SP-2010-3403, NASA Schedule Management Handbook.",
+    "section": 20
+  },
+  {
+    "question": "What two NASA references are given for additional information on cost estimating?",
+    "source_text": "For additional information on cost estimating, refer to the NASA Cost Estimating Handbook and NPR 7120.5, NASA Space Flight Program and Project Management Requirements.",
+    "section": 20
+  },
+  {
+    "question": "When is the SEMP developed and how is it maintained throughout the project?",
+    "source_text": "The SEMP is the primary, top-level technical management document for the project and is developed early in the Formulation Phase and updated throughout the project life cycle.",
+    "section": 20
+  },
+  {
+    "question": "What is described as the main value of the SEMP?",
+    "source_text": "It is important to remember that the main value of the SEMP is in the work that goes into the planning.",
+    "section": 20
+  },
+  {
+    "question": "How is the SEMP described in terms of its role for all project participants?",
+    "source_text": "The SEMP is the rule book that describes to all participants how the project will be technically managed.",
+    "section": 20
+  },
+  {
+    "question": "When should the contractor have its SEMP developed, according to the discussion of the SEMP's role?",
+    "source_text": "The contractor should have its SEMP developed during the proposal process (prior to costing and pricing) because the SEMP describes the technical content of the project, the potentially costly risk management activities, and the verification and validation techniques to be used",
+    "section": 20
+  },
+  {
+    "question": "At what milestone is the verification plan baselined?",
+    "source_text": "The verification plan is developed as part of the Technical Planning Process and is baselined at PDR.",
+    "section": 20
+  },
+  {
+    "question": "How is a Brassboard defined among the types of hardware used for verification?",
+    "source_text": "Brassboard: A medium fidelity functional unit that typically tries to make use of as much operational hardware/software as possible and begins to address scaling issues associated with the operational system.",
+    "section": 20
+  },
+  {
+    "question": "On what kind of unit is the official run-for-the-record verification of the end product usually performed?",
+    "source_text": "Verification of the end product—that is, the official “run for the record” verification where the program/ project takes credit for meeting a requirement—is usually performed on a qualification, protoflight, or flight unit to ensure its applicability to the flight system.",
+    "section": 20
+  },
+  {
+    "question": "What is the definition of the Relevant Environment as used in validation planning?",
+    "source_text": "the relevant environment is the specific subset of the operational environment that is required to demonstrate critical “at risk” aspects of the final product performance in an operational environment",
+    "section": 21
+  },
+  {
+    "question": "What is the Operational Environment in the case of space flight hardware/software?",
+    "source_text": "The environment in which the final product will be operated. In the case of space flight hardware/software, it is space.",
+    "section": 21
+  },
+  {
+    "question": "What is the environment for software defined by, according to the Operational Environment definition?",
+    "source_text": "For software, the environment is defined by the operational platform.",
+    "section": 21
+  },
+  {
+    "question": "Why is off-nominal testing valuable when planning for validation?",
+    "source_text": "Off-nominal testing offers insight into a system’s total performance characteristics and often assists in identifying the design issues and human-machine interface, training, and procedural changes required to meet the mission goals and objectives.",
+    "section": 21
+  },
+  {
+    "question": "What must happen during the Formulation Phase regarding the roles of stakeholders?",
+    "source_text": "During the Formulation Phase, the roles of the stakeholders should be defined in the project plan and the SEMP.",
+    "section": 21
+  },
+  {
+    "question": "What results from inadequate stakeholder involvement in the definition of technical requirements?",
+    "source_text": "Inadequate stakeholder involvement leads to inadequate requirements and a resultant product that does not meet the stakeholder expectations.",
+    "section": 21
+  },
+  {
+    "question": "What kinds of documentation may organizations use to establish the relationship between a project and a stakeholder?",
+    "source_text": "Organizations may use an Internal Task Agreement (ITA), a Memorandum Of Understanding (MOU), or other similar documentation to establish the relationship between the project and the stakeholder.",
+    "section": 21
+  },
+  {
+    "question": "During which phase of a project is issuing technical work directives described as an essential activity?",
+    "source_text": "Issuing technical work directives is an essential activity during Phase B of a project when a detailed planning baseline is required.",
+    "section": 21
+  },
+  {
+    "question": "What happens to the schedules and budgets needed for EVM if technical work directives are not issued to CAMs?",
+    "source_text": "The schedules and budgets that are needed for EVM will then be based on assumptions and local interpretations of project-level information.",
+    "section": 21
+  },
+  {
+    "question": "Which technical planning products are kept under configuration control and captured using the CM process?",
+    "source_text": "Some of the more important products of technical planning (i.e., the WBS, the SEMP, and the schedule, etc.) are kept under configuration control and captured using the CM process.",
+    "section": 21
+  },
+  {
+    "question": "What does the Technical Data Management Process capture that is not under formal configuration control?",
+    "source_text": "The Technical Data Management Process is used to capture trade studies, cost estimates, technical analyses, reports, and other important documents not under formal configuration control.",
+    "section": 21
+  },
+  {
+    "question": "How is Traceability defined in the definitions provided at the end of the Technical Planning section?",
+    "source_text": "Traceability: A discernible association between two or more logical entities such as requirements, system elements, verifications, or tasks.",
+    "section": 21
+  },
+  {
+    "question": "How is Bidirectional traceability defined?",
+    "source_text": "Bidirectional traceability: The ability to trace any given requirement/expectation to its parent requirement/ expectation and to its allocated children requirements/expectations.",
+    "section": 21
+  },
+  {
+    "question": "What should be assumed if there is no parent for a particular requirement and it is not an acceptable self-derived requirement?",
+    "source_text": "it should be assumed either that the traceability process is flawed and should be redone or that the requirement is “gold plating” and should be eliminated",
+    "section": 22
+  },
+  {
+    "question": "At what review are requirements validated and reviewed before being placed under formal configuration control?",
+    "source_text": "Once the requirements have been validated and reviewed in the System Requirements Review (SRR) in late Phase A, they are placed under formal configuration control.",
+    "section": 22
+  },
+  {
+    "question": "Who usually participates in the CCB approval processes to assess the impact of a requirement change?",
+    "source_text": "The systems engineer, project manager, and other key engineers usually participate in the CCB approval processes to assess the impact of the change including cost, performance, programmatic, and safety.",
+    "section": 22
+  },
+  {
+    "question": "What example is given of a performance margin analyzed as part of the tools used to assess requirements change impacts?",
+    "source_text": "the propellant performance margin will provide the necessary propellant available versus the propellant necessary to complete the mission",
+    "section": 22
+  },
+  {
+    "question": "What is used to identify the costs associated with all the risks for a project, alongside the risk system?",
+    "source_text": "A threats list is normally used to identify the costs associated with all the risks for the project.",
+    "section": 22
+  },
+  {
+    "question": "How is the term \"Requirements creep\" described in the handbook?",
+    "source_text": "“Requirements creep” is the term used to describe the subtle way that requirements grow imperceptibly during the course of a project.",
+    "section": 22
+  },
+  {
+    "question": "What is described as the first line of defense against requirements creep?",
+    "source_text": "The first line of defense is a good ConOps that has been thoroughly discussed and agreed-to by the customer and relevant stakeholders.",
+    "section": 22
+  },
+  {
+    "question": "What should be determined about a proposed requirement change if it cannot be accommodated within established resource margins?",
+    "source_text": "If it cannot be accommodated within the established resource margins, then the change most likely should be denied.",
+    "section": 22
+  },
+  {
+    "question": "Where are the official controlled versions of requirements documents generally maintained?",
+    "source_text": "The official controlled versions of these documents are generally maintained in electronic format within the requirements management tool",
+    "section": 22
+  },
+  {
+    "question": "What can a single approved change to the requirements baselines result in, according to the outputs of the Requirements Management Process?",
+    "source_text": "A single change can have a far-reaching ripple effect, which may result in several requirement changes in a number of documents.",
+    "section": 22
+  },
+  {
+    "question": "What group typically establishes communication links between those responsible for interfacing systems, end products, enabling products, and subsystems?",
+    "source_text": "Typically, an Interface Working Group (IWG) establishes communication links between those responsible for interfacing systems, end products, enabling products, and subsystems.",
+    "section": 22
+  },
+  {
+    "question": "What types of interface documentation are listed as part of the interface control documentation output?",
+    "source_text": "Types of interface documentation include the Interface Requirements Document (IRD), Interface Control Document/ Drawing (ICD), Interface Definition Document (IDD), and Interface Control Plan (ICP).",
+    "section": 22
+  },
+  {
+    "question": "During which project phase is the ConOps of the product analyzed to identify both external and internal interfaces?",
+    "source_text": "During project Formulation, the ConOps of the product is analyzed to identify both external and internal interfaces.",
+    "section": 22
+  },
+  {
+    "question": "What level of approval is required for interfaces that require approval from all sides?",
+    "source_text": "For interfaces that require approval from all sides, unanimous approval is required.",
+    "section": 23
+  },
+  {
+    "question": "What mission execution domains may the performance shortfalls related to risk be associated with, besides institutional support for mission execution?",
+    "source_text": "The performance shortfalls may be related to institutional support for mission execution or related to any one or more of the following mission execution domains: • safety • technical • cost • schedule",
+    "section": 23
+  },
+  {
+    "question": "What are the three basic components that characterize risk?",
+    "source_text": "1. The scenario(s) leading to degraded performance with respect to one or more performance measures",
+    "section": 23
+  },
+  {
+    "question": "How is Cost Risk defined in the Key Concepts in Risk Management?",
+    "source_text": "Cost Risk: This is the risk associated with the ability of the program/project to achieve its life-cycle cost objectives and secure appropriate funding.",
+    "section": 23
+  },
+  {
+    "question": "How is Schedule Risk defined in the Key Concepts in Risk Management?",
+    "source_text": "Schedule Risk: Schedule risks are those associated with the adequacy of the time estimated and allocated for the development, production, implementation, and operation of the system.",
+    "section": 23
+  },
+  {
+    "question": "What kinds of activities are given as examples of Programmatic Risk in the handbook?",
+    "source_text": "This includes such activities as: International Traffic in Arms Regulations (ITAR), import/export control, partner agreements with other domestic or foreign organizations, congressional direction or earmarks",
+    "section": 23
+  },
+  {
+    "question": "How is a Scenario defined in the context of risk management?",
+    "source_text": "Scenario: A sequence of credible events that specifies the evolution of a system or process from a given state to a future state.",
+    "section": 23
+  },
+  {
+    "question": "In what document is NASA's revised risk management approach outlined, and what two complementary processes does it entail?",
+    "source_text": "The new approach, which is outlined in NPR 8000.4, Agency Risk Management Procedural Requirements and further developed in NASA/SP-2011-3422, NASA Risk Management Handbook, evolves NASA‘s risk management to entail two complementary processes: Risk-Informed Decision Making (RIDM) and CRM.",
+    "section": 23
+  },
+  {
+    "question": "What is RIDM intended to inform, according to the discussion of technical risk assessment?",
+    "source_text": "RIDM is intended to inform direction-setting systems engineering (SE) decisions (e.g., design decisions) through better use of risk and uncertainty information in selecting alternatives and establishing baseline performance requirements",
+    "section": 23
+  },
+  {
+    "question": "How often will risk status be reported besides periodic monitoring, according to the technical risk management activities?",
+    "source_text": "Risk status will also be reported at most life cycle reviews.",
+    "section": 23
+  },
+  {
+    "question": "According to SAE Electronic Industries Alliance (EIA) 649B, what may result from improper configuration management?",
+    "source_text": "improper configuration management may result in incorrect, ineffective, and/or unsafe products being released",
+    "section": 23
+  },
+  {
+    "question": "How many configuration management functions and underlying principles has NASA endorsed within SAE/EIA-649-2?",
+    "source_text": "NASA has endorsed the implementation of the five configuration management functions and the associated 37 underlying principles defined within SAE/ EIA-649-2 Configuration Management Requirements for NASA Enterprises",
+    "section": 23
+  },
+  {
+    "question": "What does CM reduce by ensuring correct product configurations, according to the description of configuration management benefits?",
+    "source_text": "CM reduces technical risks by ensuring correct product configurations, distinguishes among product versions, ensures consistency between the product and information about the product, and avoids the embarrassment cost of stakeholder dissatisfaction and complaint.",
+    "section": 23
+  },
+  {
+    "question": "How many baselines does NASA have, each defining a distinct phase in the evolution of a product design?",
+    "source_text": "NASA has four baselines, each of which defines a distinct phase in the evolution of a product design.",
+    "section": 24
+  },
+  {
+    "question": "At what review is the functional baseline established by the NASA program/project?",
+    "source_text": "The functional baseline is established at the SDR by the NASA program/ project.",
+    "section": 24
+  },
+  {
+    "question": "What does the allocated baseline extend, and to what level of detail?",
+    "source_text": "The allocated baseline extends the top-level performance requirements of the functional baseline to sufficient detail for defining the functional and",
+    "section": 24
+  },
+  {
+    "question": "At what milestone is the allocated baseline typically established?",
+    "source_text": "The allocated baseline is typically established at the successful completion of the PDR.",
+    "section": 24
+  },
+  {
+    "question": "At what milestone is the product baseline typically established?",
+    "source_text": "The product baseline is typically established at the completion of the CDR.",
+    "section": 24
+  },
+  {
+    "question": "At what review does the as-deployed baseline occur, and what does this indicate about the design?",
+    "source_text": "The as-deployed baseline occurs at the ORR. At this point, the design is considered to be functional and ready for flight.",
+    "section": 24
+  },
+  {
+    "question": "What defines a \"major\" change to baseline configuration documentation?",
+    "source_text": "A “major” change is a change to the baseline configuration documentation that has significant impact (i.e., requires retrofit of delivered products or affects the baseline specification, cost, safety, compatibility with interfacing products, or operator, or maintenance training).",
+    "section": 24
+  },
+  {
+    "question": "How is a waiver defined in the types of configuration management changes?",
+    "source_text": "A waiver is a documented agreement intentionally releasing a program or project from meeting a requirement.",
+    "section": 24
+  },
+  {
+    "question": "What is Configuration Status Accounting (CSA) defined as?",
+    "source_text": "Configuration Status Accounting (CSA) is the recording and reporting of configuration data necessary to manage CIs effectively.",
+    "section": 24
+  },
+  {
+    "question": "Into what two types is configuration verification sometimes divided during configuration audits?",
+    "source_text": "This is sometimes divided into functional and physical configuration audits.",
+    "section": 24
+  },
+  {
+    "question": "What NPR requires that DM planning be provided as either a section in the program/project plan, CM plan, or as a separate document?",
+    "source_text": "NPR 7120.5 does require that DM planning be provided as either a section in the program/project plan, CM plan, or as a separate document",
+    "section": 24
+  },
+  {
+    "question": "What NASA policy document requires the retention of appropriate technical, mission, and science data beyond system retirement?",
+    "source_text": "Data Management (DM) includes the development, deployment, operations and support, eventual retirement, and retention of appropriate technical, to include mission and science, data beyond system retirement as required by NPR 1441.1, NASA Records Retention Schedules.",
+    "section": 24
+  },
+  {
+    "question": "What is required to approve changes to information under configuration control, as distinct from information under Technical Data Management?",
+    "source_text": "Changes to information under configuration control require a Change Request (CR) and are typically approved by a Configuration Control Board.",
+    "section": 24
+  },
+  {
+    "question": "How is \"Data\" defined in general terms within Technical Data Management?",
+    "source_text": "“Data” is defined in general as “recorded information regardless of the form or method of recording.”",
+    "section": 25
+  },
+  {
+    "question": "What kinds of data are specifically not included in Technical Data Management?",
+    "source_text": "Data specifically not included in Technical Data Management would be data relating to general NASA workforce operations information, communications information (except where related to a specific requirement), financial transactions, personnel data,",
+    "section": 25
+  },
+  {
+    "question": "Who solicits and identifies data requirements from a proposed contracted procurement through a Data Call?",
+    "source_text": "Solicitation from Government stakeholders (specifically Integrated Product Team (IPT) leads and functional managers) identifies and justifies their data requirements from a proposed contracted procurement.",
+    "section": 25
+  },
+  {
+    "question": "What is a Technical Data Package defined as?",
+    "source_text": "A technical data package is a technical description of an item adequate for supporting an acquisition strategy, production, engineering, and logistics support.",
+    "section": 25
+  },
+  {
+    "question": "With whom does responsibility for data inputs into the technical data management system lie?",
+    "source_text": "Responsibility for data inputs into the technical data management system lies solely with the originator or generator of the data.",
+    "section": 25
+  },
+  {
+    "question": "What kind of generation and delivery medium is desired for new programs/projects in collecting and storing data?",
+    "source_text": "For new programs/projects, a digital generation and delivery medium is desired.",
+    "section": 25
+  },
+  {
+    "question": "What might Critical Program Information (CPI) include, according to the discussion of providing data to authorized parties?",
+    "source_text": "CPI may include components; engineering, design, or manufacturing processes; technologies; system capabilities, and vulnerabilities; and any other information that gives a system its distinctive operational capability.",
+    "section": 25
+  },
+  {
+    "question": "What NASA document covers review cycles for research and technology programs and projects?",
+    "source_text": "See NPR 7120.8, NASA Research and Technology Program and Project Management Requirements.",
+    "section": 25
+  },
+  {
+    "question": "How many criteria are considered in the technical assessment process?",
+    "source_text": "There are 6 criteria considered in this assessment process: alignment with and contribution to Agency strategic goals; adequacy of management approach; adequacy of technical approach",
+    "section": 25
+  },
+  {
+    "question": "What examples of technical plans are given as inputs to the Technical Assessment Process?",
+    "source_text": "Examples of these plans are the program (or project) plan, SEMP (if applicable), review plans (which may be part of the program or project plan), ILS plan, and EVM plan (if applicable).",
+    "section": 25
+  },
+  {
+    "question": "What are Technical Process and Product Measures also referred to as?",
+    "source_text": "These measures are also referred to as MOEs, MOPs, KPPs, and TPMs.",
+    "section": 25
+  },
+  {
+    "question": "Who uses Reporting Requirements externally to assess the performance of a program or project?",
+    "source_text": "The requirements apply internally to the program/project and are used externally by the Centers and Mission Directorates to assess the performance of the program or project.",
+    "section": 25
+  },
+  {
+    "question": "What do project managers need in order to exercise proper management control over technical plans?",
+    "source_text": "Project managers need visibility into the progress of those plans in order to exercise proper management control.",
+    "section": 25
+  },
+  {
+    "question": "What color-coded scheme is recommended to summarize the condition of the project for technical measures?",
+    "source_text": "Summarize the condition of the project by using color-coded (red, yellow, and green) alert zones for all technical measures.",
+    "section": 26
+  },
+  {
+    "question": "What should happen if indications show that existing trends will yield an unfavorable outcome?",
+    "source_text": "Should there be indications that existing trends, if allowed to continue, will yield an unfavorable outcome, corrective action should begin as soon as practical.",
+    "section": 26
+  },
+  {
+    "question": "When should the Mission Concept Review (MCR) be completed relative to Phase A?",
+    "source_text": "The MCR should be completed prior to entering the concept development phase (Phase A)",
+    "section": 26
+  },
+  {
+    "question": "What does a successful completion of the System Requirements Review (SRR) lead to?",
+    "source_text": "Successful completion of the SRR freezes program/project requirements and leads to a formal decision by the cognizant program Associate Administrator to proceed with proposal request preparations for project implementation",
+    "section": 26
+  },
+  {
+    "question": "What does the Preliminary Design Review (PDR) demonstrate about the preliminary design?",
+    "source_text": "The PDR demonstrates that the preliminary design meets all system requirements with acceptable risk and within the cost and schedule constraints and establishes the basis for proceeding with detailed design.",
+    "section": 26
+  },
+  {
+    "question": "What does the Critical Design Review (CDR) demonstrate about the maturity of the design?",
+    "source_text": "The CDR demonstrates that the maturity of the design is appropriate to support proceeding with full scale fabrication, assembly, integration, and test.",
+    "section": 26
+  },
+  {
+    "question": "For which kinds of projects is a Production Readiness Review (PRR) held?",
+    "source_text": "A PRR is held for projects developing or acquiring multiple or similar systems greater than three or as determined by the project.",
+    "section": 26
+  },
+  {
+    "question": "What does the System Integration Review (SIR) ensure regarding segments, components, and subsystems?",
+    "source_text": "An SIR ensures segments, components, and subsystems are on schedule to be integrated into the system.",
+    "section": 26
+  },
+  {
+    "question": "What does the System Acceptance Review (SAR) verify about specific end products?",
+    "source_text": "The SAR verifies the completeness of the specific end products in relation to their expected maturity level and assesses compliance to stakeholder expectations.",
+    "section": 26
+  },
+  {
+    "question": "What does the Operational Readiness Review (ORR) examine?",
+    "source_text": "The ORR examines the actual system characteristics and procedures used in the system or end product’s operation.",
+    "section": 26
+  },
+  {
+    "question": "What does the Flight Readiness Review (FRR) examine to determine the system's readiness?",
+    "source_text": "The FRR examines tests, demonstrations, analyses, and audits that determine the system’s readiness for a safe and successful flight or launch and for subsequent flight operations.",
+    "section": 26
+  },
+  {
+    "question": "What critical activities during flight operation does the Critical Event Readiness Review (CERR) confirm readiness for?",
+    "source_text": "These include orbital insertion, rendezvous and docking, re-entry, scientific observations/encounters, etc.",
+    "section": 26
+  },
+  {
+    "question": "What does the Post-Flight Assessment Review (PFAR) evaluate and identify?",
+    "source_text": "The PFAR evaluates the activities from the flight after recovery. The review identifies all anomalies that occurred during the flight and mission and determines the actions necessary to mitigate or resolve the anomalies for future flights.",
+    "section": 26
+  },
+  {
+    "question": "What is a robust decision defined as in the Decision Analysis Process?",
+    "source_text": "A robust decision is one that is based on sufficient technical evidence and characterization of uncertainties to determine that the selected alternative best reflects",
+    "section": 27
+  },
+  {
+    "question": "What condition related to uncertainty is the Complexity criterion associated with in deciding whether formal decision analysis is warranted?",
+    "source_text": "Complexity: The actual ramifications of alternatives are difficult to understand without detailed analysis;",
+    "section": 27
+  },
+  {
+    "question": "What does the Uncertainty condition point to that may need to be managed, when deciding whether to apply formal decision analysis?",
+    "source_text": "Uncertainty: Uncertainty in key inputs creates substantial uncertainty in the ranking of alternatives and points to risks that may need to be managed;",
+    "section": 27
+  },
+  {
+    "question": "What warrants extra attention to clarify objectives and formulate TPMs according to the Diversity of Stakeholders condition?",
+    "source_text": "Diversity of Stakeholders: Extra attention is warranted to clarify objectives and formulate TPMs",
+    "section": 27
+  },
+  {
+    "question": "What kinds of criteria are given as typical examples of decision criteria in the Decision Analysis Process?",
+    "source_text": "Typical decision criteria include cost, schedule, risk, safety, mission success, and supportability.",
+    "section": 27
+  },
+  {
+    "question": "What should happen to an option that does not meet mandatory criteria in a decision analysis?",
+    "source_text": "not meet mandatory criteria should be disregarded. For complex decisions, criteria can be grouped into categories or objectives.",
+    "section": 27
+  },
+  {
+    "question": "What is a \"trade tree\" described as being useful for when identifying alternative solutions?",
+    "source_text": "A “trade tree” (discussed later) is an excellent way to prune the set of variations before extensive analysis is undertaken, and to convey to other stakeholders the basis for that pruning.",
+    "section": 27
+  },
+  {
+    "question": "What kinds of evaluation methods are listed as typical for evaluating decision alternatives?",
+    "source_text": "Typical evaluation methods include: simulations; weighted tradeoff matrices; engineering, manufacturing, cost, and technical opportunity trade studies; surveys; humanin-the-loop testing; extrapolations based on field experience and prototypes; user review and comment; and testing.",
+    "section": 27
+  },
+  {
+    "question": "What is the process of \"normalization\" described as in the context of evaluating decision alternatives?",
+    "source_text": "The process of “normalization” is making a scale so that all different kinds of criteria can be compared or added together.",
+    "section": 27
+  },
+  {
+    "question": "What example is given for what \"high\" could mean as an operational definition in normalization?",
+    "source_text": "For example, “high” could mean “a probability of 67 percent and above.” “Low” could mean “a probability of 33 percent and below.”",
+    "section": 27
+  },
+  {
+    "question": "What is generally recommended regarding the number of alternatives selected from the evaluation, according to the guidance for reporting to the decision-maker?",
+    "source_text": "Generally, a single alternative should be recommended. However, if the alternatives do not significantly differ, or if uncertainty reduction could credibly alter the ranking",
+    "section": 27
+  },
+  {
+    "question": "What is the decision-maker always free to do regarding alternatives in the Decision Analysis Process?",
+    "source_text": "In any case, the decision-maker is always free to select any alternative or ask for additional alternatives to be assessed (often with updated guidance on selection criteria).",
+    "section": 27
+  },
+  {
+    "question": "What publication is referenced for additional information on tools for decision making?",
+    "source_text": "Additional information on tools for decision making can be found in NASA Reference Publication 1358, System Engineering “Toolbox” for Design-Oriented Engineers",
+    "section": 27
+  },
+  {
+    "question": "How is \"Acceptable Risk\" defined in the NASA Systems Engineering Handbook glossary?",
+    "source_text": "Acceptable Risk: The risk that is understood and agreed to by the program/project, governing authority, mission directorate, and other customer(s) such that no further specific mitigating action is required.",
+    "section": 28
+  },
+  {
+    "question": "What is the Advancement Degree of Difficulty Assessment (AD2) defined as?",
+    "source_text": "Advancement Degree of Difficulty Assessment (AD2): The process to develop an understanding of what is required to advance the level of system maturity.",
+    "section": 28
+  },
+  {
+    "question": "At what review is the allocated baseline typically established, according to the glossary definition?",
+    "source_text": "The allocated baseline(s) is typically established at the Preliminary Design Review.",
+    "section": 28
+  },
+  {
+    "question": "How is \"Analysis\" defined in the glossary as a verification/validation method?",
+    "source_text": "Analysis: Use of mathematical modeling and analytical techniques to predict the compliance of a design to its requirements based on calculated data or data derived from lower system structure end product validations.",
+    "section": 28
+  },
+  {
+    "question": "How are \"Component Facilities\" defined in the glossary?",
+    "source_text": "Component Facilities: Complexes that are geographically separated from the NASA Center or institution to which they are assigned, but are still part of the Agency.",
+    "section": 28
+  },
+  {
+    "question": "What does approving a program/project commit the decision authority to, according to the definition of Approval (for Implementation)?",
+    "source_text": "By approving a program/project, the decision authority commits the budget resources necessary to continue into implementation.",
+    "section": 28
+  },
+  {
+    "question": "At what review does the as-deployed baseline occur, according to the glossary definition?",
+    "source_text": "The as-deployed baseline occurs at the Operational Readiness Review. At this point, the design is considered to be functional and ready for flight.",
+    "section": 28
+  },
+  {
+    "question": "What does \"Autonomous\" refer to according to the glossary?",
+    "source_text": "Autonomous: Autonomy refers to the relative locations and scope of decision-making and control functions between two locations within a system or across the system boundary.",
+    "section": 28
+  },
+  {
+    "question": "When is the ConOps developed, according to the glossary definition of Concept of Operations?",
+    "source_text": "Developed early in Pre-Phase A, the ConOps describes the overall high-level concept of how the system will be used to meet stakeholder expectations, usually in a time-sequenced manner.",
+    "section": 28
+  },
+  {
+    "question": "How is \"Concurrent Engineering\" defined in the glossary?",
+    "source_text": "Concurrent Engineering: Design in parallel rather than serial engineering fashion.",
+    "section": 28
+  },
+  {
+    "question": "How is \"Continuous Risk Management\" defined in the glossary?",
+    "source_text": "Continuous Risk Management: A systematic and iterative process that efficiently identifies, analyzes, plans, tracks, controls, communicates, and documents risks associated with implementation of designs, plans, and processes.",
+    "section": 28
+  },
+  {
+    "question": "What kinds of research personnel are excluded from the glossary definition of \"Contractor\"?",
+    "source_text": "Research grantees, research contractors, and research subcontractors are excluded from this definition.",
+    "section": 28
+  },
+  {
+    "question": "How is a \"Control Gate\" (or milestone) defined in the glossary?",
+    "source_text": "Control Gate (or milestone): A defined point in the program/project life cycle where the decision authority can evaluate progress and determine next actions.",
+    "section": 28
+  },
+  {
+    "question": "How is \"Cost-Benefit Analysis\" defined in the glossary?",
+    "source_text": "Cost-Benefit Analysis: A methodology to determine the advantage of one alternative over another in terms of equivalent cost or benefits.",
+    "section": 29
+  },
+  {
+    "question": "How is a \"Critical Event\" (or key event) defined in the glossary?",
+    "source_text": "Critical Event (or key event): An event in the operations phase of the mission that is time-sensitive and is required to be accomplished successfully in order to achieve mission success.",
+    "section": 29
+  },
+  {
+    "question": "Who is defined as the \"Customer\" in the glossary?",
+    "source_text": "Customer: The organization or individual that has requested a product and will receive the product to be delivered.",
+    "section": 29
+  },
+  {
+    "question": "What does a \"Decision Matrix\" typically display in its rows and columns, according to the glossary?",
+    "source_text": "Decision Matrix: A methodology for evaluating alternatives in which valuation criteria are typically displayed in rows on the left side of the matrix and alternatives are the column headings of the matrix.",
+    "section": 29
+  },
+  {
+    "question": "How is a \"Decision Tree\" defined in the glossary?",
+    "source_text": "Decision Tree: A decision model that displays the expected consequences of all decision alternatives by making discreet all “chance” nodes, and, based on this, calculating and appropriately weighting the possible consequences of all alternatives.",
+    "section": 29
+  },
+  {
+    "question": "What is \"Descope\" defined as, both as a verb and as a noun?",
+    "source_text": "Descope: As a verb, take out of (or remove from) the scope of a project. As a noun, as in “performance descope,” it indicates the process or the result of the process of narrowing the scope",
+    "section": 29
+  },
+  {
+    "question": "Who is typically the \"Designated Governing Authority\" for large programs, according to the glossary?",
+    "source_text": "For large programs, this will typically be the Engineering Technical Authority. For smaller projects, this function can be delegated to line managers.",
+    "section": 29
+  },
+  {
+    "question": "What are the two essential characteristics of successful Earned Value Management, according to the glossary?",
+    "source_text": "Two essential characteristics of successful EVM are EVM system data integrity and carefully targeted monthly EVM data analyses (i.e., risky WBS elements).",
+    "section": 29
+  },
+  {
+    "question": "How is \"Emergent Behavior\" defined in the glossary?",
+    "source_text": "Emergent Behavior: An unanticipated behavior shown by a system due to interactions between large numbers of simple components of that system.",
+    "section": 29
+  },
+  {
+    "question": "What does \"Failure Tolerance\" mean, according to the glossary definition?",
+    "source_text": "Failure Tolerance: The ability to sustain a certain number of failures and still retain capability",
+    "section": 29
+  },
+  {
+    "question": "How is \"Fault Management\" defined as a specialty engineering discipline in the glossary?",
+    "source_text": "Fault Management: A specialty engineering discipline that encompasses practices that enable an operational system to contain, prevent, detect, diagnose, identify, respond to, and recover from conditions that may interfere with nominal mission operations.",
+    "section": 29
+  },
+  {
+    "question": "What example of Government Mandatory Inspection Points requirement is given regarding compliance percentage?",
+    "source_text": "Government Mandatory Inspection Points: Inspection points required by Federal regulations to ensure 100 percent compliance with safety/mission-critical attributes when noncompliance can result in loss of life or loss of mission.",
+    "section": 29
+  },
+  {
+    "question": "What four factors have proven a part's Heritage (or legacy), according to the glossary?",
+    "source_text": "which have been proven by (1) time in service, (2) number of units in service, (3) mean time between failure performance, and (4) number of use cycles",
+    "section": 29
+  },
+  {
+    "question": "What is the definition of Maintainability in the NASA Systems Engineering Handbook glossary?",
+    "source_text": "The measure of the ability of an item to be retained in or restored to specified conditions when maintenance is performed by personnel having specified skill levels, using prescribed procedures and resources, at each prescribed level of maintenance.",
+    "section": 30
+  },
+  {
+    "question": "What is Margin defined as in the glossary?",
+    "source_text": "The allowances carried in budget, projected schedules, and technical performance parameters (e.g., weight, power, or memory) to account for uncertainties and risks.",
+    "section": 30
+  },
+  {
+    "question": "What does the Master Equipment List (MEL) include?",
+    "source_text": "The MEL is a listing of all the parts of a system and includes pertinent information such as serial numbers, model numbers, manufacturer, equipment type, system/element it is located within, etc.",
+    "section": 30
+  },
+  {
+    "question": "What is stated about the nature of a Measure of Effectiveness (MOE)?",
+    "source_text": "A MOE is typically qualitative in nature or not able to be used directly as a design-to requirement.",
+    "section": 30
+  },
+  {
+    "question": "How many measures of performance are there generally for each MOE?",
+    "source_text": "There are generally two or more measures of performance for each MOE.",
+    "section": 30
+  },
+  {
+    "question": "What is a Metric defined as in the glossary?",
+    "source_text": "The result of a measurement taken over a period of time that communicates vital information about the status or performance of a system, process, or activity.",
+    "section": 30
+  },
+  {
+    "question": "What does the Mission Concept Review affirm and examine?",
+    "source_text": "A review that affirms the mission/project need and examines the proposed mission’s objectives and the ability of the concept to fulfill those objectives.",
+    "section": 30
+  },
+  {
+    "question": "How is a Nonconforming product defined in the glossary?",
+    "source_text": "Software, hardware, or combination, either produced, acquired, or in some combination that is identified as not meeting documented requirements.",
+    "section": 30
+  },
+  {
+    "question": "Under the Specific criterion for objectives, why must objectives be specific enough?",
+    "source_text": "They need to be specific enough to provide clear direction, so developers, customers, and testers can understand them.",
+    "section": 30
+  },
+  {
+    "question": "What does the Operational Readiness Review ensure about system and support hardware, software, personnel, procedures, and documentation?",
+    "source_text": "ensures that all system and support (flight and ground) hardware, software, personnel, procedures, and user documentation accurately reflects the deployed state of the system and are operationally ready.",
+    "section": 30
+  },
+  {
+    "question": "What does the Physical Configuration Audit (PCA) examine and verify?",
+    "source_text": "The PCA examines the physical configuration of the configured product and verifies that the product corresponds to the build-to (or code-to) product baseline documentation previously approved",
+    "section": 30
+  },
+  {
+    "question": "What does the Preliminary Design Review demonstrate?",
+    "source_text": "demonstrates that the preliminary design meets all system requirements with acceptable risk and within the cost and schedule constraints and establishes the basis for proceeding with detailed design.",
+    "section": 30
+  },
+  {
+    "question": "What does the Production Readiness Review (PRR) determine?",
+    "source_text": "The PRR determines the readiness of the system developers to efficiently produce the required number of systems.",
+    "section": 30
+  },
+  {
+    "question": "How is Safety defined in the NASA Systems Engineering Handbook glossary?",
+    "source_text": "Freedom from those conditions that can cause death, injury, occupational illness, damage to or loss of equipment or property, or damage to the environment.",
+    "section": 31
+  },
+  {
+    "question": "What characterizes Single-Project Programs according to the glossary?",
+    "source_text": "Programs that tend to have long development and/or operational lifetimes, represent a large investment of Agency resources, and have contributions from multiple organizations/agencies.",
+    "section": 31
+  },
+  {
+    "question": "What are Solicitations under sealed bid procedures called?",
+    "source_text": "Solicitations under sealed bid procedures are called “invitations for bids.”",
+    "section": 31
+  },
+  {
+    "question": "How is Stakeholder defined in the glossary?",
+    "source_text": "A group or individual who is affected by or has an interest or stake in a program or project.",
+    "section": 31
+  },
+  {
+    "question": "How is the term Stakeholder Expectations related to a requirement once collected and converted?",
+    "source_text": "Once the set of expectations from applicable stakeholders is collected, analyzed, and converted into a “shall” statement, the expectation becomes a requirement.",
+    "section": 31
+  },
+  {
+    "question": "What does the System Acceptance Review (SAR) verify and assess?",
+    "source_text": "The SAR verifies the completeness of the specific end products in relation to their expected maturity level, assesses compliance to stakeholder expectations",
+    "section": 31
+  },
+  {
+    "question": "What does a System Integration Review (SIR) ensure?",
+    "source_text": "A SIR ensures that segments, components, and subsystems are on schedule to be integrated into the system and that integration facilities, support personnel, and integration plans and procedures are on schedule to support integration.",
+    "section": 31
+  },
+  {
+    "question": "What is the theoretical unit of measurement for Utility called?",
+    "source_text": "The theoretical unit of measurement for utility is the “util.”",
+    "section": 31
+  },
+  {
+    "question": "What question does Validation (of a product) answer?",
+    "source_text": "May be determined by a combination of test, analysis, demonstration, and inspection. (Answers the question, “Am I building the right product?”)",
+    "section": 31
+  },
+  {
+    "question": "What question does Verification (of a product) answer?",
+    "source_text": "Verification may be determined by test, analysis, demonstration, or inspection or a combination thereof. (Answers the question, “Did I build the product right?”)",
+    "section": 31
+  },
+  {
+    "question": "How is Variance defined in program control terminology?",
+    "source_text": "In program control terminology, a difference between actual performance and planned costs or schedule status.",
+    "section": 31
+  },
+  {
+    "question": "How is a Waiver defined in the glossary?",
+    "source_text": "A documented authorization releasing a program or project from meeting a requirement after the requirement is put under configuration control at the level the requirement will be implemented.",
+    "section": 31
+  },
+  {
+    "question": "What is a Workflow Diagram defined as?",
+    "source_text": "A scheduling chart that shows activities, dependencies among activities, and milestones.",
+    "section": 31
+  },
+  {
+    "question": "In the requirement-writing checklist, what do the terms Shall, Will, and Should each indicate?",
+    "source_text": "Shall = requirement  Will = facts or declaration of purpose  Should = goal",
+    "section": 32
+  },
+  {
+    "question": "What form should a personnel requirement take according to the checklist?",
+    "source_text": "The requirement is in the form “responsible party shall perform such and such.”",
+    "section": 32
+  },
+  {
+    "question": "What form should a product requirement take according to the checklist?",
+    "source_text": "The requirement is in the form “product ABC shall XYZ.” A requirement should state “The product shall”",
+    "section": 32
+  },
+  {
+    "question": "What should accompany a “To Be Resolved” (TBR) value according to the requirements checklist?",
+    "source_text": "estimate for a value and mark it “To Be Resolved” (TBR) with the rationale along with what should be done to eliminate the TBR, who is responsible for its elimination, and by when it should be eliminated.",
+    "section": 32
+  },
+  {
+    "question": "Under the Clarity checklist, what indefinite pronouns and ambiguous terms should a requirement be free from?",
+    "source_text": "Is the requirement free from indefinite pronouns (this, these) and ambiguous terms (e.g., “as appropriate,” “etc.,” “and/or,” “but not limited to”)?",
+    "section": 32
+  },
+  {
+    "question": "What should be distinguished when checking whether a requirement is truly needed, under the Traceability checklist?",
+    "source_text": "Distinguish between needs and wants. If it is not necessary, it is not a requirement.",
+    "section": 32
+  },
+  {
+    "question": "What do “don’t care” values identify according to the Data Usage checklist?",
+    "source_text": "“Don’t care” values identify cases when the value of a condition or flag is irrelevant, even though the value may be important for other cases.",
+    "section": 32
+  },
+  {
+    "question": "According to Appendix D, which requirements should be included in the Requirements Verification Matrix?",
+    "source_text": "Only “shall” requirements should be included in these matrices.",
+    "section": 32
+  },
+  {
+    "question": "What are the verification methods listed for a requirement in the Requirements Verification Matrix?",
+    "source_text": "Verification method for the requirement (analysis, inspection, demonstration, test)",
+    "section": 32
+  },
+  {
+    "question": "Why should particular attention be paid to planning for life cycle phase in validation planning, according to Appendix E?",
+    "source_text": "Particular attention should be paid to the planning for life cycle phase since early validation can have a profound impact on the design and cost in the later life cycle phases.",
+    "section": 32
+  },
+  {
+    "question": "What happened to Appendix F on Functional, Timing, and State Analysis in this handbook?",
+    "source_text": "This appendix was removed. For additional guidance on functional flow block diagrams, requirements allocation sheets/models, N-squared diagrams, timing analysis, and state analysis refer to Appendix F in the NASA Expanded Guidance for Systems Engineering",
+    "section": 32
+  },
+  {
+    "question": "What Agency-wide study did the Headquarters Office of Chief Engineer and Office of Chief Technologist conduct in 2014?",
+    "source_text": "In 2014, the Headquarters Office of Chief Engineer and Office of Chief Technologist conducted an Agency-wide study on Technical Readiness Level (TRL) usage and Technology Readiness Assessment (TRA) implementation.",
+    "section": 32
+  },
+  {
+    "question": "What does the adaptation of heritage systems frequently require, according to Appendix G?",
+    "source_text": "It is important to recognize that the adaptation of heritage systems frequently requires technological advancement.",
+    "section": 32
+  },
+  {
+    "question": "What two parts does the Technology Assessment (TA) comprise?",
+    "source_text": "The TA comprises two parts, a Technology Maturity Assessment (TMA) and an Advancement Degree of Difficulty Assessment (AD 2).",
+    "section": 33
+  },
+  {
+    "question": "When is the final Technology Maturity Assessment (TMA) performed?",
+    "source_text": "The final TMA is performed just prior to the Preliminary Design Review (PDR).",
+    "section": 33
+  },
+  {
+    "question": "What does the Technology Readiness Assessment Report (TRAR) document?",
+    "source_text": "It forms the basis for the Technology Readiness Assessment Report (TRAR), which documents the maturity of the technological advancement required by the systems, subsystems, and components demonstrated through test and analysis.",
+    "section": 33
+  },
+  {
+    "question": "According to Appendix G, when should a TA process be defined and performed relative to the program/project?",
+    "source_text": "It is extremely important that a TA process be defined at the beginning of the program/project and that it be performed at the earliest possible stage (concept development) and throughout the program/project through PDR.",
+    "section": 33
+  },
+  {
+    "question": "What is the purpose of the architecture studies described in Appendix G?",
+    "source_text": "The purpose of the architecture studies is to refine end-item system design to meet the overall scientific requirements of the mission.",
+    "section": 33
+  },
+  {
+    "question": "Why should particular attention be given to “heritage” systems during technology assessment?",
+    "source_text": "Particular attention should be given to “heritage” systems in that they are often used in architectures and environments different from those in which they were designed to operate.",
+    "section": 33
+  },
+  {
+    "question": "What is a Technology Readiness Level (TRL) described as, and where were the levels first described?",
+    "source_text": "A Technology Readiness Level (TRL) is, at its most basic, a description of the performance history of a given system, subsystem, or component relative to a set of levels first described at NASA HQ in the 1980s.",
+    "section": 33
+  },
+  {
+    "question": "Where does the term “breadboard” originate from and what did it originally refer to?",
+    "source_text": "“Breadboard,” for example, comes from electrical engineering where the original use referred to checking out the functional design of an electrical circuit by populating a “breadboard” with components to verify that the design operated as anticipated.",
+    "section": 33
+  },
+  {
+    "question": "Where are the current definitions for software TRLs contained?",
+    "source_text": "The current definitions for software TRLs are contained in NPR 7123.1, NASA Systems Engineering Processes and Requirements.",
+    "section": 33
+  },
+  {
+    "question": "What is the primary expertise required for a TRL assessment?",
+    "source_text": "The primary expertise required for a TRL assessment is that the systems engineer/user understands the current state of the art in applications.",
+    "section": 33
+  },
+  {
+    "question": "What happens to the TRL of a heritage system if the architecture and environment have changed?",
+    "source_text": "If the architecture and the environment have changed, then the TRL drops to TRL 5—at least initially.",
+    "section": 33
+  },
+  {
+    "question": "How is the TRL of a system determined relative to its elements?",
+    "source_text": "The TRL of the system is determined by the lowest TRL present in the system; i.e., a system is at TRL 2 if any single element in the system is at TRL 2.",
+    "section": 33
+  },
+  {
+    "question": "What kind of process can identifying TRLs be, according to Appendix G?",
+    "source_text": "On the contrary, identifying TRLs can be a straightforward systems engineering process of determining what was demonstrated and under what conditions it was demonstrated.",
+    "section": 33
+  },
+  {
+    "question": "What does the integration plan define for a project interface with the system design?",
+    "source_text": "The integration plan defines the integration and verification strategies for a project interface with the system design and decomposition into the lower-level elements.",
+    "section": 34
+  },
+  {
+    "question": "What is the source material that Appendix H on the Integration Plan Outline is adapted from?",
+    "source_text": "The material in this appendix is adapted from Federal Highway Administration and CalTrans, Systems Engineering Guidebook for ITS, Version 2 0 .",
+    "section": 34
+  },
+  {
+    "question": "According to the integration plan checklist, how should integration problems be handled?",
+    "source_text": "Does the integration plan spell out how integration problems are to be documented and resolved?",
+    "section": 34
+  },
+  {
+    "question": "Why is the same support equipment needed during Phase 1 Integration?",
+    "source_text": "The same support equipment is most likely needed for the subsequent verification step.",
+    "section": 34
+  },
+  {
+    "question": "What is the purpose of the Verification and Validation (V&V) Plan?",
+    "source_text": "The purpose of the V&V Plan is to identify the activities that will establish compliance with the requirements (verification) and to establish that the system will meet the customers’ expectations (validation).",
+    "section": 34
+  },
+  {
+    "question": "What does the Order of Precedence section of the V&V Plan identify?",
+    "source_text": "This section identifies which documents take precedence whenever there are conflicting requirements.",
+    "section": 34
+  },
+  {
+    "question": "What method options are indicated for performing requirements flowdown and bidirectional traceability in the System Requirements Flowdown section?",
+    "source_text": "It should also indicate what method will be used to perform the flowdown and bidirectional traceability of the requirements: spreadsheet, model, or other means.",
+    "section": 34
+  },
+  {
+    "question": "What examples of ground support equipment are given in the Ground Support Equipment section of the V&V Plan outline?",
+    "source_text": "This may include carts for supplying power or fuel, special test fixtures, lifting aids, simulators, or other type of support.",
+    "section": 34
+  },
+  {
+    "question": "What does the Certification Process describe in the Verification and Validation Plan outline?",
+    "source_text": "Describes the overall process by which the results of these verification and validation activities will be used to certify that the system meets its requirements and expectations and is ready to be put into the field or fly.",
+    "section": 34
+  },
+  {
+    "question": "What should be included regarding test article pedigree terms in the Test Articles section of the V&V Plan?",
+    "source_text": "A definition of what is meant by these terms needs to be included to ensure clear understanding of the expected pedigree of each type of test article.",
+    "section": 34
+  },
+  {
+    "question": "How does the Support Equipment section (5.3) of the V&V Plan outline relate to Section 3.4?",
+    "source_text": "This will be a more detailed description than is stated in Section 3.4 of this outline.",
+    "section": 34
+  },
+  {
+    "question": "What types of facilities may be described in the Facilities section (5.4) of the V&V Plan outline?",
+    "source_text": "These may include environmental test facilities, computational facilities, simulation facilities, training facilities, test stands, and other facilities as needed.",
+    "section": 34
+  },
+  {
+    "question": "What analyses may be included under Verification by Analysis for an end item in the V&V Plan outline?",
+    "source_text": "This may include thermal analysis, stress analysis, analysis of fracture control, materials analysis, Electrical, Electronic, and Electromechnical (EEE) parts analysis, and other analyses as needed for the verification of this end item.",
+    "section": 34
+  },
+  {
+    "question": "What should be captured if performing verification and validation activities on the complete integrated system is not practical?",
+    "source_text": "In some cases this will not be practical. Rationale for what cannot be done should be captured.",
+    "section": 35
+  },
+  {
+    "question": "What may the System Certification Products package include besides the verification and validation matrix and results?",
+    "source_text": "This package may include the verification and validation matrix and results, pressure vessel certifications, special forms, materials certifications, test reports or other products as is appropriate for the system being verified and validated.",
+    "section": 35
+  },
+  {
+    "question": "For what kind of projects does pointing to another document or model for the Requirement Verification Matrix work well?",
+    "source_text": "This works well for large projects using a requirements-tracking application.",
+    "section": 35
+  },
+  {
+    "question": "What forms can the Validation Matrix product described in Appendix D take?",
+    "source_text": "As with the verification matrix, this product may take various forms from a completed matrix to just a pointer for where the information can be found.",
+    "section": 35
+  },
+  {
+    "question": "What is the Systems Engineering Management Plan (SEMP) described as?",
+    "source_text": "The Systems Engineering Management Plan (SEMP) is the foundation document for the technical and engineering activities conducted during the project.",
+    "section": 35
+  },
+  {
+    "question": "What does the Engineering specialty integration section of the SEMP describe?",
+    "source_text": "Engineering specialty integration describes the integration of the technical disciplines’ efforts into the systems engineering process and summarizes each technical discipline effort and cross references each of the specific and relevant plans.",
+    "section": 35
+  },
+  {
+    "question": "When is the initial SEMP used to establish the technical content of the engineering work?",
+    "source_text": "The SEMP is a living document. The initial SEMP is used to establish the technical content of the engineering work early in the Formulation Phase for each project and updated as needed throughout the project life cycle.",
+    "section": 35
+  },
+  {
+    "question": "What meaning should terms used in the SEMP have, according to the SEMP Content Outline?",
+    "source_text": "Terms used in the SEMP should have the same meaning as the terms used in the NPR 7123.1, Systems Engineering Processes and Requirements.",
+    "section": 35
+  },
+  {
+    "question": "What are signatories certifying by signing the SEMP title page document?",
+    "source_text": "By signing this document, signatories are certifying that the content herein is acceptable as direction for engineering and technical management of this program/project and that they will ensure its implementation by those over whom they have authority.",
+    "section": 35
+  },
+  {
+    "question": "What are the first three key questions listed under the Technical Summary section of the SEMP outline?",
+    "source_text": "1. What is the problem we’re trying to solve? 2. What are the influencing factors? 3. What are the critical questions?",
+    "section": 35
+  },
+  {
+    "question": "What do the programmatic constraints described in the Planning Context section of the SEMP affect?",
+    "source_text": "This section contains the programmatic constraints (e.g., NPR 7120.5) that affect the planning and implementation of the common technical processes to be applied in performing the technical effort.",
+    "section": 35
+  },
+  {
+    "question": "How does the Boundary of Technical Effort section distinguish what is inside versus outside the boundary?",
+    "source_text": "Specifically, it identifies what can be controlled by the technical team (inside the boundary) and what influences the technical effort and is influenced by the technical effort but not controlled by the technical team (outside the boundary).",
+    "section": 35
+  },
+  {
+    "question": "What should the SEMP define when there is potential for overlap of specialty efforts?",
+    "source_text": "Where there is potential for overlap of specialty efforts, the SEMP should define the relative responsibilities and authorities of each specialty.",
+    "section": 35
+  },
+  {
+    "question": "What does the Contractor Integration section of the SEMP specifically address regarding NASA-contractor interfaces?",
+    "source_text": "The section specifically addresses how interfaces between the NASA technical team and the contractor will be implemented for each of the 17 common technical processes.",
+    "section": 36
+  },
+  {
+    "question": "What kinds of methods does the Analytical Tools that Support Integration section of the SEMP describe?",
+    "source_text": "This section describes the methods (such as integrated computer-aided tool sets, integrated work product databases, and technical management information systems) that will be used to support technical effort integration.",
+    "section": 36
+  },
+  {
+    "question": "What does implementation of the 17 common technical processes include?",
+    "source_text": "Implementation of the 17 common technical processes includes (1) the generation of the outcomes needed to satisfy the entry and success criteria of the applicable product life cycle phase or phases identified in D.4.4.4, and (2) the necessary inputs for other technical processes.",
+    "section": 36
+  },
+  {
+    "question": "What does the System Safety section of the SEMP describe?",
+    "source_text": "This section describes the approach and methods for conducting safety analysis and assessing the risk to operators, the system, the environment, or the public.",
+    "section": 36
+  },
+  {
+    "question": "What examples of requirement areas are given for Specialty Engineering in the SEMP outline?",
+    "source_text": "Examples of these requirement areas would include planning for safety, reliability, human factors, logistics, maintainability, quality, operability, and supportability.",
+    "section": 36
+  },
+  {
+    "question": "What must the performance metrics address regarding TPMs, according to the SEMP outline?",
+    "source_text": "The performance metrics need to address the minimally required TPMs as defined in NPR 7123.1.",
+    "section": 36
+  },
+  {
+    "question": "What are the first two minimally required Technical Performance Measures listed for the SEMP, with their NPR 7123.1 identifiers?",
+    "source_text": "These include: 1. Mass margins for projects involving hardware [SE-62]. 2. Power margins for projects that are powered [SE-63].",
+    "section": 36
+  },
+  {
+    "question": "What does the Heritage section (7.5) of the SEMP outline describe?",
+    "source_text": "This section describes the heritage or legacy products that will be used in the project.",
+    "section": 36
+  },
+  {
+    "question": "What document is the basis for the compliance matrix in the SEMP's Compliance Matrices section?",
+    "source_text": "Appendix H.2 in NPR 7123.1A is the basis for the compliance matrix for this section of the SEMP.",
+    "section": 36
+  },
+  {
+    "question": "What three ways can each requirement be addressed as in the SEMP compliance matrix?",
+    "source_text": "Each requirement will be addressed as compliant, partially compliant, or noncompliant.",
+    "section": 36
+  },
+  {
+    "question": "What kind of project is the example table of expected maturity of key technical plans in Appendix K intended for?",
+    "source_text": "The following table represents a typical expectation of maturity of some of the key technical plans developed during the SE processes. This example is for a space flight project.",
+    "section": 36
+  },
+  {
+    "question": "What example wording is given for stating the purpose of an Interface Requirements Document (IRD)?",
+    "source_text": "This IRD defines and controls the interface(s) requirements between ______ and ______.",
+    "section": 36
+  },
+  {
+    "question": "What should the Precedence section (1.2) of an Interface Requirements Document define?",
+    "source_text": "Define the relationship of this document to other program documents and specify which is controlling in the event of a conflict.",
+    "section": 36
+  },
+  {
+    "question": "What should the Mass Properties subsection (3.2.1) of an Interface Requirements Document cover, according to the example given?",
+    "source_text": "For example, this subsection should cover the mass of the element.",
+    "section": 37
+  },
+  {
+    "question": "What fluid areas should the Fluid subsection (3.2.3) of an Interface Requirements Document cover, according to the example given?",
+    "source_text": "For example, this subsection should cover fluid areas such as thermal control, O 2 and N 2, potable and waste water, fuel cell water, and atmospheric sampling.",
+    "section": 37
+  },
+  {
+    "question": "What example wording is given for the Grounding requirements subsection (3.2.7.1.c) of an Interface Requirements Document?",
+    "source_text": "For example, the end-item-1-to-end-item-2 interface shall meet the requirements [to be determined] of grounding requirements.",
+    "section": 37
+  },
+  {
+    "question": "What kinds of significant changes should trigger reevaluation of the documented CM planning?",
+    "source_text": "The documented CM planning should be reevaluated following any significant change affecting the context and environment, e.g., changes in suppliers or supplier responsibilities, changes in diminishing manufacturing sources/part obsolescence",
+    "section": 37
+  },
+  {
+    "question": "Where should one refer for additional information regarding a CM Plan?",
+    "source_text": "For additional information regarding a CM Plan, refer to SAE EIA-649, Rev. B.",
+    "section": 37
+  },
+  {
+    "question": "What happened to Appendix N on Guidance on Technical Peer Reviews/Inspections in this handbook?",
+    "source_text": "This appendix has been removed. For additional guidance on how to perform technical peer reviews refer to Appendix N in the NASA Expanded Guidance for Systems Engineering",
+    "section": 37
+  },
+  {
+    "question": "What happened to Appendix P, the SOW Review Checklist, in this handbook?",
+    "source_text": "This appendix has been removed. For additional guidance on checklists for editorial and content review questions refer to Appendix P in the NASA Expanded Guidance for Systems Engineering",
+    "section": 37
+  },
+  {
+    "question": "What is one of the intents of Human Systems Integration (HSI) regarding the user population?",
+    "source_text": "To ensure that the system is built to accommodate the characteristics of the user population that will operate, maintain, and support the system.",
+    "section": 37
+  },
+  {
+    "question": "What is stated about whether the HSI Plan is intended to duplicate other systems engineering plans or processes?",
+    "source_text": "It is not the intent of the HSI Plan or its implementation to duplicate other systems engineering plans or processes, but rather to define the uniquely HSI effort being made to ensure the human element is given equal consideration to hardware/software elements of a program/project.",
+    "section": 37
+  },
+  {
+    "question": "According to the HSI Plan Scope section (1.2), what kind of document is the HSI Plan in terms of updates?",
+    "source_text": "Is a dynamic document that will be updated at key life cycle milestones.",
+    "section": 37
+  },
+  {
+    "question": "What should be described along with known HSI challenges in the HSI Relevance section (3.2)?",
+    "source_text": "Known HSI challenges should be described along with mention of areas where human performance in the system’s operations is predicted to directly impact the probability of overall system performance and mission success.",
+    "section": 37
+  },
+  {
+    "question": "What should HSI requirements include regarding manpower, according to the HSI Requirements Key Points?",
+    "source_text": "HSI should include requirements that influence the system design to moderate manpower (operators, maintainers, system administrative, and support personnel), required skill sets (occupational specialties with high aptitude or skill requirements), and training requirements.",
+    "section": 37
+  },
+  {
+    "question": "How should HSI risks be processed relative to other program/project risks, according to the HSI Issue and Risk Processing section (5.3)?",
+    "source_text": "HSI risks should be processed in the same manner and system as other program/project risks (technical, programmatic, schedule).",
+    "section": 37
+  },
+  {
+    "question": "Where are the milestones recommended for HSI Plan updates listed?",
+    "source_text": "Milestones recommended for HSI Plan updates are listed in appendix G of NPR 7123.1, NASA Systems Engineering Processes and Requirements.",
+    "section": 38
+  },
+  {
+    "question": "What should the Background subsection (1.1.1) of a Concept of Operations summarize and provide?",
+    "source_text": "Summarize the conditions that created the need for the new system. Provide the high-level mission goals and objective of the system operation.",
+    "section": 38
+  },
+  {
+    "question": "What example is given for an assumption or constraint in the development of a ConOps concept?",
+    "source_text": "For example, that some technology will be matured enough by the time the system is ready to be fielded, or that the system has to be provided by a certain date in order to accomplish the mission.",
+    "section": 38
+  },
+  {
+    "question": "How should the descriptions in the Overview of System and Key Elements section (3.2) of a ConOps be written?",
+    "source_text": "These descriptions should be implementation free; that is, not specific to any implementation or design but rather a general description of what the system and its elements will be expected to do.",
+    "section": 38
+  },
+  {
+    "question": "What kinds of modes may the Modes of Operations section (3.4) of a ConOps need to include?",
+    "source_text": "This may include modes needed in the development of the system, such as for testing or training, as well as various modes that will be needed during it operational and disposal phases.",
+    "section": 38
+  },
+  {
+    "question": "What good practice is recommended for labeling scenarios, use cases, or DRMs in a ConOps to facilitate requirements traceability?",
+    "source_text": "A good practice is to label each of these scenarios to facilitate requirements traceability; e.g., [DRM-0100], [DRM0200], etc.",
+    "section": 38
+  },
+  {
+    "question": "What kinds of environmental impacts are described under the Environmental Impacts section (7.1) of a ConOps?",
+    "source_text": "This includes the possibility of the generation of any orbital debris, potential contamination of other planetary bodies or atmosphere, and generation of hazardous wastes that will need disposal on earth and other factors.",
+    "section": 38
+  },
+  {
+    "question": "In how many distinct categories must mission operations capabilities be established prior to successful Phase E execution?",
+    "source_text": "Successful Phase E execution requires the prior establishment of mission operations capabilities in four (4) distinct categories: tools, processes, products, and trained personnel.",
+    "section": 38
+  },
+  {
+    "question": "What happens to project budget and staffing profiles at or before entry into Phase E?",
+    "source_text": "Project budget and staffing profiles generally decrease at or before entry into Phase E, and the remaining personnel are typically focused on mission execution.",
+    "section": 38
+  },
+  {
+    "question": "What is noted about pausing mission execution after launch, under the Unforgiving schedule point in Phase E?",
+    "source_text": "It is typically difficult or impossible to truly pause mission execution after launch.",
+    "section": 38
+  },
+  {
+    "question": "What can result from product duplication when Phase D and Phase E products are formatted too differently?",
+    "source_text": "The associated product duplication is often unexpected and results in increased cost and schedule risk.",
+    "section": 38
+  },
+  {
+    "question": "What should the Operations Readiness Review (ORR) confirm regarding stakeholders?",
+    "source_text": "The Operations Readiness Review (ORR) should confirm that stakeholders accept the mission operations plan and operations implementation products.",
+    "section": 38
+  },
+  {
+    "question": "What is one of the reasons new technical requirements or changes to existing requirements may be identified during operations in Phase E?",
+    "source_text": "New technical requirements and changes to existing requirements may be identified during operations as a result of: • New understanding of system characteristics through flight experience;",
+    "section": 38
+  },
+  {
+    "question": "Why can early and close involvement of Safety and Mission Assurance (SMA) representatives be key during Phase E technical requirement changes?",
+    "source_text": "Early and close involvement of Safety and Mission Assurance (SMA) representatives can be key in ensuring that proposed changes are appropriate and within the project’s allowable risk tolerance.",
+    "section": 39
+  },
+  {
+    "question": "What is required of personnel who implement mission operations products such as procedures and spacecraft command scripts?",
+    "source_text": "Personnel who implement mission operations products such as procedures and spacecraft command scripts should be trained and certified to the appropriate level of skill as defined by the project.",
+    "section": 39
+  },
+  {
+    "question": "What is it common for Configuration Management (CM) and test personnel in Phase E to be, according to the Product Realization Processes section?",
+    "source_text": "It is common for these people to be “shared resources;” i.e., personnel who fulfil other roles in addition to CM and test roles.",
+    "section": 39
+  },
+  {
+    "question": "How do small projects typically define a baseline for product integration in Phase E?",
+    "source_text": "Small projects may define a baseline—and update to that baseline—that spans the entire set of all operations products.",
+    "section": 39
+  },
+  {
+    "question": "Why may verification of products during flight operations be a challenge, according to the Runtime characteristic in Product Verification?",
+    "source_text": "Verification of products during flight operations may be significantly time constrained.",
+    "section": 39
+  },
+  {
+    "question": "What kind of operational activities may require testing with much higher-fidelity simulations, according to the Level of detail characteristic?",
+    "source_text": "However, operational activities that involve dynamic system attributes – such as changes in pressure, temperature, or other physical properties may require testing with much higher-fidelity simulations.",
+    "section": 39
+  },
+  {
+    "question": "What example is given of an event sequence that may require accurate weather data, under Environmental effects in Product Verification?",
+    "source_text": "For example, event sequences for atmospheric entry and deceleration may require accurate weather data.",
+    "section": 39
+  },
+  {
+    "question": "What does the integration of multiple team members and operations products provide during Product Validation in Phase E?",
+    "source_text": "The integration of multiple team members and operations products provides the context necessary to determine if the product is appropriate and meets the true operations need.",
+    "section": 39
+  },
+  {
+    "question": "Who generally oversees the transition of new operational capabilities in Phase E?",
+    "source_text": "Transition of new operational capabilities in Phase E is generally overseen by the mission operations manager or a Configuration Control Board (CCB) chaired by the mission operations manager or the project manager.",
+    "section": 39
+  },
+  {
+    "question": "What should every project develop for handling anomalies and managing risk during operations, according to Technical Risk Management in Phase E?",
+    "source_text": "For this reason, every project should develop a formal process for handling anomalies and managing risk during operations.",
+    "section": 39
+  },
+  {
+    "question": "What should scheduled maintenance or other downtime periods be coordinated with, according to Configuration Management in Phase E?",
+    "source_text": "Scheduled maintenance or other “downtime” periods should be coordinated with flight operations plans to minimize the risk of data being inaccessible during critical activities.",
+    "section": 39
+  },
+  {
+    "question": "Why are changes to Technical Data Management capabilities rarely made during Phase E?",
+    "source_text": "Changes to these capabilities are rarely made during Phase E due to the high risk of data loss or reduction in operations efficiency when changing during operations.",
+    "section": 39
+  },
+  {
+    "question": "What may Phase E Technical Performance Measures (TPMs) focus on?",
+    "source_text": "Phase E TPMs may focus on the accomplishment of mission events, the performance of the system in operation, and the ability of the operations team to support upcoming events.",
+    "section": 39
+  },
+  {
+    "question": "What law is cited as the reference for the Product Transition section (5.5), covering environmental policy at 42 U.S.C. 4321-4347?",
+    "source_text": "(The) National Environmental Policy Act of 1969 (NEPA). See 42 U.S.C. 4321-4347.",
+    "section": 40
+  },
+  {
+    "question": "What does the Invention Secrecy Act of 1951, cited under Technical Data Management, address regarding filing applications in a foreign country?",
+    "source_text": "The Invention Secrecy Act of 1951, 35 U.S.C. §181–§188. Secrecy of Certain Inventions and Filing Applications in Foreign Country",
+    "section": 40
+  },
+  {
+    "question": "What does Part 5.2 of Title 37 of the Code of Federal Regulations (37 CFR 5.2) cover, as cited under Technical Data Management?",
+    "source_text": "Code of Federal Regulations (CFR) Title 37 – Patents, Trademarks, and Copyrights; Part 5 Secrecy of Certain Inventions and Licenses to Export and File Applications in Foreign Countries; Part 5.2 Secrecy Order. (37 CFR 5.2)",
+    "section": 40
+  },
+  {
+    "question": "What does Part 46.4 of Title 48 of the Code of Federal Regulations (48 CFR 46.4), cited under Design Solution Definition, cover?",
+    "source_text": "Code of Federal Regulations (CFR), Title 48 – Federal Acquisition Regulation (FAR) System, Part 46.4 Government Contract Quality Assurance (48 CFR 46.4)",
+    "section": 40
+  },
+  {
+    "question": "What does the NASA GSFC-STD-7000 standard, cited under Product Verification, cover and when was it published?",
+    "source_text": "NASA GSFC-STD-7000, Goddard Technical Standard: General Environmental Verification Standard (GEVS) for GSFC Flight Programs and Projects. Goddard Space Flight Center. April 2005",
+    "section": 40
+  },
+  {
+    "question": "What does the DOD standard MIL-STD-1540D, cited under Product Verification, cover?",
+    "source_text": "MIL-STD-1540D, Product Verification Requirements for Launch, Upper Stage, and Space Vehicles. January 15, 1999",
+    "section": 40
+  },
+  {
+    "question": "What does the Joint (cost and schedule) Confidence Level (JCL) reference, cited under Technical Planning, provide?",
+    "source_text": "Joint (cost and schedule) Confidence Level (JCL). Frequently asked questions (FAQs) can be found at:",
+    "section": 40
+  },
+  {
+    "question": "What kind of reports does the U.S. Chemical Safety Board (CSB), cited under Technical Planning, provide?",
+    "source_text": "The U. S. Chemical Safety Board (CSB) case study reports on mishaps found at:",
+    "section": 40
+  },
+  {
+    "question": "What NOAA-related report is cited under the Configuration Management section, and when was it issued?",
+    "source_text": "NASA. NOAA N-Prime Mishap Investigation Final Report, Sept. 13, 2004",
+    "section": 40
+  },
+  {
+    "question": "Which NPD document, cited under Section 3.9 Project Phase F: Closeout, addresses notification of intent to decommission or terminate operating space systems?",
+    "source_text": "NPD 8010.3, Notification of Intent to Decommission or Terminate Operating Space Systems and Terminate Missions",
+    "section": 39
+  },
+  {
+    "question": "Which NPR document, cited under Section 3.9 Project Phase F: Closeout, covers NASA procedural requirements for limiting orbital debris?",
+    "source_text": "NPR 8715.6, NASA Procedural Requirements for Limiting Orbital Debris",
+    "section": 39
+  },
+  {
+    "question": "What is the revision status and date of the NASA-STD-8719.14 Handbook for Limiting Orbital Debris, cited under Project Phase A?",
+    "source_text": "NASA-STD-8719.14, Handbook for Limiting Orbital Debris. Rev A with Change 1. December 8, 2011.",
+    "section": 39
+  },
+  {
+    "question": "What does FIPS PUB 199, cited under Project Phase A, provide standards for?",
+    "source_text": "National Institute of Standards and Technology (NIST), Federal Information Processing Standard Publication (FIPS PUB) 199, Standards for Security Categorization of Federal Information and Information Systems, February 2004.",
+    "section": 39
+  },
+  {
+    "question": "What does 14 CFR 1214, cited in the bibliography, cover?",
+    "source_text": "CFR, Title 14 – Aeronautics and Space, Part 1214 NASA Space Flight (14 CFR 1214)",
+    "section": 41
+  },
+  {
+    "question": "What does 14 CFR 1216.3, cited in the bibliography, cover regarding NASA Environmental Quality?",
+    "source_text": "CFR, Title 14 – Aeronautics and Space, Part 1216.3 NASA Environmental Quality: Procedures for Implementing the National Environmental Policy Act (NEPA) (14 CFR 1216.3)",
+    "section": 41
+  },
+  {
+    "question": "What term does 40 CFR 1508.27, cited in the bibliography, define for the Council on Environmental Quality?",
+    "source_text": "CFR Title 40 – Protection of Environment, Part 1508.27 Council on Environmental Quality: Terminology “significantly.” (40 CFR 1508.27)",
+    "section": 41
+  },
+  {
+    "question": "What does 48 CFR 1214, cited in the bibliography, cover regarding NASA acquisition planning?",
+    "source_text": "CFR Title 48 – Federal Acquisition Regulation (FAR) System, Part 1214 NASA Acquisition Planning: Acquisition of Commercial Items: Space Flight. (48 CFR 1214)",
+    "section": 41
+  },
+  {
+    "question": "What does 48 CFR 46.103, cited in the bibliography, address regarding Government Contract Quality Assurance?",
+    "source_text": "CFR Title 48 – Federal Acquisition Regulation (FAR) System, Part 46.103 Government Contract Quality Assurance: Contracting office responsibilities. (48 CFR 46.103)",
+    "section": 41
+  },
+  {
+    "question": "What does 48 CFR 46.407, cited in the bibliography, address regarding Government Contract Quality Assurance?",
+    "source_text": "CFR Title 48 – Federal Acquisition Regulation (FAR) System, Part 46.407 Government Contract Quality Assurance: Nonconforming Supplies or Services (48 CFR 46.407)",
+    "section": 41
+  },
+  {
+    "question": "What does Executive Order (EO) 12114, cited in the bibliography, address and when was it issued?",
+    "source_text": "Executive Order (EO) 12114, Environmental Effects Abroad of Major Federal Actions. January 4, 1979.",
+    "section": 41
+  },
+  {
+    "question": "What does Executive Order (EO) 12770, cited in the bibliography, address and when was it issued?",
+    "source_text": "Executive Order (EO) 12770, Metric Usage in Federal Government Programs , July 25, 1991.",
+    "section": 41
+  },
+  {
+    "question": "What subsequent acts amended the Metric Conversion Act of 1975, according to the bibliography citation?",
+    "source_text": "(The) Metric Conversion Act of 1975 (Public Law 94-168) amended by the Omnibus Trade and Competitiveness Act of 1988 (Public Law 100418), the Savings in Construction Act of 1996 (Public Law 104-289), and the Department of Energy High-End Computing Revitalization Act of 2004 (Public Law 108-423).",
+    "section": 41
+  },
+  {
+    "question": "Where does the bibliography say to find the Federal Acquisition Regulation (FAR)?",
+    "source_text": "Federal Acquisition Regulation (FAR). See: Code of Federal Regulations (CFR), Title 48.",
+    "section": 41
+  },
+  {
+    "question": "What standard superseded IEEE STD 610.12-1990, the IEEE Standard Glossary of Software Engineering Terminology?",
+    "source_text": "IEEE STD 610.12-1990. IEEE Standard Glossary of Software Engineering Terminology. 1999, superceded by ISO/IEC/IEEE 24765:2010, Systems and Software Engineering – Vocabulary . Washington, DC, 2010",
+    "section": 41
+  },
+  {
+    "question": "What subject does the ISO 10007: 1995(E) standard, cited in the bibliography, cover?",
+    "source_text": "ISO 10007: 1995(E). Quality Management— Guidelines for Configuration Management, Geneva: International Organization for Standardization, 1995",
+    "section": 41
+  },
+  {
+    "question": "What subject does the ISO/IEC 15288:2002 standard, cited in the bibliography, cover?",
+    "source_text": "ISO/IEC 15288:2002. Systems Engineering—System Life Cycle Processes. Geneva: International Organization for Standardization, 2002",
+    "section": 41
+  },
+  {
+    "question": "Which standard should be used in place of NSS 1740.14 to implement NPR 8715.6, according to the bibliography note?",
+    "source_text": "NASA-STD 8719.14 should be used in place of NSS 1740.14 to implement NPR 8715.6. See NPR 8715.6 for restrictions on the use of NSS 1740.14.",
+    "section": 42
+  },
+  {
+    "question": "What does NPD 8010.2, listed under Policy Directives, cover?",
+    "source_text": "NPD 8010.2, Use of the SI (Metric) System of Measurement in NASA Programs",
+    "section": 42
+  },
+  {
+    "question": "What does NPD 8020.7, listed under Policy Directives, cover?",
+    "source_text": "NPD 8020.7, Biological Contamination Control for Outbound and Inbound Planetary Spacecraft",
+    "section": 42
+  },
+  {
+    "question": "What does NPR 7120.11, listed under Procedural Requirements, cover?",
+    "source_text": "NPR 7120.11, NASA Health and Medical Technical Authority (HMTA) Implementation",
+    "section": 42
+  },
+  {
+    "question": "What does NPR 8580.1, listed under Procedural Requirements, implement?",
+    "source_text": "NPR 8580.1, Implementing the National Environmental Policy Act and Executive Order 12114",
+    "section": 42
+  },
+  {
+    "question": "What does NPR 8705.5, listed under Procedural Requirements, cover?",
+    "source_text": "NPR 8705.5, Probabilistic Risk Assessment (PRA) Procedures for NASA Programs and Projects",
+    "section": 42
+  },
+  {
+    "question": "What does NPR 8900.1, listed under Procedural Requirements, cover?",
+    "source_text": "NPR 8900.1, NASA Health and Medical Requirements for Human Space Exploration",
+    "section": 42
+  },
+  {
+    "question": "What does NPI 8020.7, listed under Procedural Requirements, address?",
+    "source_text": "NPI 8020.7, NASA Policy on Planetary Protection Requirements for Human Extraterrestrial Missions",
+    "section": 42
+  },
+  {
+    "question": "What does NPR 8020.12, listed under Procedural Requirements, address?",
+    "source_text": "NPR 8020.12, Planetary Protection Provisions for Robotic Extraterrestrial Missions",
+    "section": 42
+  },
+  {
+    "question": "What does APR 8070.2, listed under Procedural Requirements, cover, and at which NASA Center?",
+    "source_text": "APR 8070.2, EMI/EMC Class D Design and Environmental Test Requirements. NASA Ames Research Center (ARC)",
+    "section": 42
+  },
+  {
+    "question": "What does the Marshall Space Flight Center Work Instruction MWI 8060.1 cover?",
+    "source_text": "MSFC NASA MWI 8060.1, Off-the-Shelf Hardware Utilization in Flight Hardware Development. NASA Marshall Space Flight Center.",
+    "section": 42
+  },
+  {
+    "question": "What does the Johnson Space Center Work Instruction EA-WI-016 cover?",
+    "source_text": "JSC Work Instruction EA-WI-016, Off-the-Shelf Hardware Utilization in Flight Hardware Development. NASA Lyndon B. Johnson Space Center.",
+    "section": 42
+  },
+  {
+    "question": "What is the United Nations treaty on activities in outer space commonly known as?",
+    "source_text": "United Nations, Office for Outer Space Affairs. Treaty of Principles Governing the Activities of States in the Exploration and Use of Outer Space, Including the Moon and Other Celestial Bodies. Known as the “Outer Space Treaty of 1967”",
+    "section": 42
+  },
+  {
+    "question": "In what month and year was Institute of Defense Analyses (IDA) Report R-338 published, according to the bibliography?",
+    "source_text": "Institute of Defense Analyses (IDA) Report R-338, Dec 1988 Wolfram, Mathematica",
+    "section": 43
+  },
+  {
+    "question": "What does the acronym XMI stand for, as listed in the bibliography?",
+    "source_text": "XMI: Extensible Markup Language (XML) Metadata Interchange (XMI) http://www.omg. org/spec/XMI/",
+    "section": 43
+  },
+  {
+    "question": "What does the acronym XML stand for, as listed in the bibliography?",
+    "source_text": "XML: Extensible Markup Language (XML) http:// www.w3.org/TR/REC-xml/",
+    "section": 43
+  },
+  {
+    "question": "What is the title of the paper by Ziemer, Ervin, and Lang presented at the AIAA Space 2013 Proceedings, according to the bibliography?",
+    "source_text": "Ziemer, J., Ervin, J., Lang, J., “Exploring Mission Concepts with the JPL Innovation Foundry A-Tea m,” AIAA Space 2013 Proceedings, September 10–12, 2013, San Diego, CA",
+    "section": 43
+  }
+]

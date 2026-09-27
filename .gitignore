@@ -4,8 +4,26 @@
 chroma_db_*/
 chroma_db/
 
-# Chunk cache — regenerated locally
-chunks_cache/
+# Chunk cache — regenerated locally, except the LLM arms of the reported run.
+# Those took hours of model time per document and every result of the thesis
+# rests on them, so they are tracked; everything else here is rebuilt on demand.
+chunks_cache/*
+!chunks_cache/nasa_incremental.json
+!chunks_cache/nasa_incremental_nofilter.json
+!chunks_cache/nasa_incremental_headings_lines.json
+!chunks_cache/nasa_incremental_headings_hybrid.json
+!chunks_cache/nasa_incremental_enriched.json
+!chunks_cache/nasa_incremental_midpoint.json
+!chunks_cache/rfc9110_incremental.json
+!chunks_cache/rfc9110_incremental_nofilter.json
+!chunks_cache/rfc9110_incremental_headings_lines.json
+!chunks_cache/rfc9110_incremental_headings_hybrid.json
+!chunks_cache/rfc9110_incremental_enriched.json
+!chunks_cache/wells_incremental.json
+!chunks_cache/wells_incremental_nofilter.json
+!chunks_cache/wells_incremental_headings_lines.json
+!chunks_cache/wells_incremental_headings_hybrid.json
+!chunks_cache/wells_incremental_enriched.json
 
 # Evaluation results (generated locally)
 eval_results/
@@ -15,18 +33,22 @@ eval_results/
 eval_cache/*
 !eval_cache/rfc8259_json_questions.json
 # The question sets of the three evaluated documents belong in the repository so
-# that the results of the thesis can be reproduced.
+# that the results of the thesis can be reproduced. v4 (nasa, rfc9110) is the
+# evaluation reported in the thesis, generated in one round with prompts and
+# answers kept in question_prompts/*_literal_v4/; nasa_questions_literal_v3 is
+# the earlier version of the nasa set. wells has one round.
 !eval_cache/nasa_questions_literal_v3.json
-!eval_cache/rfc9110_questions_v3.json
+!eval_cache/nasa_questions_literal_v4.json
+!eval_cache/rfc9110_questions_v4.json
 !eval_cache/wells_questions.json
 
 # Logs of the chunking and ablation runs (several MB per run)
 run_logs/
 runs/
 
-# Question-generation prompts: only the sets actually used by the reported run
-# are tracked (question_prompts/nasa_literal, rfc9110_literal). The rest belong
-# to documents that were dropped, or to superseded v2 sets.
+# Question-generation prompts: only those behind the three evaluated question
+# sets are tracked, in question_prompts/. The rest belong to documents that
+# were dropped, or to superseded v2 sets.
 question_prompts/dailysteps_literal/
 expansion_prompts/
 natural_prompts/
@@ -53,6 +75,9 @@ tests/
 PROJECT_CONTEXT.md
 IMPLEMENTATION_PROMPT.md
 critique_prompts/
+
+# Maintainer tool that writes README-pypi.md before a release; kept locally.
+tools/make_pypi_readme.py
 
 # Thesis text: drafts and the Overleaf mirror do not belong in the repository.
 # The experiment scripts under thesis/scripts do.

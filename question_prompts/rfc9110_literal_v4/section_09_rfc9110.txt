@@ -1,0 +1,259 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 9 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 9/45 ---
+   HTTP/0.9 and early deployments of HTTP/1.0 used closure of the
+   underlying connection to end a response.  For backwards
+   compatibility, this implicit framing is also allowed in HTTP/1.1.
+   However, implicit framing can fail to distinguish an incomplete
+   response if the connection closes early.  For that reason, almost all
+   modern implementations use explicit framing in the form of length-
+   delimited sequences of message data.
+
+   A message is considered "complete" when all of the octets indicated
+   by its framing are available.  Note that, when no explicit framing is
+   used, a response message that is ended by the underlying connection's
+   close is considered complete even though it might be
+   indistinguishable from an incomplete response, unless a transport-
+   level error indicates that it is not complete.
+
+6.2.  Control Data
+
+   Messages start with control data that describe its primary purpose.
+   Request message control data includes a request method (Section 9),
+   request target (Section 7.1), and protocol version (Section 2.5).
+   Response message control data includes a status code (Section 15),
+   optional reason phrase, and protocol version.
+
+   In HTTP/1.1 ([HTTP/1.1]) and earlier, control data is sent as the
+   first line of a message.  In HTTP/2 ([HTTP/2]) and HTTP/3 ([HTTP/3]),
+   control data is sent as pseudo-header fields with a reserved name
+   prefix (e.g., ":authority").
+
+   Every HTTP message has a protocol version.  Depending on the version
+   in use, it might be identified within the message explicitly or
+   inferred by the connection over which the message is received.
+   Recipients use that version information to determine limitations or
+   potential for later communication with that sender.
+
+   When a message is forwarded by an intermediary, the protocol version
+   is updated to reflect the version used by that intermediary.  The Via
+   header field (Section 7.6.3) is used to communicate upstream protocol
+   information within a forwarded message.
+
+   A client SHOULD send a request version equal to the highest version
+   to which the client is conformant and whose major version is no
+   higher than the highest version supported by the server, if this is
+   known.  A client MUST NOT send a version to which it is not
+   conformant.
+
+   A client MAY send a lower request version if it is known that the
+   server incorrectly implements the HTTP specification, but only after
+   the client has attempted at least one normal request and determined
+   from the response status code or header fields (e.g., Server) that
+   the server improperly handles higher request versions.
+
+   A server SHOULD send a response version equal to the highest version
+   to which the server is conformant that has a major version less than
+   or equal to the one received in the request.  A server MUST NOT send
+   a version to which it is not conformant.  A server can send a 505
+   (HTTP Version Not Supported) response if it wishes, for any reason,
+   to refuse service of the client's major protocol version.
+
+   A recipient that receives a message with a major version number that
+   it implements and a minor version number higher than what it
+   implements SHOULD process the message as if it were in the highest
+   minor version within that major version to which the recipient is
+   conformant.  A recipient can assume that a message with a higher
+   minor version, when sent to a recipient that has not yet indicated
+   support for that higher version, is sufficiently backwards-compatible
+   to be safely processed by any implementation of the same major
+   version.
+
+6.3.  Header Fields
+
+   Fields (Section 5) that are sent or received before the content are
+   referred to as "header fields" (or just "headers", colloquially).
+
+   The "header section" of a message consists of a sequence of header
+   field lines.  Each header field might modify or extend message
+   semantics, describe the sender, define the content, or provide
+   additional context.
+
+      |  *Note:* We refer to named fields specifically as a "header
+      |  field" when they are only allowed to be sent in the header
+      |  section.
+
+6.4.  Content
+
+   HTTP messages often transfer a complete or partial representation as
+   the message "content": a stream of octets sent after the header
+   section, as delineated by the message framing.
+
+   This abstract definition of content reflects the data after it has
+   been extracted from the message framing.  For example, an HTTP/1.1
+   message body (Section 6 of [HTTP/1.1]) might consist of a stream of
+   data encoded with the chunked transfer coding -- a sequence of data
+   chunks, one zero-length chunk, and a trailer section -- whereas the
+   content of that same message includes only the data stream after the
+   transfer coding has been decoded; it does not include the chunk
+   lengths, chunked framing syntax, nor the trailer fields
+   (Section 6.5).
+
+      |  *Note:* Some field names have a "Content-" prefix.  This is an
+      |  informal convention; while some of these fields refer to the
+      |  content of the message, as defined above, others are scoped to
+      |  the selected representation (Section 3.2).  See the individual
+      |  field's definition to disambiguate.
+
+6.4.1.  Content Semantics
+
+   The purpose of content in a request is defined by the method
+   semantics (Section 9).
+
+   For example, a representation in the content of a PUT request
+   (Section 9.3.4) represents the desired state of the target resource
+   after the request is successfully applied, whereas a representation
+   in the content of a POST request (Section 9.3.3) represents
+   information to be processed by the target resource.
+
+   In a response, the content's purpose is defined by the request
+   method, response status code (Section 15), and response fields
+   describing that content.  For example, the content of a 200 (OK)
+   response to GET (Section 9.3.1) represents the current state of the
+   target resource, as observed at the time of the message origination
+   date (Section 6.6.1), whereas the content of the same status code in
+   a response to POST might represent either the processing result or
+   the new state of the target resource after applying the processing.
+
+   The content of a 206 (Partial Content) response to GET contains
+   either a single part of the selected representation or a multipart
+   message body containing multiple parts of that representation, as
+   described in Section 15.3.7.
+
+   Response messages with an error status code usually contain content
+   that represents the error condition, such that the content describes
+   the error state and what steps are suggested for resolving it.
+
+   Responses to the HEAD request method (Section 9.3.2) never include
+   content; the associated response header fields indicate only what
+   their values would have been if the request method had been GET
+   (Section 9.3.1).
+
+   2xx (Successful) responses to a CONNECT request method
+   (Section 9.3.6) switch the connection to tunnel mode instead of
+   having content.
+
+   All 1xx (Informational), 204 (No Content), and 304 (Not Modified)
+   responses do not include content.
+
+   All other responses do include content, although that content might
+   be of zero length.
+
+6.4.2.  Identifying Content
+
+   When a complete or partial representation is transferred as message
+   content, it is often desirable for the sender to supply, or the
+   recipient to determine, an identifier for a resource corresponding to
+   that specific representation.  For example, a client making a GET
+   request on a resource for "the current weather report" might want an
+   identifier specific to the content returned (e.g., "weather report
+   for Laguna Beach at 20210720T1711").  This can be useful for sharing
+   or bookmarking content from resources that are expected to have
+   changing representations over time.
+
+   For a request message:
+
+   *  If the request has a Content-Location header field, then the
+      sender asserts that the content is a representation of the
+      resource identified by the Content-Location field value.  However,
+      such an assertion cannot be trusted unless it can be verified by
+      other means (not defined by this specification).  The information
+      might still be useful for revision history links.
+
+   *  Otherwise, the content is unidentified by HTTP, but a more
+      specific identifier might be supplied within the content itself.
+
+   For a response message, the following rules are applied in order
+   until a match is found:
+
+   1.  If the request method is HEAD or the response status code is 204
+       (No Content) or 304 (Not Modified), there is no content in the
+       response.
+
+   2.  If the request method is GET and the response status code is 200
+       (OK), the content is a representation of the target resource
+       (Section 7.1).
+
+   3.  If the request method is GET and the response status code is 203
+       (Non-Authoritative Information), the content is a potentially
+       modified or enhanced representation of the target resource as
+       provided by an intermediary.
+
+   4.  If the request method is GET and the response status code is 206
+       (Partial Content), the content is one or more parts of a
+       representation of the target resource.
+
+   5.  If the response has a Content-Location header field and its field
+       value is a reference to the same URI as the target URI, the
+       content is a representation of the target resource.
+
+   6.  If the response has a Content-Location header field and its field
+       value is a reference to a URI different from the target URI, then
+       the sender asserts that the content is a representation of the
+       resource identified by the Content-Location field value.
+       However, such an assertion cannot be trusted unless it can be
+       verified by other means (not defined by this specification).
+
+   7.  Otherwise, the content is unidentified by HTTP, but a more
+       specific identifier might be supplied within the content itself.
+
+6.5.  Trailer Fields
+
+   Fields (Section 5) that are located within a "trailer section" are
+   referred to as "trailer fields" (or just "trailers", colloquially).
+   Trailer fields can be useful for supplying message integrity checks,
+   digital signatures, delivery metrics, or post-processing status
+   information.
+
+   Trailer fields ought to be processed and stored separately from the
+   fields in the header section to avoid contradicting message semantics
+   known at the time the header section was complete.  The presence or
+   absence of certain header fields might impact choices made for the
+   routing or processing of the message as a whole before the trailers
+   are received; those choices cannot be unmade by the later discovery
+   of trailer fields.
+
+6.5.1.  Limitations on Use of Trailers
+
+   A trailer section is only possible when supported by the version of
+   HTTP in use and enabled by an explicit framing mechanism.  For
+   example, the chunked transfer coding in HTTP/1.1 allows a trailer
+   section to be sent after the content (Section 7.1.2 of [HTTP/1.1]).
+--- END OF SECTION ---

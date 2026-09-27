@@ -1,0 +1,249 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 2 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 2/45 ---
+1.  Introduction
+
+1.1.  Purpose
+
+   The Hypertext Transfer Protocol (HTTP) is a family of stateless,
+   application-level, request/response protocols that share a generic
+   interface, extensible semantics, and self-descriptive messages to
+   enable flexible interaction with network-based hypertext information
+   systems.
+
+   HTTP hides the details of how a service is implemented by presenting
+   a uniform interface to clients that is independent of the types of
+   resources provided.  Likewise, servers do not need to be aware of
+   each client's purpose: a request can be considered in isolation
+   rather than being associated with a specific type of client or a
+   predetermined sequence of application steps.  This allows general-
+   purpose implementations to be used effectively in many different
+   contexts, reduces interaction complexity, and enables independent
+   evolution over time.
+
+   HTTP is also designed for use as an intermediation protocol, wherein
+   proxies and gateways can translate non-HTTP information systems into
+   a more generic interface.
+
+   One consequence of this flexibility is that the protocol cannot be
+   defined in terms of what occurs behind the interface.  Instead, we
+   are limited to defining the syntax of communication, the intent of
+   received communication, and the expected behavior of recipients.  If
+   the communication is considered in isolation, then successful actions
+   ought to be reflected in corresponding changes to the observable
+   interface provided by servers.  However, since multiple clients might
+   act in parallel and perhaps at cross-purposes, we cannot require that
+   such changes be observable beyond the scope of a single response.
+
+1.2.  History and Evolution
+
+   HTTP has been the primary information transfer protocol for the World
+   Wide Web since its introduction in 1990.  It began as a trivial
+   mechanism for low-latency requests, with a single method (GET) to
+   request transfer of a presumed hypertext document identified by a
+   given pathname.  As the Web grew, HTTP was extended to enclose
+   requests and responses within messages, transfer arbitrary data
+   formats using MIME-like media types, and route requests through
+   intermediaries.  These protocols were eventually defined as HTTP/0.9
+   and HTTP/1.0 (see [HTTP/1.0]).
+
+   HTTP/1.1 was designed to refine the protocol's features while
+   retaining compatibility with the existing text-based messaging
+   syntax, improving its interoperability, scalability, and robustness
+   across the Internet.  This included length-based data delimiters for
+   both fixed and dynamic (chunked) content, a consistent framework for
+   content negotiation, opaque validators for conditional requests,
+   cache controls for better cache consistency, range requests for
+   partial updates, and default persistent connections.  HTTP/1.1 was
+   introduced in 1995 and published on the Standards Track in 1997
+   [RFC2068], revised in 1999 [RFC2616], and revised again in 2014
+   ([RFC7230] through [RFC7235]).
+
+   HTTP/2 ([HTTP/2]) introduced a multiplexed session layer on top of
+   the existing TLS and TCP protocols for exchanging concurrent HTTP
+   messages with efficient field compression and server push.  HTTP/3
+   ([HTTP/3]) provides greater independence for concurrent messages by
+   using QUIC as a secure multiplexed transport over UDP instead of TCP.
+
+   All three major versions of HTTP rely on the semantics defined by
+   this document.  They have not obsoleted each other because each one
+   has specific benefits and limitations depending on the context of
+   use.  Implementations are expected to choose the most appropriate
+   transport and messaging syntax for their particular context.
+
+   This revision of HTTP separates the definition of semantics (this
+   document) and caching ([CACHING]) from the current HTTP/1.1 messaging
+   syntax ([HTTP/1.1]) to allow each major protocol version to progress
+   independently while referring to the same core semantics.
+
+1.3.  Core Semantics
+
+   HTTP provides a uniform interface for interacting with a resource
+   (Section 3.1) -- regardless of its type, nature, or implementation --
+   by sending messages that manipulate or transfer representations
+   (Section 3.2).
+
+   Each message is either a request or a response.  A client constructs
+   request messages that communicate its intentions and routes those
+   messages toward an identified origin server.  A server listens for
+   requests, parses each message received, interprets the message
+   semantics in relation to the identified target resource, and responds
+   to that request with one or more response messages.  The client
+   examines received responses to see if its intentions were carried
+   out, determining what to do next based on the status codes and
+   content received.
+
+   HTTP semantics include the intentions defined by each request method
+   (Section 9), extensions to those semantics that might be described in
+   request header fields, status codes that describe the response
+   (Section 15), and other control data and resource metadata that might
+   be given in response fields.
+
+   Semantics also include representation metadata that describe how
+   content is intended to be interpreted by a recipient, request header
+   fields that might influence content selection, and the various
+   selection algorithms that are collectively referred to as "content
+   negotiation" (Section 12).
+
+1.4.  Specifications Obsoleted by This Document
+
+   +============================================+===========+=====+
+   | Title                                      | Reference | See |
+   +============================================+===========+=====+
+   | HTTP Over TLS                              | [RFC2818] | B.1 |
+   +--------------------------------------------+-----------+-----+
+   | HTTP/1.1 Message Syntax and Routing [*]    | [RFC7230] | B.2 |
+   +--------------------------------------------+-----------+-----+
+   | HTTP/1.1 Semantics and Content             | [RFC7231] | B.3 |
+   +--------------------------------------------+-----------+-----+
+   | HTTP/1.1 Conditional Requests              | [RFC7232] | B.4 |
+   +--------------------------------------------+-----------+-----+
+   | HTTP/1.1 Range Requests                    | [RFC7233] | B.5 |
+   +--------------------------------------------+-----------+-----+
+   | HTTP/1.1 Authentication                    | [RFC7235] | B.6 |
+   +--------------------------------------------+-----------+-----+
+   | HTTP Status Code 308 (Permanent Redirect)  | [RFC7538] | B.7 |
+   +--------------------------------------------+-----------+-----+
+   | HTTP Authentication-Info and Proxy-        | [RFC7615] | B.8 |
+   | Authentication-Info Response Header Fields |           |     |
+   +--------------------------------------------+-----------+-----+
+   | HTTP Client-Initiated Content-Encoding     | [RFC7694] | B.9 |
+   +--------------------------------------------+-----------+-----+
+
+                               Table 1
+
+   [*] This document only obsoletes the portions of RFC 7230 that are
+   independent of the HTTP/1.1 messaging syntax and connection
+   management; the remaining bits of RFC 7230 are obsoleted by
+   "HTTP/1.1" [HTTP/1.1].
+
+2.  Conformance
+
+2.1.  Syntax Notation
+
+   This specification uses the Augmented Backus-Naur Form (ABNF)
+   notation of [RFC5234], extended with the notation for case-
+   sensitivity in strings defined in [RFC7405].
+
+   It also uses a list extension, defined in Section 5.6.1, that allows
+   for compact definition of comma-separated lists using a "#" operator
+   (similar to how the "*" operator indicates repetition).  Appendix A
+   shows the collected grammar with all list operators expanded to
+   standard ABNF notation.
+
+   As a convention, ABNF rule names prefixed with "obs-" denote obsolete
+   grammar rules that appear for historical reasons.
+
+   The following core rules are included by reference, as defined in
+   Appendix B.1 of [RFC5234]: ALPHA (letters), CR (carriage return),
+   CRLF (CR LF), CTL (controls), DIGIT (decimal 0-9), DQUOTE (double
+   quote), HEXDIG (hexadecimal 0-9/A-F/a-f), HTAB (horizontal tab), LF
+   (line feed), OCTET (any 8-bit sequence of data), SP (space), and
+   VCHAR (any visible US-ASCII character).
+
+   Section 5.6 defines some generic syntactic components for field
+   values.
+
+   This specification uses the terms "character", "character encoding
+   scheme", "charset", and "protocol element" as they are defined in
+   [RFC6365].
+
+2.2.  Requirements Notation
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+   This specification targets conformance criteria according to the role
+   of a participant in HTTP communication.  Hence, requirements are
+   placed on senders, recipients, clients, servers, user agents,
+   intermediaries, origin servers, proxies, gateways, or caches,
+   depending on what behavior is being constrained by the requirement.
+   Additional requirements are placed on implementations, resource
+   owners, and protocol element registrations when they apply beyond the
+   scope of a single communication.
+
+   The verb "generate" is used instead of "send" where a requirement
+   applies only to implementations that create the protocol element,
+   rather than an implementation that forwards a received element
+   downstream.
+
+   An implementation is considered conformant if it complies with all of
+   the requirements associated with the roles it partakes in HTTP.
+
+   A sender MUST NOT generate protocol elements that do not match the
+   grammar defined by the corresponding ABNF rules.  Within a given
+   message, a sender MUST NOT generate protocol elements or syntax
+   alternatives that are only allowed to be generated by participants in
+   other roles (i.e., a role that the sender does not have for that
+   message).
+
+   Conformance to HTTP includes both conformance to the particular
+   messaging syntax of the protocol version in use and conformance to
+   the semantics of protocol elements sent.  For example, a client that
+   claims conformance to HTTP/1.1 but fails to recognize the features
+   required of HTTP/1.1 recipients will fail to interoperate with
+   servers that adjust their responses in accordance with those claims.
+   Features that reflect user choices, such as content negotiation and
+   user-selected extensions, can impact application behavior beyond the
+   protocol stream; sending protocol elements that inaccurately reflect
+   a user's choices will confuse the user and inhibit choice.
+
+   When an implementation fails semantic conformance, recipients of that
+   implementation's messages will eventually develop workarounds to
+   adjust their behavior accordingly.  A recipient MAY employ such
+   workarounds while remaining conformant to this protocol if the
+   workarounds are limited to the implementations at fault.  For
+   example, servers often scan portions of the User-Agent field value,
+   and user agents often scan the Server field value, to adjust their
+   own behavior with respect to known bugs or poorly chosen defaults.
+--- END OF SECTION ---

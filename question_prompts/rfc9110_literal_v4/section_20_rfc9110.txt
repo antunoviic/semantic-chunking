@@ -1,0 +1,274 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 20 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 20/45 ---
+   Upon receiving an HTTP/1.1 (or later) request that has a method,
+   target URI, and complete header section that contains a 100-continue
+   expectation and indicates a request content will follow, a proxy MUST
+   either:
+
+   *  send an immediate response with a final status code, if that
+      status can be determined by examining just the method, target URI,
+      and header fields, or
+
+   *  forward the request toward the origin server by sending a
+      corresponding request-line and header section to the next inbound
+      server.
+
+   If the proxy believes (from configuration or past interaction) that
+   the next inbound server only supports HTTP/1.0, the proxy MAY
+   generate an immediate 100 (Continue) response to encourage the client
+   to begin sending the content.
+
+10.1.2.  From
+
+   The "From" header field contains an Internet email address for a
+   human user who controls the requesting user agent.  The address ought
+   to be machine-usable, as defined by "mailbox" in Section 3.4 of
+   [RFC5322]:
+
+     From    = mailbox
+
+     mailbox = <mailbox, see [RFC5322], Section 3.4>
+
+   An example is:
+
+   From: spider-admin@example.org
+
+   The From header field is rarely sent by non-robotic user agents.  A
+   user agent SHOULD NOT send a From header field without explicit
+   configuration by the user, since that might conflict with the user's
+   privacy interests or their site's security policy.
+
+   A robotic user agent SHOULD send a valid From header field so that
+   the person responsible for running the robot can be contacted if
+   problems occur on servers, such as if the robot is sending excessive,
+   unwanted, or invalid requests.
+
+   A server SHOULD NOT use the From header field for access control or
+   authentication, since its value is expected to be visible to anyone
+   receiving or observing the request and is often recorded within
+   logfiles and error reports without any expectation of privacy.
+
+10.1.3.  Referer
+
+   The "Referer" [sic] header field allows the user agent to specify a
+   URI reference for the resource from which the target URI was obtained
+   (i.e., the "referrer", though the field name is misspelled).  A user
+   agent MUST NOT include the fragment and userinfo components of the
+   URI reference [URI], if any, when generating the Referer field value.
+
+     Referer = absolute-URI / partial-URI
+
+   The field value is either an absolute-URI or a partial-URI.  In the
+   latter case (Section 4), the referenced URI is relative to the target
+   URI ([URI], Section 5).
+
+   The Referer header field allows servers to generate back-links to
+   other resources for simple analytics, logging, optimized caching,
+   etc.  It also allows obsolete or mistyped links to be found for
+   maintenance.  Some servers use the Referer header field as a means of
+   denying links from other sites (so-called "deep linking") or
+   restricting cross-site request forgery (CSRF), but not all requests
+   contain it.
+
+   Example:
+
+   Referer: http://www.example.org/hypertext/Overview.html
+
+   If the target URI was obtained from a source that does not have its
+   own URI (e.g., input from the user keyboard, or an entry within the
+   user's bookmarks/favorites), the user agent MUST either exclude the
+   Referer header field or send it with a value of "about:blank".
+
+   The Referer header field value need not convey the full URI of the
+   referring resource; a user agent MAY truncate parts other than the
+   referring origin.
+
+   The Referer header field has the potential to reveal information
+   about the request context or browsing history of the user, which is a
+   privacy concern if the referring resource's identifier reveals
+   personal information (such as an account name) or a resource that is
+   supposed to be confidential (such as behind a firewall or internal to
+   a secured service).  Most general-purpose user agents do not send the
+   Referer header field when the referring resource is a local "file" or
+   "data" URI.  A user agent SHOULD NOT send a Referer header field if
+   the referring resource was accessed with a secure protocol and the
+   request target has an origin differing from that of the referring
+   resource, unless the referring resource explicitly allows Referer to
+   be sent.  A user agent MUST NOT send a Referer header field in an
+   unsecured HTTP request if the referring resource was accessed with a
+   secure protocol.  See Section 17.9 for additional security
+   considerations.
+
+   Some intermediaries have been known to indiscriminately remove
+   Referer header fields from outgoing requests.  This has the
+   unfortunate side effect of interfering with protection against CSRF
+   attacks, which can be far more harmful to their users.
+   Intermediaries and user agent extensions that wish to limit
+   information disclosure in Referer ought to restrict their changes to
+   specific edits, such as replacing internal domain names with
+   pseudonyms or truncating the query and/or path components.  An
+   intermediary SHOULD NOT modify or delete the Referer header field
+   when the field value shares the same scheme and host as the target
+   URI.
+
+10.1.4.  TE
+
+   The "TE" header field describes capabilities of the client with
+   regard to transfer codings and trailer sections.
+
+   As described in Section 6.5, a TE field with a "trailers" member sent
+   in a request indicates that the client will not discard trailer
+   fields.
+
+   TE is also used within HTTP/1.1 to advise servers about which
+   transfer codings the client is able to accept in a response.  As of
+   publication, only HTTP/1.1 uses transfer codings (see Section 7 of
+   [HTTP/1.1]).
+
+   The TE field value is a list of members, with each member (aside from
+   "trailers") consisting of a transfer coding name token with an
+   optional weight indicating the client's relative preference for that
+   transfer coding (Section 12.4.2) and optional parameters for that
+   transfer coding.
+
+     TE                 = #t-codings
+     t-codings          = "trailers" / ( transfer-coding [ weight ] )
+     transfer-coding    = token *( OWS ";" OWS transfer-parameter )
+     transfer-parameter = token BWS "=" BWS ( token / quoted-string )
+
+   A sender of TE MUST also send a "TE" connection option within the
+   Connection header field (Section 7.6.1) to inform intermediaries not
+   to forward this field.
+
+10.1.5.  User-Agent
+
+   The "User-Agent" header field contains information about the user
+   agent originating the request, which is often used by servers to help
+   identify the scope of reported interoperability problems, to work
+   around or tailor responses to avoid particular user agent
+   limitations, and for analytics regarding browser or operating system
+   use.  A user agent SHOULD send a User-Agent header field in each
+   request unless specifically configured not to do so.
+
+     User-Agent = product *( RWS ( product / comment ) )
+
+   The User-Agent field value consists of one or more product
+   identifiers, each followed by zero or more comments (Section 5.6.5),
+   which together identify the user agent software and its significant
+   subproducts.  By convention, the product identifiers are listed in
+   decreasing order of their significance for identifying the user agent
+   software.  Each product identifier consists of a name and optional
+   version.
+
+     product         = token ["/" product-version]
+     product-version = token
+
+   A sender SHOULD limit generated product identifiers to what is
+   necessary to identify the product; a sender MUST NOT generate
+   advertising or other nonessential information within the product
+   identifier.  A sender SHOULD NOT generate information in
+   product-version that is not a version identifier (i.e., successive
+   versions of the same product name ought to differ only in the
+   product-version portion of the product identifier).
+
+   Example:
+
+   User-Agent: CERN-LineMode/2.15 libwww/2.17b3
+
+   A user agent SHOULD NOT generate a User-Agent header field containing
+   needlessly fine-grained detail and SHOULD limit the addition of
+   subproducts by third parties.  Overly long and detailed User-Agent
+   field values increase request latency and the risk of a user being
+   identified against their wishes ("fingerprinting").
+
+   Likewise, implementations are encouraged not to use the product
+   tokens of other implementations in order to declare compatibility
+   with them, as this circumvents the purpose of the field.  If a user
+   agent masquerades as a different user agent, recipients can assume
+   that the user intentionally desires to see responses tailored for
+   that identified user agent, even if they might not work as well for
+   the actual user agent being used.
+
+10.2.  Response Context Fields
+
+   The response header fields below provide additional information about
+   the response, beyond what is implied by the status code, including
+   information about the server, about the target resource, or about
+   related resources.
+
+10.2.1.  Allow
+
+   The "Allow" header field lists the set of methods advertised as
+   supported by the target resource.  The purpose of this field is
+   strictly to inform the recipient of valid request methods associated
+   with the resource.
+
+     Allow = #method
+
+   Example of use:
+
+   Allow: GET, HEAD, PUT
+
+   The actual set of allowed methods is defined by the origin server at
+   the time of each request.  An origin server MUST generate an Allow
+   header field in a 405 (Method Not Allowed) response and MAY do so in
+   any other response.  An empty Allow field value indicates that the
+   resource allows no methods, which might occur in a 405 response if
+   the resource has been temporarily disabled by configuration.
+
+   A proxy MUST NOT modify the Allow header field -- it does not need to
+   understand all of the indicated methods in order to handle them
+   according to the generic message handling rules.
+
+10.2.2.  Location
+
+   The "Location" header field is used in some responses to refer to a
+   specific resource in relation to the response.  The type of
+   relationship is defined by the combination of request method and
+   status code semantics.
+
+     Location = URI-reference
+
+   The field value consists of a single URI-reference.  When it has the
+   form of a relative reference ([URI], Section 4.2), the final value is
+   computed by resolving it against the target URI ([URI], Section 5).
+
+   For 201 (Created) responses, the Location value refers to the primary
+   resource created by the request.  For 3xx (Redirection) responses,
+   the Location value refers to the preferred target resource for
+   automatically redirecting the request.
+
+   If the Location value provided in a 3xx (Redirection) response does
+   not have a fragment component, a user agent MUST process the
+   redirection as if the value inherits the fragment component of the
+   URI reference used to generate the target URI (i.e., the redirection
+   inherits the original reference's fragment, if any).
+--- END OF SECTION ---

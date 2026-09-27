@@ -1,0 +1,243 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 17 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 17/45 ---
+9.2.2.  Idempotent Methods
+
+   A request method is considered "idempotent" if the intended effect on
+   the server of multiple identical requests with that method is the
+   same as the effect for a single such request.  Of the request methods
+   defined by this specification, PUT, DELETE, and safe request methods
+   are idempotent.
+
+   Like the definition of safe, the idempotent property only applies to
+   what has been requested by the user; a server is free to log each
+   request separately, retain a revision control history, or implement
+   other non-idempotent side effects for each idempotent request.
+
+   Idempotent methods are distinguished because the request can be
+   repeated automatically if a communication failure occurs before the
+   client is able to read the server's response.  For example, if a
+   client sends a PUT request and the underlying connection is closed
+   before any response is received, then the client can establish a new
+   connection and retry the idempotent request.  It knows that repeating
+   the request will have the same intended effect, even if the original
+   request succeeded, though the response might differ.
+
+   A client SHOULD NOT automatically retry a request with a non-
+   idempotent method unless it has some means to know that the request
+   semantics are actually idempotent, regardless of the method, or some
+   means to detect that the original request was never applied.
+
+   For example, a user agent can repeat a POST request automatically if
+   it knows (through design or configuration) that the request is safe
+   for that resource.  Likewise, a user agent designed specifically to
+   operate on a version control repository might be able to recover from
+   partial failure conditions by checking the target resource
+   revision(s) after a failed connection, reverting or fixing any
+   changes that were partially applied, and then automatically retrying
+   the requests that failed.
+
+   Some clients take a riskier approach and attempt to guess when an
+   automatic retry is possible.  For example, a client might
+   automatically retry a POST request if the underlying transport
+   connection closed before any part of a response is received,
+   particularly if an idle persistent connection was used.
+
+   A proxy MUST NOT automatically retry non-idempotent requests.  A
+   client SHOULD NOT automatically retry a failed automatic retry.
+
+9.2.3.  Methods and Caching
+
+   For a cache to store and use a response, the associated method needs
+   to explicitly allow caching and to detail under what conditions a
+   response can be used to satisfy subsequent requests; a method
+   definition that does not do so cannot be cached.  For additional
+   requirements see [CACHING].
+
+   This specification defines caching semantics for GET, HEAD, and POST,
+   although the overwhelming majority of cache implementations only
+   support GET and HEAD.
+
+9.3.  Method Definitions
+
+9.3.1.  GET
+
+   The GET method requests transfer of a current selected representation
+   for the target resource.  A successful response reflects the quality
+   of "sameness" identified by the target URI (Section 1.2.2 of [URI]).
+   Hence, retrieving identifiable information via HTTP is usually
+   performed by making a GET request on an identifier associated with
+   the potential for providing that information in a 200 (OK) response.
+
+   GET is the primary mechanism of information retrieval and the focus
+   of almost all performance optimizations.  Applications that produce a
+   URI for each important resource can benefit from those optimizations
+   while enabling their reuse by other applications, creating a network
+   effect that promotes further expansion of the Web.
+
+   It is tempting to think of resource identifiers as remote file system
+   pathnames and of representations as being a copy of the contents of
+   such files.  In fact, that is how many resources are implemented (see
+   Section 17.3 for related security considerations).  However, there
+   are no such limitations in practice.
+
+   The HTTP interface for a resource is just as likely to be implemented
+   as a tree of content objects, a programmatic view on various database
+   records, or a gateway to other information systems.  Even when the
+   URI mapping mechanism is tied to a file system, an origin server
+   might be configured to execute the files with the request as input
+   and send the output as the representation rather than transfer the
+   files directly.  Regardless, only the origin server needs to know how
+   each resource identifier corresponds to an implementation and how
+   that implementation manages to select and send a current
+   representation of the target resource.
+
+   A client can alter the semantics of GET to be a "range request",
+   requesting transfer of only some part(s) of the selected
+   representation, by sending a Range header field in the request
+   (Section 14.2).
+
+   Although request message framing is independent of the method used,
+   content received in a GET request has no generally defined semantics,
+   cannot alter the meaning or target of the request, and might lead
+   some implementations to reject the request and close the connection
+   because of its potential as a request smuggling attack (Section 11.2
+   of [HTTP/1.1]).  A client SHOULD NOT generate content in a GET
+   request unless it is made directly to an origin server that has
+   previously indicated, in or out of band, that such a request has a
+   purpose and will be adequately supported.  An origin server SHOULD
+   NOT rely on private agreements to receive content, since participants
+   in HTTP communication are often unaware of intermediaries along the
+   request chain.
+
+   The response to a GET request is cacheable; a cache MAY use it to
+   satisfy subsequent GET and HEAD requests unless otherwise indicated
+   by the Cache-Control header field (Section 5.2 of [CACHING]).
+
+   When information retrieval is performed with a mechanism that
+   constructs a target URI from user-provided information, such as the
+   query fields of a form using GET, potentially sensitive data might be
+   provided that would not be appropriate for disclosure within a URI
+   (see Section 17.9).  In some cases, the data can be filtered or
+   transformed such that it would not reveal such information.  In
+   others, particularly when there is no benefit from caching a
+   response, using the POST method (Section 9.3.3) instead of GET can
+   transmit such information in the request content rather than within
+   the target URI.
+
+9.3.2.  HEAD
+
+   The HEAD method is identical to GET except that the server MUST NOT
+   send content in the response.  HEAD is used to obtain metadata about
+   the selected representation without transferring its representation
+   data, often for the sake of testing hypertext links or finding recent
+   modifications.
+
+   The server SHOULD send the same header fields in response to a HEAD
+   request as it would have sent if the request method had been GET.
+   However, a server MAY omit header fields for which a value is
+   determined only while generating the content.  For example, some
+   servers buffer a dynamic response to GET until a minimum amount of
+   data is generated so that they can more efficiently delimit small
+   responses or make late decisions with regard to content selection.
+   Such a response to GET might contain Content-Length and Vary fields,
+   for example, that are not generated within a HEAD response.  These
+   minor inconsistencies are considered preferable to generating and
+   discarding the content for a HEAD request, since HEAD is usually
+   requested for the sake of efficiency.
+
+   Although request message framing is independent of the method used,
+   content received in a HEAD request has no generally defined
+   semantics, cannot alter the meaning or target of the request, and
+   might lead some implementations to reject the request and close the
+   connection because of its potential as a request smuggling attack
+   (Section 11.2 of [HTTP/1.1]).  A client SHOULD NOT generate content
+   in a HEAD request unless it is made directly to an origin server that
+   has previously indicated, in or out of band, that such a request has
+   a purpose and will be adequately supported.  An origin server SHOULD
+   NOT rely on private agreements to receive content, since participants
+   in HTTP communication are often unaware of intermediaries along the
+   request chain.
+
+   The response to a HEAD request is cacheable; a cache MAY use it to
+   satisfy subsequent HEAD requests unless otherwise indicated by the
+   Cache-Control header field (Section 5.2 of [CACHING]).  A HEAD
+   response might also affect previously cached responses to GET; see
+   Section 4.3.5 of [CACHING].
+
+9.3.3.  POST
+
+   The POST method requests that the target resource process the
+   representation enclosed in the request according to the resource's
+   own specific semantics.  For example, POST is used for the following
+   functions (among others):
+
+   *  Providing a block of data, such as the fields entered into an HTML
+      form, to a data-handling process;
+
+   *  Posting a message to a bulletin board, newsgroup, mailing list,
+      blog, or similar group of articles;
+
+   *  Creating a new resource that has yet to be identified by the
+      origin server; and
+
+   *  Appending data to a resource's existing representation(s).
+
+   An origin server indicates response semantics by choosing an
+   appropriate status code depending on the result of processing the
+   POST request; almost all of the status codes defined by this
+   specification could be received in a response to POST (the exceptions
+   being 206 (Partial Content), 304 (Not Modified), and 416 (Range Not
+   Satisfiable)).
+
+   If one or more resources has been created on the origin server as a
+   result of successfully processing a POST request, the origin server
+   SHOULD send a 201 (Created) response containing a Location header
+   field that provides an identifier for the primary resource created
+   (Section 10.2.2) and a representation that describes the status of
+   the request while referring to the new resource(s).
+
+   Responses to POST requests are only cacheable when they include
+   explicit freshness information (see Section 4.2.1 of [CACHING]) and a
+   Content-Location header field that has the same value as the POST's
+   target URI (Section 8.7).  A cached POST response can be reused to
+   satisfy a later GET or HEAD request.  In contrast, a POST request
+   cannot be satisfied by a cached POST response because POST is
+   potentially unsafe; see Section 4 of [CACHING].
+
+   If the result of processing a POST would be equivalent to a
+   representation of an existing resource, an origin server MAY redirect
+   the user agent to that resource by sending a 303 (See Other) response
+   with the existing resource's identifier in the Location field.  This
+   has the benefits of providing the user agent a resource identifier
+   and transferring the representation via a method more amenable to
+   shared caching, though at the cost of an extra request if the user
+   agent does not already have the representation cached.
+--- END OF SECTION ---

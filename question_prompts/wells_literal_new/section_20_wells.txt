@@ -1,0 +1,82 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 20 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 20/40 ---
+Whatever else the deafness and blindness of his hearers may have missed in his utterances, it is plain they did not miss his resolve to revolutionize the world. The whole tenor of the opposition to him and the circumstances of his trial and execution show clearly that to his contemporaries he seemed to propose plainly, and did propose plainly, to change and fuse and enlarge all human life.
+
+In view of what he plainly said, is it any wonder that all who were rich and prosperous felt a horror of strange things, a swimming of their world at his teaching? He was dragging out all the little private reservations they had made from social service into the light of a universal religious life. He was like some terrible moral huntsman digging mankind out of the snug burrows in which they had lived hitherto. In the white blaze of this kingdom of his there was to be no property, no privilege, no pride and precedence; no motive indeed and no reward but love. Is it any wonder that men were dazzled and blinded and cried out against him? Even his disciples cried out when he would not spare them the light. Is it any wonder that the priests realized that between this man and themselves there was no choice but that he or priestcraft should perish? Is it any wonder that the Roman soldiers, confronted and amazed by something soaring over their comprehension and threatening all their disciplines, should take refuge in wild laughter, and crown him with thorns and robe him in purple and make a mock Cæsar of him? For to take him seriously was to enter upon a strange and alarming life, to abandon habits, to control instincts and impulses, to essay an incredible happiness. . . .
+
+[1] Matt. xii, 46-50.
+
+[2] Mark x, 17-25.
+
+[3] Mark vii, 1-9.
+
+XXXVIII THE DEVELOPMENT OF DOCTRINAL CHRISTIANITY
+
+very little of the dogmas of the Christian church. It is in the epistles, a series of writings by the immediate followers of Jesus, that the broad lines of Christian belief are laid down.
+
+Chief among the makers of Christian doctrine was St. Paul. He had never seen Jesus nor heard him preach. Paul’s name was originally Saul, and he was conspicuous at first as an active persecutor of the little band of disciples after the crucifixion. Then he was suddenly converted to Christianity, and he changed his name to Paul. He was a man of great intellectual vigour and deeply and passionately interested in the religious movements of the time. He was well versed in Judaism and in the Mithraism and Alexandrian religion of the day. He carried over many of their ideas and terms of expression into Christianity. He did very little to enlarge or develop the original teaching of Jesus, the teaching of the Kingdom of Heaven. But he taught that Jesus was not only the promised Christ, the promised leader of the Jews, but also that his death was a sacrifice, like the deaths of the ancient sacrificial victims of the primordial civilizations, for the redemption of mankind.
+
+When religions flourish side by side they tend to pick up each other’s ceremonial and other outward peculiarities. Buddhism, for example, in China has now almost the same sort of temples and priests and uses as Taoism, which follows in the teachings of Lao Tse. Yet the original teachings of Buddhism and Taoism were almost flatly opposed. And it reflects no doubt or discredit upon the essentials of Christian teaching that it took over not merely such formal things as the shaven priest, the votive offering, the altars, candles, chanting and images of the Alexandrian and Mithraic faiths, but adopted even their devotional phrases and their theological ideas. All these religions were flourishing side by side with many less prominent cults. Each was seeking adherents, and there must have been a constant going and coming of converts between them. Sometimes one or other would be in favour with the government. But Christianity was regarded with more suspicion than its rivals because, like the Jews, its adherents would not perform acts of worship to the God Cæsar. This made it a seditious religion, quite apart from the revolutionary spirit of the teachings of Jesus himself.
+
+_(In the Victoria and Albert Museum)_
+
+St. Paul familiarized his disciples with the idea that Jesus, like Osiris, was a god who died to rise again and give men immortality. And presently the spreading Christian community was greatly torn by complicated theological disputes about the relationship of this God Jesus to God the Father of Mankind. The Arians taught that Jesus was divine, but distant from and inferior to the Father. The Sabellians taught that Jesus was merely an aspect of the Father, and that God was Jesus and Father at the same time just as a man may be a father and an artificer at the same time; and the Trinitarians taught a more subtle doctrine that God was both one and three, Father, Son and Holy Spirit. For a time it seemed that Arianism would prevail over its rivals, and then after disputes, violence and wars, the Trinitarian formula became the accepted formula of all Christendom. It may be found in its completest expression in the Athanasian Creed.
+
+We offer no comment on these controversies here. They do not sway history as the personal teaching of Jesus sways history. The personal teaching of Jesus does seem to mark a new phase in the moral and spiritual life of our race. Its insistence upon the universal Fatherhood of God and the implicit brotherhood of all men, its insistence upon the sacredness of every human personality as a living temple of God, was to have the profoundest effect upon all the subsequent social and political life of mankind. With Christianity, with the spreading teachings of Jesus, a new respect appears in the world for man as man. It may be true, as hostile critics of Christianity have urged, that St.. Paul preached obedience to slaves, but it is equally true that the whole spirit of the teachings of Jesus preserved in the gospels was against the subjugation of man by man. And still more distinctly was Christianity opposed to such outrages upon human dignity as the gladiatorial combats in the arena.
+
+_(Sixth Century Ivory Panel in the British Museum)_
+
+Throughout the first two centuries after Christ, the Christian religion spread throughout the Roman Empire, weaving together an ever-growing multitude of converts into a new community of ideas and will. The attitude of the emperors varied between hostility and toleration. There were attempts to suppress this new faith in both the second and third centuries; and finally in 303 and the following years a great persecution under the Emperor Diocletian. The considerable accumulations of Church property were seized, all bibles and religious writings were confiscated and destroyed, Christians were put out of the protection of the law and many executed. The destruction of the books is particularly notable. It shows how the power of the written word in holding together the new faith was appreciated by the authorities. These “book religions,” Christianity and Judaism, were religions that educated. Their continued existence depended very largely on people being able to read and understand their doctrinal ideas. The older religions had made no such appeal to the personal intelligence. In the ages of barbaric confusion that were now at hand in western Europe it was the Christian church that was mainly instrumental in preserving the tradition of learning.
+
+The persecution of Diocletian failed completely to suppress the growing Christian community. In many provinces it was ineffective because the bulk of the population and many of the officials were Christian. In 317 an edict of toleration was issued by the associated Emperor Galerius, and in 324 Constantine the Great, a friend and on his deathbed a baptized convert to Christianity, became sole ruler of the Roman world. He abandoned all divine pretensions and put Christian symbols on the shields and banners of his troops.
+
+In a few years Christianity was securely established as the official religion of the empire. The competing religions disappeared or were absorbed with extraordinary celerity, and in 300 Theodosius the Great caused the great statue of Jupiter Serapis at Alexandria to be destroyed. From the outset of the fifth century onward the only priests or temples in the Roman Empire were Christian priests and temples.
+
+XXXIX THE BARBARIANS BREAK THE EMPIRE INTO EAST AND WEST
+
+Throughout the third century the Roman Empire, decaying socially and disintegrating morally, faced the barbarians. The emperors of this period were fighting military autocrats, and the capital of the empire shifted with the necessities of their military policy. Now the imperial headquarters would be at Milan in north Italy, now in what is now Serbia at Sirmium or Nish, now in Nicomedia in Asia Minor. Rome halfway down Italy was too far from the centre of interest to be a convenient imperial seat. It was a declining city. Over most of the empire peace still prevailed and men went about without arms. The armies continued to be the sole repositories of power; the emperors, dependent on their legions, became more and more autocratic to the rest of the empire and their state more and more like that of the Persian and other oriental monarchs. Diocletian assumed a royal diadem and oriental robes.
+
+All along the imperial frontier, which ran roughly along the Rhine and Danube, enemies were now pressing. The Franks and other German tribes had come up to the Rhine. In north Hungary were the Vandals; in what was once Dacia and is now Roumania, the Visigoths or West Goths. Behind these in south Russia were the East Goths or Ostrogoths, and beyond these again in the Volga region the Alans. But now Mongolian peoples were forcing their way towards Europe. The Huns were already exacting tribute from the Alans and Ostrogoths and pushing them to the west.
+
+In Asia the Roman frontiers were crumpling back under the push of a renascent Persia. This new Persia, the Persia of the Sassenid kings, was to be a vigorous and on the whole a successful rival of the Roman Empire in Asia for the next three centuries.
+
+A glance at the map of Europe will show the reader the peculiar weakness of the empire. The river Danube comes down to within a couple of hundred miles of the Adriatic Sea in the region of what is now Bosnia and Serbia. It makes a square re-entrant angle there. The Romans never kept their sea communications in good order, and this two hundred mile strip of land was their line of communication between the western Latin-speaking part of the empire and the eastern Greek-speaking portion. Against this square angle of the Danube the barbarian pressure was greatest. When they broke through there it was inevitable that the empire should fall into two parts.
+
+A more vigorous empire might have thrust forward and reconquered Dacia, but the Roman Empire lacked any such vigour. Constantine the Great was certainly a monarch of great devotion and intelligence. He beat back a raid of the Goths from just these vital Balkan regions, but he had no force to carry the frontier across the Danube. He was too pre-occupied with the internal weaknesses of the empire. He brought the solidarity and moral force of Christianity to revive the spirit of the declining empire, and he decided to create a new permanent capital at Byzantium upon the Hellespont. This new-made Byzantium, which was re-christened Constantinople in his honour, was still building when he died. Towards the end of his reign occurred a remarkable transaction. The Vandals, being pressed by the Goths, asked to be received into the Roman Empire. They were assigned lands in Pannonia, which is now that part of Hungary west of the Danube, and their fighting men became nominally legionaries. But these new legionaries remained under their own chiefs. Rome failed to digest them.
+
+Constantine died working to reorganize his great realm, and soon the frontiers were ruptured again and the Visigoths came almost to Constantinople. They defeated the Emperor Valens at Adrianople and made a settlement in what is now Bulgaria, similar to the settlement of the Vandals in Pannonia. Nominally they were subjects of the emperor, practically they were conquerors.
+
+while he reigned the empire was still formally intact. Over the armies of Italy and Pannonia presided Stilicho, a Vandal, over the armies in the Balkan peninsula, Alaric, a Goth. When Theodosius died at the close of the fourth century he left two sons. Alaric supported one of these, Arcadius, in Constantinople, and Stilicho the other, Honorius, in Italy. In other words Alaric and Stilicho fought for the empire with the princes as puppets. In the course of their struggle Alaric marched into Italy and after a short siege took Rome (410 A.D.).
+
+The opening half of the fifth century saw the whole of the Roman Empire in Europe the prey of robber armies of barbarians. It is difficult to visualize the state of affairs in the world at that time. Over France, Spain, Italy and the Balkan peninsula, the great cities that had flourished under the early empire still stood, impoverished, partly depopulated and falling into decay. Life in them must have been shallow, mean and full of uncertainty. Local officials asserted their authority and went on with their work with such conscience as they had, no doubt in the name of a now remote and inaccessible emperor. The churches went on, but usually with illiterate priests. There was little reading and much superstition and fear. But everywhere except where looters had destroyed them, books and pictures and statuary and such-like works of art were still to be found.
+
+The life of the countryside had also degenerated. Everywhere this Roman world was much more weedy and untidy than it had been. In some regions war and pestilence had brought the land down to the level of a waste. Roads and forests were infested with robbers. Into such regions the barbarians marched, with little or no opposition, and set up their chiefs as rulers, often with Roman official titles. If they were half civilized barbarians they would give the conquered districts tolerable terms, they would take possession of the towns, associate and intermarry, and acquire (with an accent) the Latin speech; but the Jutes, the Angles and Saxons who submerged the Roman province of Britain were agriculturalists and had no use for towns, they seem to have swept south Britain clear of the Romanized population and they replaced the language by their own Teutonic dialects, which became at last English.
+--- END OF SECTION ---

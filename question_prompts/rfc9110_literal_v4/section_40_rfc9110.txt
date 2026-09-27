@@ -1,0 +1,275 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 40 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 40/45 ---
+                               Table 11
+
+18.8.  Media Type Registration
+
+   IANA has updated the "Media Types" registry at
+   <https://www.iana.org/assignments/media-types> with the registration
+   information in Section 14.6 for the media type "multipart/
+   byteranges".
+
+   IANA has updated the registry note about "q" parameters with a link
+   to Section 12.5.1 of this document.
+
+18.9.  Port Registration
+
+   IANA has updated the "Service Name and Transport Protocol Port Number
+   Registry" at <https://www.iana.org/assignments/service-names-port-
+   numbers/> for the services on ports 80 and 443 that use UDP or TCP
+   to:
+
+   1.  use this document as "Reference", and
+
+   2.  when currently unspecified, set "Assignee" to "IESG" and
+       "Contact" to "IETF_Chair".
+
+18.10.  Upgrade Token Registration
+
+   IANA has updated the "Hypertext Transfer Protocol (HTTP) Upgrade
+   Token Registry" at <https://www.iana.org/assignments/http-upgrade-
+   tokens> with the registration procedure described in Section 16.7 and
+   the upgrade token names summarized in the following table.
+
+   +======+===================+=========================+=========+
+   | Name | Description       | Expected Version Tokens | Section |
+   +======+===================+=========================+=========+
+   | HTTP | Hypertext         | any DIGIT.DIGIT (e.g.,  | 2.5     |
+   |      | Transfer Protocol | "2.0")                  |         |
+   +------+-------------------+-------------------------+---------+
+
+                               Table 12
+
+19.  References
+
+19.1.  Normative References
+
+   [CACHING]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
+              Ed., "HTTP Caching", STD 98, RFC 9111,
+              DOI 10.17487/RFC9111, June 2022,
+              <https://www.rfc-editor.org/info/rfc9111>.
+
+   [RFC1950]  Deutsch, P. and J-L. Gailly, "ZLIB Compressed Data Format
+              Specification version 3.3", RFC 1950,
+              DOI 10.17487/RFC1950, May 1996,
+              <https://www.rfc-editor.org/info/rfc1950>.
+
+   [RFC1951]  Deutsch, P., "DEFLATE Compressed Data Format Specification
+              version 1.3", RFC 1951, DOI 10.17487/RFC1951, May 1996,
+              <https://www.rfc-editor.org/info/rfc1951>.
+
+   [RFC1952]  Deutsch, P., "GZIP file format specification version 4.3",
+              RFC 1952, DOI 10.17487/RFC1952, May 1996,
+              <https://www.rfc-editor.org/info/rfc1952>.
+
+   [RFC2046]  Freed, N. and N. Borenstein, "Multipurpose Internet Mail
+              Extensions (MIME) Part Two: Media Types", RFC 2046,
+              DOI 10.17487/RFC2046, November 1996,
+              <https://www.rfc-editor.org/info/rfc2046>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC4647]  Phillips, A., Ed. and M. Davis, Ed., "Matching of Language
+              Tags", BCP 47, RFC 4647, DOI 10.17487/RFC4647, September
+              2006, <https://www.rfc-editor.org/info/rfc4647>.
+
+   [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
+              Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
+              <https://www.rfc-editor.org/info/rfc4648>.
+
+   [RFC5234]  Crocker, D., Ed. and P. Overell, "Augmented BNF for Syntax
+              Specifications: ABNF", STD 68, RFC 5234,
+              DOI 10.17487/RFC5234, January 2008,
+              <https://www.rfc-editor.org/info/rfc5234>.
+
+   [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
+              Housley, R., and W. Polk, "Internet X.509 Public Key
+              Infrastructure Certificate and Certificate Revocation List
+              (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
+              <https://www.rfc-editor.org/info/rfc5280>.
+
+   [RFC5322]  Resnick, P., Ed., "Internet Message Format", RFC 5322,
+              DOI 10.17487/RFC5322, October 2008,
+              <https://www.rfc-editor.org/info/rfc5322>.
+
+   [RFC5646]  Phillips, A., Ed. and M. Davis, Ed., "Tags for Identifying
+              Languages", BCP 47, RFC 5646, DOI 10.17487/RFC5646,
+              September 2009, <https://www.rfc-editor.org/info/rfc5646>.
+
+   [RFC6125]  Saint-Andre, P. and J. Hodges, "Representation and
+              Verification of Domain-Based Application Service Identity
+              within Internet Public Key Infrastructure Using X.509
+              (PKIX) Certificates in the Context of Transport Layer
+              Security (TLS)", RFC 6125, DOI 10.17487/RFC6125, March
+              2011, <https://www.rfc-editor.org/info/rfc6125>.
+
+   [RFC6365]  Hoffman, P. and J. Klensin, "Terminology Used in
+              Internationalization in the IETF", BCP 166, RFC 6365,
+              DOI 10.17487/RFC6365, September 2011,
+              <https://www.rfc-editor.org/info/rfc6365>.
+
+   [RFC7405]  Kyzivat, P., "Case-Sensitive String Support in ABNF",
+              RFC 7405, DOI 10.17487/RFC7405, December 2014,
+              <https://www.rfc-editor.org/info/rfc7405>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/info/rfc8174>.
+
+   [TCP]      Postel, J., "Transmission Control Protocol", STD 7,
+              RFC 793, DOI 10.17487/RFC0793, September 1981,
+              <https://www.rfc-editor.org/info/rfc793>.
+
+   [TLS13]    Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/info/rfc8446>.
+
+   [URI]      Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <https://www.rfc-editor.org/info/rfc3986>.
+
+   [USASCII]  American National Standards Institute, "Coded Character
+              Set -- 7-bit American Standard Code for Information
+              Interchange", ANSI X3.4, 1986.
+
+   [Welch]    Welch, T., "A Technique for High-Performance Data
+              Compression", IEEE Computer 17(6),
+              DOI 10.1109/MC.1984.1659158, June 1984,
+              <https://ieeexplore.ieee.org/document/1659158/>.
+
+19.2.  Informative References
+
+   [ALTSVC]   Nottingham, M., McManus, P., and J. Reschke, "HTTP
+              Alternative Services", RFC 7838, DOI 10.17487/RFC7838,
+              April 2016, <https://www.rfc-editor.org/info/rfc7838>.
+
+   [BCP13]    Freed, N. and J. Klensin, "Multipurpose Internet Mail
+              Extensions (MIME) Part Four: Registration Procedures",
+              BCP 13, RFC 4289, December 2005.
+
+              Freed, N., Klensin, J., and T. Hansen, "Media Type
+              Specifications and Registration Procedures", BCP 13,
+              RFC 6838, January 2013.
+
+              <https://www.rfc-editor.org/info/bcp13>
+
+   [BCP178]   Saint-Andre, P., Crocker, D., and M. Nottingham,
+              "Deprecating the "X-" Prefix and Similar Constructs in
+              Application Protocols", BCP 178, RFC 6648, June 2012.
+
+              <https://www.rfc-editor.org/info/bcp178>
+
+   [BCP35]    Thaler, D., Ed., Hansen, T., and T. Hardie, "Guidelines
+              and Registration Procedures for URI Schemes", BCP 35,
+              RFC 7595, June 2015.
+
+              <https://www.rfc-editor.org/info/bcp35>
+
+   [BREACH]   Gluck, Y., Harris, N., and A. Prado, "BREACH: Reviving the
+              CRIME Attack", July 2013,
+              <http://breachattack.com/resources/
+              BREACH%20-%20SSL,%20gone%20in%2030%20seconds.pdf>.
+
+   [Bujlow]   Bujlow, T., Carela-Español, V., Solé-Pareta, J., and P.
+              Barlet-Ros, "A Survey on Web Tracking: Mechanisms,
+              Implications, and Defenses", In Proceedings of the IEEE
+              105(8), DOI 10.1109/JPROC.2016.2637878, August 2017,
+              <https://doi.org/10.1109/JPROC.2016.2637878>.
+
+   [COOKIE]   Barth, A., "HTTP State Management Mechanism", RFC 6265,
+              DOI 10.17487/RFC6265, April 2011,
+              <https://www.rfc-editor.org/info/rfc6265>.
+
+   [Err1912]  RFC Errata, Erratum ID 1912, RFC 2978,
+              <https://www.rfc-editor.org/errata/eid1912>.
+
+   [Err5433]  RFC Errata, Erratum ID 5433, RFC 2978,
+              <https://www.rfc-editor.org/errata/eid5433>.
+
+   [Georgiev] Georgiev, M., Iyengar, S., Jana, S., Anubhai, R., Boneh,
+              D., and V. Shmatikov, "The Most Dangerous Code in the
+              World: Validating SSL Certificates in Non-Browser
+              Software", In Proceedings of the 2012 ACM Conference on
+              Computer and Communications Security (CCS '12), pp. 38-49,
+              DOI 10.1145/2382196.2382204, October 2012,
+              <https://doi.org/10.1145/2382196.2382204>.
+
+   [HPACK]    Peon, R. and H. Ruellan, "HPACK: Header Compression for
+              HTTP/2", RFC 7541, DOI 10.17487/RFC7541, May 2015,
+              <https://www.rfc-editor.org/info/rfc7541>.
+
+   [HTTP/1.0] Berners-Lee, T., Fielding, R., and H. Frystyk, "Hypertext
+              Transfer Protocol -- HTTP/1.0", RFC 1945,
+              DOI 10.17487/RFC1945, May 1996,
+              <https://www.rfc-editor.org/info/rfc1945>.
+
+   [HTTP/1.1] Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
+              Ed., "HTTP/1.1", STD 99, RFC 9112, DOI 10.17487/RFC9112,
+              June 2022, <https://www.rfc-editor.org/info/rfc9112>.
+
+   [HTTP/2]   Thomson, M., Ed. and C. Benfield, Ed., "HTTP/2", RFC 9113,
+              DOI 10.17487/RFC9113, June 2022,
+              <https://www.rfc-editor.org/info/rfc9113>.
+
+   [HTTP/3]   Bishop, M., Ed., "HTTP/3", RFC 9114, DOI 10.17487/RFC9114,
+              June 2022, <https://www.rfc-editor.org/info/rfc9114>.
+
+   [ISO-8859-1]
+              International Organization for Standardization,
+              "Information technology -- 8-bit single-byte coded graphic
+              character sets -- Part 1: Latin alphabet No. 1", ISO/
+              IEC 8859-1:1998, 1998.
+
+   [Kri2001]  Kristol, D., "HTTP Cookies: Standards, Privacy, and
+              Politics", ACM Transactions on Internet Technology 1(2),
+              November 2001, <http://arxiv.org/abs/cs.SE/0105018>.
+
+   [OWASP]    The Open Web Application Security Project,
+              <https://www.owasp.org/>.
+
+   [REST]     Fielding, R.T., "Architectural Styles and the Design of
+              Network-based Software Architectures", Doctoral
+              Dissertation, University of California, Irvine, September
+              2000, <https://roy.gbiv.com/pubs/dissertation/top.htm>.
+
+   [RFC1919]  Chatel, M., "Classical versus Transparent IP Proxies",
+              RFC 1919, DOI 10.17487/RFC1919, March 1996,
+              <https://www.rfc-editor.org/info/rfc1919>.
+
+   [RFC2047]  Moore, K., "MIME (Multipurpose Internet Mail Extensions)
+              Part Three: Message Header Extensions for Non-ASCII Text",
+              RFC 2047, DOI 10.17487/RFC2047, November 1996,
+              <https://www.rfc-editor.org/info/rfc2047>.
+--- END OF SECTION ---

@@ -1,0 +1,327 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 38 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 38/45 ---
+   The User-Agent header field might contain enough information to
+   uniquely identify a specific device, usually when combined with other
+   characteristics, particularly if the user agent sends excessive
+   details about the user's system or extensions.  However, the source
+   of unique information that is least expected by users is proactive
+   negotiation (Section 12.1), including the Accept, Accept-Charset,
+   Accept-Encoding, and Accept-Language header fields.
+
+   In addition to the fingerprinting concern, detailed use of the
+   Accept-Language header field can reveal information the user might
+   consider to be of a private nature.  For example, understanding a
+   given language set might be strongly correlated to membership in a
+   particular ethnic group.  An approach that limits such loss of
+   privacy would be for a user agent to omit the sending of Accept-
+   Language except for sites that have been explicitly permitted,
+   perhaps via interaction after detecting a Vary header field that
+   indicates language negotiation might be useful.
+
+   In environments where proxies are used to enhance privacy, user
+   agents ought to be conservative in sending proactive negotiation
+   header fields.  General-purpose user agents that provide a high
+   degree of header field configurability ought to inform users about
+   the loss of privacy that might result if too much detail is provided.
+   As an extreme privacy measure, proxies could filter the proactive
+   negotiation header fields in relayed requests.
+
+17.14.  Validator Retention
+
+   The validators defined by this specification are not intended to
+   ensure the validity of a representation, guard against malicious
+   changes, or detect on-path attacks.  At best, they enable more
+   efficient cache updates and optimistic concurrent writes when all
+   participants are behaving nicely.  At worst, the conditions will fail
+   and the client will receive a response that is no more harmful than
+   an HTTP exchange without conditional requests.
+
+   An entity tag can be abused in ways that create privacy risks.  For
+   example, a site might deliberately construct a semantically invalid
+   entity tag that is unique to the user or user agent, send it in a
+   cacheable response with a long freshness time, and then read that
+   entity tag in later conditional requests as a means of re-identifying
+   that user or user agent.  Such an identifying tag would become a
+   persistent identifier for as long as the user agent retained the
+   original cache entry.  User agents that cache representations ought
+   to ensure that the cache is cleared or replaced whenever the user
+   performs privacy-maintaining actions, such as clearing stored cookies
+   or changing to a private browsing mode.
+
+17.15.  Denial-of-Service Attacks Using Range
+
+   Unconstrained multiple range requests are susceptible to denial-of-
+   service attacks because the effort required to request many
+   overlapping ranges of the same data is tiny compared to the time,
+   memory, and bandwidth consumed by attempting to serve the requested
+   data in many parts.  Servers ought to ignore, coalesce, or reject
+   egregious range requests, such as requests for more than two
+   overlapping ranges or for many small ranges in a single set,
+   particularly when the ranges are requested out of order for no
+   apparent reason.  Multipart range requests are not designed to
+   support random access.
+
+17.16.  Authentication Considerations
+
+   Everything about the topic of HTTP authentication is a security
+   consideration, so the list of considerations below is not exhaustive.
+   Furthermore, it is limited to security considerations regarding the
+   authentication framework, in general, rather than discussing all of
+   the potential considerations for specific authentication schemes
+   (which ought to be documented in the specifications that define those
+   schemes).  Various organizations maintain topical information and
+   links to current research on Web application security (e.g.,
+   [OWASP]), including common pitfalls for implementing and using the
+   authentication schemes found in practice.
+
+17.16.1.  Confidentiality of Credentials
+
+   The HTTP authentication framework does not define a single mechanism
+   for maintaining the confidentiality of credentials; instead, each
+   authentication scheme defines how the credentials are encoded prior
+   to transmission.  While this provides flexibility for the development
+   of future authentication schemes, it is inadequate for the protection
+   of existing schemes that provide no confidentiality on their own, or
+   that do not sufficiently protect against replay attacks.
+   Furthermore, if the server expects credentials that are specific to
+   each individual user, the exchange of those credentials will have the
+   effect of identifying that user even if the content within
+   credentials remains confidential.
+
+   HTTP depends on the security properties of the underlying transport-
+   or session-level connection to provide confidential transmission of
+   fields.  Services that depend on individual user authentication
+   require a secured connection prior to exchanging credentials
+   (Section 4.2.2).
+
+17.16.2.  Credentials and Idle Clients
+
+   Existing HTTP clients and user agents typically retain authentication
+   information indefinitely.  HTTP does not provide a mechanism for the
+   origin server to direct clients to discard these cached credentials,
+   since the protocol has no awareness of how credentials are obtained
+   or managed by the user agent.  The mechanisms for expiring or
+   revoking credentials can be specified as part of an authentication
+   scheme definition.
+
+   Circumstances under which credential caching can interfere with the
+   application's security model include but are not limited to:
+
+   *  Clients that have been idle for an extended period, following
+      which the server might wish to cause the client to re-prompt the
+      user for credentials.
+
+   *  Applications that include a session termination indication (such
+      as a "logout" or "commit" button on a page) after which the server
+      side of the application "knows" that there is no further reason
+      for the client to retain the credentials.
+
+   User agents that cache credentials are encouraged to provide a
+   readily accessible mechanism for discarding cached credentials under
+   user control.
+
+17.16.3.  Protection Spaces
+
+   Authentication schemes that solely rely on the "realm" mechanism for
+   establishing a protection space will expose credentials to all
+   resources on an origin server.  Clients that have successfully made
+   authenticated requests with a resource can use the same
+   authentication credentials for other resources on the same origin
+   server.  This makes it possible for a different resource to harvest
+   authentication credentials for other resources.
+
+   This is of particular concern when an origin server hosts resources
+   for multiple parties under the same origin (Section 11.5).  Possible
+   mitigation strategies include restricting direct access to
+   authentication credentials (i.e., not making the content of the
+   Authorization request header field available), and separating
+   protection spaces by using a different host name (or port number) for
+   each party.
+
+17.16.4.  Additional Response Fields
+
+   Adding information to responses that are sent over an unencrypted
+   channel can affect security and privacy.  The presence of the
+   Authentication-Info and Proxy-Authentication-Info header fields alone
+   indicates that HTTP authentication is in use.  Additional information
+   could be exposed by the contents of the authentication-scheme
+   specific parameters; this will have to be considered in the
+   definitions of these schemes.
+
+18.  IANA Considerations
+
+   The change controller for the following registrations is: "IETF
+   (iesg@ietf.org) - Internet Engineering Task Force".
+
+18.1.  URI Scheme Registration
+
+   IANA has updated the "Uniform Resource Identifier (URI) Schemes"
+   registry [BCP35] at <https://www.iana.org/assignments/uri-schemes/>
+   with the permanent schemes listed in Table 2 in Section 4.2.
+
+18.2.  Method Registration
+
+   IANA has updated the "Hypertext Transfer Protocol (HTTP) Method
+   Registry" at <https://www.iana.org/assignments/http-methods> with the
+   registration procedure of Section 16.1.1 and the method names
+   summarized in the following table.
+
+                 +=========+======+============+=========+
+                 | Method  | Safe | Idempotent | Section |
+                 +=========+======+============+=========+
+                 | CONNECT | no   | no         | 9.3.6   |
+                 +---------+------+------------+---------+
+                 | DELETE  | no   | yes        | 9.3.5   |
+                 +---------+------+------------+---------+
+                 | GET     | yes  | yes        | 9.3.1   |
+                 +---------+------+------------+---------+
+                 | HEAD    | yes  | yes        | 9.3.2   |
+                 +---------+------+------------+---------+
+                 | OPTIONS | yes  | yes        | 9.3.7   |
+                 +---------+------+------------+---------+
+                 | POST    | no   | no         | 9.3.3   |
+                 +---------+------+------------+---------+
+                 | PUT     | no   | yes        | 9.3.4   |
+                 +---------+------+------------+---------+
+                 | TRACE   | yes  | yes        | 9.3.8   |
+                 +---------+------+------------+---------+
+                 | *       | no   | no         | 18.2    |
+                 +---------+------+------------+---------+
+
+                                  Table 7
+
+   The method name "*" is reserved because using "*" as a method name
+   would conflict with its usage as a wildcard in some fields (e.g.,
+   "Access-Control-Request-Method").
+
+18.3.  Status Code Registration
+
+   IANA has updated the "Hypertext Transfer Protocol (HTTP) Status Code
+   Registry" at <https://www.iana.org/assignments/http-status-codes>
+   with the registration procedure of Section 16.2.1 and the status code
+   values summarized in the following table.
+
+            +=======+===============================+=========+
+            | Value | Description                   | Section |
+            +=======+===============================+=========+
+            | 100   | Continue                      | 15.2.1  |
+            +-------+-------------------------------+---------+
+            | 101   | Switching Protocols           | 15.2.2  |
+            +-------+-------------------------------+---------+
+            | 200   | OK                            | 15.3.1  |
+            +-------+-------------------------------+---------+
+            | 201   | Created                       | 15.3.2  |
+            +-------+-------------------------------+---------+
+            | 202   | Accepted                      | 15.3.3  |
+            +-------+-------------------------------+---------+
+            | 203   | Non-Authoritative Information | 15.3.4  |
+            +-------+-------------------------------+---------+
+            | 204   | No Content                    | 15.3.5  |
+            +-------+-------------------------------+---------+
+            | 205   | Reset Content                 | 15.3.6  |
+            +-------+-------------------------------+---------+
+            | 206   | Partial Content               | 15.3.7  |
+            +-------+-------------------------------+---------+
+            | 300   | Multiple Choices              | 15.4.1  |
+            +-------+-------------------------------+---------+
+            | 301   | Moved Permanently             | 15.4.2  |
+            +-------+-------------------------------+---------+
+            | 302   | Found                         | 15.4.3  |
+            +-------+-------------------------------+---------+
+            | 303   | See Other                     | 15.4.4  |
+            +-------+-------------------------------+---------+
+            | 304   | Not Modified                  | 15.4.5  |
+            +-------+-------------------------------+---------+
+            | 305   | Use Proxy                     | 15.4.6  |
+            +-------+-------------------------------+---------+
+            | 306   | (Unused)                      | 15.4.7  |
+            +-------+-------------------------------+---------+
+            | 307   | Temporary Redirect            | 15.4.8  |
+            +-------+-------------------------------+---------+
+            | 308   | Permanent Redirect            | 15.4.9  |
+            +-------+-------------------------------+---------+
+            | 400   | Bad Request                   | 15.5.1  |
+            +-------+-------------------------------+---------+
+            | 401   | Unauthorized                  | 15.5.2  |
+            +-------+-------------------------------+---------+
+            | 402   | Payment Required              | 15.5.3  |
+            +-------+-------------------------------+---------+
+            | 403   | Forbidden                     | 15.5.4  |
+            +-------+-------------------------------+---------+
+            | 404   | Not Found                     | 15.5.5  |
+            +-------+-------------------------------+---------+
+            | 405   | Method Not Allowed            | 15.5.6  |
+            +-------+-------------------------------+---------+
+            | 406   | Not Acceptable                | 15.5.7  |
+            +-------+-------------------------------+---------+
+            | 407   | Proxy Authentication Required | 15.5.8  |
+            +-------+-------------------------------+---------+
+            | 408   | Request Timeout               | 15.5.9  |
+            +-------+-------------------------------+---------+
+            | 409   | Conflict                      | 15.5.10 |
+            +-------+-------------------------------+---------+
+            | 410   | Gone                          | 15.5.11 |
+            +-------+-------------------------------+---------+
+            | 411   | Length Required               | 15.5.12 |
+            +-------+-------------------------------+---------+
+            | 412   | Precondition Failed           | 15.5.13 |
+            +-------+-------------------------------+---------+
+            | 413   | Content Too Large             | 15.5.14 |
+            +-------+-------------------------------+---------+
+            | 414   | URI Too Long                  | 15.5.15 |
+            +-------+-------------------------------+---------+
+            | 415   | Unsupported Media Type        | 15.5.16 |
+            +-------+-------------------------------+---------+
+            | 416   | Range Not Satisfiable         | 15.5.17 |
+            +-------+-------------------------------+---------+
+            | 417   | Expectation Failed            | 15.5.18 |
+            +-------+-------------------------------+---------+
+            | 418   | (Unused)                      | 15.5.19 |
+            +-------+-------------------------------+---------+
+            | 421   | Misdirected Request           | 15.5.20 |
+            +-------+-------------------------------+---------+
+            | 422   | Unprocessable Content         | 15.5.21 |
+            +-------+-------------------------------+---------+
+            | 426   | Upgrade Required              | 15.5.22 |
+            +-------+-------------------------------+---------+
+            | 500   | Internal Server Error         | 15.6.1  |
+            +-------+-------------------------------+---------+
+            | 501   | Not Implemented               | 15.6.2  |
+            +-------+-------------------------------+---------+
+            | 502   | Bad Gateway                   | 15.6.3  |
+            +-------+-------------------------------+---------+
+            | 503   | Service Unavailable           | 15.6.4  |
+            +-------+-------------------------------+---------+
+            | 504   | Gateway Timeout               | 15.6.5  |
+            +-------+-------------------------------+---------+
+            | 505   | HTTP Version Not Supported    | 15.6.6  |
+            +-------+-------------------------------+---------+
+--- END OF SECTION ---

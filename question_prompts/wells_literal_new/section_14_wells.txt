@@ -1,0 +1,92 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 14 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 14/40 ---
+He returned to the village amidst the rejoicings of his fellow clansmen. There was a great feast and a Nautch dance to celebrate the birth of this new tie, and in the night Gautama awoke in a great agony of spirit, “like a man who is told that his house is on fire.” He resolved to leave his happy aimless life forthwith. He went softly to the threshold of his wife’s chamber, and saw her by the light of a little oil lamp, sleeping sweetly, surrounded by flowers, with his infant son in her arms. He felt a great craving to take up the child in one first and last embrace before he departed, but the fear of waking his wife prevented him, and at last he turned away and went out into the bright Indian moonshine and mounted his horse and rode off into the world.
+
+Gilt Brass Casting in India Museum, showing Gautama Buddha in the “earth witness” attitude
+
+Very far he rode that night, and in the morning he stopped outside the lands of his clan, and dismounted beside a sandy river. There he cut off his flowing locks with his sword, removed all his ornaments and sent them and his horse and sword back to his house. Going on he presently met a ragged man and exchanged clothes with him, and so having divested himself of all worldly entanglements he was free to pursue his search after wisdom. He made his way southward to a resort of hermits and teachers in a hilly spur of the Vindhya Mountains. There lived a number of wise men in a warren of caves, going into the town for their simple supplies and imparting their knowledge by word of mouth to such as cared to come to them. Gautama became versed in all the metaphysics of his age. But his acute intelligence was dissatisfied with the solutions offered him.
+
+Marble Figure from Mandalay, eighteenth century work, now in the India Museum
+
+The Indian mind has always been disposed to believe that power and knowledge may be obtained by extreme asceticism, by fasting, sleeplessness, and self-torment, and these ideas Gautama now put to the test. He betook himself with five disciple companions to the jungle and there he gave himself up to fasting and terrible penances. His fame spread, “like the sound of a great bell hung in the canopy of the skies.” But it brought him no sense of truth achieved. One day he was walking up and down, trying to think in spite of his enfeebled state. Suddenly he fell unconscious. When he recovered, the preposterousness of these semi-magical ways to wisdom was plain to him.
+
+_(From a Painting in the India Museum)_
+
+He horrified his companions by demanding ordinary food and refusing to continue his mortifications. He had realized that whatever truth a man may reach is reached best by a nourished brain in a healthy body. Such a conception was absolutely foreign to the ideas of the land and age. His disciples deserted him, and went off in a melancholy state to Benares. Gautama wandered alone.
+
+When the mind grapples with a great and intricate problem, it makes its advances step by step, with but little realization of the gains it has made, until suddenly, with an effect of abrupt illumination, it realizes its victory. So it happened to Gautama. He had seated himself under a great tree by the side of a river to eat, when this sense of clear vision came to him. It seemed to him that he saw life plain. He is said to have sat all day and all night in profound thought, and then he rose up to impart his vision to the world.
+
+He went on to Benares and there he sought out and won back his lost disciples to his new teaching. In the King’s Deer Park at Benares they built themselves huts and set up a sort of school to which came many who were seeking after wisdom.
+
+The starting point of his teaching was his own question as a fortunate young man, “Why am I not completely happy?” It was an introspective question. It was a question very different in quality from the frank and self-forgetful _externalized_ curiosity with which Thales and Heraclitus were attacking the problems of the universe, or the equally self-forgetful burthen of moral obligation that the culminating prophets were imposing upon the Hebrew mind. The Indian teacher did not forget self, he concentrated upon self and sought to destroy it. All suffering, he taught, was due to the greedy desires of the individual. Until man has conquered his personal cravings his life is trouble and his end sorrow. There were three principal forms that the craving for life took and they were all evil. The first was the desire of the appetites, greed and all forms of sensuousness, the second was the desire for a personal and egotistic immortality, the third was the craving for personal success, worldliness, avarice and the like. All these forms of desire had to be overcome to escape from the distresses and chagrins of life. When they were overcome, when self had vanished altogether, then serenity of soul, Nirvana, the highest good was attained.
+
+This was the gist of his teaching, a very subtle and metaphysical teaching indeed, not nearly so easy to understand as the Greek injunction to see and know fearlessly and rightly and the Hebrew command to fear God and accomplish righteousness. It was a teaching much beyond the understanding of even Gautama’s immediate disciples, and it is no wonder that so soon as his personal influence was withdrawn it became corrupted and coarsened. There was a widespread belief in India at that time that at long intervals Wisdom came to earth and was incarnate in some chosen person who was known as the Buddha. Gautama’s disciples declared that he was a Buddha, the latest of the Buddhas, though there is no evidence that he himself ever accepted the title. Before he was well dead, a cycle of fantastic legends began to be woven about him. The human heart has always preferred a wonder story to a moral effort, and Gautama Buddha became very wonderful.
+
+Yet there remained a substantial gain in the world. If Nirvana was too high and subtle for most men’s imaginations, if the myth-making impulse could at least grasp something of the intention of what Gautama called the Eight-fold way, the Aryan or Noble Path in life. In this there was an insistence upon mental uprightness, upon right aims and speech, right conduct and honest livelihood. There was a quickening of the conscience and an appeal to generous and self-forgetful ends.
+
+XXIX KING ASOKA
+
+For some generations after the death of Gautama, these high and noble Buddhist teachings, this first plain teaching that the highest good for man is the subjugation of self, made comparatively little headway in the world. Then they conquered the imagination of one of the greatest monarchs the world has ever seen.
+
+We have already mentioned how Alexander the Great came down into India and fought with Porus upon the Indus. It is related by the Greek historians that a certain Chandragupta Maurya came into Alexander’s camp and tried to persuade him to go on to the Ganges and conquer all India. Alexander could not do this because of the refusal of his Macedonians to go further into what was for them an unknown world, and later on (303 B.C.) Chandragupta was able to secure the help or various hill tribes and realize his dream without Greek help. He built up an empire in North India and was presently (303 B.C.) able to attack Seleucus I in the Punjab and drive the last vestige of Greek power out of India. His son extended this new empire. His grandson, Asoka, the monarch of whom we now have to tell, found himself in 264 B.C. ruling
+
+Asoka was at first disposed to follow the example of his father and grandfather and complete the conquest of the Indian peninsula. He invaded Kalinga (255 B.C.), a country on the east coast of Madras, he was successful in his military operations and—alone among conquerors—he was so disgusted by the cruelty and horror of war that he renounced it. He would have no more of it. He adopted the peaceful doctrines of Buddhism and declared that henceforth his conquests should be the conquests of religion.
+
+A LOHAN OR BUDDHIST APOSTLE (Tang Dynasty) A LOHAN OR BUDDHIST APOSTLE (Tang Dynasty)
+
+_(From the statue in the British Museum)_
+
+His reign for eight-and-twenty years was one of the brightest interludes in the troubled history of mankind. He organized a great digging of wells in India and the planting of trees for shade. He founded hospitals and public gardens and gardens for the growing of medicinal herbs. He created a ministry for the care of the aborigines and subject races of India. He made provision for the education of women. He made vast benefactions to the Buddhist teaching orders, and tried to stimulate them to a better and more energetic criticism of their own accumulated literature. For corruptions and superstitious accretions had accumulated very speedily upon the pure and simple teaching of the great Indian master. Missionaries went from Asoka to Kashmir, to Persia, to Ceylon and Alexandria.
+
+Such was Asoka, greatest of kings. He was far in advance of his age. He left no prince and no organization of men to carry on his work, and within a century of his death the great days of his reign had become a glorious memory in a shattered and decaying India. The priestly caste of the Brahmins, the highest and most privileged caste in the Indian social body, has always been opposed to the frank and open teaching of Buddha. Gradually they undermined the Buddhist influence in the land. The old monstrous gods, the innumerable cults of Hinduism, resumed their sway. Caste became more rigorous and complicated. For long centuries Buddhism and Brahminism flourished side by side, and then slowly Buddhism decayed and Brahminism in a multitude of forms replaced it. But beyond the confines of India and the realms of caste Buddhism spread—until it had won China and Siam and Burma and Japan, countries in which it is predominant to this day.
+
+Capital of the Pillar (column lying on side) erected in Deer Park in the time of Asoka, where Buddha preached his first sermon
+
+_(From a print in the India Museum)_
+
+XXX CONFUCIUS AND LAO TSE
+
+We have still to tell of two other great men, Confucius and Lao Tse, who lived in that wonderful century which began the adolescence of mankind, the sixth century B.C. In this history thus far we have told very little of the early story of China. At present that early history is still very obscure, and we look to Chinese explorers and archæolologists in the new China that is now arising to work out their past as thoroughly as the European past has been worked out during the last century. Very long ago the first primitive Chinese civilizations arose in the great river valleys out of the primordial heliolithic culture. They had, like Egypt and Sumeria, the general characteristics of that culture, and they centred upon temples in which priests and priest kings offered the seasonal blood sacrifices. The life in those cities must have been very like the Egyptian and Sumerian life of six or seven thousand years ago and very like the Maya life of Central America a thousand years ago.
+
+If there were human sacrifices they had long given way to animal sacrifices before the dawn of history. And a form of picture writing was growing up long before a thousand years B.C.
+
+And just as the primitive civilizations of Europe and western Asia were in conflict with the nomads of the desert and the nomads of the north, so the primitive Chinese civilizations had a great cloud of nomadic peoples on their northern borders. There was a number of tribes akin in language and ways of living, who are spoken of in history in succession as the Huns, the Mongols, the Turks and Tartars. They changed and divided and combined and re-combined, just as the Nordic peoples in north Europe and central Asia changed and varied in name rather than in nature. These Mongolian nomads had horses earlier than the Nordic peoples, and it may be that in the region of the Altai Mountains they made an independent discovery of iron somewhen after 1000 B.C. And just as in the western case so ever and again these eastern nomads would achieve a sort of political unity, and become the conquerors and masters and revivers of this or that settled and civilized region.
+
+It is quite possible that the earliest civilization of China was not Mongolian at all any more than the earliest civilization of Europe and western Asia was Nordic or Semitic. It is quite possible that the earliest civilization of China was a brunette civilization and of a piece with the earliest Egyptian, Sumerian and Dravidian civilizations, and that when the first recorded history of China began there had already been conquests and intermixture. At any rate we find that by 1750 B.C. China was already a vast system of little kingdoms and city states, all acknowledging a loose allegiance and paying more or less regularly, more or less definite feudal dues to one great priest emperor, the “Son of Heaven.” The “Shang” dynasty came to an end in 1125 B.C. A “Chow” dynasty succeeded “Shang,” and maintained China in a relaxing unity until the days of Asoka in India and of the Ptolemies in Egypt. Gradually China went to pieces during that long “Chow” period. Hunnish peoples came down and set up principalities; local rulers discontinued their tribute and became independent. There was in the sixth century B.C., says one Chinese authority, five or six thousand practically independent states in China. It was what the Chinese call in their records an “Age of Confusion.”
+
+But this Age of Confusion was compatible with much intellectual activity and with the existence of many local centres of art and civilized living. When we know more of Chinese history we shall find that China also had her Miletus and her Athens, her Pergamum and her Macedonia. At present we must be vague and brief about this period of Chinese division simply because our knowledge is not sufficient for us to frame a coherent and consecutive story.
+
+Copy of stone carving in the Temple of Confucius at K’iu Fu
+
+_(From the records of the Archæological Mission to North China (Chavannes))_
+
+And just as in divided Greece there were philosophers and in shattered and captive Jewry prophets, so in disordered China there were philosophers and teachers at this time. In all these cases insecurity and uncertainty seemed to have quickened the better sort of mind. Confucius was a man of aristocratic origin and some official importance in a small state called Lu. Here in a very parallel mood to the Greek impulse he set up a sort of Academy for discovering and teaching Wisdom. The lawlessness and disorder of China distressed him profoundly. He conceived an ideal of a better government and a better life, and travelled from state to state seeking a prince who would carry out his legislative and educational ideas. He never found his prince; he found a prince, but court intrigues undermined the influence of the teacher and finally defeated his reforming proposals. It is interesting to note that a century 
+--- END OF SECTION ---

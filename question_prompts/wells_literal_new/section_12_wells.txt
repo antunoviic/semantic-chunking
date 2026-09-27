@@ -1,0 +1,82 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 12 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 12/40 ---
+Showing Greek merchant vesselswith sails and oars statue on left
+
+It was on account of the Scythians that Darius I invaded Europe. He wanted to reach South Russia, the homeland of the Scythian horsemen. He crossed the Bosphorus with a great army and marched through Bulgaria to the Danube, crossed this by a bridge of boats and pushed far northward. His army suffered terribly. It was largely an infantry force and the mounted Scythians rode all round it, cut off its supplies, destroyed any stragglers and never came to a pitched battle. Darius was forced into an inglorious retreat.
+
+He returned himself to Susa but he left an army in Thrace and Macedonia, and Macedonia submitted to Darius. Insurrections of the Greek cities in Asia followed this failure, and the European Greeks were drawn into the contest. Darius resolved upon the subjugation of the Greeks in Europe. With the Phœnician fleet at his disposal he was able to subdue one island after another, and finally in 490 B.C. he made his main attack upon Athens. A considerable Armada sailed from the ports of Asia Minor and the eastern Mediterranean, and the expedition landed its troops at Marathon to the north of Athens. There they were met and signally defeated by the Athenians.
+
+An extraordinary thing happened at this time. The bitterest rival of Athens in Greece was Sparta, but now Athens appealed to Sparta, sending a herald, a swift runner, imploring the Spartans not to let Greeks become slaves to barbarians. This runner (the prototype of all “Marathon” runners) did over a hundred miles of broken country in less than two days. The Spartans responded promptly and generously; but when, in three days, the Spartan force reached Athens, there was nothing for it to do but to view the battlefield and the bodies of the defeated Persian soldiers. The Persian fleet had returned to Asia. So ended the first Persian attack on Greece.
+
+The next was much more impressive. Darius died soon after the news of his defeat at Marathon reached him, and for four years his son and successor, Xerxes, prepared a host to crush the Greeks. For a time terror united all the Greeks. The army of Xerxes was certainly the greatest that had hitherto been assembled in the world. It was a huge assembly of discordant elements. It crossed the Dardanelles, 480 B.C., by a bridge of boats; and along the coast as it advanced moved an equally miscellaneous fleet carrying supplies. At the narrow pass of Thermopylæ a small force of 1400 men under the Spartan Leonidas resisted this multitude, and after a fight of unsurpassed heroism was completely destroyed. Every man was killed. But the losses they inflicted upon the Persians were enormous, and the army of Xerxes pushed on to Thebes and Athens in a chastened mood. Thebes surrendered and made terms. The Athenians abandoned their city and it was burnt.
+
+Greece seemed in the hands of the conqueror, but again came victory against the odds and all expectations. The Greek fleet, though not a third the size of the Persian, assailed it in the bay of Salamis and destroyed it. Xerxes found himself and his immense army cut off from supplies and his heart failed him. He retreated to Asia with one half of his army, leaving the rest to be defeated at Platea (479 B.C.) what time the remnants of the Persian fleet were hunted down by the Greeks and destroyed at Mycalæ in Asia Minor.
+
+The Persian danger was at an end. Most of the Greek cities in Asia became free. All this is told in great detail and with much picturesqueness in the first of written histories, the _History_ of Herodotus. This Herodotus was born about 484 B.C. in the Ionian city of Halicarnassus in Asia Minor, and he visited Babylon and Egypt in his search for exact particulars. From Mycalæ onward Persia sank into a confusion of dynastic troubles. Xerxes was murdered in 465 B.C. and rebellions in Egypt, Syria and Media broke up the brief order of that mighty realm. The history of Herodotus lays stress on the weakness of Persia. This history is indeed what we should now call propaganda—propaganda for Greece to unite and conquer Persia. Herodotus makes one character, Aristagoras, go to the Spartans with a map of the known world and say to them: “These Barbarians are not valiant in fight. You on the other hand have now attained the utmost skill in war .... No other nations in the world have what they possess: gold, silver, bronze, embroidered garments, beasts and slaves. _All this you might have for yourselves, if you so desired_.”
+
+XXV THE SPLENDOUR OF GREECE
+
+The century and a half that followed the defeat of Persia was one of very great splendour for the Greek civilization. True that Greece was torn by a desperate struggle for ascendancy between Athens, Sparta and other states (the Peloponnesian War 431 to 404 B.C.) and that in 338 B.C. the Macedonians became virtually masters of Greece; nevertheless during this period the thought and the creative and artistic impulse of the Greeks rose to levels that made their achievement a lamp to mankind for all the rest of history.
+
+The head and centre of this mental activity was Athens. For over thirty years (466 to 428 B.C.) Athens was dominated by a man of great vigour and liberality of mind, Pericles, who set himself to rebuild the city from the ashes to which the Persians had reduced it. The beautiful ruins that still glorify Athens to-day are chiefly the remains of this great effort. And he did not simply rebuild a material Athens. He rebuilt Athens intellectually. He gathered about him not only architects and sculptors but poets, dramatists, philosophers and teachers. Herodotus came to Athens to recite his history (438 B.C.). Anaxagoras came with the beginnings of a scientific description of the sun and stars. Æschylus, Sophocles and Euripides one after the other carried the Greek drama to its highest levels or beauty and nobility.
+
+The impetus Pericles gave to the intellectual life of Athens lived on after his death, and in spite of the fact that the peace of Greece was now broken by the Peloponnesian War and a long and wasteful struggle for “ascendancy” was beginning. Indeed the darkling of the political horizon seems for a time to have quickened rather than discouraged men’s minds.
+
+Already long before the time of Pericles the peculiar freedom of Greek institutions had given great importance to skill in discussion. Decision rested neither with king nor with priest but in the assemblies of the people or of leading men. Eloquence and able argument became very desirable accomplishments therefore, and a class of teachers arose, the Sophists, who undertook to strengthen young men in these arts. But one cannot reason without matter, and knowledge followed in the wake of speech. The activities and rivalries of these Sophists led very naturally to an acute examination of style, of methods of thought and of the validity of arguments. When Pericles died a certain Socrates was becoming prominent as an able and destructive critic of bad argument—and much of the teaching of the Sophists was bad argument. A group of brilliant young men gathered about Socrates. In the end Socrates was executed for disturbing people’s minds (399 B.C.), he was condemned after the dignified fashion of the Athens of those days to drink in his own house and among his own friends a poisonous draught made from hemlock, but the disturbance of people’s minds went on in spite of his condemnation. His young men carried on his teaching.
+
+A specimen of Grecian sculpture in its finest expression. Compare the advance of art with that seen in the animals shown on p. 105
+
+The marvellous group of Temples and monuments built under the inspriration of Pericles
+
+A wonderfully preserved specimen showing the vast auditorium
+
+Chief among these young men was Plato (427 to 347 B.C.) who presently began to teach philosophy in the grove of the Academy. His teaching fell into two main divisions, an examination of the foundations and methods of human thinking and an examination of political institutions. He was the first man to write a Utopia, that is to say the plan of a community different from and better than any existing community. This shows an altogether unprecedented boldness in the human mind which had hitherto accepted social traditions and usages with scarcely a question. Plato said plainly to mankind: “Most of the social and political ills from which you suffer are under your control, given only the will and courage to change them. You can live in another and a wiser fashion if you choose to think it out and work it out. You are not awake to your own power.” That is a high adventurous teaching that has still to soak in to the common intelligence of our race. One of his earliest works was the Republic, a dream of a communist aristocracy; his last unfinished work was the Laws, a scheme of regulation for another such Utopian state.
+
+The ancient sanctuary on the Acropolis at Athens
+
+The criticism of methods of thinking and methods of government was carried on after Plato’s death by Aristotle, who had been his pupil and who taught in the Lyceum. Aristotle came from the city of Stagira in Macedonia, and his father was court physician to the Macedonian king. For a time Aristotle was tutor to Alexander, the king’s son, who was destined to achieve very great things of which we shall soon be telling. Aristotle’s work upon methods of thinking carried the science of Logic to a level at which it remained for fifteen hundred years or more, until the mediæval schoolmen took up the ancient questions again. He made no Utopias. Before man could really control his destiny as Plato taught, Aristotle perceived that he needed far more knowledge and far more accurate knowledge than he possessed. And so Aristotle began that systematic collection of knowledge which nowadays we call Science. He sent out explorers to collect _facts_. He was the father of natural history. He was the founder of political science. His students at the Lyceum examined and compared the constitutions of 158 different states ....
+
+Here in the fourth century B.C. we find men who are practically “modern thinkers.” The child-like, dream-like methods of primitive thought had given way to a disciplined and critical attack upon the problems of life. The weird and monstrous symbolism and imagery of the gods and god monsters, and all the taboos and awes and restraints that have hitherto encumbered thinking are here completely set aside. Free, exact and systematic thinking has begun. The fresh and unencumbered mind of these newcomers out of the northern forests has thrust itself into the mysteries of the temple and let the daylight in.
+
+XXVI THE EMPIRE OF ALEXANDER THE GREAT
+
+the north of Greece, the kindred country of Macedonia was rising slowly to power and civilization. The Macedonians spoke a language closely akin to Greek, and on several occasions Macedonian competitors had taken part in the Olympic games. In 359 B.C. a man of very great abilities and ambition became king of this little country—Philip. Philip had previously been a hostage in Greece; he had had a thoroughly Greek education and he was probably aware of the ideas of Herodotus—which had also been developed by the philosopher Isocrates—of a possible conquest of Asia by a consolidated Greece.
+
+He set himself first to extend and organize his own realm and to remodel his army. For a thousand years now the charging horse-chariot had been the decisive factor in battles, that and the close-fighting infantry. Mounted horsemen had also fought, but as a cloud of skirmishers, individually and without discipline. Philip made his infantry fight in a closely packed mass, the Macedonian phalanx, and he trained his mounted gentlemen, the knights or companions, to fight in formation and so invented cavalry. The master move in most of his battles and in the battles of his son Alexander was a cavalry charge. The phalanx _held_ the enemy infantry in front while the cavalry swept away the enemy horse on his wings and poured in on the flank and rear of his infantry. Chariots were disabled by bowmen, who shot the horses.
+
+With this new army Philip extended his frontiers through Thessaly to Greece; and the battle of Chæronia (338 B.C.), fought against Athens and her allies, put all Greece at his feet. At last the dream of Herodotus was bearing fruit. A congress of all the Greek states appointed Philip captain-general of the Græco- Macedonian confederacy against Persia, and in 336 B.C. his advanced guard crossed into Asia upon this long premeditated adventure. But he never followed it. He was assassinated; it is believed at the instigation of his queen Olympias, Alexander’s mother. She was jealous because Philip had married a second wife.
+
+_(As in the British Museum)_
+
+But Philip had taken unusual pains with his son’s education. He had not only secured Aristotle, the greatest philosopher in the world, as this boy’s tutor, but he had shared his ideas with him and thrust military experience upon him. At Chæronia Alexander, who was then only eighteen years old, had been in command of the cavalry. And so it was possible for this young man, who was still only twenty years old at the time of his accession, to take up his father’s task at once and to proceed successfully with the Persian adventure.
+
+In 334 B.C.—for two years were needed to establish and confirm his position in Macedonia and Greece—he crossed into Asia, defeated a not very much bigger Persian army at the battle of the Granicus and captured a number of cities in Asia Minor. He kept along the sea-coast. It was necessary for him to reduce and garrison all the coast towns as he advanced because the Persians had control of the fleets of Tyre and Sidon and so had command of the sea. Had he left a hostile port in his rear the Persians might have landed forces to raid his communications and cut him off. At Issus (333 B.C.) he met and smashed a vast conglomerate host under Darius III. Like the host of Xerxes that had crossed the Dardanelles a century and a half before, it was an incoherent accumulation of contingents and it was encumbered with a multitude of court officials, the harem of Darius and many camp followers. Sidon surrendered to Alexander but Tyre resisted obstinately. Finally that great city was stormed and plundered and destroyed. Gaza also was stormed, and towards the end of 332 B.C. the conqueror entered Egypt and took over its rule from the Persians.
+--- END OF SECTION ---

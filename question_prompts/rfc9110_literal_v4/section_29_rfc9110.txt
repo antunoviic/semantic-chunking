@@ -1,0 +1,300 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 29 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 29/45 ---
+   An origin server SHOULD respond with a 400 (Bad Request) status code
+   if it receives Content-Range on a PUT for a target resource that does
+   not support partial PUT requests.
+
+   Partial PUT is not backwards compatible with the original definition
+   of PUT.  It may result in the content being written as a complete
+   replacement for the current representation.
+
+   Partial resource updates are also possible by targeting a separately
+   identified resource with state that overlaps or extends a portion of
+   the larger resource, or by using a different method that has been
+   specifically defined for partial updates (for example, the PATCH
+   method defined in [RFC5789]).
+
+14.6.  Media Type multipart/byteranges
+
+   When a 206 (Partial Content) response message includes the content of
+   multiple ranges, they are transmitted as body parts in a multipart
+   message body ([RFC2046], Section 5.1) with the media type of
+   "multipart/byteranges".
+
+   The "multipart/byteranges" media type includes one or more body
+   parts, each with its own Content-Type and Content-Range fields.  The
+   required boundary parameter specifies the boundary string used to
+   separate each body part.
+
+   Implementation Notes:
+
+   1.  Additional CRLFs might precede the first boundary string in the
+       body.
+
+   2.  Although [RFC2046] permits the boundary string to be quoted, some
+       existing implementations handle a quoted boundary string
+       incorrectly.
+
+   3.  A number of clients and servers were coded to an early draft of
+       the byteranges specification that used a media type of
+       "multipart/x-byteranges", which is almost (but not quite)
+       compatible with this type.
+
+   Despite the name, the "multipart/byteranges" media type is not
+   limited to byte ranges.  The following example uses an "exampleunit"
+   range unit:
+
+   HTTP/1.1 206 Partial Content
+   Date: Tue, 14 Nov 1995 06:25:24 GMT
+   Last-Modified: Tue, 14 July 04:58:08 GMT
+   Content-Length: 2331785
+   Content-Type: multipart/byteranges; boundary=THIS_STRING_SEPARATES
+
+   --THIS_STRING_SEPARATES
+   Content-Type: video/example
+   Content-Range: exampleunit 1.2-4.3/25
+
+   ...the first range...
+   --THIS_STRING_SEPARATES
+   Content-Type: video/example
+   Content-Range: exampleunit 11.2-14.3/25
+
+   ...the second range
+   --THIS_STRING_SEPARATES--
+
+   The following information serves as the registration form for the
+   "multipart/byteranges" media type.
+
+   Type name:  multipart
+
+   Subtype name:  byteranges
+
+   Required parameters:  boundary
+
+   Optional parameters:  N/A
+
+   Encoding considerations:  only "7bit", "8bit", or "binary" are
+      permitted
+
+   Security considerations:  see Section 17
+
+   Interoperability considerations:  N/A
+
+   Published specification:  RFC 9110 (see Section 14.6)
+
+   Applications that use this media type:  HTTP components supporting
+      multiple ranges in a single request
+
+   Fragment identifier considerations:  N/A
+
+   Additional information:  Deprecated alias names for this type:  N/A
+
+                            Magic number(s):  N/A
+
+                            File extension(s):  N/A
+
+                            Macintosh file type code(s):  N/A
+
+   Person and email address to contact for further information:  See Aut
+      hors' Addresses section.
+
+   Intended usage:  COMMON
+
+   Restrictions on usage:  N/A
+
+   Author:  See Authors' Addresses section.
+
+   Change controller:  IESG
+
+15.  Status Codes
+
+   The status code of a response is a three-digit integer code that
+   describes the result of the request and the semantics of the
+   response, including whether the request was successful and what
+   content is enclosed (if any).  All valid status codes are within the
+   range of 100 to 599, inclusive.
+
+   The first digit of the status code defines the class of response.
+   The last two digits do not have any categorization role.  There are
+   five values for the first digit:
+
+   *  1xx (Informational): The request was received, continuing process
+
+   *  2xx (Successful): The request was successfully received,
+      understood, and accepted
+
+   *  3xx (Redirection): Further action needs to be taken in order to
+      complete the request
+
+   *  4xx (Client Error): The request contains bad syntax or cannot be
+      fulfilled
+
+   *  5xx (Server Error): The server failed to fulfill an apparently
+      valid request
+
+   HTTP status codes are extensible.  A client is not required to
+   understand the meaning of all registered status codes, though such
+   understanding is obviously desirable.  However, a client MUST
+   understand the class of any status code, as indicated by the first
+   digit, and treat an unrecognized status code as being equivalent to
+   the x00 status code of that class.
+
+   For example, if a client receives an unrecognized status code of 471,
+   it can see from the first digit that there was something wrong with
+   its request and treat the response as if it had received a 400 (Bad
+   Request) status code.  The response message will usually contain a
+   representation that explains the status.
+
+   Values outside the range 100..599 are invalid.  Implementations often
+   use three-digit integer values outside of that range (i.e., 600..999)
+   for internal communication of non-HTTP status (e.g., library errors).
+   A client that receives a response with an invalid status code SHOULD
+   process the response as if it had a 5xx (Server Error) status code.
+
+   A single request can have multiple associated responses: zero or more
+   "interim" (non-final) responses with status codes in the
+   "informational" (1xx) range, followed by exactly one "final" response
+   with a status code in one of the other ranges.
+
+15.1.  Overview of Status Codes
+
+   The status codes listed below are defined in this specification.  The
+   reason phrases listed here are only recommendations -- they can be
+   replaced by local equivalents or left out altogether without
+   affecting the protocol.
+
+   Responses with status codes that are defined as heuristically
+   cacheable (e.g., 200, 203, 204, 206, 300, 301, 308, 404, 405, 410,
+   414, and 501 in this specification) can be reused by a cache with
+   heuristic expiration unless otherwise indicated by the method
+   definition or explicit cache controls [CACHING]; all other status
+   codes are not heuristically cacheable.
+
+   Additional status codes, outside the scope of this specification,
+   have been specified for use in HTTP.  All such status codes ought to
+   be registered within the "Hypertext Transfer Protocol (HTTP) Status
+   Code Registry", as described in Section 16.2.
+
+15.2.  Informational 1xx
+
+   The 1xx (Informational) class of status code indicates an interim
+   response for communicating connection status or request progress
+   prior to completing the requested action and sending a final
+   response.  Since HTTP/1.0 did not define any 1xx status codes, a
+   server MUST NOT send a 1xx response to an HTTP/1.0 client.
+
+   A 1xx response is terminated by the end of the header section; it
+   cannot contain content or trailers.
+
+   A client MUST be able to parse one or more 1xx responses received
+   prior to a final response, even if the client does not expect one.  A
+   user agent MAY ignore unexpected 1xx responses.
+
+   A proxy MUST forward 1xx responses unless the proxy itself requested
+   the generation of the 1xx response.  For example, if a proxy adds an
+   "Expect: 100-continue" header field when it forwards a request, then
+   it need not forward the corresponding 100 (Continue) response(s).
+
+15.2.1.  100 Continue
+
+   The 100 (Continue) status code indicates that the initial part of a
+   request has been received and has not yet been rejected by the
+   server.  The server intends to send a final response after the
+   request has been fully received and acted upon.
+
+   When the request contains an Expect header field that includes a
+   100-continue expectation, the 100 response indicates that the server
+   wishes to receive the request content, as described in
+   Section 10.1.1.  The client ought to continue sending the request and
+   discard the 100 response.
+
+   If the request did not contain an Expect header field containing the
+   100-continue expectation, the client can simply discard this interim
+   response.
+
+15.2.2.  101 Switching Protocols
+
+   The 101 (Switching Protocols) status code indicates that the server
+   understands and is willing to comply with the client's request, via
+   the Upgrade header field (Section 7.8), for a change in the
+   application protocol being used on this connection.  The server MUST
+   generate an Upgrade header field in the response that indicates which
+   protocol(s) will be in effect after this response.
+
+   It is assumed that the server will only agree to switch protocols
+   when it is advantageous to do so.  For example, switching to a newer
+   version of HTTP might be advantageous over older versions, and
+   switching to a real-time, synchronous protocol might be advantageous
+   when delivering resources that use such features.
+
+15.3.  Successful 2xx
+
+   The 2xx (Successful) class of status code indicates that the client's
+   request was successfully received, understood, and accepted.
+
+15.3.1.  200 OK
+
+   The 200 (OK) status code indicates that the request has succeeded.
+   The content sent in a 200 response depends on the request method.
+   For the methods defined by this specification, the intended meaning
+   of the content can be summarized as:
+
+   +================+============================================+
+   | Request Method | Response content is a representation of:   |
+   +================+============================================+
+   | GET            | the target resource                        |
+   +----------------+--------------------------------------------+
+   | HEAD           | the target resource, like GET, but without |
+   |                | transferring the representation data       |
+   +----------------+--------------------------------------------+
+   | POST           | the status of, or results obtained from,   |
+   |                | the action                                 |
+   +----------------+--------------------------------------------+
+   | PUT, DELETE    | the status of the action                   |
+   +----------------+--------------------------------------------+
+   | OPTIONS        | communication options for the target       |
+   |                | resource                                   |
+   +----------------+--------------------------------------------+
+   | TRACE          | the request message as received by the     |
+   |                | server returning the trace                 |
+   +----------------+--------------------------------------------+
+
+                               Table 6
+
+   Aside from responses to CONNECT, a 200 response is expected to
+   contain message content unless the message framing explicitly
+   indicates that the content has zero length.  If some aspect of the
+   request indicates a preference for no content upon success, the
+   origin server ought to send a 204 (No Content) response instead.  For
+   CONNECT, there is no content because the successful result is a
+   tunnel, which begins immediately after the 200 response header
+   section.
+--- END OF SECTION ---

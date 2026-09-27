@@ -1,0 +1,279 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 41 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 41/45 ---
+   [RFC2068]  Fielding, R., Gettys, J., Mogul, J., Frystyk, H., and T.
+              Berners-Lee, "Hypertext Transfer Protocol -- HTTP/1.1",
+              RFC 2068, DOI 10.17487/RFC2068, January 1997,
+              <https://www.rfc-editor.org/info/rfc2068>.
+
+   [RFC2145]  Mogul, J. C., Fielding, R., Gettys, J., and H. Frystyk,
+              "Use and Interpretation of HTTP Version Numbers",
+              RFC 2145, DOI 10.17487/RFC2145, May 1997,
+              <https://www.rfc-editor.org/info/rfc2145>.
+
+   [RFC2295]  Holtman, K. and A. Mutz, "Transparent Content Negotiation
+              in HTTP", RFC 2295, DOI 10.17487/RFC2295, March 1998,
+              <https://www.rfc-editor.org/info/rfc2295>.
+
+   [RFC2324]  Masinter, L., "Hyper Text Coffee Pot Control Protocol
+              (HTCPCP/1.0)", RFC 2324, DOI 10.17487/RFC2324, 1 April
+              1998, <https://www.rfc-editor.org/info/rfc2324>.
+
+   [RFC2557]  Palme, J., Hopmann, A., and N. Shelness, "MIME
+              Encapsulation of Aggregate Documents, such as HTML
+              (MHTML)", RFC 2557, DOI 10.17487/RFC2557, March 1999,
+              <https://www.rfc-editor.org/info/rfc2557>.
+
+   [RFC2616]  Fielding, R., Gettys, J., Mogul, J., Frystyk, H.,
+              Masinter, L., Leach, P., and T. Berners-Lee, "Hypertext
+              Transfer Protocol -- HTTP/1.1", RFC 2616,
+              DOI 10.17487/RFC2616, June 1999,
+              <https://www.rfc-editor.org/info/rfc2616>.
+
+   [RFC2617]  Franks, J., Hallam-Baker, P., Hostetler, J., Lawrence, S.,
+              Leach, P., Luotonen, A., and L. Stewart, "HTTP
+              Authentication: Basic and Digest Access Authentication",
+              RFC 2617, DOI 10.17487/RFC2617, June 1999,
+              <https://www.rfc-editor.org/info/rfc2617>.
+
+   [RFC2774]  Nielsen, H., Leach, P., and S. Lawrence, "An HTTP
+              Extension Framework", RFC 2774, DOI 10.17487/RFC2774,
+              February 2000, <https://www.rfc-editor.org/info/rfc2774>.
+
+   [RFC2818]  Rescorla, E., "HTTP Over TLS", RFC 2818,
+              DOI 10.17487/RFC2818, May 2000,
+              <https://www.rfc-editor.org/info/rfc2818>.
+
+   [RFC2978]  Freed, N. and J. Postel, "IANA Charset Registration
+              Procedures", BCP 19, RFC 2978, DOI 10.17487/RFC2978,
+              October 2000, <https://www.rfc-editor.org/info/rfc2978>.
+
+   [RFC3040]  Cooper, I., Melve, I., and G. Tomlinson, "Internet Web
+              Replication and Caching Taxonomy", RFC 3040,
+              DOI 10.17487/RFC3040, January 2001,
+              <https://www.rfc-editor.org/info/rfc3040>.
+
+   [RFC3864]  Klyne, G., Nottingham, M., and J. Mogul, "Registration
+              Procedures for Message Header Fields", BCP 90, RFC 3864,
+              DOI 10.17487/RFC3864, September 2004,
+              <https://www.rfc-editor.org/info/rfc3864>.
+
+   [RFC3875]  Robinson, D. and K. Coar, "The Common Gateway Interface
+              (CGI) Version 1.1", RFC 3875, DOI 10.17487/RFC3875,
+              October 2004, <https://www.rfc-editor.org/info/rfc3875>.
+
+   [RFC4033]  Arends, R., Austein, R., Larson, M., Massey, D., and S.
+              Rose, "DNS Security Introduction and Requirements",
+              RFC 4033, DOI 10.17487/RFC4033, March 2005,
+              <https://www.rfc-editor.org/info/rfc4033>.
+
+   [RFC4559]  Jaganathan, K., Zhu, L., and J. Brezak, "SPNEGO-based
+              Kerberos and NTLM HTTP Authentication in Microsoft
+              Windows", RFC 4559, DOI 10.17487/RFC4559, June 2006,
+              <https://www.rfc-editor.org/info/rfc4559>.
+
+   [RFC5789]  Dusseault, L. and J. Snell, "PATCH Method for HTTP",
+              RFC 5789, DOI 10.17487/RFC5789, March 2010,
+              <https://www.rfc-editor.org/info/rfc5789>.
+
+   [RFC5905]  Mills, D., Martin, J., Ed., Burbank, J., and W. Kasch,
+              "Network Time Protocol Version 4: Protocol and Algorithms
+              Specification", RFC 5905, DOI 10.17487/RFC5905, June 2010,
+              <https://www.rfc-editor.org/info/rfc5905>.
+
+   [RFC6454]  Barth, A., "The Web Origin Concept", RFC 6454,
+              DOI 10.17487/RFC6454, December 2011,
+              <https://www.rfc-editor.org/info/rfc6454>.
+
+   [RFC6585]  Nottingham, M. and R. Fielding, "Additional HTTP Status
+              Codes", RFC 6585, DOI 10.17487/RFC6585, April 2012,
+              <https://www.rfc-editor.org/info/rfc6585>.
+
+   [RFC7230]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
+              Protocol (HTTP/1.1): Message Syntax and Routing",
+              RFC 7230, DOI 10.17487/RFC7230, June 2014,
+              <https://www.rfc-editor.org/info/rfc7230>.
+
+   [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
+              Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
+              DOI 10.17487/RFC7231, June 2014,
+              <https://www.rfc-editor.org/info/rfc7231>.
+
+   [RFC7232]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
+              Protocol (HTTP/1.1): Conditional Requests", RFC 7232,
+              DOI 10.17487/RFC7232, June 2014,
+              <https://www.rfc-editor.org/info/rfc7232>.
+
+   [RFC7233]  Fielding, R., Ed., Lafon, Y., Ed., and J. Reschke, Ed.,
+              "Hypertext Transfer Protocol (HTTP/1.1): Range Requests",
+              RFC 7233, DOI 10.17487/RFC7233, June 2014,
+              <https://www.rfc-editor.org/info/rfc7233>.
+
+   [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
+              Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
+              RFC 7234, DOI 10.17487/RFC7234, June 2014,
+              <https://www.rfc-editor.org/info/rfc7234>.
+
+   [RFC7235]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
+              Protocol (HTTP/1.1): Authentication", RFC 7235,
+              DOI 10.17487/RFC7235, June 2014,
+              <https://www.rfc-editor.org/info/rfc7235>.
+
+   [RFC7538]  Reschke, J., "The Hypertext Transfer Protocol Status Code
+              308 (Permanent Redirect)", RFC 7538, DOI 10.17487/RFC7538,
+              April 2015, <https://www.rfc-editor.org/info/rfc7538>.
+
+   [RFC7540]  Belshe, M., Peon, R., and M. Thomson, Ed., "Hypertext
+              Transfer Protocol Version 2 (HTTP/2)", RFC 7540,
+              DOI 10.17487/RFC7540, May 2015,
+              <https://www.rfc-editor.org/info/rfc7540>.
+
+   [RFC7578]  Masinter, L., "Returning Values from Forms: multipart/
+              form-data", RFC 7578, DOI 10.17487/RFC7578, July 2015,
+              <https://www.rfc-editor.org/info/rfc7578>.
+
+   [RFC7615]  Reschke, J., "HTTP Authentication-Info and Proxy-
+              Authentication-Info Response Header Fields", RFC 7615,
+              DOI 10.17487/RFC7615, September 2015,
+              <https://www.rfc-editor.org/info/rfc7615>.
+
+   [RFC7616]  Shekh-Yusef, R., Ed., Ahrens, D., and S. Bremer, "HTTP
+              Digest Access Authentication", RFC 7616,
+              DOI 10.17487/RFC7616, September 2015,
+              <https://www.rfc-editor.org/info/rfc7616>.
+
+   [RFC7617]  Reschke, J., "The 'Basic' HTTP Authentication Scheme",
+              RFC 7617, DOI 10.17487/RFC7617, September 2015,
+              <https://www.rfc-editor.org/info/rfc7617>.
+
+   [RFC7694]  Reschke, J., "Hypertext Transfer Protocol (HTTP) Client-
+              Initiated Content-Encoding", RFC 7694,
+              DOI 10.17487/RFC7694, November 2015,
+              <https://www.rfc-editor.org/info/rfc7694>.
+
+   [RFC8126]  Cotton, M., Leiba, B., and T. Narten, "Guidelines for
+              Writing an IANA Considerations Section in RFCs", BCP 26,
+              RFC 8126, DOI 10.17487/RFC8126, June 2017,
+              <https://www.rfc-editor.org/info/rfc8126>.
+
+   [RFC8187]  Reschke, J., "Indicating Character Encoding and Language
+              for HTTP Header Field Parameters", RFC 8187,
+              DOI 10.17487/RFC8187, September 2017,
+              <https://www.rfc-editor.org/info/rfc8187>.
+
+   [RFC8246]  McManus, P., "HTTP Immutable Responses", RFC 8246,
+              DOI 10.17487/RFC8246, September 2017,
+              <https://www.rfc-editor.org/info/rfc8246>.
+
+   [RFC8288]  Nottingham, M., "Web Linking", RFC 8288,
+              DOI 10.17487/RFC8288, October 2017,
+              <https://www.rfc-editor.org/info/rfc8288>.
+
+   [RFC8336]  Nottingham, M. and E. Nygren, "The ORIGIN HTTP/2 Frame",
+              RFC 8336, DOI 10.17487/RFC8336, March 2018,
+              <https://www.rfc-editor.org/info/rfc8336>.
+
+   [RFC8615]  Nottingham, M., "Well-Known Uniform Resource Identifiers
+              (URIs)", RFC 8615, DOI 10.17487/RFC8615, May 2019,
+              <https://www.rfc-editor.org/info/rfc8615>.
+
+   [RFC8941]  Nottingham, M. and P-H. Kamp, "Structured Field Values for
+              HTTP", RFC 8941, DOI 10.17487/RFC8941, February 2021,
+              <https://www.rfc-editor.org/info/rfc8941>.
+
+   [Sniffing] WHATWG, "MIME Sniffing",
+              <https://mimesniff.spec.whatwg.org>.
+
+   [WEBDAV]   Dusseault, L., Ed., "HTTP Extensions for Web Distributed
+              Authoring and Versioning (WebDAV)", RFC 4918,
+              DOI 10.17487/RFC4918, June 2007,
+              <https://www.rfc-editor.org/info/rfc4918>.
+
+Appendix A.  Collected ABNF
+
+   In the collected ABNF below, list rules are expanded per
+   Section 5.6.1.
+
+   Accept = [ ( media-range [ weight ] ) *( OWS "," OWS ( media-range [
+    weight ] ) ) ]
+   Accept-Charset = [ ( ( token / "*" ) [ weight ] ) *( OWS "," OWS ( (
+    token / "*" ) [ weight ] ) ) ]
+   Accept-Encoding = [ ( codings [ weight ] ) *( OWS "," OWS ( codings [
+    weight ] ) ) ]
+   Accept-Language = [ ( language-range [ weight ] ) *( OWS "," OWS (
+    language-range [ weight ] ) ) ]
+   Accept-Ranges = acceptable-ranges
+   Allow = [ method *( OWS "," OWS method ) ]
+   Authentication-Info = [ auth-param *( OWS "," OWS auth-param ) ]
+   Authorization = credentials
+
+   BWS = OWS
+
+   Connection = [ connection-option *( OWS "," OWS connection-option )
+    ]
+   Content-Encoding = [ content-coding *( OWS "," OWS content-coding )
+    ]
+   Content-Language = [ language-tag *( OWS "," OWS language-tag ) ]
+   Content-Length = 1*DIGIT
+   Content-Location = absolute-URI / partial-URI
+   Content-Range = range-unit SP ( range-resp / unsatisfied-range )
+   Content-Type = media-type
+
+   Date = HTTP-date
+
+   ETag = entity-tag
+   Expect = [ expectation *( OWS "," OWS expectation ) ]
+
+   From = mailbox
+
+   GMT = %x47.4D.54 ; GMT
+
+   HTTP-date = IMF-fixdate / obs-date
+   Host = uri-host [ ":" port ]
+
+   IMF-fixdate = day-name "," SP date1 SP time-of-day SP GMT
+   If-Match = "*" / [ entity-tag *( OWS "," OWS entity-tag ) ]
+   If-Modified-Since = HTTP-date
+   If-None-Match = "*" / [ entity-tag *( OWS "," OWS entity-tag ) ]
+   If-Range = entity-tag / HTTP-date
+   If-Unmodified-Since = HTTP-date
+
+   Last-Modified = HTTP-date
+   Location = URI-reference
+
+   Max-Forwards = 1*DIGIT
+
+   OWS = *( SP / HTAB )
+
+   Proxy-Authenticate = [ challenge *( OWS "," OWS challenge ) ]
+   Proxy-Authentication-Info = [ auth-param *( OWS "," OWS auth-param )
+    ]
+   Proxy-Authorization = credentials
+--- END OF SECTION ---

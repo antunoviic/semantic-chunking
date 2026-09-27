@@ -1,0 +1,86 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 8 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 8/40 ---
+This monarch, son of Sargon I, was a great architecht as well as a famous conqueror. Discovered in 1898 among the ruins of Susa, Persia
+
+About 2750 B.C. a great Semitic leader, Sargon, had conquered the whole Sumerian land and was master of all the world from the Persian Gulf to the Mediterranean Sea. He was an illiterate barbarian and his people, the Akkadians, learnt the Sumerian writing and adopted the Sumerian language as the speech of the officials and the learned. The empire he founded decayed after two centuries, and after one inundation of Elamites a fresh Semitic people, the Amorites, by degrees established their rule over Sumeria. They made their capital in what had hitherto been a small up-river town, Babylon, and their empire is called the first Babylonian Empire. It was consolidated by a great king called Hammurabi (circa 2100 B.C.) who made the earliest code of laws yet known to history.
+
+The narrow valley of the Nile lies less open to nomadic invasion than Mesopotamia, but about the time of Hammurabi occurred a successful Semitic invasion of Egypt and a line of Pharaohs was set up, the Hyksos or “shepherd kings,” which lasted for several centuries. These Semitic conquerors never assimilated themselves with the Egyptians; they were always regarded with hostility as foreigners and barbarians; and they were at last expelled by a popular uprising about 1600 B.C.
+
+But the Semites had come into Sumeria for good and all, the two races assimilated and the Babylonian Empire became Semitic in its language and character.
+
+XVII THE FIRST SEAGOING PEOPLES
+
+The earliest boats and ships must have come into use some twenty-five or thirty thousand years ago. Man was probably paddling about on the water with a log of wood or an inflated skin to assist him, at latest with skin and caulked was used in Egypt and Sumeria from the beginnings of our knowledge. Such boats are still used there. They are used to this day in Ireland and Wales and in Alaska; sealskin boats still make the crossing of Behring Straits. The hollow log followed as tools improved. The building of boats and then ships came in a natural succession.
+
+Perhaps the legend of Noah’s Ark preserves the memory of some early exploit in shipbuilding, just as the story of the Flood, so widely distributed among the peoples of the world, may be the tradition of the flooding of the Mediterranean basin.
+
+There were ships upon the Red Sea long before the pyramids were built, and there were ships on the Mediterranean and Persian Gulf by 7000 B.C. Mostly these were the ships of fishermen, but some were already trading and pirate ships—for knowing what we do of mankind we may guess pretty safely that the first sailors plundered where they could and traded where they had to do so.
+
+The seas on which these first ships adventured were inland seas on which the wind blew fitfully and which were often at a dead calm for days together, so that sailing did not develop beyond an accessory use. It is only in the last four hundred years that the well-rigged, ocean-going, sailing ship has developed. The ships of the ancient world were essentially rowing ships which hugged the shore and went into harbour at the first sign of rough weather. As ships grew into big galleys they caused a demand for war captives as galley slaves.
+
+We have already noted the appearance of the Semitic people as wanderers and nomads in the region of Syria and Arabia, and how they conquered Sumeria and set up first the Akkadian and then the first Babylonian Empire. In the west these same Semitic peoples were taking to the sea. They set up a string of harbour towns along the Eastern coast of the Mediterranean, of which Tyre and Sidon were the chief; and by the time of Hammurabi in Babylon, they had spread as traders, wanderers and colonizers over the whole Mediterranean basin. These sea Semites were called the Phœnicians, They settled largely in Spain, pushing back the old Iberian Basque population and sending coasting expeditions through the straits of Gibraltar; and they set up colonies upon the north coast of Africa. Of Carthage, one of these Phœnician cities, we shall have much more to tell later.
+
+But the Phœnicians were not the first people to have galleys in the Mediterranean waters. There was already a series of towns and cities among the islands and coasts of that sea belonging to a race or races apparently connected by blood and language with the Basques to the west and the Berbers and Egyptians to the south, the Ægean peoples. These peoples must not be confused with the Greeks, who come much later into our story; they were pre-Greek, but they had cities in Greece and Asia Minor; Mycenæ and Troy for example, and they had a great and prosperous establishment at Cnossos in Crete.
+
+It is only in the last half century that the industry of excavating archæologists has brought the extent and civilization of the Ægean peoples to our knowledge. Cnossos has been most thoroughly explored; it was happily not succeeded by any city big enough to destroy its ruins, and so it is our chief source of information about this once almost forgotten civilization.
+
+The history of Cnossos goes back as far as the history of Egypt; the two countries were trading actively across the sea by 4000 B.C. By 2500 B.C., that is between the time of Sargon I and Hammurabi, Cretan civilization was at its zenith.
+
+Cnossos was not so much a town as a great palace for the Cretan monarch and his people. It was not even fortified. It was only fortified later as the Phœnicians grew strong, and as a new and more terrible breed of pirates, the Greeks, came upon the sea from the north.
+
+The monarch was called Minos, as the Egyptian monarch was called Pharaoh; and he kept his state in a palace fitted with running water, with bathrooms and the like conveniences such as we know of in no other ancient remains. There he held great festivals and shows. There was bull-fighting, singularly like the bull-fighting that still survives in Spain; there was resemblance even in the costumes of the bull-fighters; and there were gymnastic displays. The women’s clothes were remarkably modern in spirit; they wore corsets and flounced dresses. The pottery, the textile manufactures, the sculpture, painting, jewellery, ivory, metal and inlay work of these Cretans was often astonishingly beautiful. And they had a system of writing, but that still remains to be deciphered.
+
+This happy and sunny and civilized life lasted for some score of centuries. About 2000 B.C. Cnossos and Babylon abounded in comfortable and cultivated people who probably led very pleasant lives. They had shows and they had religious festivals, they had domestic slaves to look after them and industrial slaves to make a profit for them. Life must have seemed very secure in Cnossos for such people, sunlit and girdled by the blue sea. Egypt of course must have appeared rather a declining country in those days under the rule of her half-barbaric shepherd kings, and if one took an interest in politics one must have noticed how the Semitic people seemed to be getting everywhere, ruling Egypt, ruling distant Babylon, building Nineveh on the upper Tigris, sailing west to the Pillars of Hercules (the straits of Gibraltar) and setting up their colonies on those distant coasts.
+
+There were some active arid curious minds in Cnossos, because later on the Greeks told legends of a certain skilful Cretan artificer, Dædalus, who attempted to make some sort of flying machine, perhaps a glider, which collapsed and fell into the sea.
+
+It is interesting to note some of the differences as well as the resemblances between the life of Cnossos and our own. To a Cretan gentleman of 2500 B.C. iron was a rare metal which fell out of the sky and was curious rather than useful—for as yet only meteoric iron was known, iron had not been obtained from its ores. Compare that with our modern state of affairs pervaded by iron everywhere. The horse again would be a quite legendary creature to our Cretan, a sort of super-ass which lived in the bleak northern lands far away beyond the Black Sea. Civilization for him dwelt chiefly in Ægean Greece and Asia Minor, where Lydians and Carians and Trojans lived a life and probably spoke languages like his own. There were Phœnicians and Ægeans settled in Spain and North Africa, but those were very remote regions to his imagination. Italy was still a desolate land covered with dense forests; the brown-skinned Etruscans had not yet gone there from Asia Minor. And one day perhaps this Cretan gentleman went down to the harbour and saw a captive who attracted his attention because he was very fair-complexioned and had blue eyes. Perhaps our Cretan tried to talk to him and was answered in an unintelligible gibberish. This creature came from somewhere beyond the Black Sea and seemed to be an altogether benighted savage. But indeed he was an Aryan tribesman, of a race and culture of which we shall soon have much to tell, and the strange gibberish he spoke was to differentiate some day into Sanskrit, Persian, Greek, Latin, German, English and most of the chief languages of the world.
+
+The painted walls of the Throne Room
+
+Such was Cnossos at its zenith, intelligent, enterprising, bright and happy. But about 1400 B.C. disaster came perhaps very suddenly upon its prosperity. The palace of Minos was destroyed, and its ruins have never been rebuilt or inhabited from that day to this. We do not know how this disaster occurred. The excavators note what appears to be scattered plunder and the marks of the fire. But the traces of a very destructive earthquake have also been found. Nature alone may have destroyed Cnossos, or the Greeks may have finished what the earthquake began.
+
+XVIII EGYPT, BABYLON AND ASSYRIA
+
+The Egyptians had never submitted very willingly to the rule of their Semitic shepherd kings and about 1600 A.D. a vigorous patriotic movement expelled these foreigners. Followed a new phase or revival for Egypt, a period known to Egyptologists as the New Empire. Egypt, which had not been closely consolidated before the Hyksos invasion, was now a united country; and the phase of subjugation and insurrection left her full of military spirit. The Pharaohs became aggressive conquerors. They had now acquired the war horse and the war chariot, which the Hyksos had brought to them. Under Thothmes III and Amenophis III Egypt had extended her rule into Asia as far as the Euphrates.
+
+We are entering now upon a thousand years of warfare between the once quite separated civilizations of Mesopotamia and the Nile. At first Egypt was ascendant. The great dynasties, the Seventeenth Dynasty, which included Thothmes III and Amenophis III and IV and a great queen Hatasu, and the Nineteenth, when Rameses II, supposed by some to have been the Pharaoh of Moses, reigned for sixty-seven years, raised Egypt to high levels of prosperity. In between there were phases of depression for Egypt, conquest by the Syrians and later conquest by the Ethiopians from the South. In Mesopotamia Babylon ruled, then the Hittites and the Syrians of Damascus rose to a transitory predominance; at one time the Syrians conquered Egypt; the fortunes of the Assyrians of Nineveh ebbed and flowed; sometimes the city was a conquered city; sometimes the Assyrians ruled in Babylon and assailed Egypt. Our space is too limited here to tell of the comings and goings of the armies of the Egyptians and of the various Semitic powers of Asia Minor, Syria and Mesopotamia. They were armies now provided with vast droves of war chariots, for the horse—still used only for war and glory—had spread by this time into the old civilizations from Central Asia.
+
+Showing the statues of Rameses II at entrance
+
+Great conquerors appear in the dim light of that distant time and pass, Tushratta, King of Mitanni, who captured Nineveh, Tiglath Pileser I of Assyria who conquered Babylon. At last the Assyrians became the greatest military power of the time. Tiglath Pileser III conquered Babylon in 745 B.C. and founded what historians call the New Assyrian Empire. Iron had also come now into civilization out of the north; the Hittites, the precursors of the Armenians, had it first and communicated its use to the Assyrians, and an Assyrian usurper, Sargon II, armed his troops with it. Assyria became the first power to expound the doctrine of blood and iron. Sargon’s son Sennacherib led an army to the borders of Egypt, and was defeated not by military strength but by the plague. Sennacherib’s grandson Assurbanipal (who is also known in history by his Greek name of Sardanapalus) did actually conquer Egypt in 670 B.C. But Egypt was already a conquered country then under an Ethiopian dynasty. Sardanapalus simply replaced one conqueror by another.
+
+Leading from the Nile to the great Temple of Karnak
+
+If one had a series of political maps of this long period of history, this interval of ten centuries, we should have Egypt expanding and contracting like an amœba under a microscope, and we should see these various Semitic states of the Babylonians, the Assyrians, the Hittites and the Syrians coming and going, eating each other up and disgorging each other again. To the west of Asia Minor there would be little Ægean states like Lydia, whose capital was Sardis, and Caria. But after about 1200 B.C. and perhaps earlier, a new set of names would come into the map of the ancient world from the north-east and from the north- west. These would be the names of certain barbaric tribes, armed with iron weapons and using horse-chariots, who were becoming a great affliction to the Ægean and Semitic civilizations on the northern borders. They all spoke variants of what once must have been the same language, Aryan.
+
+Round the north-east of the Black and Caspian Seas were coming the Medes and Persians. Confused with these in the records of the time were Scythians and Samatians. From north-east or north-west came the Armenians, from the north- west of the sea-barrier through the Balkan peninsula came Cimmerians, Phrygians and the Hellenic tribes whom now we call the Greeks. They were raiders and robbers and plunderers of cities, these Ayrans, east and west alike. They were all kindred and similar peoples, hardy herdsmen who had taken to plunder. In the east they were still only borderers and raiders, but in the west they were taking cities and driving out the civilized Ægean populations. The Ægean peoples were so pressed that they were seeking new homes in lands beyond the Aryan range. Some were seeking a settlement in the delta of the Nile and being repulsed by the Egyptians; some, the Etruscans, seem to have sailed from Asia Minor to found a state in the forest wildernesses of middle Italy; some built themselves cities upon the south- east coasts of the Mediterranean and became later that people known in history as the Philistines.
+--- END OF SECTION ---

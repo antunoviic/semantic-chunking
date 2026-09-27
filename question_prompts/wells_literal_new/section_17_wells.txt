@@ -1,0 +1,82 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 17 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 17/40 ---
+With Marius began the third phase in the development of the Roman power, the Republic of the Military Commanders. For now began a period in which the leaders of the paid legions fought for the mastery of the Roman world. Against Marius was pitted the aristocratic Sulla who had served under him in Africa. Each in turn made a great massacre of his political opponents. Men were proscribed and executed by the thousand, and their estates were sold. After the bloody rivalry of these two and the horror of the revolt of Spartacus, came a phase in which Lucullus and Pompey the Great and Crassus and Julius Cæsar were the masters of armies and dominated affairs. It was Crassus who defeated Spartacus. Lucullus conquered Asia Minor and penetrated to Armenia, and retired with great wealth into private life. Crassus thrusting further invaded Persia and was defeated and slain by the Parthians. After a long rivalry Pompey was defeated by Julius Cæsar (48 B.C.) and murdered in Egypt, leaving Julius Cæsar sole master of the Roman world.
+
+The figure of Julius Cæsar is one that has stirred the human imagination out of all proportion to its merit or true importance. He has become a legend and a symbol. For us he is chiefly important as marking the transition from the phase of military adventurers to the beginning of the fourth stage in Roman expansion, the Early Empire. For in spite of the profoundest economic and political convulsions, in spite of civil war and social degeneration, throughout all this time the boundaries of the Roman state crept outward and continued to creep outward to their maximum about 100 A.D. There had been something like an ebb during the doubtful phases of the Second Punic War, and again a manifest loss of vigour before the reconstruction of the army by Marius. The revolt of Spartacus marked a third phase. Julius Cæsar made his reputation as a military leader in Gaul, which is now France and Belgium. (The chief tribes inhabiting this country belonged to the same Celtic people as the Gauls who had occupied north Italy for a time, and who had afterwards raided into Asia Minor and settled down as the Galatians.) Cæsar drove back a German invasion of Gaul and added all that country to the empire, and he twice crossed the Straits of Dover into Britain (55 and 54 B.C.), where however he made no permanent conquest. Meanwhile Pompey the Great was consolidating Roman conquests that reached in the east to the Caspian Sea.
+
+Representing his conquests at Dacia and elsewhere
+
+At this time, the middle of the first century B.C., the Roman Senate was still the nominal centre of the Roman government, appointing consuls and other officials, granting powers and the like; and a number of politicians, among whom Cicero was an outstanding figure, were struggling to preserve the great traditions of republican Rome and to maintain respect for its laws. But the spirit of citizenship had gone of slaves and impoverished men with neither the understanding nor the desire for freedom. There was nothing whatever behind these republican leaders in the Senate, while behind the great adventurers they feared and desired to control were the legions. Over the heads of the Senate Crassus and Pompey and Cæsar divided the rule of the Empire between them (The First Triumvirate). When presently Crassus was killed at distant Carrhæ by the Parthians, Pompey and Cæsar fell out. Pompey took up the republican side, and laws were passed to bring Cæsar to trial for his breaches of law and his disobedience to the decrees of the Senate.
+
+It was illegal for a general to bring his troops out of the boundary of his command, and the boundary between Cæsar’s command and Italy was the Rubicon. In 49 B.C. he crossed the Rubicon, saying “The die is cast” and marched upon Pompey and Rome.
+
+It had been the custom in Rome in the past, in periods of military extremity, to elect a “dictator” with practically unlimited powers to rule through the crisis. After his overthrow of Pompey, Cæsar was made dictator first for ten years and then (in 45 B.C.) for life. In effect he was made monarch of the empire for life. There was talk of a king, a word abhorrent to Rome since the expulsion of the Etruscans five centuries before. Cæsar refused to be king, but adopted throne and sceptre. After his defeat of Pompey, Cæsar had gone on into Egypt and had made love to Cleopatra, the last of the Ptolemies, the goddess queen of Egypt. She seems to have turned his head very completely. He had brought back to Rome the Egyptian idea of a god-king. His statue was set up in a temple with an inscription “To the Unconquerable God.” The expiring republicanism of Rome flared up in a last protest, and Cæsar was stabbed to death in the Senate at the foot of the statue of his murdered rival, Pompey the Great.
+
+Thirteen years more of this conflict of ambitious personalities followed. There was a second Triumvirate of Lepidus, Mark Antony and Octavian Cæsar, the latter the nephew of Julius Cæsar. Octavian like his uncle took the poorer, hardier western provinces where the best legions were recruited. In 31 B.C., he defeated Mark Antony, his only serious rival, at the naval battle of Actium, and made himself sole master of the Roman world. But Octavian was a man of different quality altogether from Julius Cæsar. He had no foolish craving to be God or King. He had no queen-lover that he wished to dazzle. He restored freedom to the Senate and people of Rome. He declined to be dictator. The grateful Senate in return gave him the reality instead of the forms of power. He was to be called not King indeed, but “Princeps” and “Augustus.” He became Augustus Cæsar, the first of the Roman emperors (27 B.C. to 14 A.D.).
+
+He was followed by Tiberius Cæsar (14 to 37 A.D.) and he by others, Caligula, Claudius, Nero and so on up to Trajan (98 A.D.), Hadrian (117 A.D.), Antonius Pius (138 A.D.) and Marcus Aurelius (161- 180 A.D.). All these emperors were emperors of the legions. The soldiers made them, and some the soldiers destroyed. Gradually the Senate fades out of Roman-history, and the emperor and his administrative officials replace it. The boundaries of the empire crept forward now to their utmost limits. Most of Britain was added to the empire, Transylvania was brought in as a new province, Dacia; Trajan crossed the Euphrates. Hadrian had an idea that reminds us at once of what had happened at the other end of the old world. Like Shi-Hwang-ti he built walls against the northern barbarians; one across Britain and a palisade between the Rhine and the Danube. He abandoned some of the acquisitions of Trajan.
+
+The expansion of the Roman Empire was at an end.
+
+XXXIV BETWEEN ROME AND CHINA
+
+The second and first centuries B.C. mark a new phase in the history of mankind. Mesopotamia and the eastern Mediterranean are no longer the centre of interest. Both Mesopotamia and Egypt were still fertile, populous and fairly prosperous, but they were no longer the dominant regions of the world. Power had drifted to the west and to the east. Two great empires now dominated the world, this new Roman Empire and the renascent Empire of China. Rome extended its power to the Euphrates, but it was never able to get beyond that boundary. It was too remote. Beyond the Euphrates the former Persian and Indian dominions of the Seleucids fell under a number of new masters. China, now under the Han dynasty, which had replaced the Ts’in dynasty at the death of Shi-Hwang-ti, had extended its power across Tibet and over the high mountain passes of the Pamirs into western Turkestan. But there, too, it reached its extremes. Beyond was too far.
+
+China at this time was the greatest, best organized and most civilized political system in the world. It was superior in area and population to the Roman Empire at its zenith. It was possible then for these two vast systems to flourish in the same world at the same time in almost complete ignorance of each other. The means of communication both by sea and land was not yet sufficiently developed and organized for them to come to a direct clash.
+
+Yet they reacted upon each other in a very remarkable way, and their influence upon the fate of the regions that lay between them, upon central Asia and India, was profound. A certain amount of trade trickled through, by camel caravans across Persia, for example, and by coasting ships by way of India and the Red Sea. In 66 B.C. Roman troops under Pompey followed in the footsteps of Alexander the Great, and marched up the eastern shores of the Caspian Sea. In 102 A.D. a Chinese expeditionary force under Pan Chau reached the Caspian, and sent emissaries to report upon the power of Rome. But many centuries were still to pass before definite knowledge and direct intercourse were to link the great parallel worlds of Europe and Eastern Asia.
+
+To the north of both these great empires were barbaric wildernesses. What is now Germany was largely forest lands; the forests extended far into Russia and made a home for the gigantic aurochs, a bull of almost elephantine size. Then to the north of the great mountain masses of Asia stretched a band of deserts, steppes and then forests and frozen lands. In the eastward lap of the elevated part of Asia was the great triangle of Manchuria. Large parts of these regions, stretching between South Russia and Turkestan into Manchuria, were and are regions of exceptional climatic insecurity. Their rainfall has varied greatly For years they will carry pasture and sustain cultivation, and then will come an age of decline in humidity and a cycle of killing droughts.
+
+Han Dynasty (contemporary with the late Roman republic and early Empire)
+
+_(In the Victoria and Albert Museum)_
+
+The western part of this barbaric north from the German forests to South Russia and Turkestan and from Gothland to the Alps was the region of origin of the Nordic peoples and of the Aryan speech. The eastern steppes and deserts of Mongolia was the region of origin of the Hunnish or Mongolian or Tartar or Turkish peoples—for all these several peoples were akin in language, race, and way of life. And as the Nordic peoples seem to have been continually overflowing their own borders and pressing south upon the developing civilizations of Mesopotamia and the Mediterranean coast, so the Hunnish tribes sent their surplus as wanderers, raiders and conquerors into the settled regions of China. Periods of plenty in the north would mean an increase in population there; a shortage of grass, a spell of cattle disease, would drive the hungry warlike tribesmen south.
+
+For a time there were simultaneously two fairly effective Empires in the world capable of holding back the barbarians and even forcing forward the frontiers of the imperial peace. The thrust of the Han empire from north China into Mongolia was strong and continuous. The Chinese population welled up over the barrier of the Great Wall. Behind the imperial frontier guards came the Chinese farmer with horse and plough, ploughing up the grass lands and enclosing the winter pasture. The Hunnish peoples raided and murdered the settlers, but the Chinese punitive expeditions were too much for them. The nomads were faced with the choice of settling down to the plough and becoming Chinese tax-payers or shifting in search of fresh summer pastures. Some took the former course and were absorbed. Some drifted north-eastward and eastward over the mountain passes down into western Turkestan.
+
+Han Dynasty (B.C. 206 - A.D. 220)
+
+_(In the Victoria and Albert Museum)_
+
+This westward drive of the Mongolian horsemen was going on from 200 B.C. onward. It was producing a westward pressure upon the Aryan tribes, and these again were pressing upon the Roman frontiers ready to break through directly there was any weakness apparent. The Parthians, who were apparently a Scythian people with some Mongolian admixture, came down to the Euphrates by the first century B.C. They fought against Pompey the Great in his eastern raid. They defeated and killed Crassus. They replaced the Seleucid monarchy in Persia by a dynasty of Parthian kings, the Arsacid dynasty.
+
+Dating from before the time of Shi-Hwang-ti. Such a piece of work indicates a high level of comfort and humour
+
+_(In the Victoria and Albert Museum)_
+
+But for a time the line of least resistance for hungry nomads lay neither to the west nor the east but through central Asia and then south-eastward through the Khyber Pass into India. It was India which received the Mongolian drive in these centuries of Roman and Chinese strength. A series of raiding conquerors poured down through the Punjab into the great plains to loot and destroy. The empire of Asoka was broken up, and for a time the history of India passes into darkness. A certain Kushan dynasty founded by the “Indo- Scythians”—one of the raiding peoples—ruled for a time over North India and maintained a certain order. These invasions went on for several centuries. For a large part of the fifth century A.D. India was afflicted by the Ephthalites or White Huns, who levied tribute on the small Indian princes and held India in terror. Every summer these Ephthalites pastured in western Turkestan, every autumn they came down through the passes to terrorize India.
+
+Chinese empires that probably weakened the resistance of both to barbarian pressure. This was a pestilence of unexampled virulence. It raged for eleven years in China and disorganized the social framework profoundly. The Han dynasty fell, and a new age of division and confusion began from which China did not fairly recover until the seventh century A.D. with the coming of the great Tang dynasty.
+
+The infection spread through Asia to Europe. It raged throughout the Roman Empire from 164 to 180 A.D. It evidently weakened the Roman imperial fabric very seriously. We begin to hear of depopulation in the Roman provinces after this, and there was a marked deterioration in the vigour and efficiency of government. At any rate we presently find the frontier no longer invulnerable, but giving way first in this place and then in that. A new Nordic people, the Goths, coming originally and the shores of the Black Sea and taken to the sea and piracy. By the end of the second century they may have begun to feel the westward thrust of the Huns. In 247 they crossed the Danube in a great land raid, and defeated and killed the Emperor Decius in a battle in what is now Serbia. In 236 another Germanic people, the Franks, had broken bounds upon the lower Rhine, and the Alemanni had poured into Alsace. The legions in Gaul beat back their invaders, but the Goths in the Balkan peninsula raided again and again. The province of Dacia vanished
+--- END OF SECTION ---

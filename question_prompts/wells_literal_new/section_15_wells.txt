@@ -1,0 +1,84 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 15 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 15/40 ---
+As it crosses the mountains in Manchuria
+
+The teaching of Lao Tse, who was for a long time in charge of the imperial library of the Chow dynasty, was much more mystical and vague and elusive than that of Confucius. He seems to have preached a stoical indifference to the pleasures and powers of the world and a return to an imaginary simple life of the past. He left writings very contracted in style and very obscure. He wrote in riddles. After his death his teachings, like the teachings of Gautama Buddha, were corrupted and overlaid by legends and had the most complex and extraordinary observances and superstitious ideas grafted upon them. In China just as in India primordial ideas of magic and monstrous legends out of the childish past of our race struggled against the new thinking in the world and succeeded in plastering it over with grotesque, irrational and antiquated observances. Both Buddhism and Taoism (which ascribes itself largely to Lao Tse) as one finds them in China now, are religions of monk, temple, priest and offering of a type as ancient in form, if not in thought, as the sacrificial religions of ancient Sumeria and Egypt. But the teaching of Confucius was not so overlaid because it was limited and plain and straightforward and lent itself to no such distortions.
+
+Inscribed in archaic characters: “made for use by the elder of Hing village in Ting district;” latter half of the Chou Dynasty, Sixth Century B.C.
+
+_(In the Victoria and Albert Museum)_
+
+North China, the China of the Hwang-ho River, became Confucian in thought and spirit; south China, Yang-tse-Kiang China, became Taoist. Since those days a conflict has always been traceable in Chinese affairs between these two spirits, the spirit of the north and the spirit of the south, between (in latter times) Pekin and Nankin, between the official- minded, upright and conservative north, and the sceptical, artistic, lax and experimental south.
+
+The divisions of China of the Age of Confusion reached their worst stage in the sixth century B.C. The Chow dynasty was so enfeebled and so discredited that Lao Tse left the unhappy court and retired into private life.
+
+Three nominally subordinate powers dominated the situation in those days, Ts’i and Ts’in, both northern powers, and Ch’u, which was an aggressive military power in the Yangtse valley. At last Ts’i and Ts’in formed an alliance, subdued Ch’u and imposed a general treaty of disarmament and peace in China. The power of Ts’in became predominant. Finally about the time of Asoka in India the Ts’in monarch seized upon the sacrificial vessels of the Chow emperor and took over his sacrificial duties. His son, Shi-Hwang-ti (king in 246 B.C., emperor in 220 B.C.), is called in the Chinese Chronicles “the First Universal Emperor.”
+
+More fortunate than Alexander, Shi-Hwang-ti reigned for thirty-six years as king and emperor. His energetic reign marks the beginning of a new era of unity and prosperity for the Chinese people. He fought vigorously against the Hunnish invaders from the northern deserts, and he began that immense work, the Great Wall of China, to set a limit to their incursions.
+
+XXXI ROME COMES INTO HISTORY
+
+The reader will note a general similarity in the history of all these civilizations in spite of the effectual separation caused by the great barriers of the Indian north-west frontier and of the mountain masses of Central Asia and further India. First for thousands of years the heliolithic culture spread over all the warm and fertile river valleys of the old world and developed a temple system and priest rulers about its sacrificial traditions. Apparently its first makers were always those brunette peoples we have spoken of as the central race of mankind. Then the nomads came in from the regions of seasonal grass and seasonal migrations and superposed their own characteristics and often their own language on the primitive civilization. They subjugated and stimulated it, and were stimulated to fresh developments and made it here one thing and here another. In Mesopotamia it was the Elamite and then the Semite, and at last the Nordic Medes and Persians and the Greeks who supplied the ferment; over the region of the Ægean peoples it was the Greeks; in India it was the Aryan-speakers; in Egypt there was a thinner infusion of conquerors into a more intensely saturated priestly civilization; in China, the Hun conquered and was absorbed and was followed by fresh Huns. China was Mongolized just as Greece and North India were Aryanized and Mesopotamia Semitized and Aryanized. Everywhere the nomads destroyed much, but everywhere they brought in a new spirit of free enquiry and moral innovation. They questioned the beliefs of immemorial ages. They let daylight into the temples. They set up kings who were neither priests nor gods but mere leaders among their captains and companions.
+
+The statue in the National Museum, Rome, depicting a Gaul stabbing himself, after killing his wife, in the presence of his enemies
+
+great breaking down of ancient traditions and a new spirit of moral and intellectual enquiry awake, a spirit never more to be altogether stilled in the great progressive movement of mankind. We find reading and writing becoming common and accessible accomplishments among the ruling and prosperous minority; they were no longer the jealously guarded secret of the priests. Travel is increasing and transport growing easier by reason of horses and roads. A new and easy device to facilitate trade has been found in coined money.
+
+Let us now transfer our attention back from China in the extreme east of the old world to the western half of the Mediterranean. Here we have to note the appearance of a city which was destined to play at last a very great part indeed in human affairs, Rome.
+
+Hitherto we have told very little about Italy in our story. It was before 1000 B.C. a land of mountain and forest and thinly populated. Aryan-speaking tribes had pressed down this peninsula and formed little towns and cities, and the southern extremity was studded with Greek settlements. The noble ruins of Pæstum preserve for us to this day something of the dignity and splendour of these early Greek establishments. A non-Aryan people, probably akin to the Ægean peoples, the Etruscans, had established themselves in the central part of the peninsula. They had reversed the usual process by subjugating various Aryan tribes. Rome, when it comes into the light of history, is a little trading city at a ford on the Tiber, with a Latin-speaking population ruled over by Etruscan kings. The old chronologies gave 753 B.C. as the date of the founding of Rome, half a century later than the founding of the great Phœnician city of Carthage and twenty-three years after the first Olympiad. Etruscan tombs of a much earlier date than 753 B.C. have, however, been excavated in the Roman Forum.
+
+In that red-letter century, the sixth century B.C., the Etruscan kings were expelled (510 B.C.) and Rome became an aristocratic republic with a lordly class of “patrician” families dominating a commonalty of “plebeians.” Except that it spoke Latin it was not unlike many aristocratic Greek republics.
+
+For some centuries the internal history of Rome was the story of a long and obstinate struggle for freedom and a share in the government on the part of the plebeians. It would not be difficult to find Greek parallels to this conflict, which the Greeks would have called a conflict of aristocracy with democracy. In the end the plebeians broke down most of the exclusive barriers of the old families and established a working equality with them. They destroyed the old exclusiveness, and made it possible and acceptable for Rome to extend her citizenship by the inclusion of more and more “outsiders.” For while she still struggled at home, she was extending her power abroad.
+
+The extension of Roman power began in the fifth century B.C. Until that time they had waged war, and generally unsuccessful war, with the Etruscans. There was an Etruscan fort, Veii, only a few miles from Rome which the Romans had never been able to capture. In 474 B.C., however, a great misfortune came to the Etruscans. Their fleet was destroyed by the Greeks of Syracuse in Sicily. At the same time a wave of Nordic invaders came down upon them from the north, the Gauls. Caught between Roman and Gaul, the Etruscans fell—and disappear from history. Veii was captured by the Romans, The Gauls came through to Rome and sacked the city (390 B.C.A.D.) but could not capture the Capitol. An attempted night surprise was betrayed by the cackling of some geese, and finally the invaders were bought off and retired to the north of Italy again.
+
+The Gaulish raid seems to have invigorated rather than weakened Rome. The Romans conquered and assimilated the Etruscans, and extended their power over all central Italy from the Arno to Naples. To this they had reached within a few years of 300 B.C. Their conquests in Italy were going on simultaneously with the growth of Philip’s power in Macedonia and Greece, and the tremendous raid of Alexander to Egypt and the Indus. The Romans had become notable people in the civilized world to the east of them by the break-up of Alexander’s empire.
+
+To the north of the Roman power were the Gauls; to the south of them were the Greek settlements of Magna Græcia, that is to say of Sicily and of the toe and heel of Italy. The Gauls were a hardy, warlike people and the Romans held that boundary by a line of forts and fortified settlements. The Greek cities in the south headed by Tarentum (now Taranto) and by Syracuse in Sicily, did not so much threaten as fear the Romans. They looked about for some help against these new conquerors.
+
+We have already told how the empire of Alexander fell to pieces and was divided among his generals and companions. Among these adventurers was a kinsman of Alexander’s named Pyrrhus, who established himself in Epirus, which is across the Adriatic Sea over against the heel of Italy. It was his ambition to play the part of Philip of Macedonia to Magna Græcia, and to become protector and master-general of Tarentum, Syracuse and the rest of that part of the world. He had what was then it very efficient modern army; he had an infantry phalanx, cavalry from Thessaly—which was now quite as good as the original Macedonian cavalry—and twenty fighting elephants; he invaded Italy and routed the Romans in two considerable battles, Heraclea (280 B.C.) and Ausculum (279 B.C.), and having driven them north, he turned his attention to the subjugation of Sicily.
+
+But this brought against him a more formidable enemy than were the Romans at that time, the Phœnician trading city of Carthage, which was probably then the greatest city in the world. Sicily was too near Carthage for a new Alexander to be welcome there, and Carthage was mindful of the fate that had befallen her mother city Tyre half a century before. So she sent a fleet to encourage or compel Rome to continue the struggle, and she cut the overseas communications of Pyrrhus. Pyrrhus found himself freshly assailed by the Romans, and suffered a disastrous repulse in an attack he had made upon their camp at Beneventum between Naples and Rome.
+
+And suddenly came news that recalled him to Epirus. The Gauls were raiding south. But this time they were not raiding down into Italy; the Roman frontier, fortified and guarded, had become too formidable for them. They were raiding down through Illyria (which is now Serbia and Albania) to Macedonia and Epirus. Repulsed by the Romans, endangered at sea by the Carthaginians, and threatened at home by the Gauls, Pyrrhus abandoned his dream of conquest and went home (275 B.C.), and the power of Rome was extended to the Straits of Messina.
+
+On the Sicilian side of the Straits was the Greek city of Messina, and this presently fell into the hands of a gang of pirates. The Carthaginians, who were already practically overlords of Sicily and allies of Syracuse, suppressed these pirates (270 B.C.) and put in a Carthaginian garrison there. The pirates appealed to Rome and Rome listened to their complaint. And so across the Straits of Messina the great trading power of Carthage and this new conquering people, the Romans, found themselves in antagonism, face to face.
+
+XXXII ROME AND CARTHAGE
+
+It was in 264 B.C. that the great struggle between Rome and Carthage, the Punic Wars, began. In that year Asoka was beginning his reign in Behar and Shi- Hwang-ti was a little child, the Museum in Alexandria was still doing good scientific work, and the barbaric Gauls were now in Asia Minor and exacting a tribute from Pergamum. The different regions of the world were still separated by insurmountable distances, and probably the rest of mankind heard only vague and remote rumours of the mortal fight that went on for a century and a half in Spain, Italy, North Africa and the western Mediterranean, between the last stronghold of Semitic power and Rome, this newcomer among Aryan-speaking peoples.
+
+That war has left its traces upon issues that still stir the world. Rome triumphed over Carthage, but the rivalry of Aryan and Semite was to merge itself later on in the conflict of Gentile and Jew. Our history now is coming to events whose consequences and distorted traditions still maintain a lingering and expiring vitality in, and exercise a complicating and confusing influence upon, the conflicts and controversies of to-day.
+
+The First Punic War began in 264 B.C. about the pirates of Messina. It developed into a struggle for the possession of all Sicily except the dominions of the Greek king of Syracuse. The advantage of the sea was at first with the Carthaginians. They had great fighting ships of what was hitherto an unheard-of size, quinqueremes, galleys with five banks of oars and a huge ram. At the battle of Salamis, two centuries before, the leading battleships had only been triremes with three banks. But the Romans, with extraordinary energy and in spite of the fact that they had little naval experience, set themselves to outbuild the Carthaginians. They manned the new navy they created chiefly with Greek seamen, and they invented grappling and boarding to make up for the superior seamanship of the enemy. When the Carthaginian came up to ram or shear the oars of the Roman, huge grappling irons seized him and the Roman soldiers swarmed aboard him. At Mylæ (260 B.C.) and at Ecnomus (256 B.C.) the Carthaginians were disastrously beaten. They repulsed a Roman landing near Carthage but were badly beaten at Palermo, losing one hundred and four elephants there—to grace such a triumphal procession through the Forum as Rome had never seen before. But after that came two Roman defeats and then a Roman recovery. The last naval forces of Carthage were defeated by it last Roman effort at the battle of the Ægatian Isles (241 B.C.) and Carthage sued for peace. All Sicily except the dominions of Hiero, king of Syracu
+--- END OF SECTION ---

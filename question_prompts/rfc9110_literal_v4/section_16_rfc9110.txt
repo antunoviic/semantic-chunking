@@ -1,0 +1,277 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 16 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 16/45 ---
+   A sender MAY send the ETag field in a trailer section (see
+   Section 6.5).  However, since trailers are often ignored, it is
+   preferable to send ETag as a header field unless the entity tag is
+   generated while sending the content.
+
+8.8.3.1.  Generation
+
+   The principle behind entity tags is that only the service author
+   knows the implementation of a resource well enough to select the most
+   accurate and efficient validation mechanism for that resource, and
+   that any such mechanism can be mapped to a simple sequence of octets
+   for easy comparison.  Since the value is opaque, there is no need for
+   the client to be aware of how each entity tag is constructed.
+
+   For example, a resource that has implementation-specific versioning
+   applied to all changes might use an internal revision number, perhaps
+   combined with a variance identifier for content negotiation, to
+   accurately differentiate between representations.  Other
+   implementations might use a collision-resistant hash of
+   representation content, a combination of various file attributes, or
+   a modification timestamp that has sub-second resolution.
+
+   An origin server SHOULD send an ETag for any selected representation
+   for which detection of changes can be reasonably and consistently
+   determined, since the entity tag's use in conditional requests and
+   evaluating cache freshness ([CACHING]) can substantially reduce
+   unnecessary transfers and significantly improve service availability,
+   scalability, and reliability.
+
+8.8.3.2.  Comparison
+
+   There are two entity tag comparison functions, depending on whether
+   or not the comparison context allows the use of weak validators:
+
+   "Strong comparison":  two entity tags are equivalent if both are not
+      weak and their opaque-tags match character-by-character.
+
+   "Weak comparison":  two entity tags are equivalent if their opaque-
+      tags match character-by-character, regardless of either or both
+      being tagged as "weak".
+
+   The example below shows the results for a set of entity tag pairs and
+   both the weak and strong comparison function results:
+
+   +========+========+===================+=================+
+   | ETag 1 | ETag 2 | Strong Comparison | Weak Comparison |
+   +========+========+===================+=================+
+   | W/"1"  | W/"1"  | no match          | match           |
+   +--------+--------+-------------------+-----------------+
+   | W/"1"  | W/"2"  | no match          | no match        |
+   +--------+--------+-------------------+-----------------+
+   | W/"1"  | "1"    | no match          | match           |
+   +--------+--------+-------------------+-----------------+
+   | "1"    | "1"    | match             | match           |
+   +--------+--------+-------------------+-----------------+
+
+                            Table 3
+
+8.8.3.3.  Example: Entity Tags Varying on Content-Negotiated Resources
+
+   Consider a resource that is subject to content negotiation
+   (Section 12), and where the representations sent in response to a GET
+   request vary based on the Accept-Encoding request header field
+   (Section 12.5.3):
+
+   >> Request:
+
+   GET /index HTTP/1.1
+   Host: www.example.com
+   Accept-Encoding: gzip
+
+   In this case, the response might or might not use the gzip content
+   coding.  If it does not, the response might look like:
+
+   >> Response:
+
+   HTTP/1.1 200 OK
+   Date: Fri, 26 Mar 2010 00:05:00 GMT
+   ETag: "123-a"
+   Content-Length: 70
+   Vary: Accept-Encoding
+   Content-Type: text/plain
+
+   Hello World!
+   Hello World!
+   Hello World!
+   Hello World!
+   Hello World!
+
+   An alternative representation that does use gzip content coding would
+   be:
+
+   >> Response:
+
+   HTTP/1.1 200 OK
+   Date: Fri, 26 Mar 2010 00:05:00 GMT
+   ETag: "123-b"
+   Content-Length: 43
+   Vary: Accept-Encoding
+   Content-Type: text/plain
+   Content-Encoding: gzip
+
+   ...binary data...
+
+      |  *Note:* Content codings are a property of the representation
+      |  data, so a strong entity tag for a content-encoded
+      |  representation has to be distinct from the entity tag of an
+      |  unencoded representation to prevent potential conflicts during
+      |  cache updates and range requests.  In contrast, transfer
+      |  codings (Section 7 of [HTTP/1.1]) apply only during message
+      |  transfer and do not result in distinct entity tags.
+
+9.  Methods
+
+9.1.  Overview
+
+   The request method token is the primary source of request semantics;
+   it indicates the purpose for which the client has made this request
+   and what is expected by the client as a successful result.
+
+   The request method's semantics might be further specialized by the
+   semantics of some header fields when present in a request if those
+   additional semantics do not conflict with the method.  For example, a
+   client can send conditional request header fields (Section 13.1) to
+   make the requested action conditional on the current state of the
+   target resource.
+
+   HTTP is designed to be usable as an interface to distributed object
+   systems.  The request method invokes an action to be applied to a
+   target resource in much the same way that a remote method invocation
+   can be sent to an identified object.
+
+     method = token
+
+   The method token is case-sensitive because it might be used as a
+   gateway to object-based systems with case-sensitive method names.  By
+   convention, standardized methods are defined in all-uppercase US-
+   ASCII letters.
+
+   Unlike distributed objects, the standardized request methods in HTTP
+   are not resource-specific, since uniform interfaces provide for
+   better visibility and reuse in network-based systems [REST].  Once
+   defined, a standardized method ought to have the same semantics when
+   applied to any resource, though each resource determines for itself
+   whether those semantics are implemented or allowed.
+
+   This specification defines a number of standardized methods that are
+   commonly used in HTTP, as outlined by the following table.
+
+   +=========+============================================+=========+
+   | Method  | Description                                | Section |
+   | Name    |                                            |         |
+   +=========+============================================+=========+
+   | GET     | Transfer a current representation of the   | 9.3.1   |
+   |         | target resource.                           |         |
+   +---------+--------------------------------------------+---------+
+   | HEAD    | Same as GET, but do not transfer the       | 9.3.2   |
+   |         | response content.                          |         |
+   +---------+--------------------------------------------+---------+
+   | POST    | Perform resource-specific processing on    | 9.3.3   |
+   |         | the request content.                       |         |
+   +---------+--------------------------------------------+---------+
+   | PUT     | Replace all current representations of the | 9.3.4   |
+   |         | target resource with the request content.  |         |
+   +---------+--------------------------------------------+---------+
+   | DELETE  | Remove all current representations of the  | 9.3.5   |
+   |         | target resource.                           |         |
+   +---------+--------------------------------------------+---------+
+   | CONNECT | Establish a tunnel to the server           | 9.3.6   |
+   |         | identified by the target resource.         |         |
+   +---------+--------------------------------------------+---------+
+   | OPTIONS | Describe the communication options for the | 9.3.7   |
+   |         | target resource.                           |         |
+   +---------+--------------------------------------------+---------+
+   | TRACE   | Perform a message loop-back test along the | 9.3.8   |
+   |         | path to the target resource.               |         |
+   +---------+--------------------------------------------+---------+
+
+                                Table 4
+
+   All general-purpose servers MUST support the methods GET and HEAD.
+   All other methods are OPTIONAL.
+
+   The set of methods allowed by a target resource can be listed in an
+   Allow header field (Section 10.2.1).  However, the set of allowed
+   methods can change dynamically.  An origin server that receives a
+   request method that is unrecognized or not implemented SHOULD respond
+   with the 501 (Not Implemented) status code.  An origin server that
+   receives a request method that is recognized and implemented, but not
+   allowed for the target resource, SHOULD respond with the 405 (Method
+   Not Allowed) status code.
+
+   Additional methods, outside the scope of this specification, have
+   been specified for use in HTTP.  All such methods ought to be
+   registered within the "Hypertext Transfer Protocol (HTTP) Method
+   Registry", as described in Section 16.1.
+
+9.2.  Common Method Properties
+
+9.2.1.  Safe Methods
+
+   Request methods are considered "safe" if their defined semantics are
+   essentially read-only; i.e., the client does not request, and does
+   not expect, any state change on the origin server as a result of
+   applying a safe method to a target resource.  Likewise, reasonable
+   use of a safe method is not expected to cause any harm, loss of
+   property, or unusual burden on the origin server.
+
+   This definition of safe methods does not prevent an implementation
+   from including behavior that is potentially harmful, that is not
+   entirely read-only, or that causes side effects while invoking a safe
+   method.  What is important, however, is that the client did not
+   request that additional behavior and cannot be held accountable for
+   it.  For example, most servers append request information to access
+   log files at the completion of every response, regardless of the
+   method, and that is considered safe even though the log storage might
+   become full and cause the server to fail.  Likewise, a safe request
+   initiated by selecting an advertisement on the Web will often have
+   the side effect of charging an advertising account.
+
+   Of the request methods defined by this specification, the GET, HEAD,
+   OPTIONS, and TRACE methods are defined to be safe.
+
+   The purpose of distinguishing between safe and unsafe methods is to
+   allow automated retrieval processes (spiders) and cache performance
+   optimization (pre-fetching) to work without fear of causing harm.  In
+   addition, it allows a user agent to apply appropriate constraints on
+   the automated use of unsafe methods when processing potentially
+   untrusted content.
+
+   A user agent SHOULD distinguish between safe and unsafe methods when
+   presenting potential actions to a user, such that the user can be
+   made aware of an unsafe action before it is requested.
+
+   When a resource is constructed such that parameters within the target
+   URI have the effect of selecting an action, it is the resource
+   owner's responsibility to ensure that the action is consistent with
+   the request method semantics.  For example, it is common for Web-
+   based content editing software to use actions within query
+   parameters, such as "page?do=delete".  If the purpose of such a
+   resource is to perform an unsafe action, then the resource owner MUST
+   disable or disallow that action when it is accessed using a safe
+   request method.  Failure to do so will result in unfortunate side
+   effects when automated processes perform a GET on every URI reference
+   for the sake of link maintenance, pre-fetching, building a search
+   index, etc.
+--- END OF SECTION ---

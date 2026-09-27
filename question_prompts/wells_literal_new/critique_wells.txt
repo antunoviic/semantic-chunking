@@ -1,0 +1,21 @@
+You are reviewing an evaluation dataset for a RAG system.
+
+Rate EVERY question below on three criteria, each from 1 to 5:
+
+  groundedness  Can it be answered from its own source_text, unambiguously and
+                without outside knowledge?  (1 = not at all, 5 = fully)
+  relevance     Would a real user of this document plausibly ask it?
+                (1 = artificial, 5 = clearly useful)
+  standalone    Is it understandable without seeing the surrounding section?
+                (1 = depends on context, 5 = fully self-contained)
+
+Judge each question on its own. Do not rewrite anything and do not add or drop
+entries — return exactly as many objects as you receive, in the same order.
+
+Reply with a JSON array ONLY:
+[{{"question": "...", "source_text": "...", "groundedness": N,
+   "relevance": N, "standalone": N}}]
+
+--- QUESTIONS ---
+<paste the collected JSON here>
+--- END ---

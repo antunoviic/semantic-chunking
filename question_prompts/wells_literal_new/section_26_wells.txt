@@ -1,0 +1,78 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 26 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 26/40 ---
+This series is from casts in the Victoria and Albert Museum of the original brass statuettes in the Rijks Museum, Amsterdam
+
+The people of Anagni did resent the first outrage, and rose against Nogaret to liberate Boniface, but then Anagni was the Pope’s native town. The important point to note is that the French King in this rough treatment of the head of Christendom was acting with the full approval of his people; he had summoned a council of the Three Estates of France (lords, church and commons) and gained their consent before proceeding to extremities. Neither in Italy, Germany nor England was there the slightest general manifestation of disapproval at this free handling of the sovereign pontiff. The idea of Christendom had decayed until its power over the minds of men had gone.
+
+Throughout the fourteenth century the papacy did nothing to recover its moral sway. The next Pope elected, Clement V, was a Frenchman, the choice of King Philip of France. He never came to Rome. He set up his court in the town of Avignon, which then belonged not to France but to the papal See, though embedded in French territory, and there his successors remained until 1377, when Pope Gregory XI returned to the Vatican palace in Rome. But Gregory XI did not take the sympathies of the whole church with him. Many of the cardinals were of French origin and their habits and associations were rooted deep at Avignon. When in 1378 Gregory XI died, and an Italian, Urban VI, was elected, these dissentient cardinals declared the election invalid, and elected another Pope, the anti-Pope, Clement VII. This split is called the Great Schism. The Popes remained in Rome, and all the anti-French powers, the Emperor, the King of England, Hungary, Poland and the North of Europe were loyal to them. The anti-Popes, on the other hand, continued in Avignon, and were supported by the King of France, his ally the King of Scotland, Spain, Portugal and various German princes. Each Pope excommunicated and cursed the adherents of his rival (1378-1417).
+
+Is it any wonder that presently all over Europe people began to think for themselves in matters of religion?
+
+The beginnings of the Franciscans and the Dominicans, which we have noted in the preceding chapters, were but two among many of the new forces that were arising in Christendom, either to hold or shatter the church as its own wisdom might decide. Those two orders the church did assimilate and use, though with a little violence in the case of the former. But other forces were more frankly disobedient and critical. A century and a half later came Wycliffe (1320-1384). He was a learned Doctor at Oxford. Quite late in his life he began a series of outspoken criticisms of the corruption of the clergy and the unwisdom of the church. He organized a number of poor priests, the Wycliffites, to spread his ideas throughout England; and in order that people should judge between the church and himself, he translated the Bible into English. He was a more learned and far abler man than either St. Francis or St. Dominic. He had supporters in high places and a great following among the people; and though Rome raged against him, and ordered his imprisonment, he died a free man. But the black and ancient spirit that was leading the Catholic Church to its destruction would not let his bones rest in the grave. By a decree of the Council of Constance in 1415, his remains were ordered to be dug up and burnt, an order which was carried out at the command of Pope Martin V by Bishop Fleming in 1428. This desecration was not the act of some isolated fanatic; it was the official act of the church.
+
+[1] J. H. Robinson.
+
+XLVIII THE MONGOL CONQUESTS
+
+But in the thirteenth century, while this strange and finally ineffectual struggle to unify Christendom under the rule of the Pope was going on in Europe, far more momentous events were afoot upon the larger stage of Asia. A Turkish people from the country to the north of China rose suddenly to prominence in the world’s affairs, and achieved such a series of conquests as has no parallel in history. These were the Mongols. At the opening of the thirteenth century they were a horde of nomadic horsemen, living very much as their predecessors, the Huns, had done, subsisting chiefly upon meat and mare’s milk and living in tents of skin. They had shaken themselves free from Chinese dominion, and brought a number of other Turkish tribes into a military confederacy. Their central camp was at Karakorum in Mongolia.
+
+At this time China was in a state of division. The great dynasty of Tang had passed into decay by the tenth century, and after a phase of division into warring states, three main empires, that of Kin in the north with Pekin as its capital and that of Sung in the south with a capital at Nankin, and Hsia in the centre, remain. In 1214 Jengis Khan, the leader of the Mongol confederates, made war on the Kin Empire and captured Pekin (1214). He then turned westward and conquered Western Turkestan, Persia, Armenia, India down to Lahore, and South Russia as far as Kieff. He died master of a vast empire that reached
+
+His successor, Ogdai Khan, continued this astonishing career of conquest. His armies were organized to a very high level of efficiency; and they had with them a new Chinese invention, gunpowder, which they used in small field guns. He completed the conquest of the Kin Empire and then swept his hosts right across Asia to Russia (1235), an altogether amazing march. Kieff was destroyed in 1240, and nearly all Russia became tributary to the Mongols. Poland was ravaged, and a mixed army of Poles and Germans was annihilated at the battle of Liegnitz in Lower Silesia in 1241. The Emperor Frederick II does not seem to have made any great efforts to stay the advancing tide.
+
+“It is only recently,” says Bury in his notes to Gibbon’s _Decline and Fall of the Roman Empire_, “that European history has begun to understand that the successes of the Mongol army which overran Poland and occupied Hungary in the spring of A.D. 1241 were won by consummate strategy and were not due to a mere overwhelming superiority of numbers. But this fact has not yet become a matter of common knowledge; the vulgar opinion which represents the Tartars as a wild horde carrying all before them solely by their multitude, and galloping through Eastern Europe without a strategic plan, rushing at all obstacles and overcoming them by mere weight, still prevails. . . .
+
+“It was wonderful how punctually and effectually the arrangements were carried out in operations extending from the Lower Vistula to Transylvania. Such a campaign was quite beyond the power of any European army of the time, and it was beyond the vision of any European commander. There was no general in Europe, from Frederick II downward, who was not a tyro in strategy compared to Subutai. It should also be noticed that the Mongols embarked upon the enterprise with full knowledge of the political situation of Hungary and the condition of Poland—they had taken care to inform themselves by a well-organized system of spies; on the other hand, the Hungarians and the Christian powers, like childish barbarians, knew hardly anything about their enemies.”
+
+But though the Mongols were victorious at Liegnitz, they did not continue their drive westward. They were getting into woodlands and hilly country, which did not suit their tactics; and so they turned southward and prepared to settle in Hungary, massacring or assimilating the kindred Magyar, even as these had previously massacred and assimilated the mixed Scythians and Avars and Huns before them. From the Hungarian plain they would probably have made raids west and south as the Hungarians had done in the ninth century, the Avars in the seventh and eighth and the Huns in the fifth. But Ogdai died suddenly, and in 1242 there was trouble about the succession, and recalled by this, the undefeated hosts of Mongols began to pour back across Hungary and Roumania towards the east.
+
+Thereafter the Mongols concentrated their attention upon their Asiatic conquests. By the middle of the thirteenth century they had conquered the Sung Empire. Mangu Khan succeeded Ogdai Khan as Great Khan in 1251, and made his brother Kublai Khan governor of China. In 1280 Kublai Khan had been formally recognized Emperor of China, and so founded the Yuan dynasty which lasted until 1368. While the last ruins of the Sung rule were going down in China, another brother of Mangu, Hulagu, was conquering Persia and Syria. The Mongols displayed a bitter animosity to Islam at this time, and not only massacred the population of Bagdad when they captured that city, but set to work to destroy the immemorial irrigation system which had kept Mesopotamia incessantly prosperous and populous from the early days of Sumeria. From that time until our own Mesopotamia has been a desert of ruins, sustaining only a scanty population. Into Egypt the Mongols never penetrated; the Sultan of Egypt completely defeated an army of Hulagu’s in Palestine in 1260.
+
+After that disaster the tide of Mongol victory ebbed. The dominions of the Great Khan fell into a number of separate states. The eastern Mongols became Buddhists, like the Chinese; the western became Moslim. The Chinese threw off the rule of the Yuan dynasty in 1368, and set up the native Ming dynasty which flourished from 1368 to 1644. The Russians remained tributary to the Tartar hordes upon the south-east steppes until 1480, when the Grand Duke of Moscow repudiated his allegiance and laid the foundation of modern Russia.
+
+_(From a Chinese Print in the British Museum) _
+
+under Timurlane, a descendant of Jengis Khan. He established himself in Western Turkestan, assumed the title of Grand Khan in 1369, and conquered from Syria to Delhi. He was the most savage and destructive of all the Mongol conquerors. He established an empire of desolation that did not survive his death. In 1505, however, a descendant of this Timur, an adventurer named Baber, got together an army with guns and swept down upon the plains of India. His grandson Akbar (1556-1605) completed his conquests, and this Mongol (or “Mogul” as the Arabs called it) dynasty ruled in Delhi over the greater part of India until the eighteenth century.
+
+One of the consequences of the first great sweep of Mongol conquest in the thirteenth century was to drive a certain tribe of Turks, the Ottoman Turks, out of Turkestan into Asia Minor. They extended and consolidated their power in Asia Minor, crossed the Dardanelles and conquered Macedonia, Serbia and Bulgaria, until at last Constantinople remained like an island amongst the Ottoman dominions. In 1453 the Ottoman Sultan, Muhammad II, took Constantinople, attacking it from the European side with a great number of guns. This event caused intense excitement in Europe and there was talk of a crusade, but the day of the crusades was past.
+
+Bagdad, Hungary, Egypt and most of North Africa, and their fleet made them masters of the Mediterranean. They very nearly took Vienna, and they exacted it tribute from the Emperor. There were but two items to offset the general ebb of Christian dominion in the fifteenth century. One was the restoration of the independence of Moscow (1480); the other was the gradual reconquest of Spain by the Christians. In 1492, Granada, the last Moslem state in the peninsula, fell to King Ferdinand of Aragon and his Queen Isabella of Castile.
+
+But it was not until as late as 1571 that the naval battle of Lepanto broke the prick of the Ottomans, and restored the Mediterranean waters to Christian ascendancy.
+
+XLIX THE INTELLECTUAL REVIVAL OF THE EUROPEANS
+
+Throughout the twelfth century there were many signs that the European intelligence was recovering courage and leisure, and preparing to take up again the intellectual enterprises of the first Greek scientific enquiries and such speculations as those of the Italian Lucretius. The causes of this revival were many and complex. The suppression of private war, the higher standards of comfort and security that followed the crusades, and the stimulation of men’s minds by the experiences of these expeditions were no doubt necessary preliminary conditions. Trade was reviving; cities were recovering ease and safety; the standard of education was arising in the church and spreading among laymen. The thirteenth and fourteenth centuries were a period of growing, independent or quasi-independent cities; Venice, Florence, Genoa, Lisbon, Paris, Bruges, London, Antwerp, Hamburg, Nuremberg, Novgorod, Wisby and Bergen for example. They were all trading cities with many travellers, and where men trade and travel they talk and think. The polemics of the Popes and princes, the conspicuous savagery and wickedness of the persecution of heretics, were exciting men to doubt the authority of the church and question and discuss fundamental things.
+
+We have seen how the Arabs were the means of restoring Aristotle to Europe, and how such a prince as Frederick II acted as a channel through which Arabic philosophy and science played upon the renascent European mind. Still more influential in the stirring up of men’s ideas were the Jews. Their very existence was a note of interrogation to the claims of the church. And finally the secret, fascinating enquiries of the alchemists were spreading far and wide and setting men to the petty, furtive and yet fruitful resumption of experimental science.
+
+And the stir in men’s minds was by no means confined now to the independent and well educated. The mind of the common man was awake in the world as it had never been before in all the experience of mankind. In spite of priest and persecution, Christianity does seem to have carried a mental ferment wherever its teaching reached. It established a direct relation between the conscience of the individual man and the God of Righteousness, so that now if need arose he had the courage to form his own judgment upon prince or prelate or creed.
+--- END OF SECTION ---

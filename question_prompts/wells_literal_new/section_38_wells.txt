@@ -1,0 +1,82 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 38 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 38/40 ---
+_(In the Victoria and Albert Museum)_
+
+For two centuries Japan remained outside the main current of history. She lived on in a state of picturesque feudalism in which about five per cent of the population, the _samurai_, or fighting men, and the nobles and their families, tyrannized without restraint over the rest of the population. Meanwhile the great world outside went on to wider visions and new powers. Strange shipping became more frequent, passing the Japanese headlands; sometimes ships were wrecked and sailors brought ashore. Through the Dutch settlement in the island of Deshima, their one link with the outer universe, came warnings that Japan was not keeping pace with the power of the Western world. In 1837 a ship sailed into Yedo Bay flying a strange flag of stripes and stars, and carrying some Japanese sailors she had picked up far adrift in the Pacific. She was driven off by cannon shot. This flag presently reappeared on other ships. One in 1849 came to demand the liberation of eighteen shipwrecked American sailors. Then in 1853 came four American warships under Commodore Perry, and refused to be driven away. He lay at anchor in forbidden waters, and sent messages to the two rulers who at that time shared the control of Japan. In 1854 he returned with ten ships, amazing ships propelled by steam, and equipped with big guns, and he made proposals for trade and intercourse that the Japanese had no power to resist. He landed with a guard of 500 men to sign the treaty. Incredulous crowds watched this visitation from the outer world, marching through the streets.
+
+Russia, Holland and Britain followed in the wake of America. A great nobleman whose estates commanded the Straits of Shimonoseki saw fit to fire on foreign vessels, and a bombardment by a fleet of British, French, Dutch and American warships destroyed his batteries and scattered his swordsmen. Finally an allied squadron (1865), at anchor off Kioto, imposed a ratification of the treaties which opened Japan to the world.
+
+The humiliation of the Japanese by these events was intense. With astonishing energy and intelligence they set themselves to bring their culture and organization to the level of the European Powers. Never in all the history of mankind did a nation make such a stride as Japan then did. In 1866 she was a medieval people, a fantastic caricature of the extremest romantic feudalism; in 1899 hers was a completely Westernized people, on a level with the most advanced European Powers. She completely dispelled the persuasion that Asia was in some irrevocable way hopelessly behind Europe. She made all European progress seem sluggish by comparison.
+
+We cannot tell here in any detail of Japan’s war with China in 1894-95. It demonstrated the extent of her Westernization. She had an efficient Westernized army and a small but sound fleet. But the significance of her renascence, though it was appreciated by Britain and the United States, who were already treating her as if she were a European state, was not understood by the other Great Powers engaged in the pursuit of new Indias in Asia. Russia was pushing down through Manchuria to Korea. France was already established far to the south in Tonkin and Annam, Germany was prowling hungrily on the look-out for some settlement. The three Powers combined to prevent Japan reaping any fruits from the Chinese war. She was exhausted by the struggle, and they threatened her with war.
+
+Japan submitted for a time and gathered her forces. Within ten years she was ready for a struggle with Russia, which marks an epoch in the history of Asia, the close of the period of European arrogance. The Russian people were, of course, innocent and ignorant of this trouble that was being made for them halfway round the world, and the wiser Russian statesmen were against these foolish thrusts; but a gang of financial adventurers, including the Grand Dukes, his cousins, surrounded the Tsar. They had gambled deeply in the prospective looting of Manchuria and China, and they would suffer no withdrawal. So there began a transportation of great armies of Japanese soldiers across the sea to Port Arthur and Korea, and the sending of endless trainloads of Russian peasants along the Siberian railway to die in those distant battlefields.
+
+The Russians, badly led and dishonestly provided, were beaten on sea and land alike. The Russian Baltic Fleet sailed round Africa to be utterly destroyed in the Straits of Tshushima. A revolutionary movement among the common people of Russia, infuriated by this remote and reasonless slaughter, obliged the Tsar to end the war (1905); he returned the southern half of Saghalien, which had been seized by Russia in 1875, evacuated Manchuria, resigned Korea to Japan. The European invasion of Asia was coming to an end and the retraction of Europe’s tentacles was beginning.
+
+LXIV THE BRITISH EMPIRE IN 1914
+
+We may note here briefly the varied nature of the constituents of the British Empire in 1914 which the steamship and railway had brought together. It was and is a quite unique political combination; nothing of the sort has ever existed before.
+
+First and central to the whole system was the “crowned republic” of the United British Kingdom, including (against the will of a considerable part of the Irish people) Ireland. The majority of the British Parliament, made up of the three united parliaments of England and Wales, Scotland and Ireland, determines the headship, the quality and policy of the ministry, and determines it largely on considerations arising out of British domestic politics. It is this ministry which is the effective supreme government, with powers of peace and war, over all the rest of the empire.
+
+Next in order of political importance to the British States were the “crowned republics” of Australia, Canada, Newfoundland (the oldest British possession, 1583), New Zealand and South Africa, all practically independent and self-governing states in alliance with Great Britain, but each with a representative of the Crown appointed by the Government in office;
+
+Next the Indian Empire, an extension of the Empire of the Great Mogul with its dependent and “protected” states reaching now from Beluchistan to Burma, and including Aden, in all of which empire the British Crown and the India Office (under Parliamentary control) played the role of the original Turkoman dynasty;
+
+Then the ambiguous possession of Egypt, still nominally a part of the Turkish Empire and still retaining its own monarch, the Khedive, but under almost despotic British official rule;
+
+Then the still more ambiguous “Anglo-Egyptian” Sudan province, occupied and administered jointly by the British and by the (British controlled) Egyptian Government;
+
+Then a number of partially self-governing communities, some British in origin and some not, with elected legislatures and an appointed executive, such as Malta, Jamaica, the Bahamas and Bermuda;
+
+Then the Crown colonies, in which the rule of the British Home Government (through the Colonial Office) verged on autocracy, as in Ceylon, Trinidad and Fiji (where there was an appointed council), and Gibraltar and St. Helena (where there was a governor);
+
+Then great areas of (chiefly) tropical lands, raw-product areas, with politically weak and under-civilized native communities which were nominally protectorates, and administered either by a High Commissioner set over native chiefs (as in Basutoland) or over a chartered company (as in Rhodesia). In some cases the Foreign Office, in some cases the Colonial Office, and in some cases the India Office, has been concerned in acquiring the possessions that fell into this last and least definite class of all, but for the most part the Colonial Office was now responsible for them.
+
+It will be manifest, therefore, that no single office and no single brain had ever comprehended the British Empire as a whole. It was a mixture of growths and accumulations entirely different from anything that has ever been called an empire before. It guaranteed a wide peace and security; that is why it was endured and sustained by many men of the “subject” races—in spite of official tyrannies and insufficiencies, and of much negligence on the part of the “home” public. Like the Athenian Empire, it was an overseas empire; its ways were sea ways, and its common link was the British Navy. Like all empires, its cohesion was dependent physically upon a method of communication; the development of seamanship, ship-building and steamships between the sixteenth and nineteenth centuries had made it a possible and convenient Pax—the “Pax Britannica,” and fresh developments of air or swift land transport might at any time make it inconvenient.
+
+LXV THE AGE OF ARMAMENT IN EUROPE, AND THE GREAT WAR OF 1914-18
+
+The progress in material science that created this vast steamboat-and-railway republic of America and spread this precarious British steamship empire over the world, produced quite other effects upon the congested nations upon the continent of Europe. They found themselves confined within boundaries fixed during the horse-and-high-road period of human life, and their expansion overseas had been very largely anticipated by Great Britain. Only Russia had any freedom to expand eastward; and she drove a great railway across Siberia until she entangled herself in a conflict with Japan, and pushed south-eastwardly towards the borders of Persia and India to the annoyance of Britain. The rest of the European Powers were in a state of intensifying congestion. In order to realize the full possibilities of the new apparatus of human life they had to rearrange their affairs upon a broader basis, either by some sort of voluntary union or by a union imposed upon them by some predominant power. The tendency of modern thought was in the direction of the former alternative, but all the force of political tradition drove Europe towards the latter.
+
+The downfall of the “empire” of Napoleon III, the establishment of the new German Empire, pointed men’s hopes and fears towards the idea of a Europe consolidated under German auspices. For thirty-six years of uneasy peace the polities of Europe centred upon that possibility. France, the steadfast rival of Germany for European ascendancy since the division of the empire of Charlemagne, sought to correct her own weakness by a close alliance with Russia, and Germany linked herself closely with the Austrian Empire (it had ceased to be the Holy Roman Empire in the days of Napoleon I) and less successfully with the new kingdom of Italy. At first Great Britain stood as usual half in and half out of continental affairs. But she was gradually forced into a close association with the Franco-Russian group by the aggressive development of a great German navy. The grandiose imagination of the Emperor William II (1888-1918) thrust Germany into premature overseas enterprise that ultimately brought not only Great Britain but Japan and the United States into the circle of her enemies.
+
+The crew came out for a breath of fresh air during a lull
+
+All these nations armed. Year after year the proportion of national production devoted to the making of guns, equipment, battleships and the like, increased. Year after year the balance of things seemed trembling towards war, and then war would be averted. At last it came. Germany and Austria struck at France and Russia and Serbia; the German armies marching through Belgium, Britain immediately came into the war on the side of Belgium, bringing in Japan as her ally, and very soon Turkey followed on the German side. Italy entered the war against Austria in 1915, and Bulgaria joined the Central Powers in the October of that year. In 1916 Rumania, and in 1917 the United States and China were forced into war against Germany. It is not within the scope of this history to define the exact share of blame for this vast catastrophe. The more interesting question is not why the Great War was begun but why the Great War was not anticipated and prevented. It is a far graver thing for mankind that scores of millions of people were too “patriotic,” stupid, or apathetic to prevent this disaster by a movement towards European unity upon frank and generous lines, than that a small number of people may have been active in bringing it about.
+
+To show the complete destructiveness of modern war
+
+Wire entanglements in the foreground
+
+It is impossible within the space at our command here to trace the intricate details of the war. Within a few months it became apparent that the progress of modern technical science had changed the nature of warfare very profoundly. Physical science gives power, power over steel, over distance, over disease; whether that power is used well or ill depends upon the moral and political intelligence of the world. The governments of Europe, inspired by antiquated policies of hate and suspicion, found themselves with unexampled powers both of destruction and resistance in their hands. The war became a consuming fire round and about the world, causing losses both to victors and vanquished out of all proportion to the issues involved. The first phase of the war was a tremendous rush of the Germans upon Paris and an invasion of East Prussia by the Russians. Both attacks were held and turned. Then the power of the defensive developed; there was a rapid elaboration of trench warfare until for a time the opposing armies lay entrenched in long lines right across Europe, unable to make any advance without enormous losses. The armies were millions strong, and behind them entire populations were organized for the supply of food and munitions to the front. Then was a cessation of nearly every sort of productive activity except such as contributed to military operations. All the able-bodied manhood of Europe was drawn into the armies or navies or into the improvised factories that served them. There was an enormous replacement of men by women in industry. Probably more than half the people in the belligerent countries of Europe changed their employment altogether during this stupendous struggle. They were socially uprooted and transplanted. Education and normal scientific work were restricted or diverted to immediate military ends, and the distribution of news was crippled and corrupted by military control and “propaganda” activities.
+--- END OF SECTION ---

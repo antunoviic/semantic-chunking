@@ -1,0 +1,271 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 34 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 34/45 ---
+15.6.4.  503 Service Unavailable
+
+   The 503 (Service Unavailable) status code indicates that the server
+   is currently unable to handle the request due to a temporary overload
+   or scheduled maintenance, which will likely be alleviated after some
+   delay.  The server MAY send a Retry-After header field
+   (Section 10.2.3) to suggest an appropriate amount of time for the
+   client to wait before retrying the request.
+
+      |  *Note:* The existence of the 503 status code does not imply
+      |  that a server has to use it when becoming overloaded.  Some
+      |  servers might simply refuse the connection.
+
+15.6.5.  504 Gateway Timeout
+
+   The 504 (Gateway Timeout) status code indicates that the server,
+   while acting as a gateway or proxy, did not receive a timely response
+   from an upstream server it needed to access in order to complete the
+   request.
+
+15.6.6.  505 HTTP Version Not Supported
+
+   The 505 (HTTP Version Not Supported) status code indicates that the
+   server does not support, or refuses to support, the major version of
+   HTTP that was used in the request message.  The server is indicating
+   that it is unable or unwilling to complete the request using the same
+   major version as the client, as described in Section 2.5, other than
+   with this error message.  The server SHOULD generate a representation
+   for the 505 response that describes why that version is not supported
+   and what other protocols are supported by that server.
+
+16.  Extending HTTP
+
+   HTTP defines a number of generic extension points that can be used to
+   introduce capabilities to the protocol without introducing a new
+   version, including methods, status codes, field names, and further
+   extensibility points within defined fields, such as authentication
+   schemes and cache directives (see Cache-Control extensions in
+   Section 5.2.3 of [CACHING]).  Because the semantics of HTTP are not
+   versioned, these extension points are persistent; the version of the
+   protocol in use does not affect their semantics.
+
+   Version-independent extensions are discouraged from depending on or
+   interacting with the specific version of the protocol in use.  When
+   this is unavoidable, careful consideration needs to be given to how
+   the extension can interoperate across versions.
+
+   Additionally, specific versions of HTTP might have their own
+   extensibility points, such as transfer codings in HTTP/1.1
+   (Section 6.1 of [HTTP/1.1]) and HTTP/2 SETTINGS or frame types
+   ([HTTP/2]).  These extension points are specific to the version of
+   the protocol they occur within.
+
+   Version-specific extensions cannot override or modify the semantics
+   of a version-independent mechanism or extension point (like a method
+   or header field) without explicitly being allowed by that protocol
+   element.  For example, the CONNECT method (Section 9.3.6) allows
+   this.
+
+   These guidelines assure that the protocol operates correctly and
+   predictably, even when parts of the path implement different versions
+   of HTTP.
+
+16.1.  Method Extensibility
+
+16.1.1.  Method Registry
+
+   The "Hypertext Transfer Protocol (HTTP) Method Registry", maintained
+   by IANA at <https://www.iana.org/assignments/http-methods>, registers
+   method names.
+
+   HTTP method registrations MUST include the following fields:
+
+   *  Method Name (see Section 9)
+
+   *  Safe ("yes" or "no", see Section 9.2.1)
+
+   *  Idempotent ("yes" or "no", see Section 9.2.2)
+
+   *  Pointer to specification text
+
+   Values to be added to this namespace require IETF Review (see
+   [RFC8126], Section 4.8).
+
+16.1.2.  Considerations for New Methods
+
+   Standardized methods are generic; that is, they are potentially
+   applicable to any resource, not just one particular media type, kind
+   of resource, or application.  As such, it is preferred that new
+   methods be registered in a document that isn't specific to a single
+   application or data format, since orthogonal technologies deserve
+   orthogonal specification.
+
+   Since message parsing (Section 6) needs to be independent of method
+   semantics (aside from responses to HEAD), definitions of new methods
+   cannot change the parsing algorithm or prohibit the presence of
+   content on either the request or the response message.  Definitions
+   of new methods can specify that only a zero-length content is allowed
+   by requiring a Content-Length header field with a value of "0".
+
+   Likewise, new methods cannot use the special host:port and asterisk
+   forms of request target that are allowed for CONNECT and OPTIONS,
+   respectively (Section 7.1).  A full URI in absolute form is needed
+   for the target URI, which means either the request target needs to be
+   sent in absolute form or the target URI will be reconstructed from
+   the request context in the same way it is for other methods.
+
+   A new method definition needs to indicate whether it is safe
+   (Section 9.2.1), idempotent (Section 9.2.2), cacheable
+   (Section 9.2.3), what semantics are to be associated with the request
+   content (if any), and what refinements the method makes to header
+   field or status code semantics.  If the new method is cacheable, its
+   definition ought to describe how, and under what conditions, a cache
+   can store a response and use it to satisfy a subsequent request.  The
+   new method ought to describe whether it can be made conditional
+   (Section 13.1) and, if so, how a server responds when the condition
+   is false.  Likewise, if the new method might have some use for
+   partial response semantics (Section 14.2), it ought to document this,
+   too.
+
+      |  *Note:* Avoid defining a method name that starts with "M-",
+      |  since that prefix might be misinterpreted as having the
+      |  semantics assigned to it by [RFC2774].
+
+16.2.  Status Code Extensibility
+
+16.2.1.  Status Code Registry
+
+   The "Hypertext Transfer Protocol (HTTP) Status Code Registry",
+   maintained by IANA at <https://www.iana.org/assignments/http-status-
+   codes>, registers status code numbers.
+
+   A registration MUST include the following fields:
+
+   *  Status Code (3 digits)
+
+   *  Short Description
+
+   *  Pointer to specification text
+
+   Values to be added to the HTTP status code namespace require IETF
+   Review (see [RFC8126], Section 4.8).
+
+16.2.2.  Considerations for New Status Codes
+
+   When it is necessary to express semantics for a response that are not
+   defined by current status codes, a new status code can be registered.
+   Status codes are generic; they are potentially applicable to any
+   resource, not just one particular media type, kind of resource, or
+   application of HTTP.  As such, it is preferred that new status codes
+   be registered in a document that isn't specific to a single
+   application.
+
+   New status codes are required to fall under one of the categories
+   defined in Section 15.  To allow existing parsers to process the
+   response message, new status codes cannot disallow content, although
+   they can mandate a zero-length content.
+
+   Proposals for new status codes that are not yet widely deployed ought
+   to avoid allocating a specific number for the code until there is
+   clear consensus that it will be registered; instead, early drafts can
+   use a notation such as "4NN", or "3N0" .. "3N9", to indicate the
+   class of the proposed status code(s) without consuming a number
+   prematurely.
+
+   The definition of a new status code ought to explain the request
+   conditions that would cause a response containing that status code
+   (e.g., combinations of request header fields and/or method(s)) along
+   with any dependencies on response header fields (e.g., what fields
+   are required, what fields can modify the semantics, and what field
+   semantics are further refined when used with the new status code).
+
+   By default, a status code applies only to the request corresponding
+   to the response it occurs within.  If a status code applies to a
+   larger scope of applicability -- for example, all requests to the
+   resource in question or all requests to a server -- this must be
+   explicitly specified.  When doing so, it should be noted that not all
+   clients can be expected to consistently apply a larger scope because
+   they might not understand the new status code.
+
+   The definition of a new final status code ought to specify whether or
+   not it is heuristically cacheable.  Note that any response with a
+   final status code can be cached if the response has explicit
+   freshness information.  A status code defined as heuristically
+   cacheable is allowed to be cached without explicit freshness
+   information.  Likewise, the definition of a status code can place
+   constraints upon cache behavior if the must-understand cache
+   directive is used.  See [CACHING] for more information.
+
+   Finally, the definition of a new status code ought to indicate
+   whether the content has any implied association with an identified
+   resource (Section 6.4.2).
+
+16.3.  Field Extensibility
+
+   HTTP's most widely used extensibility point is the definition of new
+   header and trailer fields.
+
+   New fields can be defined such that, when they are understood by a
+   recipient, they override or enhance the interpretation of previously
+   defined fields, define preconditions on request evaluation, or refine
+   the meaning of responses.
+
+   However, defining a field doesn't guarantee its deployment or
+   recognition by recipients.  Most fields are designed with the
+   expectation that a recipient can safely ignore (but forward
+   downstream) any field not recognized.  In other cases, the sender's
+   ability to understand a given field might be indicated by its prior
+   communication, perhaps in the protocol version or fields that it sent
+   in prior messages, or its use of a specific media type.  Likewise,
+   direct inspection of support might be possible through an OPTIONS
+   request or by interacting with a defined well-known URI [RFC8615] if
+   such inspection is defined along with the field being introduced.
+
+16.3.1.  Field Name Registry
+
+   The "Hypertext Transfer Protocol (HTTP) Field Name Registry" defines
+   the namespace for HTTP field names.
+
+   Any party can request registration of an HTTP field.  See
+   Section 16.3.2 for considerations to take into account when creating
+   a new HTTP field.
+
+   The "Hypertext Transfer Protocol (HTTP) Field Name Registry" is
+   located at <https://www.iana.org/assignments/http-fields/>.
+   Registration requests can be made by following the instructions
+   located there or by sending an email to the "ietf-http-wg@w3.org"
+   mailing list.
+
+   Field names are registered on the advice of a designated expert
+   (appointed by the IESG or their delegate).  Fields with the status
+   'permanent' are Specification Required ([RFC8126], Section 4.6).
+
+   Registration requests consist of the following information:
+
+   Field name:
+      The requested field name.  It MUST conform to the field-name
+      syntax defined in Section 5.1, and it SHOULD be restricted to just
+      letters, digits, and hyphen ('-') characters, with the first
+      character being a letter.
+--- END OF SECTION ---

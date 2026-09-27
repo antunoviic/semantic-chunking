@@ -1,0 +1,288 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 8 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 8/45 ---
+5.6.3.  Whitespace
+
+   This specification uses three rules to denote the use of linear
+   whitespace: OWS (optional whitespace), RWS (required whitespace), and
+   BWS ("bad" whitespace).
+
+   The OWS rule is used where zero or more linear whitespace octets
+   might appear.  For protocol elements where optional whitespace is
+   preferred to improve readability, a sender SHOULD generate the
+   optional whitespace as a single SP; otherwise, a sender SHOULD NOT
+   generate optional whitespace except as needed to overwrite invalid or
+   unwanted protocol elements during in-place message filtering.
+
+   The RWS rule is used when at least one linear whitespace octet is
+   required to separate field tokens.  A sender SHOULD generate RWS as a
+   single SP.
+
+   OWS and RWS have the same semantics as a single SP.  Any content
+   known to be defined as OWS or RWS MAY be replaced with a single SP
+   before interpreting it or forwarding the message downstream.
+
+   The BWS rule is used where the grammar allows optional whitespace
+   only for historical reasons.  A sender MUST NOT generate BWS in
+   messages.  A recipient MUST parse for such bad whitespace and remove
+   it before interpreting the protocol element.
+
+   BWS has no semantics.  Any content known to be defined as BWS MAY be
+   removed before interpreting it or forwarding the message downstream.
+
+     OWS            = *( SP / HTAB )
+                    ; optional whitespace
+     RWS            = 1*( SP / HTAB )
+                    ; required whitespace
+     BWS            = OWS
+                    ; "bad" whitespace
+
+5.6.4.  Quoted Strings
+
+   A string of text is parsed as a single value if it is quoted using
+   double-quote marks.
+
+     quoted-string  = DQUOTE *( qdtext / quoted-pair ) DQUOTE
+     qdtext         = HTAB / SP / %x21 / %x23-5B / %x5D-7E / obs-text
+
+   The backslash octet ("\") can be used as a single-octet quoting
+   mechanism within quoted-string and comment constructs.  Recipients
+   that process the value of a quoted-string MUST handle a quoted-pair
+   as if it were replaced by the octet following the backslash.
+
+     quoted-pair    = "\" ( HTAB / SP / VCHAR / obs-text )
+
+   A sender SHOULD NOT generate a quoted-pair in a quoted-string except
+   where necessary to quote DQUOTE and backslash octets occurring within
+   that string.  A sender SHOULD NOT generate a quoted-pair in a comment
+   except where necessary to quote parentheses ["(" and ")"] and
+   backslash octets occurring within that comment.
+
+5.6.5.  Comments
+
+   Comments can be included in some HTTP fields by surrounding the
+   comment text with parentheses.  Comments are only allowed in fields
+   containing "comment" as part of their field value definition.
+
+     comment        = "(" *( ctext / quoted-pair / comment ) ")"
+     ctext          = HTAB / SP / %x21-27 / %x2A-5B / %x5D-7E / obs-text
+
+5.6.6.  Parameters
+
+   Parameters are instances of name/value pairs; they are often used in
+   field values as a common syntax for appending auxiliary information
+   to an item.  Each parameter is usually delimited by an immediately
+   preceding semicolon.
+
+     parameters      = *( OWS ";" OWS [ parameter ] )
+     parameter       = parameter-name "=" parameter-value
+     parameter-name  = token
+     parameter-value = ( token / quoted-string )
+
+   Parameter names are case-insensitive.  Parameter values might or
+   might not be case-sensitive, depending on the semantics of the
+   parameter name.  Examples of parameters and some equivalent forms can
+   be seen in media types (Section 8.3.1) and the Accept header field
+   (Section 12.5.1).
+
+   A parameter value that matches the token production can be
+   transmitted either as a token or within a quoted-string.  The quoted
+   and unquoted values are equivalent.
+
+      |  *Note:* Parameters do not allow whitespace (not even "bad"
+      |  whitespace) around the "=" character.
+
+5.6.7.  Date/Time Formats
+
+   Prior to 1995, there were three different formats commonly used by
+   servers to communicate timestamps.  For compatibility with old
+   implementations, all three are defined here.  The preferred format is
+   a fixed-length and single-zone subset of the date and time
+   specification used by the Internet Message Format [RFC5322].
+
+     HTTP-date    = IMF-fixdate / obs-date
+
+   An example of the preferred format is
+
+     Sun, 06 Nov 1994 08:49:37 GMT    ; IMF-fixdate
+
+   Examples of the two obsolete formats are
+
+     Sunday, 06-Nov-94 08:49:37 GMT   ; obsolete RFC 850 format
+     Sun Nov  6 08:49:37 1994         ; ANSI C's asctime() format
+
+   A recipient that parses a timestamp value in an HTTP field MUST
+   accept all three HTTP-date formats.  When a sender generates a field
+   that contains one or more timestamps defined as HTTP-date, the sender
+   MUST generate those timestamps in the IMF-fixdate format.
+
+   An HTTP-date value represents time as an instance of Coordinated
+   Universal Time (UTC).  The first two formats indicate UTC by the
+   three-letter abbreviation for Greenwich Mean Time, "GMT", a
+   predecessor of the UTC name; values in the asctime format are assumed
+   to be in UTC.
+
+   A "clock" is an implementation capable of providing a reasonable
+   approximation of the current instant in UTC.  A clock implementation
+   ought to use NTP ([RFC5905]), or some similar protocol, to
+   synchronize with UTC.
+
+   Preferred format:
+
+     IMF-fixdate  = day-name "," SP date1 SP time-of-day SP GMT
+     ; fixed length/zone/capitalization subset of the format
+     ; see Section 3.3 of [RFC5322]
+
+     day-name     = %s"Mon" / %s"Tue" / %s"Wed"
+                  / %s"Thu" / %s"Fri" / %s"Sat" / %s"Sun"
+
+     date1        = day SP month SP year
+                  ; e.g., 02 Jun 1982
+
+     day          = 2DIGIT
+     month        = %s"Jan" / %s"Feb" / %s"Mar" / %s"Apr"
+                  / %s"May" / %s"Jun" / %s"Jul" / %s"Aug"
+                  / %s"Sep" / %s"Oct" / %s"Nov" / %s"Dec"
+     year         = 4DIGIT
+
+     GMT          = %s"GMT"
+
+     time-of-day  = hour ":" minute ":" second
+                  ; 00:00:00 - 23:59:60 (leap second)
+
+     hour         = 2DIGIT
+     minute       = 2DIGIT
+     second       = 2DIGIT
+
+   Obsolete formats:
+
+     obs-date     = rfc850-date / asctime-date
+
+     rfc850-date  = day-name-l "," SP date2 SP time-of-day SP GMT
+     date2        = day "-" month "-" 2DIGIT
+                  ; e.g., 02-Jun-82
+
+     day-name-l   = %s"Monday" / %s"Tuesday" / %s"Wednesday"
+                  / %s"Thursday" / %s"Friday" / %s"Saturday"
+                  / %s"Sunday"
+
+     asctime-date = day-name SP date3 SP time-of-day SP year
+     date3        = month SP ( 2DIGIT / ( SP 1DIGIT ))
+                  ; e.g., Jun  2
+
+   HTTP-date is case sensitive.  Note that Section 4.2 of [CACHING]
+   relaxes this for cache recipients.
+
+   A sender MUST NOT generate additional whitespace in an HTTP-date
+   beyond that specifically included as SP in the grammar.  The
+   semantics of day-name, day, month, year, and time-of-day are the same
+   as those defined for the Internet Message Format constructs with the
+   corresponding name ([RFC5322], Section 3.3).
+
+   Recipients of a timestamp value in rfc850-date format, which uses a
+   two-digit year, MUST interpret a timestamp that appears to be more
+   than 50 years in the future as representing the most recent year in
+   the past that had the same last two digits.
+
+   Recipients of timestamp values are encouraged to be robust in parsing
+   timestamps unless otherwise restricted by the field definition.  For
+   example, messages are occasionally forwarded over HTTP from a non-
+   HTTP source that might generate any of the date and time
+   specifications defined by the Internet Message Format.
+
+      |  *Note:* HTTP requirements for timestamp formats apply only to
+      |  their usage within the protocol stream.  Implementations are
+      |  not required to use these formats for user presentation,
+      |  request logging, etc.
+
+6.  Message Abstraction
+
+   Each major version of HTTP defines its own syntax for communicating
+   messages.  This section defines an abstract data type for HTTP
+   messages based on a generalization of those message characteristics,
+   common structure, and capacity for conveying semantics.  This
+   abstraction is used to define requirements on senders and recipients
+   that are independent of the HTTP version, such that a message in one
+   version can be relayed through other versions without changing its
+   meaning.
+
+   A "message" consists of the following:
+
+   *  control data to describe and route the message,
+
+   *  a headers lookup table of name/value pairs for extending that
+      control data and conveying additional information about the
+      sender, message, content, or context,
+
+   *  a potentially unbounded stream of content, and
+
+   *  a trailers lookup table of name/value pairs for communicating
+      information obtained while sending the content.
+
+   Framing and control data is sent first, followed by a header section
+   containing fields for the headers table.  When a message includes
+   content, the content is sent after the header section, potentially
+   followed by a trailer section that might contain fields for the
+   trailers table.
+
+   Messages are expected to be processed as a stream, wherein the
+   purpose of that stream and its continued processing is revealed while
+   being read.  Hence, control data describes what the recipient needs
+   to know immediately, header fields describe what needs to be known
+   before receiving content, the content (when present) presumably
+   contains what the recipient wants or needs to fulfill the message
+   semantics, and trailer fields provide optional metadata that was
+   unknown prior to sending the content.
+
+   Messages are intended to be "self-descriptive": everything a
+   recipient needs to know about the message can be determined by
+   looking at the message itself, after decoding or reconstituting parts
+   that have been compressed or elided in transit, without requiring an
+   understanding of the sender's current application state (established
+   via prior messages).  However, a client MUST retain knowledge of the
+   request when parsing, interpreting, or caching a corresponding
+   response.  For example, responses to the HEAD method look just like
+   the beginning of a response to GET but cannot be parsed in the same
+   manner.
+
+   Note that this message abstraction is a generalization across many
+   versions of HTTP, including features that might not be found in some
+   versions.  For example, trailers were introduced within the HTTP/1.1
+   chunked transfer coding as a trailer section after the content.  An
+   equivalent feature is present in HTTP/2 and HTTP/3 within the header
+   block that terminates each stream.
+
+6.1.  Framing and Completeness
+
+   Message framing indicates how each message begins and ends, such that
+   each message can be distinguished from other messages or noise on the
+   same connection.  Each major version of HTTP defines its own framing
+   mechanism.
+--- END OF SECTION ---

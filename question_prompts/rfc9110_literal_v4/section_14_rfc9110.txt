@@ -1,0 +1,244 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 14 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 14/45 ---
+   Content-Language MAY be applied to any media type -- it is not
+   limited to textual documents.
+
+8.5.1.  Language Tags
+
+   A language tag, as defined in [RFC5646], identifies a natural
+   language spoken, written, or otherwise conveyed by human beings for
+   communication of information to other human beings.  Computer
+   languages are explicitly excluded.
+
+   HTTP uses language tags within the Accept-Language and
+   Content-Language header fields.  Accept-Language uses the broader
+   language-range production defined in Section 12.5.4, whereas
+   Content-Language uses the language-tag production defined below.
+
+     language-tag = <Language-Tag, see [RFC5646], Section 2.1>
+
+   A language tag is a sequence of one or more case-insensitive subtags,
+   each separated by a hyphen character ("-", %x2D).  In most cases, a
+   language tag consists of a primary language subtag that identifies a
+   broad family of related languages (e.g., "en" = English), which is
+   optionally followed by a series of subtags that refine or narrow that
+   language's range (e.g., "en-CA" = the variety of English as
+   communicated in Canada).  Whitespace is not allowed within a language
+   tag.  Example tags include:
+
+     fr, en-US, es-419, az-Arab, x-pig-latin, man-Nkoo-GN
+
+   See [RFC5646] for further information.
+
+8.6.  Content-Length
+
+   The "Content-Length" header field indicates the associated
+   representation's data length as a decimal non-negative integer number
+   of octets.  When transferring a representation as content, Content-
+   Length refers specifically to the amount of data enclosed so that it
+   can be used to delimit framing (e.g., Section 6.2 of [HTTP/1.1]).  In
+   other cases, Content-Length indicates the selected representation's
+   current length, which can be used by recipients to estimate transfer
+   time or to compare with previously stored representations.
+
+     Content-Length = 1*DIGIT
+
+   An example is
+
+   Content-Length: 3495
+
+   A user agent SHOULD send Content-Length in a request when the method
+   defines a meaning for enclosed content and it is not sending
+   Transfer-Encoding.  For example, a user agent normally sends Content-
+   Length in a POST request even when the value is 0 (indicating empty
+   content).  A user agent SHOULD NOT send a Content-Length header field
+   when the request message does not contain content and the method
+   semantics do not anticipate such data.
+
+   A server MAY send a Content-Length header field in a response to a
+   HEAD request (Section 9.3.2); a server MUST NOT send Content-Length
+   in such a response unless its field value equals the decimal number
+   of octets that would have been sent in the content of a response if
+   the same request had used the GET method.
+
+   A server MAY send a Content-Length header field in a 304 (Not
+   Modified) response to a conditional GET request (Section 15.4.5); a
+   server MUST NOT send Content-Length in such a response unless its
+   field value equals the decimal number of octets that would have been
+   sent in the content of a 200 (OK) response to the same request.
+
+   A server MUST NOT send a Content-Length header field in any response
+   with a status code of 1xx (Informational) or 204 (No Content).  A
+   server MUST NOT send a Content-Length header field in any 2xx
+   (Successful) response to a CONNECT request (Section 9.3.6).
+
+   Aside from the cases defined above, in the absence of Transfer-
+   Encoding, an origin server SHOULD send a Content-Length header field
+   when the content size is known prior to sending the complete header
+   section.  This will allow downstream recipients to measure transfer
+   progress, know when a received message is complete, and potentially
+   reuse the connection for additional requests.
+
+   Any Content-Length field value greater than or equal to zero is
+   valid.  Since there is no predefined limit to the length of content,
+   a recipient MUST anticipate potentially large decimal numerals and
+   prevent parsing errors due to integer conversion overflows or
+   precision loss due to integer conversion (Section 17.5).
+
+   Because Content-Length is used for message delimitation in HTTP/1.1,
+   its field value can impact how the message is parsed by downstream
+   recipients even when the immediate connection is not using HTTP/1.1.
+   If the message is forwarded by a downstream intermediary, a Content-
+   Length field value that is inconsistent with the received message
+   framing might cause a security failure due to request smuggling or
+   response splitting.
+
+   As a result, a sender MUST NOT forward a message with a Content-
+   Length header field value that is known to be incorrect.
+
+   Likewise, a sender MUST NOT forward a message with a Content-Length
+   header field value that does not match the ABNF above, with one
+   exception: a recipient of a Content-Length header field value
+   consisting of the same decimal value repeated as a comma-separated
+   list (e.g, "Content-Length: 42, 42") MAY either reject the message as
+   invalid or replace that invalid field value with a single instance of
+   the decimal value, since this likely indicates that a duplicate was
+   generated or combined by an upstream message processor.
+
+8.7.  Content-Location
+
+   The "Content-Location" header field references a URI that can be used
+   as an identifier for a specific resource corresponding to the
+   representation in this message's content.  In other words, if one
+   were to perform a GET request on this URI at the time of this
+   message's generation, then a 200 (OK) response would contain the same
+   representation that is enclosed as content in this message.
+
+     Content-Location = absolute-URI / partial-URI
+
+   The field value is either an absolute-URI or a partial-URI.  In the
+   latter case (Section 4), the referenced URI is relative to the target
+   URI ([URI], Section 5).
+
+   The Content-Location value is not a replacement for the target URI
+   (Section 7.1).  It is representation metadata.  It has the same
+   syntax and semantics as the header field of the same name defined for
+   MIME body parts in Section 4 of [RFC2557].  However, its appearance
+   in an HTTP message has some special implications for HTTP recipients.
+
+   If Content-Location is included in a 2xx (Successful) response
+   message and its value refers (after conversion to absolute form) to a
+   URI that is the same as the target URI, then the recipient MAY
+   consider the content to be a current representation of that resource
+   at the time indicated by the message origination date.  For a GET
+   (Section 9.3.1) or HEAD (Section 9.3.2) request, this is the same as
+   the default semantics when no Content-Location is provided by the
+   server.  For a state-changing request like PUT (Section 9.3.4) or
+   POST (Section 9.3.3), it implies that the server's response contains
+   the new representation of that resource, thereby distinguishing it
+   from representations that might only report about the action (e.g.,
+   "It worked!").  This allows authoring applications to update their
+   local copies without the need for a subsequent GET request.
+
+   If Content-Location is included in a 2xx (Successful) response
+   message and its field value refers to a URI that differs from the
+   target URI, then the origin server claims that the URI is an
+   identifier for a different resource corresponding to the enclosed
+   representation.  Such a claim can only be trusted if both identifiers
+   share the same resource owner, which cannot be programmatically
+   determined via HTTP.
+
+   *  For a response to a GET or HEAD request, this is an indication
+      that the target URI refers to a resource that is subject to
+      content negotiation and the Content-Location field value is a more
+      specific identifier for the selected representation.
+
+   *  For a 201 (Created) response to a state-changing method, a
+      Content-Location field value that is identical to the Location
+      field value indicates that this content is a current
+      representation of the newly created resource.
+
+   *  Otherwise, such a Content-Location indicates that this content is
+      a representation reporting on the requested action's status and
+      that the same report is available (for future access with GET) at
+      the given URI.  For example, a purchase transaction made via a
+      POST request might include a receipt document as the content of
+      the 200 (OK) response; the Content-Location field value provides
+      an identifier for retrieving a copy of that same receipt in the
+      future.
+
+   A user agent that sends Content-Location in a request message is
+   stating that its value refers to where the user agent originally
+   obtained the content of the enclosed representation (prior to any
+   modifications made by that user agent).  In other words, the user
+   agent is providing a back link to the source of the original
+   representation.
+
+   An origin server that receives a Content-Location field in a request
+   message MUST treat the information as transitory request context
+   rather than as metadata to be saved verbatim as part of the
+   representation.  An origin server MAY use that context to guide in
+   processing the request or to save it for other uses, such as within
+   source links or versioning metadata.  However, an origin server MUST
+   NOT use such context information to alter the request semantics.
+
+   For example, if a client makes a PUT request on a negotiated resource
+   and the origin server accepts that PUT (without redirection), then
+   the new state of that resource is expected to be consistent with the
+   one representation supplied in that PUT; the Content-Location cannot
+   be used as a form of reverse content selection identifier to update
+   only one of the negotiated representations.  If the user agent had
+   wanted the latter semantics, it would have applied the PUT directly
+   to the Content-Location URI.
+
+8.8.  Validator Fields
+
+   Resource metadata is referred to as a "validator" if it can be used
+   within a precondition (Section 13.1) to make a conditional request
+   (Section 13).  Validator fields convey a current validator for the
+   selected representation (Section 3.2).
+
+   In responses to safe requests, validator fields describe the selected
+   representation chosen by the origin server while handling the
+   response.  Note that, depending on the method and status code
+   semantics, the selected representation for a given response is not
+   necessarily the same as the representation enclosed as response
+   content.
+
+   In a successful response to a state-changing request, validator
+   fields describe the new representation that has replaced the prior
+   selected representation as a result of processing the request.
+
+   For example, an ETag field in a 201 (Created) response communicates
+   the entity tag of the newly created resource's representation, so
+   that the entity tag can be used as a validator in later conditional
+   requests to prevent the "lost update" problem.
+--- END OF SECTION ---

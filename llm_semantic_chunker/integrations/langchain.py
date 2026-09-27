@@ -17,15 +17,16 @@ class LLMSemanticSplitter(TextSplitter):
     """LangChain adapter: this chunker wherever a TextSplitter is expected.
 
     Implements `split_text`, so `create_documents`, `split_documents` and
-    `transform_documents` come from the base class. Only the splitting step
-    changes; the rest of a LangChain pipeline is untouched.
+    `transform_documents` come from the base class. 
+    Only the splitting step changes with the constructor; 
+    the rest of a LangChain pipeline is untouched.
     """
 
-    def __init__(self, client=None, **chunker_kwargs) -> None:
+    def __init__(self, client=None, **settings) -> None:  #puts all arguments into a dict
         super().__init__()
-        chunker_kwargs.setdefault("mode", "incremental")
+        settings.setdefault("mode", "incremental")
         self._chunker = LLMChunker(client=client or OllamaClient(),
-                                   config=ChunkerConfig(**chunker_kwargs))
+                                   config=ChunkerConfig(**settings))
 
     def split_text(self, text: str) -> list[str]:
         return self._chunker.chunk(text)

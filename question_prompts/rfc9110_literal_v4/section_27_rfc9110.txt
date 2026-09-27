@@ -1,0 +1,288 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 27 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 27/45 ---
+   3.  Otherwise, the condition is false.
+
+   To evaluate a received If-Range header field containing an
+   entity-tag:
+
+   1.  If the entity-tag validator provided exactly matches the ETag
+       field value for the selected representation using the strong
+       comparison function (Section 8.8.3.2), the condition is true.
+
+   2.  Otherwise, the condition is false.
+
+   A recipient of an If-Range header field MUST ignore the Range header
+   field if the If-Range condition evaluates to false.  Otherwise, the
+   recipient SHOULD process the Range header field as requested.
+
+   Note that the If-Range comparison is by exact match, including when
+   the validator is an HTTP-date, and so it differs from the "earlier
+   than or equal to" comparison used when evaluating an
+   If-Unmodified-Since conditional.
+
+13.2.  Evaluation of Preconditions
+
+13.2.1.  When to Evaluate
+
+   Except when excluded below, a recipient cache or origin server MUST
+   evaluate received request preconditions after it has successfully
+   performed its normal request checks and just before it would process
+   the request content (if any) or perform the action associated with
+   the request method.  A server MUST ignore all received preconditions
+   if its response to the same request without those conditions, prior
+   to processing the request content, would have been a status code
+   other than a 2xx (Successful) or 412 (Precondition Failed).  In other
+   words, redirects and failures that can be detected before significant
+   processing occurs take precedence over the evaluation of
+   preconditions.
+
+   A server that is not the origin server for the target resource and
+   cannot act as a cache for requests on the target resource MUST NOT
+   evaluate the conditional request header fields defined by this
+   specification, and it MUST forward them if the request is forwarded,
+   since the generating client intends that they be evaluated by a
+   server that can provide a current representation.  Likewise, a server
+   MUST ignore the conditional request header fields defined by this
+   specification when received with a request method that does not
+   involve the selection or modification of a selected representation,
+   such as CONNECT, OPTIONS, or TRACE.
+
+   Note that protocol extensions can modify the conditions under which
+   preconditions are evaluated or the consequences of their evaluation.
+   For example, the immutable cache directive (defined by [RFC8246])
+   instructs caches to forgo forwarding conditional requests when they
+   hold a fresh response.
+
+   Although conditional request header fields are defined as being
+   usable with the HEAD method (to keep HEAD's semantics consistent with
+   those of GET), there is no point in sending a conditional HEAD
+   because a successful response is around the same size as a 304 (Not
+   Modified) response and more useful than a 412 (Precondition Failed)
+   response.
+
+13.2.2.  Precedence of Preconditions
+
+   When more than one conditional request header field is present in a
+   request, the order in which the fields are evaluated becomes
+   important.  In practice, the fields defined in this document are
+   consistently implemented in a single, logical order, since "lost
+   update" preconditions have more strict requirements than cache
+   validation, a validated cache is more efficient than a partial
+   response, and entity tags are presumed to be more accurate than date
+   validators.
+
+   A recipient cache or origin server MUST evaluate the request
+   preconditions defined by this specification in the following order:
+
+   1.  When recipient is the origin server and If-Match is present,
+       evaluate the If-Match precondition:
+
+       *  if true, continue to step 3
+
+       *  if false, respond 412 (Precondition Failed) unless it can be
+          determined that the state-changing request has already
+          succeeded (see Section 13.1.1)
+
+   2.  When recipient is the origin server, If-Match is not present, and
+       If-Unmodified-Since is present, evaluate the If-Unmodified-Since
+       precondition:
+
+       *  if true, continue to step 3
+
+       *  if false, respond 412 (Precondition Failed) unless it can be
+          determined that the state-changing request has already
+          succeeded (see Section 13.1.4)
+
+   3.  When If-None-Match is present, evaluate the If-None-Match
+       precondition:
+
+       *  if true, continue to step 5
+
+       *  if false for GET/HEAD, respond 304 (Not Modified)
+
+       *  if false for other methods, respond 412 (Precondition Failed)
+
+   4.  When the method is GET or HEAD, If-None-Match is not present, and
+       If-Modified-Since is present, evaluate the If-Modified-Since
+       precondition:
+
+       *  if true, continue to step 5
+
+       *  if false, respond 304 (Not Modified)
+
+   5.  When the method is GET and both Range and If-Range are present,
+       evaluate the If-Range precondition:
+
+       *  if true and the Range is applicable to the selected
+          representation, respond 206 (Partial Content)
+
+       *  otherwise, ignore the Range header field and respond 200 (OK)
+
+   6.  Otherwise,
+
+       *  perform the requested method and respond according to its
+          success or failure.
+
+   Any extension to HTTP that defines additional conditional request
+   header fields ought to define the order for evaluating such fields in
+   relation to those defined in this document and other conditionals
+   that might be found in practice.
+
+14.  Range Requests
+
+   Clients often encounter interrupted data transfers as a result of
+   canceled requests or dropped connections.  When a client has stored a
+   partial representation, it is desirable to request the remainder of
+   that representation in a subsequent request rather than transfer the
+   entire representation.  Likewise, devices with limited local storage
+   might benefit from being able to request only a subset of a larger
+   representation, such as a single page of a very large document, or
+   the dimensions of an embedded image.
+
+   Range requests are an OPTIONAL feature of HTTP, designed so that
+   recipients not implementing this feature (or not supporting it for
+   the target resource) can respond as if it is a normal GET request
+   without impacting interoperability.  Partial responses are indicated
+   by a distinct status code to not be mistaken for full responses by
+   caches that might not implement the feature.
+
+14.1.  Range Units
+
+   Representation data can be partitioned into subranges when there are
+   addressable structural units inherent to that data's content coding
+   or media type.  For example, octet (a.k.a. byte) boundaries are a
+   structural unit common to all representation data, allowing
+   partitions of the data to be identified as a range of bytes at some
+   offset from the start or end of that data.
+
+   This general notion of a "range unit" is used in the Accept-Ranges
+   (Section 14.3) response header field to advertise support for range
+   requests, the Range (Section 14.2) request header field to delineate
+   the parts of a representation that are requested, and the
+   Content-Range (Section 14.4) header field to describe which part of a
+   representation is being transferred.
+
+     range-unit       = token
+
+   All range unit names are case-insensitive and ought to be registered
+   within the "HTTP Range Unit Registry", as defined in Section 16.5.1.
+
+   Range units are intended to be extensible, as described in
+   Section 16.5.
+
+14.1.1.  Range Specifiers
+
+   Ranges are expressed in terms of a range unit paired with a set of
+   range specifiers.  The range unit name determines what kinds of
+   range-spec are applicable to its own specifiers.  Hence, the
+   following grammar is generic: each range unit is expected to specify
+   requirements on when int-range, suffix-range, and other-range are
+   allowed.
+
+   A range request can specify a single range or a set of ranges within
+   a single representation.
+
+     ranges-specifier = range-unit "=" range-set
+     range-set        = 1#range-spec
+     range-spec       = int-range
+                      / suffix-range
+                      / other-range
+
+   An int-range is a range expressed as two non-negative integers or as
+   one non-negative integer through to the end of the representation
+   data.  The range unit specifies what the integers mean (e.g., they
+   might indicate unit offsets from the beginning, inclusive numbered
+   parts, etc.).
+
+     int-range     = first-pos "-" [ last-pos ]
+     first-pos     = 1*DIGIT
+     last-pos      = 1*DIGIT
+
+   An int-range is invalid if the last-pos value is present and less
+   than the first-pos.
+
+   A suffix-range is a range expressed as a suffix of the representation
+   data with the provided non-negative integer maximum length (in range
+   units).  In other words, the last N units of the representation data.
+
+     suffix-range  = "-" suffix-length
+     suffix-length = 1*DIGIT
+
+   To provide for extensibility, the other-range rule is a mostly
+   unconstrained grammar that allows application-specific or future
+   range units to define additional range specifiers.
+
+     other-range   = 1*( %x21-2B / %x2D-7E )
+                   ; 1*(VCHAR excluding comma)
+
+   A ranges-specifier is invalid if it contains any range-spec that is
+   invalid or undefined for the indicated range-unit.
+
+   A valid ranges-specifier is "satisfiable" if it contains at least one
+   range-spec that is satisfiable, as defined by the indicated
+   range-unit.  Otherwise, the ranges-specifier is "unsatisfiable".
+
+14.1.2.  Byte Ranges
+
+   The "bytes" range unit is used to express subranges of a
+   representation data's octet sequence.  Each byte range is expressed
+   as an integer range at some offset, relative to either the beginning
+   (int-range) or end (suffix-range) of the representation data.  Byte
+   ranges do not use the other-range specifier.
+
+   The first-pos value in a bytes int-range gives the offset of the
+   first byte in a range.  The last-pos value gives the offset of the
+   last byte in the range; that is, the byte positions specified are
+   inclusive.  Byte offsets start at zero.
+
+   If the representation data has a content coding applied, each byte
+   range is calculated with respect to the encoded sequence of bytes,
+   not the sequence of underlying bytes that would be obtained after
+   decoding.
+
+   Examples of bytes range specifiers:
+
+   *  The first 500 bytes (byte offsets 0-499, inclusive):
+
+           bytes=0-499
+
+   *  The second 500 bytes (byte offsets 500-999, inclusive):
+
+           bytes=500-999
+
+   A client can limit the number of bytes requested without knowing the
+   size of the selected representation.  If the last-pos value is
+   absent, or if the value is greater than or equal to the current
+   length of the representation data, the byte range is interpreted as
+   the remainder of the representation (i.e., the server replaces the
+   value of last-pos with a value that is one less than the current
+   length of the selected representation).
+--- END OF SECTION ---

@@ -1,0 +1,316 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 44 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 44/45 ---
+      G
+
+         gateway  *_Section 3.7, Paragraph 6_*
+         GET method  *_Section 9.3.1_*
+         Grammar
+            ALPHA  *_Section 2.1_*
+            Accept  *_Section 12.5.1_*
+            Accept-Charset  *_Section 12.5.2_*
+            Accept-Encoding  *_Section 12.5.3_*
+            Accept-Language  *_Section 12.5.4_*
+            Accept-Ranges  *_Section 14.3_*
+            Allow  *_Section 10.2.1_*
+            Authentication-Info  *_Section 11.6.3_*
+            Authorization  *_Section 11.6.2_*
+            BWS  *_Section 5.6.3_*
+            CR  *_Section 2.1_*
+            CRLF  *_Section 2.1_*
+            CTL  *_Section 2.1_*
+            Connection  *_Section 7.6.1_*
+            Content-Encoding  *_Section 8.4_*
+            Content-Language  *_Section 8.5_*
+            Content-Length  *_Section 8.6_*
+            Content-Location  *_Section 8.7_*
+            Content-Range  *_Section 14.4_*
+            Content-Type  *_Section 8.3_*
+            DIGIT  *_Section 2.1_*
+            DQUOTE  *_Section 2.1_*
+            Date  *_Section 6.6.1_*
+            ETag  *_Section 8.8.3_*
+            Expect  *_Section 10.1.1_*
+            From  *_Section 10.1.2_*
+            GMT  *_Section 5.6.7_*
+            HEXDIG  *_Section 2.1_*
+            HTAB  *_Section 2.1_*
+            HTTP-date  *_Section 5.6.7_*
+            Host  *_Section 7.2_*
+            IMF-fixdate  *_Section 5.6.7_*
+            If-Match  *_Section 13.1.1_*
+            If-Modified-Since  *_Section 13.1.3_*
+            If-None-Match  *_Section 13.1.2_*
+            If-Range  *_Section 13.1.5_*
+            If-Unmodified-Since  *_Section 13.1.4_*
+            LF  *_Section 2.1_*
+            Last-Modified  *_Section 8.8.2_*
+            Location  *_Section 10.2.2_*
+            Max-Forwards  *_Section 7.6.2_*
+            OCTET  *_Section 2.1_*
+            OWS  *_Section 5.6.3_*
+            Proxy-Authenticate  *_Section 11.7.1_*
+            Proxy-Authentication-Info  *_Section 11.7.3_*
+            Proxy-Authorization  *_Section 11.7.2_*
+            RWS  *_Section 5.6.3_*
+            Range  *_Section 14.2_*
+            Referer  *_Section 10.1.3_*
+            Retry-After  *_Section 10.2.3_*
+            SP  *_Section 2.1_*
+            Server  *_Section 10.2.4_*
+            TE  *_Section 10.1.4_*
+            Trailer  *_Section 6.6.2_*
+            URI-reference  *_Section 4.1_*
+            Upgrade  *_Section 7.8_*
+            User-Agent  *_Section 10.1.5_*
+            VCHAR  *_Section 2.1_*
+            Vary  *_Section 12.5.5_*
+            Via  *_Section 7.6.3_*
+            WWW-Authenticate  *_Section 11.6.1_*
+            absolute-URI  *_Section 4.1_*
+            absolute-path  *_Section 4.1_*
+            acceptable-ranges  *_Section 14.3_*
+            asctime-date  *_Section 5.6.7_*
+            auth-param  *_Section 11.2_*
+            auth-scheme  *_Section 11.1_*
+            authority  *_Section 4.1_*
+            challenge  *_Section 11.3_*
+            codings  *_Section 12.5.3_*
+            comment  *_Section 5.6.5_*
+            complete-length  *_Section 14.4_*
+            connection-option  *_Section 7.6.1_*
+            content-coding  *_Section 8.4.1_*
+            credentials  *_Section 11.4_*
+            ctext  *_Section 5.6.5_*
+            date1  *_Section 5.6.7_*
+            day  *_Section 5.6.7_*
+            day-name  *_Section 5.6.7_*
+            day-name-l  *_Section 5.6.7_*
+            delay-seconds  *_Section 10.2.3_*
+            entity-tag  *_Section 8.8.3_*
+            etagc  *_Section 8.8.3_*
+            field-content  *_Section 5.5_*
+            field-name  *_Section 5.1_*; Section 6.6.2
+            field-value  *_Section 5.5_*
+            field-vchar  *_Section 5.5_*
+            first-pos  *_Section 14.1.1_*; Section 14.4
+            hour  *_Section 5.6.7_*
+            http-URI  *_Section 4.2.1_*
+            https-URI  *_Section 4.2.2_*
+            incl-range  *_Section 14.4_*
+            int-range  *_Section 14.1.1_*
+            language-range  *_Section 12.5.4_*
+            language-tag  *_Section 8.5.1_*
+            last-pos  *_Section 14.1.1_*; Section 14.4
+            media-range  *_Section 12.5.1_*
+            media-type  *_Section 8.3.1_*
+            method  *_Section 9.1_*
+            minute  *_Section 5.6.7_*
+            month  *_Section 5.6.7_*
+            obs-date  *_Section 5.6.7_*
+            obs-text  *_Section 5.5_*
+            opaque-tag  *_Section 8.8.3_*
+            other-range  *_Section 14.1.1_*
+            parameter  *_Section 5.6.6_*
+            parameter-name  *_Section 5.6.6_*
+            parameter-value  *_Section 5.6.6_*
+            parameters  *_Section 5.6.6_*
+            partial-URI  *_Section 4.1_*
+            port  *_Section 4.1_*
+            product  *_Section 10.1.5_*
+            product-version  *_Section 10.1.5_*
+            protocol-name  *_Section 7.6.3_*
+            protocol-version  *_Section 7.6.3_*
+            pseudonym  *_Section 7.6.3_*
+            qdtext  *_Section 5.6.4_*
+            query  *_Section 4.1_*
+            quoted-pair  *_Section 5.6.4_*
+            quoted-string  *_Section 5.6.4_*
+            qvalue  *_Section 12.4.2_*
+            range-resp  *_Section 14.4_*
+            range-set  *_Section 14.1.1_*
+            range-spec  *_Section 14.1.1_*
+            range-unit  *_Section 14.1_*
+            ranges-specifier  *_Section 14.1.1_*
+            received-by  *_Section 7.6.3_*
+            received-protocol  *_Section 7.6.3_*
+            rfc850-date  *_Section 5.6.7_*
+            second  *_Section 5.6.7_*
+            segment  *_Section 4.1_*
+            subtype  *_Section 8.3.1_*
+            suffix-length  *_Section 14.1.1_*
+            suffix-range  *_Section 14.1.1_*
+            t-codings  *_Section 10.1.4_*
+            tchar  *_Section 5.6.2_*
+            time-of-day  *_Section 5.6.7_*
+            token  *_Section 5.6.2_*
+            token68  *_Section 11.2_*
+            transfer-coding  *_Section 10.1.4_*
+            transfer-parameter  *_Section 10.1.4_*
+            type  *_Section 8.3.1_*
+            unsatisfied-range  *_Section 14.4_*
+            uri-host  *_Section 4.1_*
+            weak  *_Section 8.8.3_*
+            weight  *_Section 12.4.2_*
+            year  *_Section 5.6.7_*
+         gzip (Coding Format)  Section 8.4.1.3
+         gzip (content coding)  *_Section 8.4.1_*
+
+      H
+
+         HEAD method  *_Section 9.3.2_*
+         Header Fields
+            Accept  *_Section 12.5.1_*
+            Accept-Charset  *_Section 12.5.2_*
+            Accept-Encoding  *_Section 12.5.3_*
+            Accept-Language  *_Section 12.5.4_*
+            Accept-Ranges  *_Section 14.3_*
+            Allow  *_Section 10.2.1_*
+            Authentication-Info  *_Section 11.6.3_*
+            Authorization  *_Section 11.6.2_*
+            Connection  *_Section 7.6.1_*
+            Content-Encoding  *_Section 8.4_*
+            Content-Language  *_Section 8.5_*
+            Content-Length  *_Section 8.6_*
+            Content-Location  *_Section 8.7_*
+            Content-MD5  *_Section 18.4, Paragraph 10_*
+            Content-Range  *_Section 14.4_*; Section 14.5
+            Content-Type  *_Section 8.3_*
+            Date  *_Section 6.6.1_*
+            ETag  *_Section 8.8.3_*
+            Expect  *_Section 10.1.1_*
+            From  *_Section 10.1.2_*
+            Host  *_Section 7.2_*
+            If-Match  *_Section 13.1.1_*
+            If-Modified-Since  *_Section 13.1.3_*
+            If-None-Match  *_Section 13.1.2_*
+            If-Range  *_Section 13.1.5_*
+            If-Unmodified-Since  *_Section 13.1.4_*
+            Last-Modified  *_Section 8.8.2_*
+            Location  *_Section 10.2.2_*
+            Max-Forwards  *_Section 7.6.2_*
+            Proxy-Authenticate  *_Section 11.7.1_*
+            Proxy-Authentication-Info  *_Section 11.7.3_*
+            Proxy-Authorization  *_Section 11.7.2_*
+            Range  *_Section 14.2_*
+            Referer  *_Section 10.1.3_*
+            Retry-After  *_Section 10.2.3_*
+            Server  *_Section 10.2.4_*
+            TE  *_Section 10.1.4_*
+            Trailer  *_Section 6.6.2_*
+            Upgrade  *_Section 7.8_*
+            User-Agent  *_Section 10.1.5_*
+            Vary  *_Section 12.5.5_*
+            Via  *_Section 7.6.3_*
+            WWW-Authenticate  *_Section 11.6.1_*
+         header section  *_Section 6.3_*
+         Host header field  *_Section 7.2_*
+         http URI scheme  *_Section 4.2.1_*
+         https URI scheme  *_Section 4.2.2_*
+
+      I
+
+         idempotent  *_Section 9.2.2_*
+         If-Match header field  *_Section 13.1.1_*
+         If-Modified-Since header field  *_Section 13.1.3_*
+         If-None-Match header field  *_Section 13.1.2_*
+         If-Range header field  *_Section 13.1.5_*
+         If-Unmodified-Since header field  *_Section 13.1.4_*
+         inbound  *_Section 3.7, Paragraph 4_*
+         incomplete  *_Section 6.1_*
+         interception proxy  *_Section 3.7, Paragraph 10_*
+         intermediary  *_Section 3.7_*
+
+      L
+
+         Last-Modified header field  *_Section 8.8.2_*
+         list-based field  Section 5.5, Paragraph 7
+         Location header field  *_Section 10.2.2_*
+
+      M
+
+         Max-Forwards header field  *_Section 7.6.2_*
+         Media Type
+            multipart/byteranges  *_Section 14.6_*
+            multipart/x-byteranges  Section 14.6, Paragraph 4, Item 3
+         message  Section 3.4; *_Section 6_*
+         message abstraction  *_Section 6_*
+         messages  *_Section 3.4_*
+         metadata  *_Section 8.8_*
+         Method
+            *  *_Section 18.2, Paragraph 3_*
+            CONNECT  *_Section 9.3.6_*
+            DELETE  *_Section 9.3.5_*
+            GET  *_Section 9.3.1_*
+            HEAD  *_Section 9.3.2_*
+            OPTIONS  *_Section 9.3.7_*
+            POST  *_Section 9.3.3_*
+            PUT  *_Section 9.3.4_*
+            TRACE  *_Section 9.3.8_*
+         multipart/byteranges Media Type  *_Section 14.6_*
+         multipart/x-byteranges Media Type  Section 14.6, Paragraph 4,
+            Item 3
+
+      N
+
+         non-transforming proxy  *_Section 7.7_*
+
+      O
+
+         OPTIONS method  *_Section 9.3.7_*
+         origin  *_Section 4.3.1_*; Section 11.5
+         origin server  *_Section 3.6_*
+         outbound  *_Section 3.7, Paragraph 4_*
+
+      P
+
+         phishing  *_Section 17.1_*
+         POST method  *_Section 9.3.3_*
+         Protection Space  Section 11.5
+         proxy  *_Section 3.7, Paragraph 5_*
+         Proxy-Authenticate header field  *_Section 11.7.1_*
+         Proxy-Authentication-Info header field  *_Section 11.7.3_*
+         Proxy-Authorization header field  *_Section 11.7.2_*
+         PUT method  *_Section 9.3.4_*
+
+      R
+
+         Range header field  *_Section 14.2_*
+         Realm  Section 11.5
+         recipient  *_Section 3.4_*
+         Referer header field  *_Section 10.1.3_*
+         representation  *_Section 3.2_*
+         request  *_Section 3.4_*
+         request target  *_Section 7.1_*
+         resource  *_Section 3.1_*; Section 4
+         response  *_Section 3.4_*
+         Retry-After header field  *_Section 10.2.3_*
+         reverse proxy  *_Section 3.7, Paragraph 6_*
+--- END OF SECTION ---

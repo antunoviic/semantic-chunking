@@ -1,0 +1,86 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 10 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 10/40 ---
+Meanwhile Necho II was pursuing his easy conquests in Syria. He had defeated and slain King Josiah of Judah, a small country of which there is more to tell presently, at the battle of Megiddo in 608 B.C., and he pushed on to the Euphrates to encounter not a decadent Assyria but a renascent Babylonia. The Chaldeans dealt very vigorously with the Egyptians. Necho was routed and driven back to Egypt, and the Babylonian frontier pushed down to the ancient Egyptian boundaries.
+
+Map showing the relation of the Median and Second Babylonian (Chaldæan) Empires in the reign of Nebuchadnezzar the Great
+
+insecurely. It flourished so long as it kept the peace with the stronger, hardier Median Empire to the north. And during these sixty-seven years not only life but learning flourished in the ancient city.
+
+extent
+
+Even under the Assyrian monarchs and especially under Sardanapalus, Babylon had been a scene of great intellectual activity. Sardanapalus, though an Assyrian, had been quite Babylon-ized. He made a library, a library not of paper but of the clay tablets that were used for writing in Mesopotamia since early Sumerian days. His collection has been unearthed and is perhaps the most precious store of historical material Nabonidus, had even keener literary tastes. He patronized antiquarian researches, and when a date was worked out by his investigators for the accession of Sargon I he commemorated the fact by inscriptions. But there were many signs of disunion in his empire, and he sought to centralize it by bringing a number of the various local gods to Babylon and setting up temples to them there. This device was to be practised quite successfully by the Romans in later times, but in Babylon it roused the jealousy of the powerful priesthood of Bel Marduk, the dominant god of the Babylonians. They cast about for a possible alternative to Nabonidus and found it in Cyrus the Persian, the ruler of the adjacent Median Empire. Cyrus had already distinguished himself by conquering Croesus, the rich king of Lydia in Eastern Asia Minor. He came up against Babylon, there was a battle outside the walls, and the gates of the city were opened to him (538 B.C.). His soldiers entered the city without fighting. The crown prince Belshazzar, the son of Nabonidus, was feasting, the Bible relates, when a hand appeared and wrote in letters of fire upon the wall these mystical words: _“Mene, Mene, Tekel, Upharsin,”_ which was interpreted by the prophet Daniel, whom he summoned to read the riddle, as “God has numbered thy kingdom and finished it; thou art weighed in the balance and found wanting and thy kingdom is given to the Medes and Persians.” Possibly the priests of Bel Marduk knew something about that writing on the wall. Belshazzar was killed that night, says the Bible. Nabonidus was taken prisoner, and the occupation of the city was so peaceful that the services of Bel Marduk continued without intermission.
+
+Thus it was the Babylonian and Median empires were united. Cambyses, the son of Cyrus, subjugated Egypt. Cambyses went mad and was accidentally killed, and was presently succeeded by Darius the Mede, Darius I, the son of Hystaspes, one of the chief councillors of Cyrus.
+
+The capital city of the Persian Empire; burnt by Alexander the Great
+
+The Persian Empire of Darius I, the first of the new Aryan empires in the seat of the old civilizations, was the greatest empire the world had hitherto seen. It included all Asia Minor and Syria, all the old Assyrian and Babylonian empires, Egypt, the Caucasus and Caspian regions, Media, Persia, and it extended into India as far as the Indus. Such an empire was possible because the horse and rider and the chariot and the made-road had now been brought into the world. Hitherto the ass and ox and the camel for desert use had afforded the swiftest method of transport. Great arterial roads were made by the Persian rulers to hold their new empire, and post horses were always in waiting for the imperial messenger or the traveller with an official permit. Moreover the world was now beginning to use coined money, which greatly facilitated trade and intercourse. But the capital of this vast empire was no longer Babylon. In the long run the priesthood of Bel Marduk gained nothing by their treason. Babylon though still important was now a declining city, and the great cities of the new empire were Persepolis and Susa and Ecbatana. The capital was Susa. Nineveh was already abandoned and sinking into ruins.
+
+XXI THE EARLY HISTORY OF THE JEWS
+
+And now we can tell of the Hebrews, a Semitic people, not so important world. They were settled in Judea long before 1000 B.C., and their capital city after that time was Jerusalem. Their story is interwoven with that of the great empires on either side of them, Egypt to the south and the changing empires of Syria, Assyria and Babylon to the north. Their country was an inevitable high road between these latter powers and Egypt.
+
+Their importance in the world is due to the fact that they produced a written literature, a world history, a collection of laws, chronicles, psalms, books of wisdom, poetry and fiction and political utterances which became at last what Christians know as the Old Testament, the Hebrew Bible. This literature appears in history in the fourth or fifth century B.C.
+
+Probably this literature was first put together in Babylon. We have already told how the Pharaoh, Necho II, invaded the Assyrian Empire while Assyria was fighting for life against Medes, Persians and Chaldeans. Josiah King of Judah opposed him, and was defeated and slain at Megiddo (608 B.C.). Judah became a tributary to Egypt, and when Nebuchadnezzar the Great, the new Chaldean king in Babylon, rolled back Necho into Egypt, he attempted to manage Judah by setting up puppet kings in Jerusalem. The experiment failed, the people massacred his Babylonian officials, and he then determined to break up this little state altogether, which had long been playing off Egypt against the northern empire. Jerusalem was sacked and burnt, and the remnant of the people was carried off captive to Babylon.
+
+There they remained until Cyrus took Babylon (538 B.C.). He then collected them together and sent them back to resettle their country and rebuild the walls and temple of Jerusalem.
+
+Before that time the Jews do not seem to have been a very civilized or united people. Probably only a very few of them could read or write. being read; the first mention of a book is in the time of Josiah. The Babylonian captivity civilized them and consolidated them. They returned aware of their own literature, an acutely self-conscious and political people.
+
+Their Bible at that time seems to have consisted only of the Pentateuch, that is to say the first five books of the Old Testament as we know it. In addition, as separate books they already had many of the other books that have since been incorporated with the Pentateuch into the present Hebrew Bible, Chronicles, the Psalms and Proverbs for example.
+
+The accounts of the Creation of the World, of Adam and Eve and of the Flood, with which the Bible begins, run closely parallel with similar Babylonian legends; they seem to have been part of the common beliefs of all the Semitic peoples. So too the stories of Moses and of Samson have Sumerian and Babylonian parallels. But with the story of Abraham and onward begins something more special to the Jewish race.
+
+Abraham may have lived as early as the days of Hammurabi in Babylon. He was a patriarchal Semitic nomad. To the book of Genesis the reader must go for the story of his wanderings and for the stories of his sons and grandchildren and how they became captive in the Land of Egypt. He travelled through Canaan, and the God of Abraham, says the Bible story, promised this smiling land of prosperous cities to him and to his children.
+
+And after a long sojourn in Egypt and after fifty years of wandering in the wilderness under the leadership of Moses, the children of Abraham, grown now to a host of twelve tribes, invaded the land of Canaan from the Arabian deserts to the East. They may have done this somewhen between 1600 B.C. and 1300 B.C.; there are no Egyptian records of Moses nor of Canaan at this time to help out the story. But at any rate they did not succeed in conquering any more than the hilly backgrounds of the promised land. The coast was now in the hands, not of the Canaanites but of newcomers, those Ægean peoples, the Philistines; and their cities, Gaza, Gath, Ashdod, Ascalon and Joppa successfully withstood the Hebrew attack. For many generations the children of Abraham remained an obscure people of the hilly back country engaged in incessant bickerings with the Philistines and with the kindred tribes about them, the Moabites, the Midianites and so forth. The reader will find in the book of Judges a record of their struggles and disasters during this period. For very largely it is a record of disasters and failures frankly told.
+
+For most of this period the Hebrews were ruled, so far as there was any rule among them, by priestly judges selected by the elders of the people, but at last somewhen towards 1000 B.C. they chose themselves a king, Saul, to lead them in battle. But Saul’s leading was no great improvement upon the leading of the Judges; he perished under the hail of Philistine arrows at the battle of Mount Gilboa, his armour went into the temple of the Philistine Venus, and his body was nailed to the walls of Beth-shan.
+
+Beneath which are the remains of a great palace of Nebuchadnezzar
+
+His successor David was more successful and more politic. With David dawned the only period of prosperity the Hebrew peoples were ever to know. It was based on a close alliance with the Phœnician city of Tyre, whose King Hiram seems to have been a man of very great intelligence and enterprise. He wished to secure a trade route to the Red Sea through the Hebrew hill country. Normally Phœnician trade went to the Red Sea by Egypt, but Egypt was in a state of profound disorder at this time; there may have been other obstructions to Phœnician trade along this line, and at any rate Hiram established the very closest relations both with David and with his son and successor Solomon. Under Hiram’s auspices the walls, palace and temple of Jerusalem arose, and in return Hiram built and launched his ships on the Red Sea. A very considerable trade passed northward and southward through Jerusalem. And Solomon achieved a prosperity and magnificence unprecedented in the experience of his people. He was even given a daughter of Pharaoh in marriage.
+
+But it is well to keep the proportion of things in mind. At the climax of his glories Solomon was only a little subordinate king in a little city. His power was so transitory that within a few years of his death, Shishak the first Pharaoh of the twenty-second dynasty, had taken Jerusalem and looted most of its splendours. The account of Solomon’s magnificence given in the books of Kings and Chronicles is questioned by many critics. They say that it was added to and exaggerated by the patriotic pride of later writers. But the Bible account read carefully is not so overwhelming as it appears at the first reading. Solomon’s temple, if one works out the measurements, would go inside a small suburban church, and his fourteen hundred chariots cease to impress us when we learn from an Assyrian monument that his successor Ahab sent a contingent of two thousand to the Assyrian army. It is also plainly manifest from the Bible narrative that Solomon spent himself in display and overtaxed and overworked his people. At his death the northern part of his kingdom broke off from Jerusalem and became the independent kingdom of Israel. Jerusalem remained the capital city of Judah.
+
+The bulls are in richly coloured enamel on baked brick
+
+The prosperity of the Hebrew people was short-lived. Hiram died, and the help of Tyre ceased to strengthen Jerusalem. Egypt grew strong again. The history of the kings of Israel and the kings of Judah becomes a history of two little states ground between, first, Syria, then Assyria and then Babylon to the north and Egypt to the south. It is a tale of disasters and of deliverances that only delayed disaster. It is a tale of barbaric kings ruling a barbaric people. In 721 B.C. the kingdom of Israel was swept away into captivity by the Assyrians and its people utterly lost to history. Judah struggled on until in 604 B.C., as we have told, it shared the fate of Israel. There may be details open to criticism in the Bible story of Hebrew history from the days of the Judges onward, but on the whole it is evidently a true story which squares with all that has been learnt in the excavation of Egypt and Assyria and Babylon during the past century.
+
+It was in Babylon that the Hebrew people got their history together and evolved their tradition. The people who came back to Jerusalem at the command of Cyrus were a very different people in spirit and knowledge played by certain men, a new sort of men, the Prophets, to whom we must now direct our attention. These Prophets mark the appearance of new and remarkable forces in the steady development of human society.
+
+XXII PRIESTS AND PROPHETS IN JUDEA
+
+The fall of Assyria and Babylon were only the first of a series of disasters that were to happen to the Semitic peoples. In the seventh century B.C. it would have seemed as though the whole civilized world was to be dominated by Semitic rulers. They ruled the great Assyrian empire and they had conquered Egypt; Assyria, Babylon, Syria were all Semitic, speaking languages that were mutually intelligible. The trade of the world was in Semitic hands. Tyre, Sidon, the great mother cities of the Phœnician coast, had thrown out colonies that grew at last to even greater proportion in Spain, Sicily and Africa. Carthage, founded before 800 B.C., had risen to a population of more than a million. It was for a time the greatest city on earth. Its ships went to Britain and out into the Atlantic. They may have reached Madeira. We have already noted how Hiram co-operated with Solomon to build ships on the Red Sea for the Arabian and perhaps for the Indian trade. In the time of the Pharaoh Necho, a Phœnician expedition sailed completely round Africa.
+
+At that time the Aryan peoples were still barbarians. Only the Greeks were reconstructing a new civilization of the ruins of the one they had destroyed, and the Medes were becoming “formidable,” as an Assyrian inscription calls them, in central Asia. In 800 B.C. no one could have prophesied that before the third century B.C. every trace of Semitic dominion would be wiped out by Aryan-speaking conquerors, and that everywhere the Semitic peoples would be subjects or tributaries or scattered altogether. Everywhere except in the northern deserts of Arabia, where the Bedouin adhered steadily to the nomadic way of life, the ancient way of life of the Semites before Sargon I 
+--- END OF SECTION ---

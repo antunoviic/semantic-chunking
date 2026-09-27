@@ -1,0 +1,268 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 19 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 19/45 ---
+   CONNECT server.example.com:80 HTTP/1.1
+   Host: server.example.com
+
+   A server MUST reject a CONNECT request that targets an empty or
+   invalid port number, typically by responding with a 400 (Bad Request)
+   status code.
+
+   Because CONNECT changes the request/response nature of an HTTP
+   connection, specific HTTP versions might have different ways of
+   mapping its semantics into the protocol's wire format.
+
+   CONNECT is intended for use in requests to a proxy.  The recipient
+   can establish a tunnel either by directly connecting to the server
+   identified by the request target or, if configured to use another
+   proxy, by forwarding the CONNECT request to the next inbound proxy.
+   An origin server MAY accept a CONNECT request, but most origin
+   servers do not implement CONNECT.
+
+   Any 2xx (Successful) response indicates that the sender (and all
+   inbound proxies) will switch to tunnel mode immediately after the
+   response header section; data received after that header section is
+   from the server identified by the request target.  Any response other
+   than a successful response indicates that the tunnel has not yet been
+   formed.
+
+   A tunnel is closed when a tunnel intermediary detects that either
+   side has closed its connection: the intermediary MUST attempt to send
+   any outstanding data that came from the closed side to the other
+   side, close both connections, and then discard any remaining data
+   left undelivered.
+
+   Proxy authentication might be used to establish the authority to
+   create a tunnel.  For example,
+
+   CONNECT server.example.com:443 HTTP/1.1
+   Host: server.example.com:443
+   Proxy-Authorization: basic aGVsbG86d29ybGQ=
+
+   There are significant risks in establishing a tunnel to arbitrary
+   servers, particularly when the destination is a well-known or
+   reserved TCP port that is not intended for Web traffic.  For example,
+   a CONNECT to "example.com:25" would suggest that the proxy connect to
+   the reserved port for SMTP traffic; if allowed, that could trick the
+   proxy into relaying spam email.  Proxies that support CONNECT SHOULD
+   restrict its use to a limited set of known ports or a configurable
+   list of safe request targets.
+
+   A server MUST NOT send any Transfer-Encoding or Content-Length header
+   fields in a 2xx (Successful) response to CONNECT.  A client MUST
+   ignore any Content-Length or Transfer-Encoding header fields received
+   in a successful response to CONNECT.
+
+   A CONNECT request message does not have content.  The interpretation
+   of data sent after the header section of the CONNECT request message
+   is specific to the version of HTTP in use.
+
+   Responses to the CONNECT method are not cacheable.
+
+9.3.7.  OPTIONS
+
+   The OPTIONS method requests information about the communication
+   options available for the target resource, at either the origin
+   server or an intervening intermediary.  This method allows a client
+   to determine the options and/or requirements associated with a
+   resource, or the capabilities of a server, without implying a
+   resource action.
+
+   An OPTIONS request with an asterisk ("*") as the request target
+   (Section 7.1) applies to the server in general rather than to a
+   specific resource.  Since a server's communication options typically
+   depend on the resource, the "*" request is only useful as a "ping" or
+   "no-op" type of method; it does nothing beyond allowing the client to
+   test the capabilities of the server.  For example, this can be used
+   to test a proxy for HTTP/1.1 conformance (or lack thereof).
+
+   If the request target is not an asterisk, the OPTIONS request applies
+   to the options that are available when communicating with the target
+   resource.
+
+   A server generating a successful response to OPTIONS SHOULD send any
+   header that might indicate optional features implemented by the
+   server and applicable to the target resource (e.g., Allow), including
+   potential extensions not defined by this specification.  The response
+   content, if any, might also describe the communication options in a
+   machine or human-readable representation.  A standard format for such
+   a representation is not defined by this specification, but might be
+   defined by future extensions to HTTP.
+
+   A client MAY send a Max-Forwards header field in an OPTIONS request
+   to target a specific recipient in the request chain (see
+   Section 7.6.2).  A proxy MUST NOT generate a Max-Forwards header
+   field while forwarding a request unless that request was received
+   with a Max-Forwards field.
+
+   A client that generates an OPTIONS request containing content MUST
+   send a valid Content-Type header field describing the representation
+   media type.  Note that this specification does not define any use for
+   such content.
+
+   Responses to the OPTIONS method are not cacheable.
+
+9.3.8.  TRACE
+
+   The TRACE method requests a remote, application-level loop-back of
+   the request message.  The final recipient of the request SHOULD
+   reflect the message received, excluding some fields described below,
+   back to the client as the content of a 200 (OK) response.  The
+   "message/http" format (Section 10.1 of [HTTP/1.1]) is one way to do
+   so.  The final recipient is either the origin server or the first
+   server to receive a Max-Forwards value of zero (0) in the request
+   (Section 7.6.2).
+
+   A client MUST NOT generate fields in a TRACE request containing
+   sensitive data that might be disclosed by the response.  For example,
+   it would be foolish for a user agent to send stored user credentials
+   (Section 11) or cookies [COOKIE] in a TRACE request.  The final
+   recipient of the request SHOULD exclude any request fields that are
+   likely to contain sensitive data when that recipient generates the
+   response content.
+
+   TRACE allows the client to see what is being received at the other
+   end of the request chain and use that data for testing or diagnostic
+   information.  The value of the Via header field (Section 7.6.3) is of
+   particular interest, since it acts as a trace of the request chain.
+   Use of the Max-Forwards header field allows the client to limit the
+   length of the request chain, which is useful for testing a chain of
+   proxies forwarding messages in an infinite loop.
+
+   A client MUST NOT send content in a TRACE request.
+
+   Responses to the TRACE method are not cacheable.
+
+10.  Message Context
+
+10.1.  Request Context Fields
+
+   The request header fields below provide additional information about
+   the request context, including information about the user, user
+   agent, and resource behind the request.
+
+10.1.1.  Expect
+
+   The "Expect" header field in a request indicates a certain set of
+   behaviors (expectations) that need to be supported by the server in
+   order to properly handle this request.
+
+     Expect =      #expectation
+     expectation = token [ "=" ( token / quoted-string ) parameters ]
+
+   The Expect field value is case-insensitive.
+
+   The only expectation defined by this specification is "100-continue"
+   (with no defined parameters).
+
+   A server that receives an Expect field value containing a member
+   other than 100-continue MAY respond with a 417 (Expectation Failed)
+   status code to indicate that the unexpected expectation cannot be
+   met.
+
+   A "100-continue" expectation informs recipients that the client is
+   about to send (presumably large) content in this request and wishes
+   to receive a 100 (Continue) interim response if the method, target
+   URI, and header fields are not sufficient to cause an immediate
+   success, redirect, or error response.  This allows the client to wait
+   for an indication that it is worthwhile to send the content before
+   actually doing so, which can improve efficiency when the data is huge
+   or when the client anticipates that an error is likely (e.g., when
+   sending a state-changing method, for the first time, without
+   previously verified authentication credentials).
+
+   For example, a request that begins with
+
+   PUT /somewhere/fun HTTP/1.1
+   Host: origin.example.com
+   Content-Type: video/h264
+   Content-Length: 1234567890987
+   Expect: 100-continue
+
+   allows the origin server to immediately respond with an error
+   message, such as 401 (Unauthorized) or 405 (Method Not Allowed),
+   before the client starts filling the pipes with an unnecessary data
+   transfer.
+
+   Requirements for clients:
+
+   *  A client MUST NOT generate a 100-continue expectation in a request
+      that does not include content.
+
+   *  A client that will wait for a 100 (Continue) response before
+      sending the request content MUST send an Expect header field
+      containing a 100-continue expectation.
+
+   *  A client that sends a 100-continue expectation is not required to
+      wait for any specific length of time; such a client MAY proceed to
+      send the content even if it has not yet received a response.
+      Furthermore, since 100 (Continue) responses cannot be sent through
+      an HTTP/1.0 intermediary, such a client SHOULD NOT wait for an
+      indefinite period before sending the content.
+
+   *  A client that receives a 417 (Expectation Failed) status code in
+      response to a request containing a 100-continue expectation SHOULD
+      repeat that request without a 100-continue expectation, since the
+      417 response merely indicates that the response chain does not
+      support expectations (e.g., it passes through an HTTP/1.0 server).
+
+   Requirements for servers:
+
+   *  A server that receives a 100-continue expectation in an HTTP/1.0
+      request MUST ignore that expectation.
+
+   *  A server MAY omit sending a 100 (Continue) response if it has
+      already received some or all of the content for the corresponding
+      request, or if the framing indicates that there is no content.
+
+   *  A server that sends a 100 (Continue) response MUST ultimately send
+      a final status code, once it receives and processes the request
+      content, unless the connection is closed prematurely.
+
+   *  A server that responds with a final status code before reading the
+      entire request content SHOULD indicate whether it intends to close
+      the connection (e.g., see Section 9.6 of [HTTP/1.1]) or continue
+      reading the request content.
+
+   Upon receiving an HTTP/1.1 (or later) request that has a method,
+   target URI, and complete header section that contains a 100-continue
+   expectation and an indication that request content will follow, an
+   origin server MUST send either:
+
+   *  an immediate response with a final status code, if that status can
+      be determined by examining just the method, target URI, and header
+      fields, or
+
+   *  an immediate 100 (Continue) response to encourage the client to
+      send the request content.
+
+   The origin server MUST NOT wait for the content before sending the
+   100 (Continue) response.
+--- END OF SECTION ---

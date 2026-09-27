@@ -1,0 +1,84 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 5 of 40 of a document. Produce EXACTLY
+10 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 5/40 ---
+So it is our race comes into the Record of the Rocks, and the story of mankind begins.
+
+The world was growing liker our own in those days though the climate was still austere. The glaciers of the Ice Age were receding in Europe; the reindeer of France and Spain presently gave way to great herds of horses as grass increased upon the steppes, and the mammoth became more and more rare in southern Europe and finally receded northward altogether ....
+
+We do not know where the True Men first originated. But in the summer of 1921, an extremely interesting skull was found together with pieces of a skeleton at Broken Hill in South Africa, which seems to be a relic of a third sort of man, intermediate in its characteristics between the Neanderthaler and the human being. The brain-case indicates a brain bigger in front and smaller behind than the Neanderthaler’s, and the skull was poised erect upon the backbone in a quite human way. The teeth also and the bones are quite human. But the face must have been ape-like with enormous brow ridges and a ridge along the middle of the skull. The creature was indeed a true man, so to speak, with an ape- like, Neanderthaler face. This Rhodesian Man is evidently still closer to real men than the Neanderthal Man.
+
+This Rhodesian skull is probably only the second of what in the end may prove to be a long list of finds of sub-human species which lived on the earth in the vast interval of time between the beginnings of the Ice Age and the appearance of their common heir, and perhaps their common exterminator, the True Man. The Rhodesian skull itself may not be very ancient. Up to the time of publishing this book there has been no exact determination of its probable age. It may be that this sub-human creature survived in South Africa until quite recent times.
+
+XI THE FIRST TRUE MEN
+
+The earliest signs and traces at present known to science, of a humanity which is indisputably kindred with ourselves, have been found in western Europe and particularly in France and Spain. Bones, weapons, scratchings upon bone and rock, carved fragments of bone, and paintings in caves and upon rock surfaces dating. it is supposed. from 30,000 years ago or more, have been discovered in both these countries. Spain is at present the richest country in the world in these first relics of our real human ancestors.
+
+Of course our present collections of these things are the merest beginnings of the accumulations we may hope for in the future, when there are searchers enough to make a thorough examination of all possible sources and when other countries in the world, now inaccessible to archæologists, have been explored in some detail. The greater part of Africa and Asia has never even been traversed yet by a trained observer interested in these matters and free to explore, and we must be very careful therefore not to conclude that the early true men were distinctively inhabitants of western Europe or that they first appeared in that region.
+
+In Asia or Africa or submerged beneath the sea of to-day there may be richer and much earlier deposits of real human remains than anything that has yet come to light. I write in Asia or Africa, and I do not mention America because so far there have been no finds at all of any of the higher Primates, either of great apes, sub-men, Neanderthalers nor early true men. This development of life seems to have been an exclusively old world development, and it was only apparently at the end of the Old Stone Age that human beings first made their way across the land connexion that is now cut by Behring Straits, into the American continent.
+
+The Walls of the Caves are covered in these representations of Bulls, etc., painted in the soft tones of red shaded to black. They may be fifteen or twenty thousand years old
+
+These first real human beings we know of in Europe appear already to have belonged to one or other of at least two very distinct races. One of these races was of a very high type indeed; it was tall and big brained. One of the women’s skulls found exceeds in capacity that of the average man of to-day. One of the men’s skeletons is over six feet in height. The physical type resembled that of the North American Indian. From the Cro-Magnon cave in which the first skeletons were found these people have been called Cro-Magnards. They were savages, but savages of a high order. The second race, the race of the Grimaldi cave remains, was distinctly negroid in its characters. Its nearest living affinities are the Bushmen and Hottentots of South Africa. It is interesting to find at the very outset of the known human story, that mankind was already racially divided into at least two main varieties; and one is tempted to such unwarrantable guesses as that the former race was probably brownish rather than black and that it came brown and came from the equatorial south.
+
+(1 and 2) Mammoth tusk carved to shape of Reindeer, (3) Dagger Handle representing Mammoth, and (4) Bone engraved with Horses’ Heads
+
+And these savages of perhaps forty thousand years ago were so human that they pierced shells to make necklaces, painted themselves, carved images of bone and stone, scratched figures on rocks and bones, and painted rude but often very able sketches of beasts and the like upon the smooth walls of caves and upon inviting rock surfaces. They made a great variety of implements, much smaller in scale and finer than those of the Neanderthal men. We have now in our museums great quantities of their implements, their statuettes, their rock drawings and the like.
+
+The earliest of them were hunters. Their chief pursuit was the wild horse, the little bearded pony of that time. They followed it as it moved after pasture. And also they followed the bison. They knew the mammoth, because they have left us strikingly effective pictures of that creature. To judge by one rather ambiguous drawing they trapped and killed it.
+
+They hunted with spears and throwing stones. They do not seem to have had the bow, and it is doubtful if they had yet learnt to tame any animals. They had no dogs. There is one carving of a horse’s head and one or two drawings that suggest a bridled horse, with a twisted skin or tendon round it. But the little horses of that age and region could not have carried a man, and if the horse was domesticated it was used as a led horse. It is doubtful and improbable that they had yet learnt the rather unnatural use of animal’s milk as food.
+
+They do not seem to have erected any buildings though they may have had tents of skins, and though they made clay figures they never rose to the making of pottery. Since they had no cooking implements their cookery must have been rudimentary or nonexistent. They knew nothing of cultivation and nothing of any sort of basket work or woven cloth. Except for their robes of skin or fur they were naked painted savages.
+
+These earliest known men hunted the open steppes of Europe for a hundred centuries perhaps, and then slowly drifted and changed before a change of climate. Europe, century by century, was growing milder and damper. Reindeer receded northward and eastward, and bison and horse followed. The steppes gave way to forests, and red deer took the place of horse and bison. There is a change in the character of the implements with this change in their application. River and lake fishing becomes of great importance to men, and fine implements of bone increased. “The bone needles of this age,” says de Mortillet, “are much superior to those of later, even historical times, down to the Renaissance. The Romans, for example, never had needles comparable to those of this epoch.”
+
+Almost fifteen or twelve thousand years ago a fresh people drifted into the south of Spain, and left very remarkable drawings of themselves upon exposed rock faces there. These were the Azilians (named from the Mas d’Azil cave). They had the bow; they seem to have worn feather headdresses; they drew vividly; but also they had reduced their drawings to a sort of symbolism—a man for instance would be represented by a vertical dab with two or three horizontal dabs—that suggest the dawn of the writing idea. Against hunting sketches there are often marks like tallies. One drawing shows two men smoking out a bees’ nest.
+
+Among the most recent discoveries of Palæolithic Art are these specimens found in 1920 in Spain. They are probably ten or twelve thousand years old
+
+These are the latest of the men that we call Palæolithic (Old Stone Age) because they had only chipped implements. By ten or twelve thousand years a new sort of life has dawned in Europe, men have learnt not only to chip but to polish and grind stone implements, and they have begun cultivation. The Neolithic Age (New Stone Age) was beginning.
+
+It is interesting to note that less than a century ago there still survived in a remote part of the world, in Tasmania, a race of human beings at a lower level of physical and intellectual development than any of these earliest races of mankind who have left traces in Europe. These people had long ago been cut off by geographical changes from the rest of the species, and from stimulation and improvement. They seem to have degenerated rather than developed. They lived a base life subsisting upon shellfish and small game. They had no habitations but only squatting places. They were real men of our species, but they had neither the manual dexterity nor the artistic powers of the first true men.
+
+XII PRIMITIVE THOUGHT
+
+And now let us indulge in a very interesting speculation; how did it feel to be a man in those early days of the human adventure? How did men think and what did they think in those remote days of hunting and wandering four hundred centuries ago before seed time and harvest began. Those were days long before the written record of any human impressions, and we are left almost entirely to inference and guesswork in our answers to these questions.
+
+The sources to which scientific men have gone in their attempts to reconstruct that primitive mentality are very various. Recently the science of psycho-analysis, which analyzes the way in which the egotistic and passionate impulses of the child are restrained, suppressed, modified or overlaid, to adapt them to the needs of social life, seems to have thrown a considerable amount of light upon the history of primitive society; and another fruitful source of suggestion has been the study of the ideas and customs of such contemporary savages as still survive. Again there is a sort of mental fossilization which we find in folk-lore and the deep-lying irrational superstitions and prejudices that still survive among modern civilized people. And finally we have in the increasingly numerous pictures, statues, carvings, symbols and the like, as we draw near to our own time, clearer and clearer indications of what man found interesting and worthy of record and representation.
+
+Primitive man probably thought very much as a child thinks, that is to say in a series of imaginative pictures. He conjured up images or images presented themselves to his mind, and he acted in accordance with the emotions they aroused. So a child or an uneducated person does to-day. Systematic thinking is apparently a comparatively late development in human experience; it has not played any great part in human life until within the last three thousand years. And even to-day those who really control and order their thoughts are but a small minority of mankind. Most of the world still lives by imagination and passion.
+
+Probably the earliest human societies, in the opening stages of the true human story, were small family groups. Just as the flocks and herds of the earlier mammals arose out of families which remained together and multiplied, so probably did the earliest tribes. But before this could happen a certain restraint upon the primitive egotisms of the individual had to be established. The fear of the father and respect for the mother had to be extended into adult life, and the natural jealousy of the old man of the group for the younger males as they grew up had to be mitigated. The mother on the other hand was the natural adviser and protector of the young. Human social life grew up out of the reaction between the crude instinct of the young to go off and pair by themselves as they grew up, on the one hand, and the dangers and disadvantages of separation on the other. An anthropological writer of great genius, J. J. Atkinson, in his _Primal Law_, has shown how much of the customary law of savages, the _Tabus_, that are so remarkable a fact in tribal life, can be ascribed to such a mental adjustment of the needs of the primitive human animal to a developing social life, and the later work of the psycho- analysts has done much to confirm his interpretation of these possibilities.
+
+Some speculative writers would have us believe that respect and fear of the Old Man and the emotional reaction of the primitive savage to older protective women, exaggerated in dreams and enriched by fanciful mental play, played a large part in the beginnings of primitive religion and for powerful or helpful personalities was a dread and exaltation of such personages after their deaths, due to their reappearance in dreams. It was easy to believe they were not truly dead but only fantastically transferred to a remoteness of greater power.
+
+The dreams, imaginations and fears of a child are far more vivid and real than those of a modern adult, and primitive man was always something of a child. He was nearer to the animals also, and he could suppose them to have motives and reactions like his own. He could imagine animal helpers, animal enemies, animal gods. One needs to have been an imaginative child oneself to realize again how important, significant, portentous or friendly, strangely shaped rocks, lumps of wood, exceptional trees or the like may have appeared to the men of the Old Stone Age, and how dream and fancy would create stories and legends about such things that would become credible as they told them. Some of these stories would be good enough to remember and tell again. The women would tell them to the children and so establish a tradition. To this day most imaginative children invent long stories in which some favourite doll or animal or some fantastic semi-human being figures as the hero, and primitive man probably did the same—with a much stronger disposition to believe his hero real.
+--- END OF SECTION ---

@@ -1,0 +1,247 @@
+You are helping to build an evaluation dataset for a RAG system.
+
+Below is section 31 of 45 of a document. Produce EXACTLY
+13 question/answer pairs from it.
+
+RULES — the second one matters most:
+1. GROUNDEDNESS. Every question must be answerable from this section alone,
+   unambiguously and without outside knowledge.
+2. "source_text" must be copied CHARACTER FOR CHARACTER from the section —
+   literally a substring. Do not rephrase, shorten, correct or substitute any
+   character (including quotation marks and dashes). A single altered character
+   makes the pair unusable.
+3. "source_text" is 60-300 characters long and contains the complete answer.
+4. RELEVANCE. Ask about concrete facts (numbers, definitions, conditions,
+   procedures) that a real user would plausibly look up — not about opinions or
+   summaries.
+5. STAND-ALONE. The question must make sense on its own. Someone who cannot see
+   this section must still understand what is being asked. No "in this section",
+   no "the above mentioned", no unresolved pronouns.
+6. The answer must NOT appear in several places of the document — otherwise a
+   materially correct retrieval counts as a miss. Pick unique passages.
+7. No questions about headings, table of contents, bibliography, author lists,
+   table headers or page numbers.
+8. Phrase the question CLOSE to the wording of the text (high lexical overlap). Use the terminology of the document.
+9. Spread the questions across the WHOLE section, not just its beginning.
+
+Reply with a JSON array ONLY, no commentary before or after:
+[{"question": "...", "source_text": "..."}]
+
+--- SECTION 31/45 ---
+15.3.7.3.  Combining Parts
+
+   A response might transfer only a subrange of a representation if the
+   connection closed prematurely or if the request used one or more
+   Range specifications.  After several such transfers, a client might
+   have received several ranges of the same representation.  These
+   ranges can only be safely combined if they all have in common the
+   same strong validator (Section 8.8.1).
+
+   A client that has received multiple partial responses to GET requests
+   on a target resource MAY combine those responses into a larger
+   continuous range if they share the same strong validator.
+
+   If the most recent response is an incomplete 200 (OK) response, then
+   the header fields of that response are used for any combined response
+   and replace those of the matching stored responses.
+
+   If the most recent response is a 206 (Partial Content) response and
+   at least one of the matching stored responses is a 200 (OK), then the
+   combined response header fields consist of the most recent 200
+   response's header fields.  If all of the matching stored responses
+   are 206 responses, then the stored response with the most recent
+   header fields is used as the source of header fields for the combined
+   response, except that the client MUST use other header fields
+   provided in the new response, aside from Content-Range, to replace
+   all instances of the corresponding header fields in the stored
+   response.
+
+   The combined response content consists of the union of partial
+   content ranges within the new response and all of the matching stored
+   responses.  If the union consists of the entire range of the
+   representation, then the client MUST process the combined response as
+   if it were a complete 200 (OK) response, including a Content-Length
+   header field that reflects the complete length.  Otherwise, the
+   client MUST process the set of continuous ranges as one of the
+   following: an incomplete 200 (OK) response if the combined response
+   is a prefix of the representation, a single 206 (Partial Content)
+   response containing "multipart/byteranges" content, or multiple 206
+   (Partial Content) responses, each with one continuous range that is
+   indicated by a Content-Range header field.
+
+15.4.  Redirection 3xx
+
+   The 3xx (Redirection) class of status code indicates that further
+   action needs to be taken by the user agent in order to fulfill the
+   request.  There are several types of redirects:
+
+   1.  Redirects that indicate this resource might be available at a
+       different URI, as provided by the Location header field, as in
+       the status codes 301 (Moved Permanently), 302 (Found), 307
+       (Temporary Redirect), and 308 (Permanent Redirect).
+
+   2.  Redirection that offers a choice among matching resources capable
+       of representing this resource, as in the 300 (Multiple Choices)
+       status code.
+
+   3.  Redirection to a different resource, identified by the Location
+       header field, that can represent an indirect response to the
+       request, as in the 303 (See Other) status code.
+
+   4.  Redirection to a previously stored result, as in the 304 (Not
+       Modified) status code.
+
+      |  *Note:* In HTTP/1.0, the status codes 301 (Moved Permanently)
+      |  and 302 (Found) were originally defined as method-preserving
+      |  ([HTTP/1.0], Section 9.3) to match their implementation at
+      |  CERN; 303 (See Other) was defined for a redirection that
+      |  changed its method to GET.  However, early user agents split on
+      |  whether to redirect POST requests as POST (according to then-
+      |  current specification) or as GET (the safer alternative when
+      |  redirected to a different site).  Prevailing practice
+      |  eventually converged on changing the method to GET.  307
+      |  (Temporary Redirect) and 308 (Permanent Redirect) [RFC7538]
+      |  were later added to unambiguously indicate method-preserving
+      |  redirects, and status codes 301 and 302 have been adjusted to
+      |  allow a POST request to be redirected as GET.
+
+   If a Location header field (Section 10.2.2) is provided, the user
+   agent MAY automatically redirect its request to the URI referenced by
+   the Location field value, even if the specific status code is not
+   understood.  Automatic redirection needs to be done with care for
+   methods not known to be safe, as defined in Section 9.2.1, since the
+   user might not wish to redirect an unsafe request.
+
+   When automatically following a redirected request, the user agent
+   SHOULD resend the original request message with the following
+   modifications:
+
+   1.  Replace the target URI with the URI referenced by the redirection
+       response's Location header field value after resolving it
+       relative to the original request's target URI.
+
+   2.  Remove header fields that were automatically generated by the
+       implementation, replacing them with updated values as appropriate
+       to the new request.  This includes:
+
+       1.  Connection-specific header fields (see Section 7.6.1),
+
+       2.  Header fields specific to the client's proxy configuration,
+           including (but not limited to) Proxy-Authorization,
+
+       3.  Origin-specific header fields (if any), including (but not
+           limited to) Host,
+
+       4.  Validating header fields that were added by the
+           implementation's cache (e.g., If-None-Match,
+           If-Modified-Since), and
+
+       5.  Resource-specific header fields, including (but not limited
+           to) Referer, Origin, Authorization, and Cookie.
+
+   3.  Consider removing header fields that were not automatically
+       generated by the implementation (i.e., those present in the
+       request because they were added by the calling context) where
+       there are security implications; this includes but is not limited
+       to Authorization and Cookie.
+
+   4.  Change the request method according to the redirecting status
+       code's semantics, if applicable.
+
+   5.  If the request method has been changed to GET or HEAD, remove
+       content-specific header fields, including (but not limited to)
+       Content-Encoding, Content-Language, Content-Location,
+       Content-Type, Content-Length, Digest, Last-Modified.
+
+   A client SHOULD detect and intervene in cyclical redirections (i.e.,
+   "infinite" redirection loops).
+
+      |  *Note:* An earlier version of this specification recommended a
+      |  maximum of five redirections ([RFC2068], Section 10.3).
+      |  Content developers need to be aware that some clients might
+      |  implement such a fixed limitation.
+
+15.4.1.  300 Multiple Choices
+
+   The 300 (Multiple Choices) status code indicates that the target
+   resource has more than one representation, each with its own more
+   specific identifier, and information about the alternatives is being
+   provided so that the user (or user agent) can select a preferred
+   representation by redirecting its request to one or more of those
+   identifiers.  In other words, the server desires that the user agent
+   engage in reactive negotiation to select the most appropriate
+   representation(s) for its needs (Section 12).
+
+   If the server has a preferred choice, the server SHOULD generate a
+   Location header field containing a preferred choice's URI reference.
+   The user agent MAY use the Location field value for automatic
+   redirection.
+
+   For request methods other than HEAD, the server SHOULD generate
+   content in the 300 response containing a list of representation
+   metadata and URI reference(s) from which the user or user agent can
+   choose the one most preferred.  The user agent MAY make a selection
+   from that list automatically if it understands the provided media
+   type.  A specific format for automatic selection is not defined by
+   this specification because HTTP tries to remain orthogonal to the
+   definition of its content.  In practice, the representation is
+   provided in some easily parsed format believed to be acceptable to
+   the user agent, as determined by shared design or content
+   negotiation, or in some commonly accepted hypertext format.
+
+   A 300 response is heuristically cacheable; i.e., unless otherwise
+   indicated by the method definition or explicit cache controls (see
+   Section 4.2.2 of [CACHING]).
+
+      |  *Note:* The original proposal for the 300 status code defined
+      |  the URI header field as providing a list of alternative
+      |  representations, such that it would be usable for 200, 300, and
+      |  406 responses and be transferred in responses to the HEAD
+      |  method.  However, lack of deployment and disagreement over
+      |  syntax led to both URI and Alternates (a subsequent proposal)
+      |  being dropped from this specification.  It is possible to
+      |  communicate the list as a Link header field value [RFC8288]
+      |  whose members have a relationship of "alternate", though
+      |  deployment is a chicken-and-egg problem.
+
+15.4.2.  301 Moved Permanently
+
+   The 301 (Moved Permanently) status code indicates that the target
+   resource has been assigned a new permanent URI and any future
+   references to this resource ought to use one of the enclosed URIs.
+   The server is suggesting that a user agent with link-editing
+   capability can permanently replace references to the target URI with
+   one of the new references sent by the server.  However, this
+   suggestion is usually ignored unless the user agent is actively
+   editing references (e.g., engaged in authoring content), the
+   connection is secured, and the origin server is a trusted authority
+   for the content being edited.
+
+   The server SHOULD generate a Location header field in the response
+   containing a preferred URI reference for the new permanent URI.  The
+   user agent MAY use the Location field value for automatic
+   redirection.  The server's response content usually contains a short
+   hypertext note with a hyperlink to the new URI(s).
+
+      |  *Note:* For historical reasons, a user agent MAY change the
+      |  request method from POST to GET for the subsequent request.  If
+      |  this behavior is undesired, the 308 (Permanent Redirect) status
+      |  code can be used instead.
+
+   A 301 response is heuristically cacheable; i.e., unless otherwise
+   indicated by the method definition or explicit cache controls (see
+   Section 4.2.2 of [CACHING]).
+
+15.4.3.  302 Found
+
+   The 302 (Found) status code indicates that the target resource
+   resides temporarily under a different URI.  Since the redirection
+   might be altered on occasion, the client ought to continue to use the
+   target URI for future requests.
+
+   The server SHOULD generate a Location header field in the response
+   containing a URI reference for the different URI.  The user agent MAY
+   use the Location field value for automatic redirection.  The server's
+   response content usually contains a short hypertext note with a
+   hyperlink to the different URI(s).
+--- END OF SECTION ---
