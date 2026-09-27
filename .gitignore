@@ -27,17 +27,12 @@ chunks_cache/*
 
 # Evaluation results (generated locally)
 eval_results/
-# Exclude the contents, not the directory: only then can a single file be added
-# back. The demo's question set belongs in the repository so that the evaluation
-# runs after a clone with no extra steps.
+# Exclude the contents, not the directory: only then can single files be added back.
 eval_cache/*
-!eval_cache/rfc8259_json_questions.json
 # The question sets of the three evaluated documents belong in the repository so
 # that the results of the thesis can be reproduced. v4 (nasa, rfc9110) is the
 # evaluation reported in the thesis, generated in one round with prompts and
-# answers kept in question_prompts/*_literal_v4/; nasa_questions_literal_v3 is
-# the earlier version of the nasa set. wells has one round.
-!eval_cache/nasa_questions_literal_v3.json
+# answers kept in question_prompts/*_literal_v4/. wells has one round.
 !eval_cache/nasa_questions_literal_v4.json
 !eval_cache/rfc9110_questions_v4.json
 !eval_cache/wells_questions.json

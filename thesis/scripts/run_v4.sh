@@ -13,9 +13,9 @@ PHASE="${PHASE:-0}"
 
 
 DOCS=(
-  "rfc9110|$DL/rfc9110.txt|eval_cache/rfc9110_questions_v3.json"
+  "rfc9110|$DL/rfc9110.txt|eval_cache/rfc9110_questions_v4.json"
   "wells|$DL/wells.txt|eval_cache/wells_questions.json"
-  "nasa|$DL/nasa.pdf|eval_cache/nasa_questions_literal_v3.json"
+  "nasa|$DL/nasa.pdf|eval_cache/nasa_questions_literal_v4.json"
 )
 
 # arm name|cache suffix|flags

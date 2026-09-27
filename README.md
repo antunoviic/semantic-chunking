@@ -230,34 +230,22 @@ ollama pull bge-m3         # embeddings
 
 ### A runnable example
 
-A short, freely redistributable document and a verified question set are included, to run after cloning. The document is
-RFC 8259, the JSON specification, a technical prose text with many sections.
+A short, freely redistributable document is included to run after cloning: RFC 8259,
+the JSON specification, a technical prose text with many sections. Chunking it needs
+only the chat model:
 
 ```bash
-python -m app.main demo/rfc8259_json.txt \
+python -m app.main demo/rfc8259_json.txt --chunk-only \
        --max-chunk-chars 1200 --max-chunk-sentences 100 --step-sentences 2 \
        --no-headings
 ```
 
-The run should just take about 20 minutes, roughly one model call per two sentences for the boundaries. After that one per chunk for the low-information filter, then embedding and retrieval. 
-It writes a Markdown report, a JSON file and a chart to
-`eval_results/`, and caches the chunks — a second run skips the chunking
-entirely and finishes the retrieval in under two minutes.
-
-```
-# Chunking Strategy Comparison — rfc8259_json
-
-| Strategy                    | Chunks | Avg Len | Hit@1 | Hit@3 |   MRR | Ctx/Query |
-|-----------------------------|-------:|--------:|------:|------:|------:|----------:|
-| llm_incremental_parentchild |     97 |     737 | 71.4% | 85.7% | 0.815 |      2477 |
-| llm_incremental             |     25 |     737 | 71.4% | 71.4% | 0.759 |      2487 |
-| recursive                   |     73 |     356 | 71.4% | 71.4% | 0.733 |      1239 |
-| semantic_lc                 |     38 |     668 | 50.0% | 92.9% | 0.713 |     15290 |
-| recursive_matched_737       |     36 |     726 | 42.9% | 64.3% | 0.562 |      2336 |
-| fixed_256                   |    100 |     249 | 35.7% | 35.7% | 0.373 |       753 |
-```
-
-**These numbers are a smoke test, not a result.** The demo set has fourteen questions, so a single question moves the ranking heavily and is not conclusive for the overall chunking. Its purpose is to show that the harness runs end to end and produces the comparison. (The thesis used question sets of 534, 549 and 400 questions.)
+The run makes roughly one model call per two sentences for the boundaries and one
+per chunk for the low-information filter, and caches the chunks. The log reports
+where each boundary came from: a topic decision by the model, the size cap, or a
+heading. Comparing the strategies on retrieval needs a question set for the document
+(see *Using your own document* below); the three documents of the thesis come with
+theirs, of 534, 549 and 400 questions.
 
 ### What it compares
 

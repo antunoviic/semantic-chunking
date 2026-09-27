@@ -93,7 +93,7 @@ def run_queries(col, q_embeddings: list, qa: list[dict], k: int,
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--document", default="docs/rfc9110.txt")
-    ap.add_argument("--questions", default="eval_cache/rfc9110_questions_v3.json")
+    ap.add_argument("--questions", default="eval_cache/rfc9110_questions_v4.json")
     ap.add_argument("--k", type=int, default=10)
     ap.add_argument("--overfetch", type=int, default=6,
                     help="matches VectorStore._DEDUPE_OVERFETCH")

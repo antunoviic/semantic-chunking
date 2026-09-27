@@ -46,8 +46,8 @@ from eval.vectorstore import OllamaEmbeddingFunction
 from run_significance import mcnemar_p
 
 DOCS = {
-    "nasa":    ("docs/nasa.pdf",    "eval_cache/nasa_questions_literal_v3.json"),
-    "rfc9110": ("docs/rfc9110.txt", "eval_cache/rfc9110_questions_v3.json"),
+    "nasa":    ("docs/nasa.pdf",    "eval_cache/nasa_questions_literal_v4.json"),
+    "rfc9110": ("docs/rfc9110.txt", "eval_cache/rfc9110_questions_v4.json"),
     "wells":   ("docs/wells.txt",   "eval_cache/wells_questions.json"),
 }
 REFERENCES = {"unfiltered": "llm_incremental_nofilter", "filtered": "llm_incremental"}

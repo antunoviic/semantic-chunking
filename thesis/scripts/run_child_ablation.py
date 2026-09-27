@@ -38,9 +38,9 @@ DOCS_DIR = Path(os.environ.get("DOCS_DIR", "docs"))
 
 # (label, document, question set) — the three documents of run v4
 RUNS = [
-    ("rfc9110", DOCS_DIR / "rfc9110.txt", "eval_cache/rfc9110_questions_v3.json"),
+    ("rfc9110", DOCS_DIR / "rfc9110.txt", "eval_cache/rfc9110_questions_v4.json"),
     ("wells",   DOCS_DIR / "wells.txt",   "eval_cache/wells_questions.json"),
-    ("nasa",    DOCS_DIR / "nasa.pdf",    "eval_cache/nasa_questions_literal_v3.json"),
+    ("nasa",    DOCS_DIR / "nasa.pdf",    "eval_cache/nasa_questions_literal_v4.json"),
 ]
 
 OUT_JSON = Path("eval_results/child_ablation.json")
