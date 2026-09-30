@@ -12,6 +12,21 @@ generate more accurate answers~\cite{lewis2020rag}. Within the RAG pipeline, doc
 chunking is the pre-processing step that splits the text into units and thereby defines the
 search granularity of the vector index~\cite{smigielski2026chunking}.
 
+Document chunking is critical in two settings. The first involves local deployments or edge
+systems, where RAG pipelines operate under strict memory, latency, and context budget
+limitations~\cite{smigielski2026chunking}. In these settings, limited memory restricts both
+model parameter size and available context windows, requiring every retrieved chunk to
+encapsulate relevant evidence as compactly and completely as possible to prevent
+information loss. The second setting comprises documents lacking reliable layout
+formatting, such as raw text extracted from PDF files or transcripts, where paragraph
+breaks, headings, and line breaks are frequently distorted or
+missing~\cite{duarte2024lumberchunker}. Under these conditions, layout-dependent
+rule-based splitters fail and fall back to cutting at arbitrary character limits, severing
+sentence boundaries and splitting core answers apart~\cite{smigielski2026chunking}.
+Evaluating semantic topic transitions directly from text content, rather than relying on
+surface layout cues, offers a structural solution to both
+problems~\cite{duarte2024lumberchunker}.
+
 Many chunking variants exist for this step, but they differ in accuracy and are not
 suitable for every document type or domain. Recent research introduced a newer mechanism,
 LLM-based chunking, which dynamically identifies narrative topic shifts to improve the

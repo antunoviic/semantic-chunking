@@ -36,8 +36,87 @@ variants~\cite{smigielski2026chunking}.
 \section{Rule-based and embedding-based strategies}
 \label{sec:rule_based}
 
-\emph{Fixed-size chunking} splits a source document into uniform segments based on a
-predetermined character or token limit~\cite{qu-etal-2025-semantic}. Although the
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[x=0.9cm,y=1cm,
+      sent/.style={draw=black!60, line width=0.3pt},
+      cut/.style={line width=1.6pt, black},
+      badcut/.style={line width=1.6pt, red!75!black},
+      lbl/.style={anchor=west, font=\small},
+      note/.style={font=\scriptsize, text=black!70}]
+    \colorlet{topicA}{blue!15}
+    \colorlet{topicB}{orange!30}
+    % one row of eight sentences; #1 = y position of the row
+    \newcommand{\sentstrip}[1]{%
+      \foreach \a/\b/\t/\n in {0/1.6/A/1, 1.6/3.8/A/2, 3.8/5.2/A/3, 5.2/7.0/A/4,
+                               7.0/9.0/B/5, 9.0/10.5/B/6, 10.5/12.6/B/7, 12.6/14.0/B/8}{%
+        \draw[sent, fill=topic\t] (\a,#1) rectangle (\b,#1+0.5);
+        \node[font=\scriptsize] at ({(\a+\b)/2},#1+0.25) {$s_{\n}$};}}
+    \newcommand{\cutat}[3][cut]{\draw[#1] (#2,#3-0.15) -- (#2,#3+0.65);}
+
+    % document
+    \node[lbl] at (0,11.35) {Document: eight sentences, two topics, three paragraphs};
+    \sentstrip{10.5}
+    \foreach \x in {3.8,10.5} \node[font=\small] at (\x,10.25) {\P};
+    \draw[decorate, decoration={brace, mirror, amplitude=4pt}] (0,10.0) -- (7.0,10.0)
+      node[midway, below=4pt, note] {topic A};
+    \draw[decorate, decoration={brace, mirror, amplitude=4pt}] (7.0,10.0) -- (14.0,10.0)
+      node[midway, below=4pt, note] {topic B};
+
+    % (a) fixed-size
+    \node[lbl] at (0,8.55) {(a) Fixed-size: a cut every $L$ characters};
+    \sentstrip{7.7}
+    \foreach \x in {4.0,8.0,12.0} \cutat[badcut]{\x}{7.7}
+    \draw[<->, note] (0,7.35) -- (4.0,7.35) node[midway, below=-1pt] {$L$};
+
+    % (b) recursive
+    \node[lbl] at (0,6.15) {(b) Recursive: paragraph break $\rightarrow$ line break
+      $\rightarrow$ space, as long as a piece is longer than $L$};
+    \sentstrip{5.3}
+    \cutat{3.8}{5.3} \cutat{10.5}{5.3} \cutat[badcut]{7.8}{5.3}
+    \node[note, anchor=north] at (7.8,5.15) {no \P\ within $L$: cut at a space};
+
+    % (c) semantic
+    \node[lbl] at (0,3.75) {(c) Semantic: cut where the embedding distance of neighbours
+      exceeds a threshold};
+    \sentstrip{2.9}
+    \foreach \x/\h in {1.6/0.15, 3.8/0.5, 5.2/0.2, 7.0/0.8, 9.0/0.2, 10.5/0.3, 12.6/0.15}
+      \fill[black!45] (\x-0.12,1.85) rectangle (\x+0.12,1.85+\h);
+    \draw[dashed, red!75!black] (0,2.25) -- (14.0,2.25)
+      node[right, note, text=red!75!black] {threshold};
+    \node[note, anchor=east] at (0,2.05) {distance};
+    \cutat{3.8}{2.9} \cutat{7.0}{2.9}
+
+    % (d) LLM-based
+    \node[lbl] at (0,1.05) {(d) LLM-based: the model is asked whether the next sentences
+      continue the topic};
+    \sentstrip{0.2}
+    \foreach \x in {1.6,3.8,5.2,9.0,10.5,12.6}
+      \node[note, text=green!45!black] at (\x,-0.1) {yes};
+    \node[note, text=red!75!black, font=\scriptsize\bfseries] at (7.0,-0.1) {no};
+    \cutat{7.0}{0.2}
+
+    % legend
+    \draw[cut] (0.1,-0.75) -- (0.1,-0.45);
+    \node[lbl, font=\scriptsize] at (0.2,-0.6) {boundary between sentences};
+    \draw[badcut] (5.2,-0.75) -- (5.2,-0.45);
+    \node[lbl, font=\scriptsize] at (5.3,-0.6) {boundary inside a sentence};
+    \node[lbl, font=\scriptsize] at (10.2,-0.6) {\P\ paragraph break};
+  \end{tikzpicture}
+  \caption{The chunking strategies of \cref{sec:rule_based,sec:llm_chunking}, applied to the
+  same schematic document. Fixed-size splitting (a) ignores the text and cuts inside
+  sentences. Recursive splitting (b) prefers paragraph breaks but falls back to spaces
+  inside a long paragraph. Semantic chunking (c) cuts where consecutive sentence
+  embeddings differ strongly, which can also produce boundaries within a topic ($s_2|s_3$).
+  LLM-based chunking (d) asks a language model at each step and cuts only at the topic
+  change.}
+  \label{fig:strategies}
+\end{figure}
+
+\Cref{fig:strategies} illustrates the strategies discussed in this chapter on one schematic
+document. \emph{Fixed-size chunking} (\cref{fig:strategies}a) splits a source document
+into uniform segments based on a predetermined character or token
+limit~\cite{qu-etal-2025-semantic}. Although the
 procedure is computationally simple and deterministic, it disregards syntax and thematic
 organisation~\cite{smigielski2026chunking}. This leads to chunks that are cut mid-topic and
 thus to a potential degradation in retrieval quality~\cite{qu-etal-2025-semantic}. To
@@ -47,7 +126,7 @@ length~\cite{smigielski2026chunking}. However, a recent empirical evaluation fou
 overlap provides no measurable improvement in answer quality and only increases the
 indexed text and the memory overhead~\cite{bennani2026chunking}.
 
-In contrast, \emph{recursive character splitting} traverses the document through an
+In contrast, \emph{recursive character splitting} (\cref{fig:strategies}b) traverses the document through an
 ordered hierarchy of typographical separators and thereby preserves its structure where
 possible~\cite{duarte2024lumberchunker}. Typically, such splitters cascade through
 paragraph breaks, line breaks, sentence punctuation and finally spaces: when a segment
@@ -55,7 +134,7 @@ still exceeds the size limit, the algorithm moves one step down the hierarchy to
 split point~\cite{duarte2024lumberchunker}.
 
 Embedding-based strategies differ from these typographical heuristics in that they detect
-boundaries semantically. \emph{Semantic chunking} converts individual sentences or passages
+boundaries semantically. \emph{Semantic chunking} (\cref{fig:strategies}c) converts individual sentences or passages
 into dense vector embeddings, numerical representations in a high-dimensional space,
 using models such as Sentence-BERT (SBERT)~\cite{reimers2019sbert}. The cosine distance
 between consecutive segments then determines whether a thematic shift has occurred. More
@@ -74,7 +153,7 @@ therefore rarely justified for standard structured text~\cite{qu-etal-2025-seman
 \label{sec:llm_chunking}
 
 LLM-based segmentation strategies replace distance thresholds with generative models that
-identify semantic shifts in a document~\cite{smigielski2026chunking}. Earlier work in this
+identify semantic shifts in a document (\cref{fig:strategies}d)~\cite{smigielski2026chunking}. Earlier work in this
 field includes LumberChunker, which divides a text into paragraphs and assigns them
 sequential IDs starting at 1. Consecutive paragraphs are collected into a group until a
 target token count is exceeded, and the group is then submitted to an LLM with a prompt
@@ -87,13 +166,10 @@ among the top 20 chunks, of \SI{77.92}{\percent}, outperforming the recursive ch
 baseline with \SI{74.35}{\percent}~\cite{duarte2024lumberchunker}.
 
 However, these improvements in retrieval accuracy come with high operational and
-computational costs~\cite{smigielski2026chunking}. Run times depend strongly on the
-hardware and software used, but LLM-based chunking is generally the most expensive form of
-pre-processing. Because each prompt depends on the boundary returned for the previous
+computational costs~\cite{smigielski2026chunking}. LLM-based chunking is generally the most
+expensive form of pre-processing. Because each prompt depends on the boundary returned for the previous
 passage, the queries cannot be parallelised~\cite{duarte2024lumberchunker}. The processing
-time also grows with document size: segmenting \emph{The Count of Monte Cristo}
-(\num{14339} paragraphs) took LumberChunker around 27 minutes, compared to 0.6 seconds for
-recursive splitting~\cite{duarte2024lumberchunker}.
+time therefore grows with the size of the document~\cite{duarte2024lumberchunker}.
 
 \section{Shortcomings in current literature and methodological commitments}
 \label{sec:commitments}

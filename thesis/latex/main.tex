@@ -9,6 +9,9 @@
 
 \usepackage[a4paper,margin=2.5cm]{geometry}
 \usepackage{setspace}
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]{\normalfont\huge\bfseries}{\thechapter}{0.6em}{}
+\titlespacing*{\chapter}{0pt}{0pt}{18pt}
 \onehalfspacing
 
 \usepackage{booktabs}
@@ -26,6 +29,9 @@ frame=single, keywordstyle=\color{blue!60!black}, commentstyle=\color{gray},
 showstringspaces=false, language=Python }
 
 \usepackage{amsmath,amssymb}
+
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
 
 \usepackage[backend=biber,style=ieee,sorting=nyt]{biblatex}
 \addbibresource{references.bib}
@@ -69,19 +75,24 @@ thereby the accuracy of the answers. In this thesis, an LLM-based chunker is imp
 an alternative to rule-based chunking strategies and published as a Python library on
 PyPI. It uses a small local model that reads the document sentence by sentence and decides
 where the topic changes; optional post-processing steps are meant to improve retrieval
-further. The chunker is evaluated on three documents of different structure (a technical
+further. Because the model is open-weight and runs on consumer hardware, the chunker can be
+used on local edge devices and in settings where documents must not be sent to a cloud API.
+Moreover, it does not depend on typographical separators such as paragraph breaks or
+headings, which are often missing or lost in real-world documents, for example in text
+extracted from PDF files, in transcripts or in scanned documents. The chunker is evaluated on three documents of different structure (a technical
 standard, a PDF handbook and narrative prose) against five baselines tuned to the same mean
 chunk length: four splitters from LangChain and the same chunker without the model. The
 statistical analysis uses paired McNemar tests with a Holm correction over 30 comparisons,
-with 400 to 549 questions per document. In six of the 30 comparisons, the LLM chunker
-retrieves significantly more answers than the splitters that cut sentences apart, but it is
-not significantly better than the splitters that keep sentences intact or than the same
-chunker without the model. This indicates that its advantage comes from respecting sentence
-boundaries rather than from the model's topic decisions. Heading detection and topic labels
-did not improve retrieval significantly, and the filter for chunks without substantive
-content even lowered it. In practice, a length-matched recursive splitter that prefers
-sentence ends reaches comparable hit rates in a few seconds, against a mean of about three
-hours per document on an \SI{8}{\giga\byte} MacBook Air.
+with 400 to 549 questions per document. 
+On the technical standard and on the PDF handbook the LLM chunker reaches the highest hit rates of all six compared strategies. In six of the 30 comparisons, the LLM chunker
+retrieves significantly more answers than the splitters that cut sentences apart. On the technical
+standard by 16.4 percentage points at \hitk{1} against fixed-size splitting, and on the PDF
+handbook, whose layout is lost during text extraction, by 7.9 to 10.3 percentage points
+against both fixed-size splitting and LangChain's default recursive splitter. The chunker achieves this because it never cuts inside a sentence
+and adapts its boundaries to the text instead of relying on typographical separators. Against the baselines that also keep sentences intact, its lead of up to 4.7 percentage
+points is not significant, which indicates that a large part of its advantage comes from
+respecting sentence boundaries. Heading detection, topic labels and the filter for chunks
+without substantive content did not improve retrieval further.
 
 \tableofcontents
 

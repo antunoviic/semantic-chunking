@@ -25,9 +25,9 @@ the vector store (\SIrange{0.5}{1.5}{\giga\byte}). As a consequence, free memory
 Two design decisions follow directly from these constraints. First, embeddings are
 computed by a second Ollama-served model rather than in-process, so that no PyTorch
 runtime occupies additional memory in the Python process. Second, chunking and evaluation
-are split into two phases with a persistent cache between them: chunking a document takes
-hours on this hardware, whereas evaluating the chunks takes only minutes, and the cache
-ensures that an interruption does not destroy hours of chunking work. \Cref{sec:harness}
+are split into two phases with a persistent cache between them: chunking a document is
+far slower on this hardware than evaluating the chunks, and the cache ensures that an
+interruption does not destroy completed chunking work. \Cref{sec:harness}
 describes what the cache records and why.
 
 \paragraph{Scope.} The library implements chunking only and deliberately leaves out
@@ -56,8 +56,9 @@ interchangeably.
   \label{fig:pipeline}
 \end{figure}
 
-\subsection{Incremental boundary detection}
+\subsection{Boundary detection and size cap}
 \label{sec:impl-incremental}
+\label{sec:impl-sizecap}
 
 The LLM-based chunking rests on two principles. First, the decision whether a sentence
 belongs to the current chunk is \emph{incremental}: the model never sees the whole
@@ -91,9 +92,6 @@ Only an explicit NO from the model sets a boundary; an unclear answer continues 
 current chunk. The reason is that, because the process is incremental, a wrong split
 cannot be repaired later, whereas a missed boundary merely produces a longer chunk.
 
-\subsection{Size cap and split policy}
-\label{sec:impl-sizecap}
-
 The topic decisions alone put no upper limit on chunk length: a twenty-page document about
 one subject would in theory become a single, unusable chunk. The settings
 \code{max\_chunk\_sentences} and \code{max\_chunk\_chars} therefore force a split once a
@@ -110,8 +108,9 @@ The size cap is a target, not a guarantee. Because cuts are only made at sentenc
 boundaries, a single sentence that is longer than \code{max\_chunk\_chars} is never split
 and becomes a chunk that exceeds the cap.
 
-\subsection{Heading awareness}
+\subsection{Heading awareness and post-processing}
 \label{sec:impl-headings}
+\label{sec:impl-postproc}
 
 In addition to the topic decisions, the library can force a boundary at headings, a
 feature that was added during the evaluation. It implements three ways of finding
@@ -122,9 +121,6 @@ Handling} that the sentence tokeniser would otherwise break apart. The mode
 \code{"hybrid"} additionally asks the model about short sentence groups that the pattern
 did not flag, which makes it possible to measure the model's contribution to heading
 detection.
-
-\subsection{Post-processing}
-\label{sec:impl-postproc}
 
 Two optional post-processing steps run over the finished chunk list: the low-information
 filter and the topic enricher. A third one, a merging step, was considered during the
@@ -143,7 +139,7 @@ The \emph{topic enricher} prefixes each chunk with an LLM-generated line
 \code{[Topic: \ldots]}, so that a chunk that is taken out of its document and loses its
 context still carries a short descriptive label. Enrichment is disabled by default,
 whereas the low-information filter is enabled. Their effects are evaluated in
-\cref{sec:filter,sec:ablations}.
+\cref{sec:filter}.
 
 \subsection{Configuration and the LLM client}
 \label{sec:impl-client}
@@ -180,8 +176,9 @@ This section is a guide for developers who want to use the library. It covers th
 installation, the three ways of calling the chunker (the native API and two framework
 adapters) and the extension points.
 
-\subsection{Installation}
+\subsection{Installation and native API}
 \label{sec:install}
+\label{sec:native-api}
 
 The library is published on the Python Package Index as
 \code{llm-semantic-chunker}\footnote{\url{https://pypi.org/project/llm-semantic-chunker/}}:
@@ -210,9 +207,7 @@ Chunking also requires a local Ollama chat model. The default is \code{qwen3.5:4
 other Ollama model can be set in the client. On its first call, the sentence splitter
 downloads NLTK's punkt data once; later runs reuse it.
 
-\subsection{The native API and the framework adapters}
-\label{sec:native-api}
-\label{sec:integrations}
+Once installed, the chunker is called through its native API (\cref{lst:native}).
 
 \begin{lstlisting}[caption={Chunking a string with the native API.},label={lst:native}]
 from llm_semantic_chunker import LLMChunker, OllamaClient
@@ -225,11 +220,15 @@ The return value is a plain list of strings. Character offsets, the governing he
 similar metadata were deliberately left out, because this work is limited to evaluating
 whether LLM-based chunking sets better boundaries than the baseline strategies.
 
+\subsection{Framework adapters and extension points}
+\label{sec:integrations}
+\label{sec:extending}
+
 The frameworks are integrated through adapters, so that an existing splitter can be
 replaced without changing the rest of a pipeline (\cref{lst:adapters}).
-\code{LLMSemanticSplitter} implements LangChain's \code{TextSplitter} interface, so
-\code{create\_documents()}, \code{split\_documents()} and \code{transform\_documents()}
-come from the base class. \code{LLMSemanticNodeParser} does the same for LlamaIndex: it
+\code{LLMSemanticSplitter} implements LangChain's \code{TextSplitter} interface, so that
+the methods \code{create\_documents()}, \code{split\_documents()} and
+\code{transform\_documents()} come from the base class. \code{LLMSemanticNodeParser} does the same for LlamaIndex: it
 subclasses the \code{TextSplitter} of LlamaIndex, which is itself a \code{NodeParser}, so
 that the method \code{get\_nodes\_from\_documents()} works directly. In both frameworks,
 the adapter only implements \code{split\_text()}; everything else is built on top of it.
@@ -252,8 +251,7 @@ depends on \code{banks}, which annotates fields as \code{Path | None}. This synt
 \code{TypeError} on Python 3.9, which the chunker itself still supports. LlamaIndex is
 therefore kept in a separate extra.
 
-\subsection{Extension points}
-\label{sec:extending}
+Beyond the adapters, the library has three extension points and one deliberate exception.
 
 \paragraph{The language model.} Any object with a \code{chat(messages) -> str} method can
 be passed as \code{client}, for example a wrapper around a hosted API or another local
@@ -271,35 +269,9 @@ only attaches a console handler to the package logger.
 \paragraph{What is not replaceable.} The assembly loop. It defines the LLM-based strategy
 itself, and changing it would interfere with the structure of the project.
 
-\section{Verification}
-\label{sec:testing}
-
-This section describes how the determinism of the library and the validity of the
-question sets were checked. The scripts are in the repository under
-\code{eval/experiments/} and \code{tools/}.
-
-\subsection{Determinism}
-\label{sec:verify-determinism}
-
-The evaluation relies on the chunking being deterministic. Repeating full chunking runs of
-the evaluated documents would have taken days, so \code{run\_determinism.py} tests this on
-a shorter document instead: it chunks the document several times with identical settings
-and compares a hash over the chunk lists. In three runs, it produced \num{48} chunks each
-with a mean length of \num{673} characters, the identical digest and identical boundary
-statistics (\num{27} topic decisions, \num{28} size-cap splits, \num{8} heading and \num{9}
-end boundaries, counted before the low-information filter).
-
-\subsection{The question sets}
-\label{sec:verify-questions}
-
-The question sets are checked as well: \code{tools/verify\_questions.py} tests every
-question against its document. The anchor must occur in the document verbatim after
-whitespace normalisation and exactly once, it must be at least 40 characters long, and no
-anchor may appear twice in a set. All \num{1483} anchors of the three sets used in
-\cref{ch:evaluation} pass, with lengths between \num{60} and \num{297} characters.
-
-\section{The evaluation harness}
+\section{Evaluation harness and verification}
 \label{sec:harness}
+\label{sec:testing}
 
 The evaluation harness is configured by a \code{ChunkerConfig} and an \code{EvalConfig}.
 \code{Pipeline} takes a document and runs two phases: first chunk and cache, then embed,
@@ -311,8 +283,36 @@ drift apart. Second, each cache stores a fingerprint of the code that drew its b
 a hash over the syntax trees of the relevant modules, so that results from different code
 versions cannot be mixed.
 
-\section{Use of AI tools}
+Two further checks verify the determinism of the library and the validity of the question
+sets. The scripts are in the repository under \code{eval/experiments/} and \code{tools/}.
+
+\paragraph{Determinism.}
+\label{sec:verify-determinism}
+The evaluation relies on the chunking being deterministic. Repeating full chunking runs of
+the evaluated documents would have taken days, so \code{run\_determinism.py} tests this on
+a shorter document instead: it chunks the document several times with identical settings
+and compares a hash over the chunk lists. In three runs, it produced \num{48} chunks each
+with a mean length of \num{673} characters, the identical digest and identical boundary
+statistics (\num{27} topic decisions, \num{28} size-cap splits, \num{8} heading and \num{9}
+end boundaries, counted before the low-information filter).
+
+\paragraph{Question sets.}
+\label{sec:verify-questions}
+\code{tools/verify\_questions.py} tests every question against its document. The anchor
+must occur in the document verbatim after whitespace normalisation and exactly once, it
+must be at least 40 characters long, and no anchor may appear twice in a set. All
+\num{1483} anchors of the three sets used in \cref{ch:evaluation} pass, with lengths
+between \num{60} and \num{297} characters.
+
+\section{Availability and use of AI tools}
 \label{sec:ai-usage}
+\label{sec:availability}
+
+The source code is available at \url{https://github.com/antunoviic/semantic-chunking}
+under the MIT license, and the library is published on PyPI as \pkg{} (version 1.0.2).
+Besides the library, the repository contains the evaluation harness, the three evaluated
+documents, the question sets and the chunk lists of the evaluated arms, so that the
+evaluation of \cref{ch:evaluation} can be repeated without chunking the documents again.
 
 Claude Code, with different Claude models, was used in VS Code as a pair programmer for
 the library and the evaluation harness. It wrote and ran most of the evaluation and
@@ -325,12 +325,3 @@ and the design, architecture and implementation decisions were not delegated to 
 Every review finding was checked against the code or measured before it was accepted, and
 the main results were recomputed by a second, independent implementation
 (\cref{sec:robustness}).
-
-\section{Availability}
-\label{sec:availability}
-
-The source code is available at \url{https://github.com/antunoviic/semantic-chunking}
-under the MIT license, and the library is published on PyPI as \pkg{} (version 1.0.2).
-Besides the library, the repository contains the evaluation harness, the three evaluated
-documents, the question sets and the chunk lists of the evaluated arms, so that the
-evaluation of \cref{ch:evaluation} can be repeated without the hours of chunking.
