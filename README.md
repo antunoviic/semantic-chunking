@@ -4,7 +4,7 @@ A Python library for **LLM-based semantic chunking**, designed for Retrieval-Aug
 
 The library runs entirely against a **local Ollama model** — no API keys, no data leaving your machine.
 
-**Links:** [PyPI](https://pypi.org/project/llm-semantic-chunker/) · [Source on GitHub](https://github.com/antunoviic/semantic-chunking) · [Issues](https://github.com/antunoviic/semantic-chunking/issues)
+**Links:** [PyPI](https://pypi.org/project/llm-semantic-chunker/) · [Source on GitHub](https://github.com/antunoviic/semantic-chunking) · [Issues](https://github.com/antunoviic/semantic-chunking/issues) · [Thesis (PDF)](thesis/thesis.pdf)
 
 ---
 
@@ -214,6 +214,8 @@ OllamaClient(
 
 The repository also contains the evaluation part that produced the results of the bachelor thesis this library was written for. It chunks a document with every ablation strategy, embeds the chunks, runs a set of questions against every strategy and reports how often the answer was retrieved.
 
+The thesis itself is in [`thesis/thesis.pdf`](thesis/thesis.pdf), its LaTeX source in [`thesis/latex/`](thesis/latex/) and the slides of the defence in [`thesis/presentation.pdf`](thesis/presentation.pdf). [`eval/EXPERIMENTS.md`](eval/EXPERIMENTS.md) documents which script produced which number.
+
 ```bash
 git clone https://github.com/antunoviic/semantic-chunking
 cd semantic-chunking
@@ -274,7 +276,7 @@ The log then reports where the boundaries came from, a topic decision made by th
 
 All three are in `docs/`, with their verified question sets in `eval_cache/`:
 the NASA Systems Engineering Handbook (implicit structure), RFC 9110 (explicit
-structure) and H. G. Wells' *A Short History of the World* (prose). The run script `thesis/scripts/run_v4.sh` runs four ablation arms on each of the three, plus `--midpoint-split` on the NASA handbook alone.
+structure) and H. G. Wells' *A Short History of the World* (prose). The run script `eval/experiments/run_v4.sh` runs four ablation arms on each of the three, plus `--midpoint-split` on the NASA handbook alone.
 
 ### Using your own document
 
@@ -303,7 +305,7 @@ comparable:
 | `--midpoint-split` | whether letting the model choose the split point helps |
 | `--enrich` | whether a `[Topic: ...]` prefix helps |
 
-`thesis/scripts/run_v4.sh` runs these on all three documents, except `--midpoint-split`, which is measured on the NASA handbook only.
+`eval/experiments/run_v4.sh` runs these on all three documents, except `--midpoint-split`, which is measured on the NASA handbook only.
 
 ### Caching
 

@@ -189,7 +189,7 @@ def analyse_document(label: str, res: dict, reference: str) -> dict:
 def write_report(data: dict, analysed: dict, out: Path) -> None:
     ref = data["reference"]
     L = ["# Fair-baseline arms: token-level retrieval, threshold sensitivity, structure", "",
-         f"Generated {datetime.now():%Y-%m-%d %H:%M} by `thesis/scripts/analyze_fair_arms.py` from "
+         f"Generated {datetime.now():%Y-%m-%d %H:%M} by `eval/experiments/analyze_fair_arms.py` from "
          f"the saved run (`--match {data['match']}`; tested arm `{ref}`). Post-hoc and secondary "
          "to the pre-registered Hit@k; no model or embedding calls.", ""]
     for label, a in analysed.items():

@@ -1,0 +1,138 @@
+\chapter{Background and Related Work}
+\label{ch:background}
+
+\section{Chunking in retrieval-augmented generation}
+\label{sec:rag_chunking}
+
+Standard large language models (LLMs) struggle with knowledge-intensive tasks because their
+internal knowledge is limited by a static training cut-off and their output lacks
+verifiable sources~\cite{lewis2020rag}. Retrieval-augmented generation (RAG) resolves these
+limitations by coupling pre-trained parametric generators (such as BART) with
+non-parametric memory in the form of an external dense vector index~\cite{lewis2020rag}. In
+a RAG pipeline, raw source documents are first split into retrievable text units, the
+so-called \emph{chunks}~\cite{smigielski2026chunking}, which are then converted into dense
+vector representations by a neural encoder and finally searched through maximum inner
+product search (MIPS) or approximate nearest-neighbour algorithms~\cite{lewis2020rag}.
+
+This segmentation is a pre-processing step that determines the quality of the subsequent
+vector index~\cite{smigielski2026chunking}. Downstream components, such as cross-encoder
+rerankers, have to rely on the initial segmentation; errors made during this step cannot be
+repaired later, and the subsequent components are forced to process chunks that are either
+truncated or contextually degraded~\cite{duarte2024lumberchunker}.
+
+Chunking can fail in two ways. Chunks that are too small or cut mid-sentence lack
+sufficient factual context, which leads to retrieval failures and a higher risk of
+hallucinations by the LLM. Conversely, chunks that are too large contain irrelevant
+content, which dilutes the vector embedding and creates a semantic misalignment with the
+query vector during dense retrieval~\cite{smigielski2026chunking}.
+
+Despite its decisive role in a RAG pipeline, chunking has historically been treated as an
+arbitrary pre-processing step done through fixed character cuts rather than as an
+architectural variable~\cite{qu-etal-2025-semantic}. For comparative studies, recent
+literature emphasises the need to isolate chunking from the rest of the RAG pipeline in
+order to guarantee consistency across the compared splitting
+variants~\cite{smigielski2026chunking}.
+
+\section{Rule-based and embedding-based strategies}
+\label{sec:rule_based}
+
+\emph{Fixed-size chunking} splits a source document into uniform segments based on a
+predetermined character or token limit~\cite{qu-etal-2025-semantic}. Although the
+procedure is computationally simple and deterministic, it disregards syntax and thematic
+organisation~\cite{smigielski2026chunking}. This leads to chunks that are cut mid-topic and
+thus to a potential degradation in retrieval quality~\cite{qu-etal-2025-semantic}. To
+mitigate these effects, RAG implementations let consecutive fixed-size segments overlap in
+a sliding window, typically by \SIrange{10}{20}{\percent} of the chunk
+length~\cite{smigielski2026chunking}. However, a recent empirical evaluation found that
+overlap provides no measurable improvement in answer quality and only increases the
+indexed text and the memory overhead~\cite{bennani2026chunking}.
+
+In contrast, \emph{recursive character splitting} traverses the document through an
+ordered hierarchy of typographical separators and thereby preserves its structure where
+possible~\cite{duarte2024lumberchunker}. Typically, such splitters cascade through
+paragraph breaks, line breaks, sentence punctuation and finally spaces: when a segment
+still exceeds the size limit, the algorithm moves one step down the hierarchy to find a
+split point~\cite{duarte2024lumberchunker}.
+
+Embedding-based strategies differ from these typographical heuristics in that they detect
+boundaries semantically. \emph{Semantic chunking} converts individual sentences or passages
+into dense vector embeddings, numerical representations in a high-dimensional space,
+using models such as Sentence-BERT (SBERT)~\cite{reimers2019sbert}. The cosine distance
+between consecutive segments then determines whether a thematic shift has occurred. More
+advanced approaches such as Max--Min semantic chunking compare the similarity of each
+incoming sentence to the current chunk with the minimum similarity within that chunk, so
+that the text is split without a fixed window size~\cite{kiss2025maxmin,
+smigielski2026chunking}. However, the benefit of semantic chunking depends strongly on the
+data. On artificially stitched datasets with high topic diversity, it preserves topic
+boundaries better than recursive algorithms, but on real-world documents, which already
+provide natural cues for topic boundaries, the retrieval accuracy does not differ
+substantially while the computational cost is higher~\cite{qu-etal-2025-semantic}. The
+additional cost, latency and memory needed to compute sentence-level embeddings are
+therefore rarely justified for standard structured text~\cite{qu-etal-2025-semantic}.
+
+\section{LLM-based chunking strategies}
+\label{sec:llm_chunking}
+
+LLM-based segmentation strategies replace distance thresholds with generative models that
+identify semantic shifts in a document~\cite{smigielski2026chunking}. Earlier work in this
+field includes LumberChunker, which divides a text into paragraphs and assigns them
+sequential IDs starting at 1. Consecutive paragraphs are collected into a group until a
+target token count is exceeded, and the group is then submitted to an LLM with a prompt
+that asks for the ID of the paragraph at which the narrative or topical focus
+changes~\cite{duarte2024lumberchunker}.
+
+On a benchmark of \num{3000} question--answer pairs from 100 narrative books of Project
+Gutenberg, LumberChunker reached a Recall@20, the share of relevant passages retrieved
+among the top 20 chunks, of \SI{77.92}{\percent}, outperforming the recursive chunking
+baseline with \SI{74.35}{\percent}~\cite{duarte2024lumberchunker}.
+
+However, these improvements in retrieval accuracy come with high operational and
+computational costs~\cite{smigielski2026chunking}. Run times depend strongly on the
+hardware and software used, but LLM-based chunking is generally the most expensive form of
+pre-processing. Because each prompt depends on the boundary returned for the previous
+passage, the queries cannot be parallelised~\cite{duarte2024lumberchunker}. The processing
+time also grows with document size: segmenting \emph{The Count of Monte Cristo}
+(\num{14339} paragraphs) took LumberChunker around 27 minutes, compared to 0.6 seconds for
+recursive splitting~\cite{duarte2024lumberchunker}.
+
+\section{Shortcomings in current literature and methodological commitments}
+\label{sec:commitments}
+
+Existing literature on document segmentation for RAG shows substantial methodological
+limitations. First, comparative evaluations frequently test chunking strategies without
+calibrating the baselines to the average chunk length of the LLM
+splitters~\cite{qu-etal-2025-semantic}. For example, in the evaluation of LumberChunker,
+the recursive baselines averaged 399 tokens per chunk, while the LLM chunker produced a
+mean of 334 tokens~\cite{duarte2024lumberchunker}. Without normalising the baseline
+lengths, the quality of the boundary placement is confounded with chunk-size effects,
+since chunk size directly affects retrieval recall and the density of relevant
+context~\cite{qu-etal-2025-semantic}. Second, benchmark studies also aggregate retrieval
+and generation metrics without isolating the structural layout of a document as an
+independent variable~\cite{qu-etal-2025-semantic, smigielski2026chunking}. While LLM
+chunkers demonstrate advantages on long narrative prose~\cite{duarte2024lumberchunker},
+their benefits diminish on real-world, structured text, where natural typographical
+conventions already provide a good indication of boundary
+placement~\cite{qu-etal-2025-semantic}. To address these gaps and to isolate the effect of
+chunking, this thesis follows four methodological commitments:
+\begin{enumerate}
+    \item \textbf{Length-matched baselines.} All baselines are tuned to the mean chunk
+    length produced by the LLM chunker on each document (\cref{sec:design}). This removes
+    the chunk-size bias and isolates the quality of the boundary
+    placement~\cite{qu-etal-2025-semantic}.
+
+    \item \textbf{Document structure as an independent variable.} The evaluated documents
+    belong to three structure classes (explicit, implicit and unstructured,
+    \cref{sec:datasets}), in order to evaluate under which structural conditions LLM-based
+    chunking justifies its computational overhead~\cite{qu-etal-2025-semantic,
+    smigielski2026chunking}.
+
+    \item \textbf{Local execution and determinism.} To make the project usable for
+    everybody and to work within the constraints of the available hardware, no commercial
+    API is used; all segmentation runs use an open-weight local model with deterministic
+    decoding ($T = 0$ and a fixed seed)~\cite{smigielski2026chunking}.
+
+    \item \textbf{Pre-specified analysis.} The metrics, the paired significance test and
+    the correction for multiple testing were fixed in a written test protocol before the
+    final chunking runs; every decision taken after results were known is reported as such
+    (\cref{sec:threats}).
+\end{enumerate}

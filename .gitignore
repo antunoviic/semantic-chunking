@@ -57,8 +57,9 @@ __pycache__/
 dist/
 build/
 
-# Experimental modules, not part of the pipeline
-experiments/
+# Experimental modules, not part of the pipeline. Anchored to the root: the
+# thesis experiments live in eval/experiments/ and must not be caught by this.
+/experiments/
 tests/
 
 # macOS
@@ -74,13 +75,30 @@ critique_prompts/
 # Maintainer tool that writes README-pypi.md before a release; kept locally.
 tools/make_pypi_readme.py
 
-# Thesis text: drafts and the Overleaf mirror do not belong in the repository.
-# The experiment scripts under thesis/scripts do.
-# thesis/results/ holds working documents in German that feed the chapters;
-# they are notes towards the thesis, not part of the published package.
+# Thesis: the LaTeX source under thesis/latex/, the compiled PDF and the slides
+# of the defence are tracked; the experiment scripts live in eval/experiments/.
+# What stays out: thesis/overleaf/ is the working copy synchronised with Overleaf
+# (its own git repository), and thesis/results/ holds working documents in German
+# that feed the chapters — notes towards the thesis, not part of the package.
 thesis/results/
-thesis/latex/
 thesis/overleaf/
 thesis/overleaf_BACKUP_*/
 thesis/*.zip
 thesis/*_RECOVERED_*.tex
+
+# LaTeX build artefacts
+thesis/latex/*.aux
+thesis/latex/*.bbl
+thesis/latex/*.bcf
+thesis/latex/*.blg
+thesis/latex/*.fdb_latexmk
+thesis/latex/*.fls
+thesis/latex/*.lof
+thesis/latex/*.log
+thesis/latex/*.lot
+thesis/latex/*.out
+thesis/latex/*.run.xml
+thesis/latex/*.synctex.gz
+thesis/latex/*.toc
+thesis/latex/main.pdf
+thesis/latex/chapters/*.aux

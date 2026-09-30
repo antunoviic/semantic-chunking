@@ -105,7 +105,7 @@ enrich_doc() {
     [ -f "$doc" ] || return
     echo ""
     echo "---- Enrichment: $label  ($(date '+%F %H:%M'))"
-    python thesis/scripts/enrich_arm.py "$doc" 2>&1 \
+    python eval/experiments/enrich_arm.py "$doc" 2>&1 \
         | grep -vE "^\\[cache\\] (Loaded|Old)" | sed 's/^/   /'
 }
 

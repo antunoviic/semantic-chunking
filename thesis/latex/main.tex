@@ -1,0 +1,96 @@
+\documentclass[11pt,a4paper,oneside]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{csquotes}
+
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\sisetup{group-separator={,}, detect-all}
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{
+basicstyle=\ttfamily\small, columns=fullflexible, keepspaces=true, breaklines=true,
+frame=single, keywordstyle=\color{blue!60!black}, commentstyle=\color{gray},
+showstringspaces=false, language=Python }
+
+\usepackage{amsmath,amssymb}
+
+\usepackage[backend=biber,style=ieee,sorting=nyt]{biblatex}
+\addbibresource{references.bib}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage{cleveref}
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\pkg}{\code{llm-semantic-chunker}}
+\newcommand{\hitk}[1]{Hit@#1}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  \vspace*{3cm}
+  {\LARGE\bfseries LLM-Based Semantic Chunking\\for Retrieval-Augmented Generation\par}
+  \vspace{0.6cm}
+  {\large A Comparison with Rule-Based Chunking Strategies\par}
+  \vspace{2.5cm}
+  {\large Bachelor's Thesis\par}
+  \vspace{0.4cm}
+  {\large Ivan Antunovic\par}
+  \vspace{2cm}
+  {\large Supervisor: Dr.\ Marian Lux\par}
+  \vspace{0.4cm}
+  {\large University of Vienna\par}
+  \vfill
+  {\large September 30, 2026\par}
+\end{titlepage}
+
+\chapter*{Abstract}
+The use of large language models (LLMs) is more widespread than ever, and with their
+integration into more and more industries a further rise seems inevitable. However, these
+models are trained on past data and generate responses based on probabilities, which can
+lead to hallucinations. Retrieval-augmented generation (RAG) counteracts this problem by
+supplying the model with relevant documents. To do so, a RAG system has to split the
+documents into chunks, a pre-processing step that determines what can be retrieved and
+thereby the accuracy of the answers. In this thesis, an LLM-based chunker is implemented as
+an alternative to rule-based chunking strategies and published as a Python library on
+PyPI. It uses a small local model that reads the document sentence by sentence and decides
+where the topic changes; optional post-processing steps are meant to improve retrieval
+further. The chunker is evaluated on three documents of different structure (a technical
+standard, a PDF handbook and narrative prose) against five baselines tuned to the same mean
+chunk length: four splitters from LangChain and the same chunker without the model. The
+statistical analysis uses paired McNemar tests with a Holm correction over 30 comparisons,
+with 400 to 549 questions per document. In six of the 30 comparisons, the LLM chunker
+retrieves significantly more answers than the splitters that cut sentences apart, but it is
+not significantly better than the splitters that keep sentences intact or than the same
+chunker without the model. This indicates that its advantage comes from respecting sentence
+boundaries rather than from the model's topic decisions. Heading detection and topic labels
+did not improve retrieval significantly, and the filter for chunks without substantive
+content even lowered it. In practice, a length-matched recursive splitter that prefers
+sentence ends reaches comparable hit rates in a few seconds, against a mean of about three
+hours per document on an \SI{8}{\giga\byte} MacBook Air.
+
+\tableofcontents
+
+\include{chapters/01_introduction}
+\include{chapters/02_background}
+\include{chapters/03_implementation}
+\include{chapters/04_evaluation}
+\include{chapters/05_lessons_learned}
+
+\printbibliography[heading=bibintoc,title={Bibliography}]
+
+\end{document}

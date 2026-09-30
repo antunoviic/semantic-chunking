@@ -2,7 +2,7 @@
 documents, Hit@1 and Hit@3), McNemar exact, Holm."""
 import json, math, sys
 from pathlib import Path
-sys.path.insert(0, "."); sys.path.insert(0, "thesis/scripts")
+sys.path.insert(0, "."); sys.path.insert(0, "eval/experiments")
 from run_fair_baselines import CachedEmbedder, normalized, ranks, anchors_intact, mid_sentence, hits, holm
 from run_significance import mcnemar_p
 from app.document_reader import DocumentReader

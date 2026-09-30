@@ -9,7 +9,7 @@ Hit test and statistics are those of verify_independent.py (loaded with runpy).
 Embeddings: children already embedded in chroma_db_eval (old run, same texts) are reused
 after a spot check; the rest are embedded with bge-m3 via Ollama. Everything is cached in
 eval_results/analysis/pc_embeddings.pkl.
-Usage (repo root): python thesis/scripts/analysis/parent_child_v4_nofilter.py
+Usage (repo root): python eval/experiments/analysis/parent_child_v4_nofilter.py
 """
 import contextlib, hashlib, io, json, math, pickle, random, runpy, sys, urllib.request
 from pathlib import Path

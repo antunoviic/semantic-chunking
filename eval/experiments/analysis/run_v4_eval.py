@@ -1,10 +1,10 @@
 """Step 2 of the final evaluation: the v4 question sets for nasa and rfc9110 against the
-cached LLM arms and the length-matched baselines (thesis/scripts/run_fair_baselines.py).
+cached LLM arms and the length-matched baselines (eval/experiments/run_fair_baselines.py).
 wells keeps its single question set, taken from eval_results/fair_baselines_filtered.json,
-which `python thesis/scripts/run_fair_baselines.py --match filtered` writes (step 1).
+which `python eval/experiments/run_fair_baselines.py --match filtered` writes (step 1).
 Writes eval_results/fair_baselines_v4.json. Run from the repository root."""
 import json, sys
-sys.path.insert(0, "."); sys.path.insert(0, "thesis/scripts")
+sys.path.insert(0, "."); sys.path.insert(0, "eval/experiments")
 from pathlib import Path
 from run_fair_baselines import CachedEmbedder, run_document, write_report, REFERENCES
 

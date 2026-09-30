@@ -201,7 +201,7 @@ def write_report(results: dict, out: Path, reference: str) -> list[dict]:
 
     other = next(n for n in REFERENCES.values() if n != reference)
     L = ["# Fair baselines: what does the model add?", "",
-         f"Generated {datetime.now():%Y-%m-%d %H:%M} by `thesis/scripts/run_fair_baselines.py`. "
+         f"Generated {datetime.now():%Y-%m-%d %H:%M} by `eval/experiments/run_fair_baselines.py`. "
          f"Cached LLM arms: digest {', '.join(sorted({d for r in results.values() for d in r['llm_digests'] if d}))}; "
          f"rule-based arms built with code {_code_digest()}.", "",
          f"All baselines length-matched to `{reference}`, which is the tested arm; exact cosine search "

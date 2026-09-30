@@ -6,8 +6,8 @@ the cached chunks and the cached bge-m3 embeddings: exact cosine search, the 80 
 hit criterion, McNemar and Holm over all 30 comparisons. No model call, no network.
 
 Run from the repository root:
-    PYTHONPATH=. python thesis/scripts/analysis/demo_evaluation.py             # all three documents
-    PYTHONPATH=. python thesis/scripts/analysis/demo_evaluation.py rfc9110     # one document in detail
+    PYTHONPATH=. python eval/experiments/analysis/demo_evaluation.py             # all three documents
+    PYTHONPATH=. python eval/experiments/analysis/demo_evaluation.py rfc9110     # one document in detail
 """
 import hashlib, json, math, os, pickle, re, sys, time
 from datetime import datetime

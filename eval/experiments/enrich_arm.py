@@ -28,7 +28,7 @@ REFERENCE = ChunkerConfig(
 
 def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p = argparse.ArgumentParser(
-        prog="python thesis/scripts/enrich_arm.py",
+        prog="python eval/experiments/enrich_arm.py",
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
@@ -111,7 +111,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if not args.dry_run:
         print("\n[enrich] Re-run the evaluation to pick the arm up:")
-        print("           PHASE=2 bash thesis/scripts/run_v4.sh")
+        print("           PHASE=2 bash eval/experiments/run_v4.sh")
     return 1 if failures else 0
 
 

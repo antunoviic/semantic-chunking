@@ -1,0 +1,36 @@
+\chapter{Introduction}
+\label{ch:intro}
+
+\section{Motivation}
+
+Large language models (LLMs) demonstrate high accuracy by storing factual knowledge in
+their parameters, yet they remain prone to hallucinations, and their ability to access and
+update knowledge is limited~\cite{lewis2020rag}. Retrieval-augmented generation (RAG)
+addresses these shortcomings by combining the parametric language generator of an LLM with
+a non-parametric external document index, from which relevant information is retrieved to
+generate more accurate answers~\cite{lewis2020rag}. Within the RAG pipeline, document
+chunking is the pre-processing step that splits the text into units and thereby defines the
+search granularity of the vector index~\cite{smigielski2026chunking}.
+
+Many chunking variants exist for this step, but they differ in accuracy and are not
+suitable for every document type or domain. Recent research introduced a newer mechanism,
+LLM-based chunking, which dynamically identifies narrative topic shifts to improve the
+quality of each vector embedding~\cite{duarte2024lumberchunker}. However, LLM-driven
+segmentation introduces a considerable computational latency compared to the existing
+baselines, as the experiments with LumberChunker showed~\cite{duarte2024lumberchunker}.
+
+Furthermore, empirical evidence suggests that on real-world documents, sentence-level
+positional proximity already provides a strong natural heuristic for semantic shifts, so
+that the computational overhead is not justified by the gain~\cite{qu-etal-2025-semantic}.
+This motivates an evaluation of whether LLM-based chunking brings a real advantage over
+length-matched baselines, or whether preserving the integrity of sentences is already
+sufficient for effective retrieval.
+
+\section{Problem statement and research question}
+\label{sec:problem}
+
+The research question is: \emph{Does a local language model place better chunk boundaries
+than rule-based chunking techniques, and under which conditions?} Secondary questions
+concern the effect of the optional features of the library: heading detection, the
+low-information filter, topic enrichment and the choice of the split point when a chunk
+exceeds the size cap.

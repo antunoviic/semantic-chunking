@@ -10,26 +10,32 @@ which is which:
 |---|---|
 | `README.md` (project root) | The library: how to chunk a document with it. |
 | `tools/` (project root) | A small toolkit for *your own* documents — building a question set and checking a document is worth evaluating. |
-| `thesis/` (here) | The experiments of this thesis. Not meant to be reused on other documents. |
+| `eval/experiments/` (here) | The experiments of this thesis. Not meant to be reused on other documents. |
 
 Everything here answers *"does LLM-based chunking retrieve better than
 rule-based chunking, and under what conditions"* — not *"how do I chunk my
 document"*. For the latter, see the project README.
 
 ```
-thesis/
-  scripts/            the experiments and the analyses they feed
-  scripts/analysis/   the final tables of the thesis, their independent
-                      recomputation, and the demo of the defence
-  results/            where the scripts write their reports — not tracked
+eval/experiments/          the experiments and the analyses they feed
+eval/experiments/analysis/ the final tables of the thesis, their independent
+                           recomputation, and the demo of the defence
+thesis/thesis.pdf          the thesis itself
+thesis/presentation.pdf    the slides of the defence
+thesis/latex/              the LaTeX source of the thesis
+thesis/results/            where the scripts write their reports — not tracked
 ```
 
-Neither the LaTeX source of the thesis nor the reports are in this repository.
-The scripts are, so every report can be regenerated from them.
+The reports the scripts write are not in this repository, but the scripts are,
+so every report can be regenerated from them. The numbers that reached the
+thesis are in chapter 4 of `thesis/thesis.pdf`, and
+`analysis/verify_independent.py` recomputes them from the tracked chunk caches
+and question sets.
 
 ## Running them
 
-All scripts are invoked **from the project root**, never from inside `thesis/`.
+All scripts are invoked **from the project root**, never from inside
+`eval/experiments/`.
 They read chunk caches from `chunks_cache/`, question sets from `eval_cache/`
 and documents from `docs/`, all relative to the root. The LLM chunks of the
 reported run are tracked in `chunks_cache/`, so the final comparison reruns
@@ -37,9 +43,9 @@ after a clone with only the embedding model; the prompts behind the question
 sets are in `question_prompts/`.
 
 ```bash
-bash   thesis/scripts/run_v4.sh                      # the full run
-python thesis/scripts/check_heading_spans.py docs/rfc9110.txt
-python thesis/scripts/run_significance.py --document docs/wells.txt \
+bash   eval/experiments/run_v4.sh                      # the full run
+python eval/experiments/check_heading_spans.py docs/rfc9110.txt
+python eval/experiments/run_significance.py --document docs/wells.txt \
        --questions eval_cache/wells_questions.json --label wells
 ```
 
