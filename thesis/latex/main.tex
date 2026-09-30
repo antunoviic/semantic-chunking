@@ -85,7 +85,7 @@ chunk length: four splitters from LangChain and the same chunker without the mod
 statistical analysis uses paired McNemar tests with a Holm correction over 30 comparisons,
 with 400 to 549 questions per document. 
 On the technical standard and on the PDF handbook the LLM chunker reaches the highest hit rates of all six compared strategies. In six of the 30 comparisons, the LLM chunker
-retrieves significantly more answers than the splitters that cut sentences apart. On the technical
+retrieves significantly more answers than the splitters that cut sentences apart: on the technical
 standard by 16.4 percentage points at \hitk{1} against fixed-size splitting, and on the PDF
 handbook, whose layout is lost during text extraction, by 7.9 to 10.3 percentage points
 against both fixed-size splitting and LangChain's default recursive splitter. The chunker achieves this because it never cuts inside a sentence
